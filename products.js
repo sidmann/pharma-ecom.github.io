@@ -380,7 +380,7 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
                                                 <a href="shop-left-sidebar-col-3.html">
                                                 </a>
                                                 <h5 class="gi-pro-title"><a href="product-left-sidebar.html">${productData.name}</a></h5>
-                                                <p class="gi-info">${productData.featuredProductDescription}</p>
+                                                <p class="gi-info">${productData.ProductDescription}</p>
                                                 <div class="gi-pro-rat-price">
                                                     <span class="gi-price">
                                                         <span class="new-price"><span>&#8377;</span><span
@@ -899,7 +899,7 @@ async function embedSizesFilter() {
             size.innerHTML = `
                                     <div class="gi-sidebar-block-item">
                                         <input type="checkbox" value="">
-                                        <a href="#"><span class="size">${ele.size}</span><span class="unit me-0 pe-0">${ele.unit} Pack</span></a>
+                                        <a href="#"><span class="size">${ele.size}</span></a>
                                         <span class="checked"></span>
                                     </div>
             `

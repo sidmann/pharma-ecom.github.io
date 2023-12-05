@@ -892,7 +892,7 @@ document.querySelector('#saveProductSizeButton').addEventListener('click',async(
 async function addProductSize(productSizeName){
     try {
         const productSizeRef = collection(firestore, 'sizes');
-        const docRef = await addDoc(productSizeRef, { size: productSizeName,unit:"ltr" });
+        const docRef = await addDoc(productSizeRef, { size: productSizeName });
         await updateDoc(docRef, { sizeId: docRef.id })
         document.querySelector('#productSizeDropdown').addEventListener('click', fetchCategories)
         return docRef.id;
