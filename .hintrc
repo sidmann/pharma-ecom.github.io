@@ -1,0 +1,58 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "meta-viewport": "off",
+    "axe/parsing": "off",
+    "no-inline-styles": "off",
+    "axe/structure": [
+      "default",
+      {
+        "listitem": "off"
+      }
+    ],
+    "highest-available-document-mode": "off",
+    "axe/name-role-value": [
+      "off",
+      {
+        "button-name": "off"
+      }
+    ],
+    "button-type": "off",
+    "axe/forms": [
+      "default",
+      {
+        "label": "off",
+        "select-name": "off"
+      }
+    ],
+    "compat-api/css": [
+      "off",
+      {
+        "ignore": [
+          "scale"
+        ]
+      }
+    ]
+  },
+  "browserslist": [
+    "defaults",
+    "not ie 11",
+    "not and_chr <= 115",
+    "not chrome <= 115",
+    "not edge <= 115",
+    "not opera <= 101",
+    "not samsung <= 21",
+    "not and_chr <= 115",
+    "not chrome <= 115",
+    "not edge <= 115",
+    "not opera <= 101",
+    "not samsung <= 21",
+    "not and_chr <= 115",
+    "not chrome <= 115",
+    "not edge <= 115",
+    "not opera <= 101",
+    "not samsung <= 21"
+  ]
+}
