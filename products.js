@@ -380,7 +380,7 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
                                                 <a href="shop-left-sidebar-col-3.html">
                                                 </a>
                                                 <h5 class="gi-pro-title"><a href="product-left-sidebar.html">${productData.name}</a></h5>
-                                                <p class="gi-info">${productData.featuredProductDescription}</p>
+                                                <p class="gi-info">${productData.ProductDescription}</p>
                                                 <div class="gi-pro-rat-price">
                                                     <span class="gi-price">
                                                         <span class="new-price"><span>&#8377;</span><span

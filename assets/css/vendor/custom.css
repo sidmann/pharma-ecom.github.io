@@ -21,7 +21,7 @@
     background-color: #fff;
     font-size: 14px;
     color: #4b5966;
-    border-bottom: 5px solid #D9A947;
+    border-bottom: 5px solid #49993d;
     border-radius: 5px;
     display: block;
     -webkit-box-shadow: 2px 2px 15px 0 rgba(0, 0, 0, 0.07);
@@ -67,8 +67,8 @@
 .btn-primary,
 .btn-primary.disabled,
 .btn-primary:disabled {
-    background-color: #D9A947 !important;
-    border-color: #D9A947 !important;
+    background-color: #49993d !important;
+    border-color: #49993d !important;
     font-family: "Manrope", sans-serif;
 }
 

@@ -44,7 +44,9 @@
 ---------------------------------------------------*/
 /*--  Manrope font  --*/
 
-.gi-footer
+.gi-footer {
+
+}
 
 @font-face {
   font-family: "Manrope", sans-serif;
@@ -6067,7 +6069,7 @@ i.gicon.gi-star.fill {
   font-size: 15px;
 }
 .gi-team-section .gi-team-box .gi-team-imag .gi-team-socials ul li a:hover {
-  background-color: #D9A947;
+  background-color: #49993d;
 }
 .gi-team-section .gi-team-box .gi-team-info {
   text-align: center;
@@ -7305,7 +7307,7 @@ i.gicon.gi-star.fill {
   top: -1px;
   width: 15px;
   height: 15px;
-  border: 1px solid #D9A947;
+  border: 1px solid #49993d;
   content: "\f00c";
   position: relative;
   display: none;
