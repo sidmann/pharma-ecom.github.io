@@ -97,7 +97,7 @@ function getUserSnapshot(uid) {
 onAuthStateChanged(auth, async (user) => {
     const adminAppbar = document.getElementById("adminAppbar");
     const userAppbar = document.getElementById("userAppbar");
-    const agentAppbar = document.getElementById("agentAppbar");
+    // const agentAppbar = document.getElementById("agentAppbar");
 
     if (user) {
         // User is logged in
@@ -150,9 +150,9 @@ function updateProfileName(role, fullName) {
         case 'CUSTOMER':
             profileNameElement = document.getElementById('customerAppbar').querySelector('.profile-name');
             break;
-        case 'AGENT':
-            profileNameElement = document.getElementById('agentAppbar').querySelector('.profile-name');
-            break;
+        // case 'AGENT':
+        //     profileNameElement = document.getElementById('agentAppbar').querySelector('.profile-name');
+        //     break;
         case 'ADMIN':
             profileNameElement = document.getElementById('adminAppbar').querySelector('.profile-name');
             break;
@@ -171,9 +171,9 @@ function updateProfilePicture(role, profilePicture) {
         case 'CUSTOMER':
             profilePictureElement = document.getElementById('customerAppbar').querySelector('#profile-picture');
             break;
-        case 'AGENT':
-            profilePictureElement = document.getElementById('agentAppbar').querySelector('#profile-picture');
-            break;
+        // case 'AGENT':
+        //     profilePictureElement = document.getElementById('agentAppbar').querySelector('#profile-picture');
+        //     break;
         case 'ADMIN':
             profilePictureElement = document.getElementById('adminAppbar').querySelector('#profile-picture');
             break;
@@ -196,7 +196,7 @@ function roleAccess(role) {
     const roleMap = new Map([
         ["ADMIN", "adminAppbar"],
         ["CUSTOMER", "customerAppbar"],
-        ["AGENT", "agentAppbar"],
+        // ["AGENT", "agentAppbar"],
     ]);
     const appbarList = document.querySelectorAll(`#${roleMap.get(role)}`);
     let vdsf = ""

@@ -63,15 +63,8 @@ function fetchAndDisplayUserData() {
                 querySnapshot.forEach((doc) => {
                     const userData = doc.data();
                     // Create a table row for each user
-                    if (!userData.referralCode) {
-                        const userRow = createTableRow(userData, doc);
-                        userDetails.appendChild(userRow);
-                    }
-                    else {
-                        // createTableRow(userData, doc);
-                        // const userRow = createTableRow(userData, doc);
-                        // userDetails.appendChild(userRow);
-                    }
+                    const userRow = createTableRow(userData, doc);
+                    userDetails.appendChild(userRow);
                 });
             })
             .catch((error) => {
@@ -193,7 +186,7 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         loggedIn = true
         onLoggedIn();
-        document.querySelector('#logout-btn').style.display='block';
+        document.querySelector('#logout-btn').style.display = 'block';
         // User is authenticated
         const docRef = doc(firestore, "users", user.uid);
         const docSnap = getDoc(docRef);
@@ -202,14 +195,14 @@ onAuthStateChanged(auth, (user) => {
                 userData = docSnapshot.data();
                 roleAccess(userData.role);
                 fetchAndDisplayUserData();
-                updateProfileName(userData.role,userData.firstName);
-                updateProfilePicture(userData.role,userData.profilePicture)
+                updateProfileName(userData.role, userData.firstName);
+                updateProfilePicture(userData.role, userData.profilePicture)
                 fetchNavCategories();
                 updateCart();
             }
         });
     } else {
-        document.querySelector('#logout-btn').style.display='none';
+        document.querySelector('#logout-btn').style.display = 'none';
         window.location.href = "login.html";
     }
 });
@@ -219,7 +212,7 @@ function roleAccess(role) {
     const roleMap = new Map([
         ["ADMIN", "adminAppbar"],
         ["CUSTOMER", "customerAppbar"],
-        ["AGENT", "agentAppbar"],
+        // ["AGENT", "agentAppbar"],
     ]);
     const appbarList = document.querySelectorAll(`#${roleMap.get(role)}`);
     appbarList.forEach((appbar) => {
@@ -423,7 +416,7 @@ async function fetchAndDisplayOrderDetails(order, orderDetailsContainer) {
                         <h3>Items Purchased</h3>
                         <ul>
                             ${order.summary.items && Array.isArray(order.summary.items)
-                                  ? order.summary.items.map((item) => `
+                    ? order.summary.items.map((item) => `
                                     <li>
                                         <strong>Product ID:</strong> ${item.productId || ""}<br>
                                         <strong>Product Name:</strong> ${item.productName || ""}<br>
@@ -441,9 +434,6 @@ async function fetchAndDisplayOrderDetails(order, orderDetailsContainer) {
                         <h3>Bill Summary</h3>
                         <div class="order-field">
                             <strong>Subtotal:</strong> Rs. ${order.summary.billSummary.subTotal || ""}
-                        </div>
-                        <div class="order-field ${order.calculatedCommission ? '' : 'd-none'}">
-                            <strong>Calculated commission :</strong> Rs. ${order.calculatedCommission || ""}
                         </div>
                         <div class="order-field">
                             <strong>Delivery Fee:</strong> Rs. ${order.summary.billSummary.deliveryFee || ""}
@@ -466,7 +456,7 @@ async function fetchAndDisplayOrderDetails(order, orderDetailsContainer) {
 
 // Function to fetch and display all orders of a customer
 async function fetchAndDisplayAllOrders(userId, orderBtn) {
-    
+
     console.log("1")
     orderBtn.disabled = true
     orderBtn.innerHTML = `
@@ -484,7 +474,7 @@ async function fetchAndDisplayAllOrders(userId, orderBtn) {
         orders.forEach(async (order) => {
             orderIds.push(order.orderId)
         })
-        const orderSnapshot= await getDocs(query( collection(firestore,"users",userId,'orders')),where('orderId', 'in', orderIds))
+        const orderSnapshot = await getDocs(query(collection(firestore, "users", userId, 'orders')), where('orderId', 'in', orderIds))
         // const orderSnapshot = await getDocs(query(collection(firestore,userId, 'orders'), where('orderId', 'in', orderIds)))
         //return if empty
         console.log("4")
@@ -844,52 +834,52 @@ function populateManufacturerDropdown(targetDropdownId) {
         });
 }
 //----------------------------- Product Size in Ltr-----------------------------
-const openProductSizemodel=document.getElementById('addProductSizeButton');
-openProductSizemodel.addEventListener('click',()=>{
+const openProductSizemodel = document.getElementById('addProductSizeButton');
+openProductSizemodel.addEventListener('click', () => {
     console.log("1");
-    document.getAnimations('productSizeName').value='';
+    document.getAnimations('productSizeName').value = '';
     populateProductSizeList();
 })
 
 //populate product sizelist
-function populateProductSizeList(){
-    const productSizeList=document.querySelector('#productSizeList');
-    getDocs(collection(firestore,'sizes'))
-    .then((sizes)=>{
-        productSizeList.innerHTML='';
-        sizes.forEach((productSizeDoc)=>{
-            const productSize=productSizeDoc.data();
-            // console.log(productSize);
-            const row =document.createElement('tr');
-            row.innerHTML=`
+function populateProductSizeList() {
+    const productSizeList = document.querySelector('#productSizeList');
+    getDocs(collection(firestore, 'sizes'))
+        .then((sizes) => {
+            productSizeList.innerHTML = '';
+            sizes.forEach((productSizeDoc) => {
+                const productSize = productSizeDoc.data();
+                // console.log(productSize);
+                const row = document.createElement('tr');
+                row.innerHTML = `
              <td>${productSize.size}</td>
              <button class="btn btn-sm btn-primary edit ms-2">Edit</button>&nbsp
              <button class="btn btn-sm btn-danger delete ms-2">Delete</button>
             `
-            productSizeList.appendChild(row);
-            row.querySelector('.edit').addEventListener('click',async()=>editProductSize(productSize.sizeId,productSize.size));
-            row.querySelector('.delete').addEventListener('click',async()=>deleteProductSize(productSize.sizeId,productSize.size))
+                productSizeList.appendChild(row);
+                row.querySelector('.edit').addEventListener('click', async () => editProductSize(productSize.sizeId, productSize.size));
+                row.querySelector('.delete').addEventListener('click', async () => deleteProductSize(productSize.sizeId, productSize.size))
+            })
         })
-    })
 }
 
 // Add the productSize Inside the Model
-document.querySelector('#saveProductSizeButton').addEventListener('click',async()=>{
+document.querySelector('#saveProductSizeButton').addEventListener('click', async () => {
     const productSizeName = document.querySelector('#productSizeName').value;
-    if(productSizeName){
-        try{
-            const ProductSizeId=await addProductSize(productSizeName);
+    if (productSizeName) {
+        try {
+            const ProductSizeId = await addProductSize(productSizeName);
             console.log('productSize uploaded successfully');
-            displayMessage('ProductSize Uploaded','success');
+            displayMessage('ProductSize Uploaded', 'success');
             populateProductSizeList();
-            document.querySelector('#productSizeName').value='';
-        }catch(error){
-            console.log('Error adding product:',error);
+            document.querySelector('#productSizeName').value = '';
+        } catch (error) {
+            console.log('Error adding product:', error);
         }
     }
 })
 
-async function addProductSize(productSizeName){
+async function addProductSize(productSizeName) {
     try {
         const productSizeRef = collection(firestore, 'sizes');
         const docRef = await addDoc(productSizeRef, { size: productSizeName });
@@ -903,43 +893,43 @@ async function addProductSize(productSizeName){
 }
 
 // Edit product Size 
-async function editProductSize(productsizeId,productSizeName){
-   const updateProductSizeName=prompt('Edit productSize Name',productSizeName);
-   if(updateProductSizeName!==null){
-     const productSizeCollection=collection(firestore,'sizes');
-     const productSizeSnapshot=await getDocs(query(productSizeCollection,where('sizeId','==',productsizeId)));
-    //  console.log(productSizeSnapshot);
-     if(!productSizeSnapshot.empty){
-        // console.log("5")
-        updateDoc(productSizeSnapshot.docs[0].ref,{size:updateProductSizeName})
-        .then(() => {
-            console.log('ProductSize updated successfully');
-            displayMessage('ProductSize updated successfully!', 'success');
-            document.querySelector('#categoryDropdown').addEventListener('click', fetchCategories)
-            populateProductSizeList();
-        })
-        .catch((error) => {
-            console.error('Error updating productSize:', error);
-        });
-     }
-   }
+async function editProductSize(productsizeId, productSizeName) {
+    const updateProductSizeName = prompt('Edit productSize Name', productSizeName);
+    if (updateProductSizeName !== null) {
+        const productSizeCollection = collection(firestore, 'sizes');
+        const productSizeSnapshot = await getDocs(query(productSizeCollection, where('sizeId', '==', productsizeId)));
+        //  console.log(productSizeSnapshot);
+        if (!productSizeSnapshot.empty) {
+            // console.log("5")
+            updateDoc(productSizeSnapshot.docs[0].ref, { size: updateProductSizeName })
+                .then(() => {
+                    console.log('ProductSize updated successfully');
+                    displayMessage('ProductSize updated successfully!', 'success');
+                    document.querySelector('#categoryDropdown').addEventListener('click', fetchCategories)
+                    populateProductSizeList();
+                })
+                .catch((error) => {
+                    console.error('Error updating productSize:', error);
+                });
+        }
+    }
 }
 
 // delete Product Size
-async function deleteProductSize(productSizeId,productSizeName){
-    const confirmation=confirm("Are you sure you want delete this productSize?",productSizeName);
-    if(confirmation){
-        try{
-            const productSizeCollection = collection(firestore,'sizes');
-            const productSizeSnapshot = await getDocs(query(productSizeCollection,where('sizeId','==',productSizeId)));
-            if(!productSizeSnapshot.empty){
+async function deleteProductSize(productSizeId, productSizeName) {
+    const confirmation = confirm("Are you sure you want delete this productSize?", productSizeName);
+    if (confirmation) {
+        try {
+            const productSizeCollection = collection(firestore, 'sizes');
+            const productSizeSnapshot = await getDocs(query(productSizeCollection, where('sizeId', '==', productSizeId)));
+            if (!productSizeSnapshot.empty) {
                 await deleteDoc(productSizeSnapshot.docs[0].ref);
             }
             console.log('productSize deleted successfully');
             displayMessage('productSize deleted successfully!', 'success');
             document.querySelector('#categoryDropdown').addEventListener('click', fetchCategories)
             populateProductSizeList();
-        }catch(error){
+        } catch (error) {
             console.error('Error deleting productsize:', error);
         }
     }
@@ -987,16 +977,16 @@ function clearSelectedColors() {
 
 //------------------ Function to upload image and product information---------------------------------
 var newProductArrivalStatusYes = document.querySelector('#new-product-arrival-yes');
-var newProductArrivalStatusNo= document.querySelector('#new-product-arrival-no');
+var newProductArrivalStatusNo = document.querySelector('#new-product-arrival-no');
 var newProductArrivalStatus = false;
-newProductArrivalStatusYes.addEventListener('change', function() {
+newProductArrivalStatusYes.addEventListener('change', function () {
     if (this.checked) {
         newProductArrivalStatus = true;
         newProductArrivalStatusNo.checked = false;
     }
 });
 
-newProductArrivalStatusNo.addEventListener('change', function() {
+newProductArrivalStatusNo.addEventListener('change', function () {
     if (this.checked) {
         newProductArrivalStatus = false;
         newProductArrivalStatusYes.checked = false;
@@ -1005,7 +995,7 @@ newProductArrivalStatusNo.addEventListener('change', function() {
 async function uploadProduct() {
     if (newProductArrivalStatusYes.checked) {
         newProductArrivalStatus = true;
-        newProductArrivalStatusNo.checked=false;
+        newProductArrivalStatusNo.checked = false;
     }
     else if (newProductArrivalStatusNo.checked) {
         newProductArrivalStatus = false;
@@ -1026,13 +1016,13 @@ async function uploadProduct() {
     // const colorShadeOption = document.getElementById('colorShadeDropdown').options[document.getElementById('colorShadeDropdown').selectedIndex];
     const productSizeOption = document.getElementById('productSizeDropdown').options[document.getElementById('productSizeDropdown').selectedIndex];
     const productDescriptionTextarea = document.querySelector('#product-description');
-    const productDetailsTextarea=document.querySelector('#product-details');
-    const productSpecificationsTextarea=document.querySelector('#product-specifications')
+    const productDetailsTextarea = document.querySelector('#product-details');
+    const productSpecificationsTextarea = document.querySelector('#product-specifications')
     const selectedFile = fileInput.files[0];
 
     if (productName && productQuantity && productPrice && manufacturerOption && categoryOption
         && productSizeOption && selectedFile && productDescriptionTextarea && productDetailsTextarea
-        && productSpecificationsTextarea && (newProductArrivalStatus===true || newProductArrivalStatus===false)) {
+        && productSpecificationsTextarea && (newProductArrivalStatus === true || newProductArrivalStatus === false)) {
         // const fileName = selectedFile.name;
         const fileName = `${productId}-${selectedFile.name}`;
         // console.log(fileName);
@@ -1042,34 +1032,34 @@ async function uploadProduct() {
 
         // Upload the image to Firebase Storage
         uploadBytes(imageRef, selectedFile)
-            .then(async(snapshot) => {
+            .then(async (snapshot) => {
                 // Get the download URL of the uploaded image
                 getDownloadURL(imageRef)
-                    .then(async(downloadURL) => {
+                    .then(async (downloadURL) => {
                         let productData = ''
-                   
-                            productData = {
-                                productId: productId,
-                                name: productName,
-                                // size: productSize,
-                                quantity: productQuantity,
-                                price: parseFloat(productPrice),
-                                imageUrl: downloadURL,
-                                manufacturerName: manufacturerOption.value,
-                                manufacturerId: manufacturerOption.getAttribute('data-id'),
-                                categoryName: categoryOption.value,
-                                categoryId: categoryOption.getAttribute('data-id'),
-                                size:productSizeOption.value,
-                                sizeId:productSizeOption.getAttribute('data-id'),
-                                ProductDescription: productDescriptionTextarea.value,
-                                productDetails:productDetailsTextarea.value,
-                                productSpecifications:productSpecificationsTextarea.value,
-                                newProductArrivalStatus:newProductArrivalStatus
-                            };
+
+                        productData = {
+                            productId: productId,
+                            name: productName,
+                            // size: productSize,
+                            quantity: productQuantity,
+                            price: parseFloat(productPrice),
+                            imageUrl: downloadURL,
+                            manufacturerName: manufacturerOption.value,
+                            manufacturerId: manufacturerOption.getAttribute('data-id'),
+                            categoryName: categoryOption.value,
+                            categoryId: categoryOption.getAttribute('data-id'),
+                            size: productSizeOption.value,
+                            sizeId: productSizeOption.getAttribute('data-id'),
+                            ProductDescription: productDescriptionTextarea.value,
+                            productDetails: productDetailsTextarea.value,
+                            productSpecifications: productSpecificationsTextarea.value,
+                            newProductArrivalStatus: newProductArrivalStatus
+                        };
                         console.log(productData);
-                        const productsRef =collection(firestore, 'products');
-                        const docRef =await addDoc(productsRef, productData);
-                           await updateDoc(docRef,{productId:docRef.id})
+                        const productsRef = collection(firestore, 'products');
+                        const docRef = await addDoc(productsRef, productData);
+                        await updateDoc(docRef, { productId: docRef.id })
                             .then(() => {
                                 displayMessage('Product Uploaded Successfully!', 'success')
                                 // Clear selected colors after successful upload

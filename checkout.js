@@ -111,7 +111,7 @@ confirmLogoutBtn.addEventListener("click", () => {
 onAuthStateChanged(auth, async (user) => {
     const adminAppbar = document.getElementById("adminAppbar");
     const userAppbar = document.getElementById("userAppbar");
-    const agentAppbar = document.getElementById("agentAppbar");
+    // const agentAppbar = document.getElementById("agentAppbar");
 
     if (user) {
         //check if local storage has cart information
@@ -158,7 +158,7 @@ function roleAccess(role) {
     const roleMap = new Map([
         ["ADMIN", "adminAppbar"],
         ["CUSTOMER", "customerAppbar"],
-        ["AGENT", "agentAppbar"],
+        // ["AGENT", "agentAppbar"],
     ]);
     const appbarList = document.querySelectorAll(`#${roleMap.get(role)}`);
     appbarList.forEach((appbar) => {
@@ -174,9 +174,9 @@ function updateProfileName(role, fullName) {
         case 'CUSTOMER':
             profileNameElement = document.getElementById('customerAppbar').querySelector('.profile-name');
             break;
-        case 'AGENT':
-            profileNameElement = document.getElementById('agentAppbar').querySelector('.profile-name');
-            break;
+        // case 'AGENT':
+        //     profileNameElement = document.getElementById('agentAppbar').querySelector('.profile-name');
+        //     break;
         case 'ADMIN':
             profileNameElement = document.getElementById('adminAppbar').querySelector('.profile-name');
             break;
@@ -195,9 +195,9 @@ function updateProfilePicture(role, profilePicture) {
         case 'CUSTOMER':
             profilePictureElement = document.getElementById('customerAppbar').querySelector('#profile-picture');
             break;
-        case 'AGENT':
-            profilePictureElement = document.getElementById('agentAppbar').querySelector('#profile-picture');
-            break;
+        // case 'AGENT':
+        //     profilePictureElement = document.getElementById('agentAppbar').querySelector('#profile-picture');
+        //     break;
         case 'ADMIN':
             profilePictureElement = document.getElementById('adminAppbar').querySelector('#profile-picture');
             break;
@@ -682,7 +682,7 @@ async function createOrder(event) {
             date: currentDate.toLocaleDateString(),
             time: currentTime,
             customer: doc(firestore, 'users', auth.currentUser.uid),
-            calculatedCommission: summary.referralId ? await getCalculatedCommission(summary.billSummary.subTotal) : null
+            // calculatedCommission: summary.referralId ? await getCalculatedCommission(summary.billSummary.subTotal) : null
         }
     )
 
@@ -751,12 +751,12 @@ async function deleteCartItems() {
     })
 }
 
-async function getCalculatedCommission(subTotal) {
-    //get commission snapshot
-    const commissionSnapshot = await getDocs(query(collection(firestore, 'commission'), where('post', '==', 'AGENT')))
+// async function getCalculatedCommission(subTotal) {
+//     //get commission snapshot
+//     const commissionSnapshot = await getDocs(query(collection(firestore, 'commission'), where('post', '==', 'AGENT')))
 
-    return (commissionSnapshot.docs[0].data().commission / 100) * subTotal;
-}
+//     return (commissionSnapshot.docs[0].data().commission / 100) * subTotal;
+// }
 
 /**
  * 

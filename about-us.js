@@ -172,9 +172,9 @@ function updateProfileName(role, fullName) {
         case 'CUSTOMER':
             profileNameElement = document.getElementById('customerAppbar').querySelector('.profile-name');
             break;
-        case 'AGENT':
-            profileNameElement = document.getElementById('agentAppbar').querySelector('.profile-name');
-            break;
+        // case 'AGENT':
+        //     profileNameElement = document.getElementById('agentAppbar').querySelector('.profile-name');
+        //     break;
         case 'ADMIN':
             profileNameElement = document.getElementById('adminAppbar').querySelector('.profile-name');
             break;
@@ -193,9 +193,9 @@ function updateProfilePicture(role, profilePicture) {
         case 'CUSTOMER':
             profilePictureElement = document.getElementById('customerAppbar').querySelector('#profile-picture');
             break;
-        case 'AGENT':
-            profilePictureElement = document.getElementById('agentAppbar').querySelector('#profile-picture');
-            break;
+        // case 'AGENT':
+        //     profilePictureElement = document.getElementById('agentAppbar').querySelector('#profile-picture');
+        //     break;
         case 'ADMIN':
             profilePictureElement = document.getElementById('adminAppbar').querySelector('#profile-picture');
             break;
@@ -218,7 +218,7 @@ function roleAccess(role) {
     const roleMap = new Map([
         ["ADMIN", "adminAppbar"],
         ["CUSTOMER", "customerAppbar"],
-        ["AGENT", "agentAppbar"],
+        // ["AGENT", "agentAppbar"],
     ]);
     const appbarList = document.querySelectorAll(`#${roleMap.get(role)}`);
     appbarList.forEach((appbar) => {
