@@ -467,9 +467,53 @@ async function displayAllOrders(orders) {
                 orderContainer.appendChild(orderInfoContainer);
 
                 // Create and append elements for remaining order details
+                // const orderDetailsContainer = document.createElement("div");
+                // orderDetailsContainer.className = "order-details";
+                // orderDetailsContainer.style.display = "none"; // Initially hide the details
+
+                // Create and append elements for order details
                 const orderDetailsContainer = document.createElement("div");
                 orderDetailsContainer.className = "order-details";
-                orderDetailsContainer.style.display = "none"; // Initially hide the details
+
+                // Iterate through the productsDetails array and display product information
+                for (const product of order.productsDetails) {
+                    const productElement = document.createElement("div");
+                    productElement.innerHTML = `<strong>Product ID:</strong> ${product.productId}<br>
+                     <strong>Quantity:</strong> ${product.quantity}`;
+                    orderDetailsContainer.appendChild(productElement);
+                }
+                orderContainer.appendChild(orderDetailsContainer);
+
+                // Create and append elements for bill details
+                const billDetailsContainer = document.createElement("div");
+                billDetailsContainer.className = "bill-details";
+
+                const deliveryFeeElement = document.createElement("div");
+                deliveryFeeElement.innerHTML = `<strong>Delivery Fee:</strong> ${order.bill.deliveryFee || ""}`;
+
+                const subTotalElement = document.createElement("div");
+                subTotalElement.innerHTML = `<strong>Subtotal:</strong> ${order.bill.subTotal || ""}`;
+
+                const totalElement = document.createElement("div");
+                totalElement.innerHTML = `<strong>Total:</strong> ${order.bill.total || ""}`;
+
+                billDetailsContainer.appendChild(deliveryFeeElement);
+                billDetailsContainer.appendChild(subTotalElement);
+                billDetailsContainer.appendChild(totalElement);
+                orderContainer.appendChild(billDetailsContainer);
+
+                // Create and append elements for payment details
+                const paymentDetailsContainer = document.createElement("div");
+                paymentDetailsContainer.className = "payment-details";
+                const mopElement = document.createElement("div");
+                if (order.mop.length > 1) {
+                    const razorpayPaymentIdElement = document.createElement("div");
+                    razorpayPaymentIdElement.innerHTML = `<strong>Razorpay Payment ID:</strong> ${order.mop[1].razorpay_payment_id || ""}`;
+                    paymentDetailsContainer.appendChild(razorpayPaymentIdElement);
+                }
+                paymentDetailsContainer.appendChild(mopElement);
+                orderContainer.appendChild(paymentDetailsContainer);
+
 
                 // Fetch and display the dynamic order details for this order
                 // fetchAndDisplayOrderDetails(order, orderDetailsContainer);
