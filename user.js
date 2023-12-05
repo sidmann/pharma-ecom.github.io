@@ -330,7 +330,7 @@ async function fetchAndDisplayAllOrders(userId) {
             orderIds.push(order.orderId)
         })
         //get the docs where order ids matched in list
-        const orderSnapshot = await getDocs(query(collection(firestore, 'orders'), where('orderId', 'in', orderIds)))
+        const orderSnapshot = await getDocs(query( collection(firestore,"users",userId,'orders')),where('orderId', 'in', orderIds))
         //return if empty
         if (orderSnapshot.empty) return
         //push all json data in one list
@@ -454,11 +454,11 @@ async function displayAllOrders(orders) {
 
                 const orderDateElement = document.createElement("div");
                 orderDateElement.className = "order-field";
-                orderDateElement.innerHTML = `<strong> Order Date:</strong> ${order.date || ""} `;
+                orderDateElement.innerHTML = `<strong> Order Date:</strong> ${order.orderDate || ""} `;
 
                 const orderTimeElement = document.createElement("div");
                 orderTimeElement.className = "order-field";
-                orderTimeElement.innerHTML = `<strong> Order Time:</strong> ${order.time || ""} `;
+                orderTimeElement.innerHTML = `<strong> Order Time:</strong> ${order.orderTime || ""} `;
 
                 orderInfoContainer.appendChild(orderIDElement);
                 orderInfoContainer.appendChild(orderDateElement);
