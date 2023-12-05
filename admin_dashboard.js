@@ -347,8 +347,8 @@ function displayAllOrders(orders) {
 
                 // Append a "View Details" button
                 const viewDetailsButton = document.createElement("button");
-                viewDetailsButton.className = "btn btn-primary view-details-btn";
-                viewDetailsButton.textContent = "View Details";
+                // viewDetailsButton.className = "btn btn-primary view-details-btn";
+                // viewDetailsButton.textContent = "View Details";
 
                 viewDetailsButton.addEventListener("click", () => {
                     orderDetailsContainer.style.display = orderDetailsContainer.style.display === "none" ? "block" : "none";
