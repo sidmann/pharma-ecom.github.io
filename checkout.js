@@ -1169,6 +1169,13 @@ async function payment(e) {
     options.prefill.contact = userSnapshot.data().phoneNumber
 
     console.log(options, userSnapshot.data())
+    const currentDate = new Date();
+    const currentTime = currentDate.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true, // Use 12-hour clock with AM/PM
+    });
+   
 
     //create suceess callback function
     options.handler = async function (response) {
@@ -1179,7 +1186,9 @@ async function payment(e) {
             bill: bill,
             addressRef: doc(firestore, 'users', auth.currentUser.uid, 'addresses', addressId),
             mop: ['rzp', response],
-            status: 'placed'
+            status: 'placed',
+            orderDate: currentDate.toLocaleDateString(),
+            orderTime: currentTime,
         })
         console.log(2)
         const cartSnapshot = await getDocs(collection(firestore, 'users', auth.currentUser.uid, 'cart'))

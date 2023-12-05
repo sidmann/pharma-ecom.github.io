@@ -247,8 +247,8 @@ async function getAndEmbedProductData(productId) {
     // productFirstImage.src = productData.imageUrl
     productName.textContent = productData.name
     productPrice.textContent = productData.price
-    productDesc.textContent = productData.featuredProductDescription;
-    productSize.textContent = productData.size + ' ';
+    productDesc.textContent = productData.ProductDescription;
+    productSize.textContent = productData.size + ' ' + 'Ltr';
     productManufacturer.textContent = productData.manufacturerName;
     productIdNo.textContent = productData.productId;
     productCategory.textContent = productData.categoryName;

@@ -59,8 +59,10 @@ confirmLogoutBtn.addEventListener("click", () => {
 });
 
 // Use onAuthStateChanged to control access to admin dashboard
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async(user) => {
     embedCategoriesCard()
+    await fetchProductsForSlider();
+    await newArrivalProducts();
     if (user) {
         console.log("if")
         document.querySelector('#logout-btn').style.display = 'block';
@@ -220,8 +222,7 @@ async function embedCategoriesCard() {
         categoryCard.innerHTML = `
                             <div class="gi-cat-box gi-cat-box-${count}">
                                 <div class="gi-cat-icon">
-                                    <span class="gi-lbl">30%</span>
-                                    <i class="fi fi-rs-paint-roller"></i>
+                                    <i class="fa fa-pills"></i><br>
                                     <div class="gi-cat-detail category-id" data-id="${category.categoryId}">
                                         <a href="products.html">
                                             <h4 class="gi-cat-title">${category.name}</h4>
@@ -267,6 +268,167 @@ async function embedCategoriesCard() {
     });
 }
 
+// ------------------------- Featured Product-----------------------------
+async function fetchProductsForSlider() {
+    const productSlider = document.querySelector('#products-for-slider')
+    productSlider.innerHTML = ''
+
+    const productSliderCollection = collection(firestore, 'products')
+    const productSliderSnapshot = await getDocs(productSliderCollection);
+    let productCount = 0;
+    productSliderSnapshot.forEach(async (doc) => {
+        if (productCount < 8) {
+            const productDoc = doc.data()
+            console.log(productDoc)
+            const productDiv = document.createElement('div')
+            productDiv.classList.add('gi-product-content')
+            productDiv.innerHTML = `
+                        <div class="gi-product-inner">
+                            <div class="gi-pro-image-outer">
+                                <div class="gi-pro-image">
+                                    <a href="products.html" class="image">
+                                        <span class="label veg">
+                                            <span class="dot"></span>
+                                        </span>
+                                        <img class="main-image"
+                                            src="${productDoc.imageUrl}"
+                                            alt="Product">
+                                        <img class="hover-image"
+                                            src="${productDoc.imageUrl}"
+                                            alt="Product">
+                                    </a>
+                                    <span class="flags">
+                                        <span class="sale">Sale</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="gi-pro-content">
+                                <a href="products.html">
+                                </a>
+                                <h5 class="gi-pro-title"><a href="products.html">
+                                 ${productDoc.name}
+                                </a></h5>
+                                <div class="gi-pro-rat-price">
+                                    <span class="gi-pro-rating">
+                                        <i class="gicon gi-star fill"></i>
+                                        <i class="gicon gi-star fill"></i>
+                                        <i class="gicon gi-star fill"></i>
+                                        <i class="gicon gi-star fill"></i>
+                                        <i class="gicon gi-star"></i>
+                                    </span>
+                                    <span class="gi-price">
+                                        <span class="new-price"><span>&#8377;</span>${productDoc.price}</span>
+                                        <span class="old-price"><span>&#8377;</span>${productDoc.price + 30}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+        `
+            productSlider.appendChild(productDiv)
+            productCount++;
+        }
+    })
+    $('.gi-product-slider').owlCarousel({
+        loop: true,
+        dots: false,
+        nav: false,
+        smartSpeed: 1000,
+        autoplay: false,
+        items: 3,
+        responsiveClass: true,
+        responsive: {
+          0: {
+            items: 1
+          },
+          421: {
+            items: 2
+          },
+          768: {
+            items: 3
+          },
+          992: {
+            items: 3
+          },
+          1200: {
+            items: 4
+          },
+          1367: {
+            items: 5
+          }
+        }
+      });
+}
+
+
+// -------------------new Arrival-----------------------------------------
+async function newArrivalProducts() {
+    const newArrivalProduct = document.querySelector('#new-product-arrival-section')
+    newArrivalProduct.innerHTML = ''
+
+    const newArrivalCollection = collection(firestore, 'products')
+    const newArrivalSnapShot = await getDocs(newArrivalCollection);
+    newArrivalSnapShot.forEach((doc) => {
+        const newArrivalData = doc.data();
+        if (newArrivalData.newProductArrivalStatus == true) {
+            console.log(newArrivalData)
+            const newArrivalDiv = document.createElement('div')
+            newArrivalDiv.classList.add('col-md-4', 'col-sm-6', 'col-xs-6', 'gi-col-5', 'gi-product-box')
+            newArrivalDiv.innerHTML = `
+                <div class="gi-product-content">
+                    <div class="gi-product-inner">
+                        <div class="gi-pro-image-outer">
+                            <div class="gi-pro-image">
+                                <a href="products.html" class="image">
+                                    <span class="label veg">
+                                        <span class="dot"></span>
+                                    </span>
+                                    <img class="main-image"
+                                        src="${newArrivalData.imageUrl}"
+                                        alt="Product">
+                                    <img class="hover-image"
+                                        src="${newArrivalData.imageUrl}"
+                                        alt="Product">
+                                </a>
+                                <span class="flags">
+                                    <span class="sale">New</span>
+                                </span>
+                                <div class="gi-pro-actions">
+                                    <a href="products.html"
+                                        class="gi-btn-group quickview" data-link-action="quickview"
+                                        title="Quick view" data-bs-toggle="modal"
+                                        data-bs-target="#gi_quickview_modal"><i
+                                            class="fi-rr-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gi-pro-content">
+                            <a href="products.html">
+                            </a>
+                            <h5 class="gi-pro-title"><a href="products.html">
+                                    ${newArrivalData.name}</a></h5>
+                            <div class="gi-pro-rat-price">
+                                <span class="gi-pro-rating">
+                                    <i class="gicon gi-star fill"></i>
+                                    <i class="gicon gi-star fill"></i>
+                                    <i class="gicon gi-star fill"></i>
+                                    <i class="gicon gi-star"></i>
+                                    <i class="gicon gi-star"></i>
+                                </span>
+                                <span class="gi-price">
+                                    <span class="new-price"><span>&#8377</span>${newArrivalData.price}</span>
+                                    <span class="old-price"><span>&#8377</span>$65.00</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `
+            newArrivalProduct.appendChild(newArrivalDiv);
+        }
+    })
+}
+
+// -------------------------------------------------------------------
 //********************************************************************/
 /**
  * 

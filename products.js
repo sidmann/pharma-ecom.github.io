@@ -822,8 +822,7 @@ async function embedCategoriesCard() {
         categoryCard.innerHTML = `
                             <div class="gi-cat-box gi-cat-box-${count}">
                                 <div class="gi-cat-icon">
-                                    <span class="gi-lbl">30%</span>
-                                    <i class="fi fi-rs-paint-roller"></i>
+                                    <i class="fa fa-pills"></i><br>
                                     <div class="gi-cat-detail category-id" data-id="${category.categoryId}">
                                         <a href="products.html">
                                             <h4 class="gi-cat-title">${category.name}</h4>
