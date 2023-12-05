@@ -472,20 +472,20 @@ async function displayAllOrders(orders) {
                 orderDetailsContainer.style.display = "none"; // Initially hide the details
 
                 // Fetch and display the dynamic order details for this order
-                fetchAndDisplayOrderDetails(order, orderDetailsContainer);
+                // fetchAndDisplayOrderDetails(order, orderDetailsContainer);
 
                 // Append a "View Details" button
-                const viewDetailsButton = document.createElement("button");
-                viewDetailsButton.className = "btn btn-primary view-details-btn";
-                viewDetailsButton.textContent = "View Details";
+                // const viewDetailsButton = document.createElement("button");
+                // viewDetailsButton.className = "btn btn-primary view-details-btn";
+                // viewDetailsButton.textContent = "View Details";
 
                 // Add a click event listener to toggle order details visibility
-                viewDetailsButton.addEventListener("click", () => {
-                    orderDetailsContainer.style.display = orderDetailsContainer.style.display === "none" ? "block" : "none";
-                });
+                // viewDetailsButton.addEventListener("click", () => {
+                //     orderDetailsContainer.style.display = orderDetailsContainer.style.display === "none" ? "block" : "none";
+                // });
 
                 // Append the "View Details" button and dynamic order details to the order container
-                orderContainer.appendChild(viewDetailsButton);
+                // orderContainer.appendChild(viewDetailsButton);
                 orderContainer.appendChild(orderDetailsContainer);
 
                 // Append a horizontal line after each order

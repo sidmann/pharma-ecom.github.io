@@ -300,15 +300,10 @@ let totalNumberOfCustomers = 0;
 //******************************** Display orders ***********************************************
 
 // Function to display all orders for a customer in the modal
-function displayAllOrders(orders) {
-    console.log("inside display all orders")
-    return new Promise(async (resolve) => {
-        // orders.sort((a, b) => {
-        //     const dateA = convertToDate(a.date, a.time);
-        //     const dateB = convertToDate(b.date, b.time);
-        //     return new Date(dateB) - new Date(dateA);
-        // });
+async function displayAllOrders(orders) {
+    console.log("inside display all orders");
 
+    return new Promise(async (resolve) => {
         const ordersContainer = document.createElement("div");
         ordersContainer.className = "ordersContainer";
         const orderModalContent = document.getElementById("orderModalContent");
@@ -340,22 +335,48 @@ function displayAllOrders(orders) {
 
                 orderContainer.appendChild(orderInfoContainer);
 
+                // Create and append elements for order details
                 const orderDetailsContainer = document.createElement("div");
                 orderDetailsContainer.className = "order-details";
-                orderDetailsContainer.style.display = "none";
-                fetchAndDisplayOrderDetails(order, orderDetailsContainer);
 
-                // Append a "View Details" button
-                const viewDetailsButton = document.createElement("button");
-                // viewDetailsButton.className = "btn btn-primary view-details-btn";
-                // viewDetailsButton.textContent = "View Details";
-
-                viewDetailsButton.addEventListener("click", () => {
-                    orderDetailsContainer.style.display = orderDetailsContainer.style.display === "none" ? "block" : "none";
-                });
-
-                orderContainer.appendChild(viewDetailsButton);
+                // Iterate through the productsDetails array and display product information
+                for (const product of order.productsDetails) {
+                    const productElement = document.createElement("div");
+                    productElement.innerHTML = `<strong>Product ID:</strong> ${product.productId}<br>
+                     <strong>Quantity:</strong> ${product.quantity}`;
+                    orderDetailsContainer.appendChild(productElement);
+                }
                 orderContainer.appendChild(orderDetailsContainer);
+
+                // Create and append elements for bill details
+                const billDetailsContainer = document.createElement("div");
+                billDetailsContainer.className = "bill-details";
+
+                const deliveryFeeElement = document.createElement("div");
+                deliveryFeeElement.innerHTML = `<strong>Delivery Fee:</strong> ${order.bill.deliveryFee || ""}`;
+
+                const subTotalElement = document.createElement("div");
+                subTotalElement.innerHTML = `<strong>Subtotal:</strong> ${order.bill.subTotal || ""}`;
+
+                const totalElement = document.createElement("div");
+                totalElement.innerHTML = `<strong>Total:</strong> ${order.bill.total || ""}`;
+
+                billDetailsContainer.appendChild(deliveryFeeElement);
+                billDetailsContainer.appendChild(subTotalElement);
+                billDetailsContainer.appendChild(totalElement);
+                orderContainer.appendChild(billDetailsContainer);
+
+                // Create and append elements for payment details
+                const paymentDetailsContainer = document.createElement("div");
+                paymentDetailsContainer.className = "payment-details";
+                const mopElement = document.createElement("div");
+                if (order.mop.length > 1) {
+                    const razorpayPaymentIdElement = document.createElement("div");
+                    razorpayPaymentIdElement.innerHTML = `<strong>Razorpay Payment ID:</strong> ${order.mop[1].razorpay_payment_id || ""}`;
+                    paymentDetailsContainer.appendChild(razorpayPaymentIdElement);
+                }
+                paymentDetailsContainer.appendChild(mopElement);
+                orderContainer.appendChild(paymentDetailsContainer);
 
                 // Append a horizontal line after each order
                 const horizontalLine = document.createElement("hr");
@@ -372,9 +393,10 @@ function displayAllOrders(orders) {
             orderModalContent.innerHTML = "<p>No orders found for this customer.</p>";
             console.log("1");
         }
-        resolve()
-    })
+        resolve();
+    });
 }
+
 
 // Function to convert date and time strings to a Date object
 function convertToDate(dateString, timeString) {
