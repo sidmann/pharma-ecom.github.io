@@ -303,11 +303,11 @@ let totalNumberOfCustomers = 0;
 function displayAllOrders(orders) {
     console.log("inside display all orders")
     return new Promise(async (resolve) => {
-        orders.sort((a, b) => {
-            const dateA = convertToDate(a.date, a.time);
-            const dateB = convertToDate(b.date, b.time);
-            return new Date(dateB) - new Date(dateA);
-        });
+        // orders.sort((a, b) => {
+        //     const dateA = convertToDate(a.date, a.time);
+        //     const dateB = convertToDate(b.date, b.time);
+        //     return new Date(dateB) - new Date(dateA);
+        // });
 
         const ordersContainer = document.createElement("div");
         ordersContainer.className = "ordersContainer";
@@ -328,11 +328,11 @@ function displayAllOrders(orders) {
 
                 const orderDateElement = document.createElement("div");
                 orderDateElement.className = "order-field";
-                orderDateElement.innerHTML = `<strong> Order Date:</strong> ${order.date || ""} `;
+                orderDateElement.innerHTML = `<strong> Order Date:</strong> ${order.orderDate || ""} `;
 
                 const orderTimeElement = document.createElement("div");
                 orderTimeElement.className = "order-field";
-                orderTimeElement.innerHTML = `<strong> Order Time:</strong> ${order.time || ""} `;
+                orderTimeElement.innerHTML = `<strong> Order Time:</strong> ${order.orderTime || ""} `;
 
                 orderInfoContainer.appendChild(orderIDElement);
                 orderInfoContainer.appendChild(orderDateElement);
@@ -405,8 +405,10 @@ function convertToDate(dateString, timeString) {
 
 // Function to fetch and display order details for a specific order
 async function fetchAndDisplayOrderDetails(order, orderDetailsContainer) {
+    console.log(order)
     try {
         if (order) {
+
             // Create HTML to display order details
             const orderDetailsHTML = `
                         <div class="order-field">
@@ -418,13 +420,10 @@ async function fetchAndDisplayOrderDetails(order, orderDetailsContainer) {
                         <div class="order-field">
                             <strong>Shipping Address:</strong> <pre>${order.address || ""}</pre>
                         </div>
-                        <div class="order-field ${order.summary.referralId ? '' : 'd-none'}">
-                            <strong>Referral Id:</strong> <pre>${order.summary.referralId || ""}</pre>
-                        </div>
                         <h3>Items Purchased</h3>
                         <ul>
                             ${order.summary.items && Array.isArray(order.summary.items)
-                    ? order.summary.items.map((item) => `
+                                  ? order.summary.items.map((item) => `
                                     <li>
                                         <strong>Product ID:</strong> ${item.productId || ""}<br>
                                         <strong>Product Name:</strong> ${item.productName || ""}<br>
@@ -467,6 +466,7 @@ async function fetchAndDisplayOrderDetails(order, orderDetailsContainer) {
 
 // Function to fetch and display all orders of a customer
 async function fetchAndDisplayAllOrders(userId, orderBtn) {
+    
     console.log("1")
     orderBtn.disabled = true
     orderBtn.innerHTML = `
@@ -484,9 +484,10 @@ async function fetchAndDisplayAllOrders(userId, orderBtn) {
         orders.forEach(async (order) => {
             orderIds.push(order.orderId)
         })
-        const orderSnapshot = await getDocs(query(collection(firestore, 'orders'), where('orderId', 'in', orderIds)))
+        const orderSnapshot= await getDocs(query( collection(firestore,"users",userId,'orders')),where('orderId', 'in', orderIds))
+        // const orderSnapshot = await getDocs(query(collection(firestore,userId, 'orders'), where('orderId', 'in', orderIds)))
         //return if empty
-        console.log("1")
+        console.log("4")
         if (orderSnapshot.empty) {
             const orderModalContent = document.getElementById("orderModalContent");
             orderModalContent.innerHTML = "<p>No orders found for this customer.</p>";
@@ -893,7 +894,7 @@ async function addProductSize(productSizeName){
         const productSizeRef = collection(firestore, 'sizes');
         const docRef = await addDoc(productSizeRef, { size: productSizeName,unit:"ltr" });
         await updateDoc(docRef, { sizeId: docRef.id })
-        // document.querySelector('#productSizeDropdown').addEventListener('click', fetchCategories)
+        document.querySelector('#productSizeDropdown').addEventListener('click', fetchCategories)
         return docRef.id;
     } catch (error) {
         console.error('Error adding productsize:', error);
@@ -914,7 +915,7 @@ async function editProductSize(productsizeId,productSizeName){
         .then(() => {
             console.log('ProductSize updated successfully');
             displayMessage('ProductSize updated successfully!', 'success');
-            // document.querySelector('#categoryDropdown').addEventListener('click', fetchCategories)
+            document.querySelector('#categoryDropdown').addEventListener('click', fetchCategories)
             populateProductSizeList();
         })
         .catch((error) => {
@@ -936,7 +937,7 @@ async function deleteProductSize(productSizeId,productSizeName){
             }
             console.log('productSize deleted successfully');
             displayMessage('productSize deleted successfully!', 'success');
-            // document.querySelector('#categoryDropdown').addEventListener('click', fetchCategories)
+            document.querySelector('#categoryDropdown').addEventListener('click', fetchCategories)
             populateProductSizeList();
         }catch(error){
             console.error('Error deleting productsize:', error);
@@ -1105,125 +1106,6 @@ async function uploadProduct() {
 // Add a click event listener to the Upload Product
 const uploadProductButton = document.getElementById('uploadProductButton');
 uploadProductButton.addEventListener('click', uploadProduct);
-
-//*********************************Commission Assignment*******************************
-
-// Function to fetch and display agent posts and commissions
-// function fetchAndDisplayCommissions() {
-//     const commissionsRef = collection(firestore, 'commission');
-//     const commissionTableBody = document.getElementById('commissionTableBody');
-//     commissionTableBody.innerHTML = ''; // Clear the table body before adding new data 
-
-//     getDocs(commissionsRef)
-//         .then((querySnapshot) => {
-//             querySnapshot.forEach((doc) => {
-//                 const commissionData = doc.data();
-//                 console.log(commissionData)
-//                 const commissionId = doc.id;
-//                 console.log(commissionId)
-
-//                 // Create a table row for each commission entry
-//                 const commissionRow = createCommissionTableRow(commissionData, commissionId);
-//                 commissionTableBody.appendChild(commissionRow);
-//                 console.log(commissionRow)
-//             });
-//         })
-//         .catch((error) => {
-//             console.error('Error fetching commission data:', error);
-//         });
-// }
-
-
-// Function to create a table row for a commission entry
-// function createCommissionTableRow(commissionData, commissionId) {
-//     console.log(commissionId)
-//     const commissionRow = document.createElement('tr');
-//     commissionRow.innerHTML = `
-//                 <td>${commissionData.post || ''}</td>
-//                 <td>${commissionData.commission || ''}</td>
-//                 <td>
-//                     <button type="button" class="update-commission btn btn-primary" data-bs-toggle="modal" 
-//                        data-bs-target="#updateCommissionModal" data-id="${commissionId}">Update Commision</button>
-//                 </td>
-//                 `;
-
-//     // Add click event listeners for the update and delete buttons
-//     const updateButton = commissionRow.querySelector('.update-commission');
-//     updateButton.addEventListener('click', (event) => {
-//         const commissionId = event.target.getAttribute('data-id');
-//         console.log(commissionId)
-//         openUpdateCommissionModal(commissionId);
-//     });
-//     return commissionRow;
-// }
-
-// Function to open the update commission modal
-// function openUpdateCommissionModal(commissionId) {
-//     // console.log(commissionId);
-
-//     // Fetch the commission data using the commissionId
-//     const commissionsRef = collection(firestore, 'commission');
-//     const commissionDocRef = doc(commissionsRef, commissionId);
-
-//     getDoc(commissionDocRef)
-//         .then((docSnapshot) => {
-//             if (docSnapshot.exists()) {
-//                 const commissionData = docSnapshot.data();
-//                 console.log(commissionData);
-
-//                 // Set the commission ID in the hidden input field
-//                 document.getElementById('commissionIdInput').value = commissionId;
-
-//                 // Set the commission value in the form
-//                 document.getElementById('updateCommissionValueInput').value = commissionData.commission;
-//             } else {
-//                 console.error(`Commission with ID ${commissionId} not found.`);
-//             }
-//         })
-//         .catch((error) => {
-//             console.error(`Error fetching commission data: ${error}`);
-//         });
-// }
-
-
-// JavaScript to handle the submission of the update commission form
-// document.getElementById('updateCommissionForm').addEventListener('submit', function (event) {
-//     event.preventDefault();
-
-//     document.querySelector('#update').disabled = true;
-//     document.querySelector('#update').textContent = 'Updating ...';
-
-//     // Get the values from the form
-//     const commissionId = document.getElementById('commissionIdInput').value;
-//     // const post = document.getElementById('updatePostInput').value;
-//     const commission = parseFloat(document.getElementById('updateCommissionValueInput').value);
-
-//     // Validate and update the commission data in Firestore
-//     if (commissionId && !isNaN(commission)) {
-//         const commissionsRef = collection(firestore, 'commission');
-//         const commissionDocRef = doc(commissionsRef, commissionId);
-
-//         // Update the commission data
-//         updateDoc(commissionDocRef, {
-//             // post: post,
-//             commission: commission,
-//         })
-//             .then(() => {
-//                 // Commission updated successfully
-//                 // You can display a success message or close the modal here
-//                 displayMessage('Commission updated successfully!', 'success');
-//                 document.querySelector('#update').disabled = false;
-//                 document.querySelector('#update').textContent = 'Update';
-//                 fetchAndDisplayCommissions();
-//             })
-//             .catch((error) => {
-//                 console.error(`Error updating commission: ${error}`);
-//             });
-//     } else {
-//         // Handle invalid input or display an error message
-//         console.error('Invalid input for commission update.');
-//     }
-// });
 
 //******************************** Membership id *****************************************
 
