@@ -106,7 +106,7 @@ function roleAccess(role) {
     const roleMap = new Map([
         ["ADMIN", "adminAppbar"],
         ["CUSTOMER", "customerAppbar"],
-        ["AGENT", "agentAppbar"],
+        // ["AGENT", "agentAppbar"],
     ]);
     const appbarList = document.querySelectorAll(`#${roleMap.get(role)}`);
     // console.log(appbarList)
