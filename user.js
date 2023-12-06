@@ -190,24 +190,24 @@ onAuthStateChanged(auth, (user) => {
                 populateShownDetails();
                 updateCart();
                 console.log(auth.currentUser.uid);
-                const viewOrdersBtn = document.querySelector(".view-orders-btn");
-                viewOrdersBtn.addEventListener("click", async (event) => {
-                    // const userId = event.target.getAttribute('data-user-id');
-                    // console.log(userId);
-                    fetchAndDisplayAllOrders(auth.currentUser.uid);
-                });
+                // const viewOrdersBtn = document.querySelector(".view-orders-btn");
+                // viewOrdersBtn.addEventListener("click", async (event) => {
+                //     // const userId = event.target.getAttribute('data-user-id');
+                //     // console.log(userId);
+                //     fetchAndDisplayAllOrders(auth.currentUser.uid);
+                // });
 
-                const totalNumberOfOrders = document.querySelector('.total-orders')
-                calculateTotalOrders(auth.currentUser.uid).then(totalOrders => {
-                    totalNumberOfOrders.textContent = totalOrders;
-                })
+                // const totalNumberOfOrders = document.querySelector('.total-orders')
+                // calculateTotalOrders(auth.currentUser.uid).then(totalOrders => {
+                //     totalNumberOfOrders.textContent = totalOrders;
+                // })
                 // totalPurchases(auth.currentUser.uid);
-                const totalGrandPurchases = document.querySelector('.total-purchases');
-                console.log(totalGrandPurchases)
-                totalAmountPurchases(auth.currentUser.uid).then(totalPurchasedoc => {
-                    console.log(totalPurchasedoc);
-                    totalGrandPurchases.innerHTML = `&#8377; ${totalPurchasedoc}` || '';
-                })
+                // const totalGrandPurchases = document.querySelector('.total-purchases');
+                // console.log(totalGrandPurchases)
+                // totalAmountPurchases(auth.currentUser.uid).then(totalPurchasedoc => {
+                //     console.log(totalPurchasedoc);
+                //     totalGrandPurchases.innerHTML = `&#8377; ${totalPurchasedoc}` || '';
+                // })
                 getUserRealTime();
                 fetchNavCategories();
             }
