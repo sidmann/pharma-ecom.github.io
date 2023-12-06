@@ -210,12 +210,10 @@ onAuthStateChanged(auth, async (user) => {
                 // await fetchManufacturers();
                 await fetchCategories();
                 fetchNavCategories();
-                // fetchAndDisplayProducts();
             }
         });
     } else {
         document.querySelector('#logout-btn').style.display = 'none';
-        // User is not logged in
         loggedIn = false
         // onLoggedOut();
         await updateCart()
@@ -223,7 +221,6 @@ onAuthStateChanged(auth, async (user) => {
         await fetchCategories()
         fetchNavCategories()
         // fetchAndDisplayProducts();
-        // stopLoader();
     }
     filterEventListeners()
 });
@@ -345,7 +342,6 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
 
         productsDocs.forEach((doc) => {
             const productData = doc.data();
-            // console.log(productData) 
             //check if the product is present in cart
             const resultIndex = productIds.findIndex(id => id === productData.productId)
             if (resultIndex >= 0) cartStatus = true
@@ -366,7 +362,7 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
                                                         </span>
                                                         <img class="product-image" src="${productData.imageUrl}"
                                                             alt="Product">
-                                                        <img class="hover-image product-image" src="assets/img/product-images/interior_paint2.jpg"
+                                                        <img class="hover-image product-image" src="${productData.imageUrl}"
                                                             alt="Product">
                                                     </a>
                                                     <div class="gi-pro-actions">
@@ -1979,7 +1975,7 @@ function productQuickView(productData) {
     modalProductName.textContent = productData.name
     modalProductPrice.textContent = parseFloat(productData.price)
     modalProductOldPrice.textContent = parseFloat(productData.price + 20)
-    modalProductDesc.textContent=productData.featuredProductDescription;
+    modalProductDesc.textContent=productData.ProductDescription;
 
     modal.querySelector('.add-to-cart').addEventListener('click', redirectToProductDetails.bind(this, productData.productId))
 
@@ -2023,7 +2019,6 @@ function getSortOder(e) {
  * @author dev
  */
 function redirectToProductDetails(productId) {
-    // console.log(productId)
     window.location.href = `product-detail.html?data=${productId}`
 }
 

@@ -23,7 +23,6 @@ import {
     uploadBytes
 } from "./assets/repository/initialize.js";
 
-
 var loggedIn = false
 var summary = null
 let cartList = null
@@ -84,7 +83,6 @@ async function postPageLoadEventListener() {
     document.querySelectorAll('.address-option').forEach(input => {
         input.addEventListener('change', changeAddressTab)
     })
-
     document.querySelector('#rzp-button1').addEventListener('click', payment)
 }
 
@@ -95,7 +93,7 @@ confirmLogoutBtn.addEventListener("click", () => {
         .then(() => {
             // Redirect to the login page or perform any other actions
             console.log("User logged out successfully");
-            window.location.href = "login.html"; // Redirect to the login page
+            window.location.href = "login.html";
         })
         .catch((error) => {
             console.error("Error during logout:", error);
@@ -106,8 +104,6 @@ confirmLogoutBtn.addEventListener("click", () => {
 //*****************************loading and role access********************************
 //check loggedIn or loggedOut state
 // Use onAuthStateChanged to control access to admin dashboard
-
-
 onAuthStateChanged(auth, async (user) => {
     const adminAppbar = document.getElementById("adminAppbar");
     const userAppbar = document.getElementById("userAppbar");
@@ -291,17 +287,12 @@ async function fetchAllAddress() {
         // document.querySelector('.no-address-msg').style.display = 'none'
         // console.log(document.querySelector('.no-address-msg').style.display)
     }
-
     //hide address form
     document.querySelector('#addAddressForm').style.display = 'none'
 
     addressSanpshot.forEach(doc => {
         //get address container
-
-        //address data
         const addressData = doc.data()
-
-        // Create a Bootstrap card for each address
         const card = document.createElement("div");
         card.classList.add('selected-address')
         card.innerHTML = `
@@ -635,7 +626,6 @@ async function createOrder(event) {
         displayMessage('Pls provide a delivery address!', 'danger')
         return
     }
-
     await deleteCartItems()
 
     showLoader('Placing order. Please wait ...', 'Its taking longer than expected.')
@@ -855,7 +845,6 @@ async function fetchNavCategories() {
         resolve()
         return
     }
-
     categoryList.innerHTML = ``
     mobileCategoryList.innerHTML = ``
 
@@ -871,7 +860,6 @@ async function fetchNavCategories() {
         </div>
         `
         categoryList.appendChild(span)
-
         const list = document.createElement('li')
         list.innerHTML = `
         <a href="javascript:void(0)">${doc.data().name}</a>
@@ -899,8 +887,6 @@ async function checkForExistingAddress() {
 function getAddressRef() {
     return collection(firestore, 'users', auth.currentUser.uid, 'addresses')
 }
-
-
 
 async function postPageLoadAddressAction() {
     console.log("post")
@@ -1032,7 +1018,9 @@ async function embedAddress() {
 }
 
 function selectAddress(addressDoc, e) {
+    // console.log(addressDoc)
     console.log("address")
+    // console.log(addressDoc.id)
     const shippingAddressContainer = document.querySelector('.shipping-address')
     const alreadySelectedAddress = document.querySelector('.selected-address')
     console.log(alreadySelectedAddress)
@@ -1041,7 +1029,7 @@ function selectAddress(addressDoc, e) {
     }
     const selectedAddress = document.createElement('div')
     selectedAddress.classList.add('selected-address')
-    selectedAddress.setAttribute('data-id', doc.id)
+    selectedAddress.setAttribute('data-id', addressDoc.id)
     selectedAddress.innerHTML = `
                     <div class="text-manrope bg-white card addresses-item mb-4 shadow-sm second dev-transition">
                         <div class="gold-members p-4">
@@ -1088,6 +1076,7 @@ function getProductsIds() {
     cartList.forEach(item => productIds.push(item.productId))
     return productIds
 }
+
 async function embedSummaryproductCards() {
     if (!cartList) {
         cartList = await getCart()
@@ -1101,7 +1090,7 @@ async function embedSummaryproductCards() {
     productSnapshot = await getDocs(q)
 
     const checkoutSummaryProducts = document.querySelector('.checkout-summary-products')
-    console.log(productSnapshot);
+    // console.log(productSnapshot);
 
     productSnapshot.forEach(doc => {
         console.log("if")
@@ -1154,6 +1143,7 @@ function generateOrderId() {
 
 async function payment(e) {
     const addressCard = document.querySelector('.selected-address')
+    console.log(addressCard)
     console.log("2")
     if (!addressCard) {
         displayMessage('Please give a address. !', 'danger')
@@ -1161,6 +1151,7 @@ async function payment(e) {
     }
 
     const addressId = addressCard.getAttribute('data-id')
+    console.log(addressId)
     options.amount = bill.total * 100
     //get the usre details
     const userSnapshot = await getDoc(doc(firestore, 'users', auth.currentUser.uid))
