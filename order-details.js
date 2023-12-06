@@ -20,6 +20,8 @@ import { getOrderDetails } from "./assets/repository/orders/orders.js";
 //repo product
 import { getProductDetails} from "./assets/repository/products/products.js";
 
+import { getAddress } from "./assets/repository/address/address.js";
+
 //Global variables
 let loggedIn = false
 let userData = null
@@ -75,6 +77,7 @@ async function orderDetialsFunctions(){
     embedOrderDateAndTime()
     embedMop()
     await embedOrderedProducts()
+    embedAddress()
 }
 
 onAuthStateChanged(auth, async (user) => {
@@ -387,3 +390,30 @@ async function embedOrderedProducts(){
     await Promise.all(allPromises)
 }
 
+async function embedAddress(){
+    console.log(orderDetails.addressRef.id)
+    const addressData = await getAddress(orderDetails.addressRef)
+    // const addressData = 
+    // embedBillingAddress()
+    // embedShippingAddress()
+}
+function embedBillingAddress(addressData){
+    const billingPhone = document.querySelector('.billing-phone')
+    const billingPincode = document.querySelector('.billing-pincode')
+    const billingState = document.querySelector('.billing-state')
+    const billingCity = document.querySelector('.billing-city')
+    const billingRoadAreaColony = document.querySelector('.billing-road-area-colony')
+    const billingHouseBuilding = document.querySelector('.billing-house-building')
+    const billingFullname = document.querySelector('. billing-fullname')
+   
+}
+function embedShippingAddress(addressData){
+    const billingPhone = document.querySelector('.billing-phone')
+    const billingPincode = document.querySelector('.billing-pincode')
+    const billingState = document.querySelector('.billing-state')
+    const billingCity = document.querySelector('.billing-city')
+    const billingRoadAreaColony = document.querySelector('.billing-road-area-colony')
+    const billingHouseBuilding = document.querySelector('.billing-house-building')
+    const billingFullname = document.querySelector('. billing-fullname')
+   
+}

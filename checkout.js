@@ -1189,6 +1189,7 @@ async function payment(e) {
                 if (res1 >= 0){
                     console.log(cartList[res1], productSnapshot.docs[res].data().price)
                     cartList[res1].price = productSnapshot.docs[res].data().price
+                    cartList[res1].name = productSnapshot.docs[res].data().name
                 }
             }
         })
