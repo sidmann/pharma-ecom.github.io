@@ -297,7 +297,7 @@ async function fetchAndDisplayProducts(customQuery = false, productSnapshot = nu
                                                         </span>
                                                         <img class="main-image" src="${productData.imageUrl}"
                                                             alt="Product" >
-                                                        <img class="hover-image" src="assets/img/product-images/interior_paint2.jpg"
+                                                        <img class="hover-image" src="${productData.imageUrl}"
                                                             alt="Product">
                                                     </a>
                                                     <span class="flags">
@@ -729,7 +729,8 @@ async function fetchNavCategories() {
         role="tablist" aria-orientation="vertical">
             <button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill"
                 data-bs-target="#v-pills-home" type="button" role="tab"
-                aria-controls="v-pills-home" aria-selected="true">${doc.data().name}
+                aria-controls="v-pills-home" aria-selected="true">
+                <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
             </button>
         </div>
         `

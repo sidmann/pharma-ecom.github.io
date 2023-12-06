@@ -113,12 +113,12 @@ ol {
     /* transition: all 1s; */
 }
 
-.show {
+.show-loader {
     /* animation-delay: 1s; */
-    animation: show 0.5s linear forwards;
+    /* animation: show 0.5s linear forwards; */
 }
 
-.hide {
+.hide-loader {
     /* animation-delay: 1s; */
     animation: hide 0.5s linear forwards;
 }
