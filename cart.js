@@ -82,7 +82,7 @@ async function getUserSnapshot(uid) {
 }
 
 /**
- * Necessary fucntions to call after pageload
+ * Necessary functions to call after pageload
  */
 async function postPageLoadFunctions() {
     await updateCart();
@@ -152,9 +152,8 @@ async function getCart() {
  */
 function updateCart() {
     return new Promise(async (resolve) => {
-        console.log("from update cart")
-        const shownCart = document.querySelector('#shown-cart')
-
+        // console.log("from update cart")
+        // const shownCart = document.querySelector('#shown-cart')
         let cart = await getCart()
         console.log(cart.length)
 
@@ -341,12 +340,10 @@ async function fetchAndDisplayProducts() {
     console.log(cartList)
     const productsRef = collection(firestore, 'products');
     const q = query(productsRef, where('productId', 'in', cartItems))
-
     console.log(cartItems)
 
     const unsubscribe = getDocs(q)
         .then(async (cartSnapshot) => {
-            // Loop through each product document
             console.log(cartSnapshot.size)
             if (cartItems.length > cartSnapshot.size) {
                 // await filterCart(cartItems)
@@ -354,13 +351,9 @@ async function fetchAndDisplayProducts() {
                 fetchAndDisplayProducts()
                 return
             }
-
             productDocs = cartSnapshot.docs
-
             cartSnapshot.forEach(async (doc) => {
                 const productsContainer = document.querySelector('.cart-products');
-                console.log(productsContainer)
-
                 const productData = doc.data();
                 console.log(productData);
                 const productUrl = productData.imageUrl;
@@ -406,6 +399,7 @@ async function fetchAndDisplayProducts() {
 
                 //add remove function to delete icon
                 tableRow.querySelector('.remove-product').addEventListener('click', removeProduct.bind(this, productData.productId))
+                // bind() will always getting the copy the function on which funcction is calling 
                 tableRow.querySelector('.inc').addEventListener('click', increaseQuantity.bind(this, productData))
                 tableRow.querySelector('.dec').addEventListener('click', decreaseQuantity.bind(this, productData))
 
@@ -981,7 +975,6 @@ async function increaseQuantity(productData, event) {
     }
 
     if (userInput.value < productMaxStock) {
-
         if (loggedIn) {
             const cartDocs = await getDocs(
                 query(

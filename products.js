@@ -369,7 +369,6 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
 
         productsDocs.forEach((doc) => {
             const productData = doc.data();
-            // console.log(productData) 
             //check if the product is present in cart
             const resultIndex = productIds.findIndex(id => id === productData.productId)
             if (resultIndex >= 0) cartStatus = true
@@ -2008,7 +2007,7 @@ function productQuickView(productData) {
     modalProductName.textContent = productData.name
     modalProductPrice.textContent = parseFloat(productData.price)
     modalProductOldPrice.textContent = parseFloat(productData.price + 20)
-    modalProductDesc.textContent=productData.featuredProductDescription;
+    modalProductDesc.textContent=productData.ProductDescription;
 
     modal.querySelector('.add-to-cart').addEventListener('click', redirectToProductDetails.bind(this, productData.productId))
 
@@ -2052,7 +2051,6 @@ function getSortOder(e) {
  * @author dev
  */
 function redirectToProductDetails(productId) {
-    // console.log(productId)
     window.location.href = `product-detail.html?data=${productId}`
 }
 
