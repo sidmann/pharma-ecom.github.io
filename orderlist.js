@@ -89,7 +89,6 @@ function onLoggedIn() {
     });
 }
 
-
 function updateProfileName(role, fullName) {
     // Based on the role, select the appropriate element
     let profileNameElement;
@@ -110,7 +109,6 @@ function updateProfileName(role, fullName) {
     profileNameElement.textContent = fullName;
 }
 
-
 function roleAccess(role) {
     // console.log('inside role')
     const roleMap = new Map([
@@ -123,8 +121,6 @@ function roleAccess(role) {
         appbar.classList.remove("d-none");
     })
 }
-
-
 
 function updateCart() {
     return new Promise(async (resolve) => {
@@ -144,8 +140,6 @@ function updateCart() {
         resolve()
     })
 }
-
-
 
 async function fetchNavCategories() {
     const categoryList = document.querySelector('.nav-category')
@@ -196,8 +190,6 @@ async function fetchNavCategories() {
     })
 }
 
-
-
 async function getCart() {
     return new Promise(async (resolve) => {
         if (loggedIn) {
@@ -233,8 +225,6 @@ async function getCart() {
     })
 }
 
-
-
 function updateProfilePicture(role, profilePicture) {
     let profilePictureElement;
     const defaultProfilePicture = 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp';
@@ -262,8 +252,6 @@ function updateProfilePicture(role, profilePicture) {
         profilePictureElement.src = defaultProfilePicture;
     }
 }
-
-
 
 //to execute upon logging out
 function onLoggedOut() {
@@ -301,7 +289,6 @@ async function fetchOrdersForUser() {
         return [];
     }
 }
-
 
 async function displayOrdersInTable(orders) {
     const tableBody = document.querySelector('.wish-empt');

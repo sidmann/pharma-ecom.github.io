@@ -119,7 +119,7 @@
                                 </a> -->
                                 <!-- Header Wishlist End -->
                                 <!-- Header Cart Start -->
-                                <a href="javascript:void(0)" class="gi-header-btn gi-cart-toggle">
+                                <a href="cart.html" class="gi-header-btn gi-cart-toggle">
                                     <div class="header-icon">
                                         <i class="fi-rr-shopping-bag"></i>
                                         <span class="main-label-note-new"></span>
@@ -278,7 +278,7 @@
                                 </a> -->
                                 <!-- Header wishlist End -->
                                 <!-- Header Cart Start -->
-                                <a href="javascript:void(0)" class="gi-header-btn gi-cart-toggle" title="Cart">
+                                <a href="cart.html" class="gi-header-btn gi-cart-toggle" title="Cart">
                                     <div class="header-icon">
                                         <i class="fi-rr-shopping-bag"></i>
                                         <span class="main-label-note-new"></span>
@@ -693,6 +693,10 @@
     </div>
     <!-- Breadcrumb end -->
 
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <!-- Toast notifications will appear here -->
+    </div>
+
     <!-- Wishlist section -->
     <section class="order-details-loader d-flex align-items-center" style="height: 500px;">
         <div class="container h-75 d-flex justify-content-center align-items-center">
@@ -808,23 +812,31 @@
                         </div>
                     </div>
                 </div>
-
             </div>
     </section>
     <!-- Wishlist section End -->
 
+    <!-- Toast Body -->
+    <div class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true" id="toast-bg">
+        <div class="notify d-flex justify-content-between">
+            <span class="compare-note d-inline"></span>
+            <button type="button" class="btn-close d-inline" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+
     <!-- Footer Start -->
-    <footer class="gi-footer m-t-40">
+    <footer class="gi-footer m-t-30">
         <div class="footer-container">
             <div class="footer-top padding-tb-80">
                 <div class="container">
                     <div class="row m-minus-991">
-                        <div class="col-sm-12 col-lg-3 gi-footer-cat wow fadeInUp">
+                        <div class="col-sm-12 col-lg-4 gi-footer-cat wow fadeInUp">
                             <div class="gi-footer-widget gi-footer-company">
-                                <img src="assets/img/logo/logo.ico" class="gi-footer-logo" alt="footer logo">
+                                <img src="assets/images/logo.ico" class="gi-footer-logo" alt="footer logo">
                                 <p class="gi-footer-detail">Indiherbs Medicorp is a young company incorporated to
                                     promote the ancient
-                                    science of Ayurveda, which was envised by our sages and healers many years ago.</p>
+                                    science of Ayurveda, which was envised by our sages and healers many years ago.
+                                </p>
                                 <div class="gi-app-store">
                                     <a href="#" class="app-img"><img src="assets/img/app/android.png" class="android"
                                             alt="apple"></a>
@@ -838,24 +850,23 @@
                                 <h4 class="gi-footer-heading">Category</h4>
                                 <div class="gi-footer-links gi-footer-dropdown">
                                     <ul class="align-itegi-center">
-                                        <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Interior
-                                                Paints</a></li>
-                                        <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Extrerior
-                                                Paints</a></li>
-                                        <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Flooring
-                                                Paints</a>
+                                        <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Herbal
+                                                Supplements
+                                            </a></li>
+                                        <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Capsules</a>
                                         </li>
-                                        <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Flooring
-                                                Paints</a></li>
-                                        <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Wood
-                                                Protection</a></li>
-                                        <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Thinner</a>
+                                        <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html"> Syrups</a>
                                         </li>
+                                        <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Tablets</a>
+                                        </li>
+                                        <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Creams</a>
+                                        </li>
+                                        <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Oils</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div> -->
-                        <div class="col-sm-12 col-lg-2 gi-footer-account wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="col-sm-11 col-lg-2 gi-footer-account wow fadeInUp" data-wow-delay="0.2s">
                             <div class="gi-footer-widget">
                                 <h4 class="gi-footer-heading">Company</h4>
                                 <div class="gi-footer-links gi-footer-dropdown">
@@ -873,7 +884,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-lg-2 gi-footer-service wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="col-sm-11 col-lg-2 gi-footer-service wow fadeInUp" data-wow-delay="0.3s">
                             <div class="gi-footer-widget">
                                 <h4 class="gi-footer-heading">Account</h4>
                                 <div class="gi-footer-links gi-footer-dropdown">
@@ -888,7 +899,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-lg-3 gi-footer-cont-social wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="col-sm-12 col-lg-4 gi-footer-info wow fadeInUp" data-wow-delay="0.4s">
                             <div class="gi-footer-contact">
                                 <div class="gi-footer-widget">
                                     <h4 class="gi-footer-heading">Contact</h4>
@@ -926,13 +937,13 @@
                                     <div class="gi-footer-links gi-footer-dropdown">
                                         <ul class="align-itegi-center">
                                             <li class="gi-footer-link"><a href="#"><i class="gicon gi-facebook"
-                                                        aria-hidden="true"></i></a></li>
+                                                        aria-hidden="true"></i></a> </li>
                                             <li class="gi-footer-link"><a href="#"><i class="gicon gi-twitter"
-                                                        aria-hidden="true"></i></a></li>
+                                                        aria-hidden="true"></i></a> </li>
                                             <li class="gi-footer-link"><a href="#"><i class="gicon gi-linkedin"
-                                                        aria-hidden="true"></i></a></li>
+                                                        aria-hidden="true"></i></a> </li>
                                             <li class="gi-footer-link"><a href="#"><i class="gicon gi-instagram"
-                                                        aria-hidden="true"></i></a></li>
+                                                        aria-hidden="true"></i></a> </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -953,8 +964,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Footer Copyright End -->
-                            <!-- Footer payment -->
                             <div class="footer-bottom-right">
                                 <div class="footer-bottom-payment d-flex justify-content-center">
                                     <div class="payment-link">
@@ -963,7 +972,6 @@
 
                                 </div>
                             </div>
-                            <!-- Footer payment -->
                         </div>
                     </div>
                 </div>
@@ -972,6 +980,31 @@
     </footer>
     <!-- Footer Area End -->
 
+    <!-- Logout Confirmation Modal -->
+    <div class="modal fade" id="logoutConfirmationModal" tabindex="-1" aria-labelledby="logoutConfirmationModalLabel"
+        data-bs-backdrop="static" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered w-50">
+            <div class="modal-content" style="margin: auto; width: 100%">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutConfirmationModalLabel">
+                        Confirm Logout
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Are you sure you want to logout?</div>
+                <div class="modal-footer">
+                    <!-- Cancel button to close the modal -->
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <!-- Logout button to trigger the logout -->
+                    <button type="button" class="btn btn-primary" id="confirmLogoutBtn">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Back to top  -->
     <a class="gi-back-to-top"></a>
