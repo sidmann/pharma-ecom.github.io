@@ -32,20 +32,20 @@ const firebaseConfig = {
     storageBucket: "pharma-ecom-app.appspot.com",
     messagingSenderId: "798776981223",
     appId: "1:798776981223:web:16f92da76fe7c2f1cf9442"
-  };
+};
 
-  const app = initializeApp(firebaseConfig);
-  const firestore = getFirestore(app);
-  const auth = getAuth(app);
-  const storage = getStorage(app);
-  var userData = null;
-  var loggedIn = null;
+const app = initializeApp(firebaseConfig);
+const firestore = getFirestore(app);
+const auth = getAuth(app);
+const storage = getStorage(app);
+var userData = null;
+var loggedIn = null;
 
 
-  onAuthStateChanged(auth, async (user) => {
+onAuthStateChanged(auth, async (user) => {
     if (user) {
         console.log("if")
-        document.querySelector('#logout-btn').style.display='block';
+        document.querySelector('#logout-btn').style.display = 'block';
         loggedIn = true
         onLoggedIn();
         // User is authenticated
@@ -59,10 +59,10 @@ const firebaseConfig = {
                 userData = docSnapshot.data();
                 console.log(userData.role);
                 roleAccess(userData.role);
-                updateProfileName(userData.role,userData.firstName)
+                updateProfileName(userData.role, userData.firstName)
                 updateCart();
                 fetchNavCategories();
-                updateProfilePicture(userData.role,userData.profilePicture)
+                updateProfilePicture(userData.role, userData.profilePicture)
 
                 // updateCart();
             }
@@ -73,7 +73,7 @@ const firebaseConfig = {
         fetchNavCategories();
         // User is not authenticated, redirect to login page
         // window.location.href = "login.html";
-        document.querySelector('#logout-btn').style.display='none';
+        document.querySelector('#logout-btn').style.display = 'none';
     }
 });
 
@@ -278,8 +278,8 @@ function onLoggedOut() {
     });
 }
 
-  async function fetchOrdersForUser() {
-    console.log(loggedIn)   
+async function fetchOrdersForUser() {
+    console.log(loggedIn)
     const userRef = doc(firestore, "users", auth.currentUser.uid);
     const ordersRef = collection(userRef, "orders");
 
@@ -317,10 +317,10 @@ async function displayOrdersInTable(orders) {
            <td><span class="avl">${order.status}</span></td>
             <td>
                 <span class="tbl-btn">
-                    <a class="gi-btn-2 add-to-cart m-r-5px" href="${order.trackUrl}" title="Track Order">
+                    <a class="gi-btn-2 add-to-cart m-r-5px" href="track-order.html" title="Track Order">
                         <i class="fi-rr-truck-moving"></i>
                     </a>
-                    <a class="gi-btn-1 gi-remove-wish" href="order-detail?orderId=${order.orderId}" title="Order Details">
+                    <a class="gi-btn-1 gi-remove-wish" href="order-details.html?orderId=${order.orderId}" title="Order Details">
                         <i class="fi-rr-list"></i>
                     </a>
                 </span>
