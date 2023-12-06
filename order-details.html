@@ -752,36 +752,32 @@
                           <td colspan="2">Discount (Code: NEWYEAR)</td>
                           <td class="text-danger text-end">-$10.00</td>
                         </tr> -->
-                                    <tr class="fw-bold">
-                                        <td colspan="2">TOTAL</td>
-                                        <td class="text-end"><span>&#8377</span><span class="order-total"></span></td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- Payment -->
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <h3 class="h6 order-details-label">Payment Method</h3>
-                                    <p><span class="order-mop"></span> &nbsp;&nbsp;&nbsp; Payment Id : <span
-                                            class="order-payment-id"></span><br>
-                                        Total: &#8377;<span class="order-total"></span> <span
-                                            class="badge bg-success rounded-pill">PAID</span></p>
-                                </div>
-                                <div class="col-lg-6">
-                                    <h3 class="h6 order-details-label">Billing address</h3>
-                                    <address>
-                                        <strong>John Doe</strong><br>
-                                        1355 Market St, Suite 900<br>
-                                        San Francisco, CA 94103<br>
-                                        <abbr title="Phone">P:</abbr> (123) 456-7890
-                                    </address>
-                                </div>
-                            </div>
-                        </div>
+                        <tr class="fw-bold">
+                          <td colspan="2">TOTAL</td>
+                          <td class="text-end"><span>&#8377</span><span class="order-total"></span></td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+                <!-- Payment -->
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <h3 class="h6 order-details-label">Payment Method</h3>
+                        <p><span class="order-mop"></span> &nbsp;&nbsp;&nbsp; Payment Id : <span class="order-payment-id"></span><br>
+                        Total: &#8377;<span class="order-total"></span> <span class="badge bg-success rounded-pill">PAID</span></p>
+                      </div>
+                      <div class="col-lg-6">
+                        <h3 class="h6 order-details-label">Billing address</h3>
+                        <address class="billing-address">
+                          <strong><span class="billing-fullname"></span></strong><br>
+                          <span class="billing-house-building"></span> <span class="billing-road-area-colony"></span><br>
+                          <span class="billing-city"></span> <span class="billing-state"></span> <span class="billing-pincode"></span><br>
+                          <abbr title="Phone">Phone:</abbr> <span class="billing-phone"></span>
+                        </address>
+                      </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -811,6 +807,23 @@
                         </div>
                     </div>
                 </div>
+                <div class="card mb-4">
+                  <!-- Shipping information -->
+                  <div class="card-body">
+                    <h3 class="h6 order-details-label">Shipping Information</h3>
+                    <strong>FedEx</strong>
+                    <span><a href="#" class="text-decoration-underline" target="_blank">FF1234567890</a> <i class="bi bi-box-arrow-up-right"></i> </span>
+                    <hr>
+                    <h3 class="h6 order-details-label">Address</h3>
+                    <address class="shipping-address">
+                        <strong><span class="shipping-fullname"></span></strong><br>
+                        <span class="shipping-house-building"></span> <span class="shipping-road-area-colony"></span><br>
+                        <span class="shipping-city"></span> <span class="state"></span> <span class="shipping-pincode"></span><br>
+                        <abbr title="Phone">Phone:</abbr> <span class="shipping-phone"></span>
+                      </address>
+                  </div>
+                </div>
+              </div>
             </div>
         </div>
     </section>
