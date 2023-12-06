@@ -1041,7 +1041,7 @@ function selectAddress(addressDoc, e) {
     }
     const selectedAddress = document.createElement('div')
     selectedAddress.classList.add('selected-address')
-    selectedAddress.setAttribute('data-id', doc.id)
+    selectedAddress.setAttribute('data-id', addressDoc.id)
     selectedAddress.innerHTML = `
                     <div class="text-manrope bg-white card addresses-item mb-4 shadow-sm second dev-transition">
                         <div class="gold-members p-4">
@@ -1179,6 +1179,19 @@ async function payment(e) {
 
     //create suceess callback function
     options.handler = async function (response) {
+        cartList.forEach(item => {
+            console.log('from forEach')
+            const res = productSnapshot.docs.findIndex(product => product.data().productId === item.productId)
+            if (res >= 0) {
+                console.log('from forEach if ')
+                const res1 = cartList.findIndex(item1 => item1.productId === item.productId)
+                console.log('from forEach if if')
+                if (res1 >= 0){
+                    console.log(cartList[res1], productSnapshot.docs[res].data().price)
+                    cartList[res1].price = productSnapshot.docs[res].data().price
+                }
+            }
+        })
         console.log(1)
         await setDoc(doc(collection(firestore, 'users', auth.currentUser.uid, 'orders'), orderId), {
             orderId: orderId,
