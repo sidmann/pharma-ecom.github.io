@@ -21,6 +21,8 @@ import {
     reauthenticateWithCredential
 } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
 
+import { getCategoryCount } from "./assets/repository/products/products.js";
+
 const firebaseConfig = {
     apiKey: "AIzaSyBrIAlkIyp5ALsv5RslbXA1oQVQL3eKhig",
     authDomain: "pharma-ecom-app.firebaseapp.com",
@@ -59,7 +61,7 @@ confirmLogoutBtn.addEventListener("click", () => {
 });
 
 // Use onAuthStateChanged to control access to admin dashboard
-onAuthStateChanged(auth, async(user) => {
+onAuthStateChanged(auth, async (user) => {
     embedCategoriesCard()
     await fetchProductsForSlider();
     await newArrivalProducts();
@@ -216,18 +218,19 @@ async function embedCategoriesCard() {
     // console.log(categories)
     categoryBox.innerHTML = ''
     let count = 1
-    categories.forEach(category => {
+    let allPromises = categories.map(async (category) => {
         if (count == 6) count = 1
+        const categoryCount = await getCategoryCount(category.categoryId)
         const categoryCard = document.createElement('span')
         categoryCard.innerHTML = `
                             <div class="gi-cat-box gi-cat-box-${count}">
                                 <div class="gi-cat-icon">
-                                <i class="fa fa-user-md"></i><br>
+                                    <i class="fa fa-user-md"></i><br>
                                     <div class="gi-cat-detail category-id" data-id="${category.categoryId}">
-                                        <a href="products.html">
+                                        <a class="text-decoration-none text-black" href="products.html?categoryId=${category.categoryId}">
                                             <h4 class="gi-cat-title">${category.name}</h4>
                                         </a>
-                                        <!-- <p class="items">320 Items</p> -->
+                                        <p class="items">${categoryCount} Items</p> 
                                     </div>
                                 </div>
                             </div>
@@ -235,6 +238,8 @@ async function embedCategoriesCard() {
         categoryBox.appendChild(categoryCard)
         count++
     })
+
+    await Promise.all(allPromises)
 
     $('.gi-category-block').owlCarousel({
         margin: 24,
@@ -337,26 +342,26 @@ async function fetchProductsForSlider() {
         items: 3,
         responsiveClass: true,
         responsive: {
-          0: {
-            items: 1
-          },
-          421: {
-            items: 2
-          },
-          768: {
-            items: 3
-          },
-          992: {
-            items: 3
-          },
-          1200: {
-            items: 4
-          },
-          1367: {
-            items: 5
-          }
+            0: {
+                items: 1
+            },
+            421: {
+                items: 2
+            },
+            768: {
+                items: 3
+            },
+            992: {
+                items: 3
+            },
+            1200: {
+                items: 4
+            },
+            1367: {
+                items: 5
+            }
         }
-      });
+    });
 }
 
 
@@ -571,7 +576,8 @@ async function fetchNavCategories() {
         role="tablist" aria-orientation="vertical">
             <button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill"
                 data-bs-target="#v-pills-home" type="button" role="tab"
-                aria-controls="v-pills-home" aria-selected="true">${doc.data().name}
+                aria-controls="v-pills-home" aria-selected="true">
+                <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
             </button>
         </div>
         `

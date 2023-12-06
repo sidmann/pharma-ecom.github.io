@@ -25,6 +25,7 @@ import {
     orderBy
 } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore.js";
 import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-storage.js";
+import { getCategoryCount } from "./assets/repository/products/products.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBrIAlkIyp5ALsv5RslbXA1oQVQL3eKhig",
@@ -40,6 +41,7 @@ const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 const auth = getAuth(app);
 const productsRef = collection(firestore, 'products');
+var userData = null;
 var loggedIn = false;
 var cart = null
 var unsubscribeOnSnapshot = null
@@ -57,6 +59,7 @@ let sortOrderChange = true
 let priceFilterChange = true
 let nextPageFlag = false
 let prevPageFlag = false
+let doNotFetch = false
 
 const productFilterFieldMap = {
     category: 'categoryId',
@@ -180,6 +183,42 @@ function getUserSnapshot(uid) {
         resolve(getDoc(userRef))
     })
 }
+
+function checkUrlParam(field) {
+    const urlParam = new URLSearchParams(window.location.search)
+    return urlParam.get(field)
+}
+
+function redirectedCategory() {
+    console.log("redirect")
+    const categoryId = checkUrlParam('categoryId')
+    if (categoryId) {
+        console.log(categoryId)
+        const category = document.getElementById(`${ categoryId }`).querySelector('input')
+        console.log(category)
+        const applyBtn = document.querySelector('#filter-search')
+        category.checked = true
+        doNotFetch = false
+        category.dispatchEvent(new Event('change'))
+        applyBtn.dispatchEvent(new Event('click'))
+    }
+    else {
+        doNotFetch = false
+    }
+}
+
+/**
+ * Necessary fucntions to call after pageload
+ */
+async function postPageLoadFunctions() {
+    await updateCart();
+    await fetchNavCategories();
+    await fetchCategories();
+    await embedCategoriesCard()
+    await embedSizesFilter()
+    redirectedCategory()
+    filterEventListeners()
+}
 //************************************************************************
 
 // Use onAuthStateChanged to control access to admin dashboard
@@ -187,15 +226,13 @@ onAuthStateChanged(auth, async (user) => {
     const adminAppbar = document.getElementById("adminAppbar");
     const userAppbar = document.getElementById("userAppbar");
     // const agentAppbar = document.getElementById("agentAppbar");
-    embedCategoriesCard()
-    embedSizesFilter()
     if (user) {
         console.log("if")
         document.querySelector('#logout-btn').style.display = 'block';
         const docRef = doc(firestore, "users", user.uid);
         onLoggedIn();
         const docSnap = getDoc(docRef);
-        var userData = null;
+        
         docSnap.then(async (docSnapshot) => {
             // console.log(docSnapshot)
             if (docSnapshot.exists()) {
@@ -204,28 +241,15 @@ onAuthStateChanged(auth, async (user) => {
                 userData = docSnapshot.data();
                 roleAccess(userData.role);
                 updateProfileName(userData.role, userData.firstName);
-                updateProfilePicture(userData.role, userData.profilePicture)
-                // onLoggedIn();
-                await updateCart();
-                // await fetchManufacturers();
-                await fetchCategories();
-                fetchNavCategories();
-                // fetchAndDisplayProducts();
+                updateProfilePicture(userData.role, userData.profilePicture);
             }
         });
     } else {
         document.querySelector('#logout-btn').style.display = 'none';
         // User is not logged in
-        loggedIn = false
-        // onLoggedOut();
-        await updateCart()
-        // await fetchManufacturers();
-        await fetchCategories()
-        fetchNavCategories()
-        // fetchAndDisplayProducts();
-        // stopLoader();
+        loggedIn = false;
     }
-    filterEventListeners()
+    await postPageLoadFunctions()
 });
 
 //*****************************loading and role access************************************
@@ -366,7 +390,7 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
                                                         </span>
                                                         <img class="product-image" src="${productData.imageUrl}"
                                                             alt="Product">
-                                                        <img class="hover-image product-image" src="assets/img/product-images/interior_paint2.jpg"
+                                                        <img class="hover-image product-image" src="${productData.imageUrl}"
                                                             alt="Product">
                                                     </a>
                                                     <div class="gi-pro-actions">
@@ -728,7 +752,8 @@ async function fetchNavCategories() {
         role="tablist" aria-orientation="vertical">
             <button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill"
                 data-bs-target="#v-pills-home" type="button" role="tab"
-                aria-controls="v-pills-home" aria-selected="true">${doc.data().name}
+                aria-controls="v-pills-home" aria-selected="true">
+                <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
             </button>
         </div>
         `
@@ -816,18 +841,19 @@ async function embedCategoriesCard() {
     // console.log(categories)
     categoryBox.innerHTML = ''
     let count = 1
-    categories.forEach(category => {
+    let allPromises = categories.map(async (category) => {
         if (count == 6) count = 1
+        const categoryCount = await getCategoryCount(category.categoryId)
         const categoryCard = document.createElement('span')
         categoryCard.innerHTML = `
                             <div class="gi-cat-box gi-cat-box-${count}">
                                 <div class="gi-cat-icon">
-                                <i class="fa fa-user-md"></i><br>
+                                    <i class="fa fa-user-md"></i><br>
                                     <div class="gi-cat-detail category-id" data-id="${category.categoryId}">
-                                        <a href="products.html">
+                                        <a class="text-decoration-none text-black" href="products.html?categoryId=${category.categoryId}">
                                             <h4 class="gi-cat-title">${category.name}</h4>
                                         </a>
-                                        <!-- <p class="items">320 Items</p> -->
+                                        <p class="items">${categoryCount} Items</p> 
                                     </div>
                                 </div>
                             </div>
@@ -835,6 +861,8 @@ async function embedCategoriesCard() {
         categoryBox.appendChild(categoryCard)
         count++
     })
+
+    await Promise.all(allPromises)
 
     $('.gi-category-block').owlCarousel({
         margin: 24,
@@ -961,6 +989,7 @@ function clearAllFilters() {
         document.getElementById(span.getAttribute('value')).querySelector('input').checked = false
         span.remove()
     })
+    resetPageNotebook()
     fetch()
 }
 
@@ -1175,7 +1204,7 @@ async function fetch() {
                     )
                 }
                 else {
-                    q = query(collection(firestore, 'products'),
+                    q = query(collection(firestore, 'products'), 
                         where(productFilterFieldMap.size, 'in', sizes),
                         orderBy(productSortFieldMap.price),
                         limit(productsPerPage)
@@ -1945,7 +1974,7 @@ async function fetch() {
                 pageNotebook.push(querySnapshot.docs)
             }
             else {
-                pageNotebook = []
+                resetPageNotebook()
                 pageNotebook.push(querySnapshot.docs)
             }
             await fetchAndDisplayProducts(true, querySnapshot.docs)
@@ -2058,4 +2087,9 @@ function prevPage() {
         currentPage++
         displayMessage('This is the first page. !', 'danger')
     }
+}
+
+function resetPageNotebook() {
+    pageNotebook = []
+    currentPage = 0
 }
