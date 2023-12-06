@@ -79,7 +79,7 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         loggedIn = true;
         onLoggedIn();
-        document.querySelector('#logout-btn').style.display='block';
+        document.querySelector('#logout-btn').style.display = 'block';
         // User is authenticated
         // console.log("onAuthStateChanged")
         const docRef = doc(firestore, "users", user.uid);
@@ -89,8 +89,8 @@ onAuthStateChanged(auth, (user) => {
                 userData = docSnapshot.data();
                 roleAccess(userData.role);
                 fetchAndDisplayProducts();
-                updateProfileName(userData.role,userData.firstName)
-                updateProfilePicture(userData.role,userData.profilePicture)
+                updateProfileName(userData.role, userData.firstName)
+                updateProfilePicture(userData.role, userData.profilePicture)
                 updateCart();
                 fetchNavCategories();
             }
@@ -431,16 +431,16 @@ function updateColorDisplay() {
 
 //----------------------------- Update Product--------------------------------
 var newProductArrivalStatusYes = document.querySelector('#new-product-arrival-yes');
-var newProductArrivalStatusNo= document.querySelector('#new-product-arrival-no');
+var newProductArrivalStatusNo = document.querySelector('#new-product-arrival-no');
 var newProductArrivalStatus = false;
-newProductArrivalStatusYes.addEventListener('change', function() {
+newProductArrivalStatusYes.addEventListener('change', function () {
     if (this.checked) {
         newProductArrivalStatus = true;
         newProductArrivalStatusNo.checked = false;
     }
 });
 
-newProductArrivalStatusNo.addEventListener('change', function() {
+newProductArrivalStatusNo.addEventListener('change', function () {
     if (this.checked) {
         newProductArrivalStatus = false;
         newProductArrivalStatusYes.checked = false;
@@ -462,15 +462,15 @@ async function openUpdateModal(productId) {
     const productImagePreview = document.querySelector('#productImagePreview');
     const previousProductImagePreview = document.querySelector('#previousProductImagePreview');
     let productDescriptionTextarea = document.querySelector('#product-description');
-    let productDetailsTextarea=document.querySelector('#product-details');
-    let productSpecificationsTextarea=document.querySelector('#product-specifications')
+    let productDetailsTextarea = document.querySelector('#product-details');
+    let productSpecificationsTextarea = document.querySelector('#product-specifications')
 
 
     // const updateProductModal = document.getElementById('updateProductModal');
     const updateForm = document.getElementById('#updateProductForm');
     if (newProductArrivalStatusYes.checked) {
         newProductArrivalStatus = true;
-        newProductArrivalStatusNo.checked=false;
+        newProductArrivalStatusNo.checked = false;
     }
     else if (newProductArrivalStatusNo.checked) {
         newProductArrivalStatus = false;
@@ -504,9 +504,9 @@ async function openUpdateModal(productId) {
 
                 // Display the existing product image
                 productImagePreview.src = productData.imageUrl;
-                productDescriptionTextarea.value=productData.ProductDescription;
-                productDetailsTextarea.value=productData.productDetails;
-                productSpecificationsTextarea.value=productData.productSpecifications;
+                productDescriptionTextarea.value = productData.ProductDescription;
+                productDetailsTextarea.value = productData.productDetails;
+                productSpecificationsTextarea.value = productData.productSpecifications;
 
                 //Display the Admin choose image here
                 productImageInput.addEventListener('change', () => {
@@ -557,23 +557,23 @@ async function openUpdateModal(productId) {
                                         let newProductData = ''
                                         if (newProductArrivalStatus === true || newProductArrivalStatus === false) {
 
-                                                newProductData = {
-                                                    // productId: productIdInput.value,
-                                                    // manufacturerName: manufacturerInput.textContent,
-                                                    categoryName: categoryOption.getAttribute('data-name'),
-                                                    // manufacturerId: manufacturerInput.value,
-                                                    categoryId: categoryOption.value,
-                                                    name: productNameInput.value,
-                                                    // color: productColors,
-                                                    size: productSizeInput.value,
-                                                    price: parseFloat(productPriceInput.value),
-                                                    quantity: productQuantityInput.value,
-                                                    imageUrl: downloadURL,
-                                                    ProductDescription: productDescriptionTextarea.value,
-                                                    productDetails:productDetailsTextarea.value,
-                                                    productSpecifications:productSpecificationsTextarea.value,
-                                                    newProductArrivalStatus:newProductArrivalStatus
-                                                };
+                                            newProductData = {
+                                                // productId: productIdInput.value,
+                                                // manufacturerName: manufacturerInput.textContent,
+                                                categoryName: categoryOption.getAttribute('data-name'),
+                                                // manufacturerId: manufacturerInput.value,
+                                                categoryId: categoryOption.value,
+                                                name: productNameInput.value,
+                                                // color: productColors,
+                                                size: productSizeInput.value,
+                                                price: parseFloat(productPriceInput.value),
+                                                quantity: productQuantityInput.value,
+                                                imageUrl: downloadURL,
+                                                ProductDescription: productDescriptionTextarea.value,
+                                                productDetails: productDetailsTextarea.value,
+                                                productSpecifications: productSpecificationsTextarea.value,
+                                                newProductArrivalStatus: newProductArrivalStatus
+                                            };
                                         }
                                         console.log(newProductData);
                                         updateDoc(productDoc.ref, newProductData)
@@ -596,25 +596,25 @@ async function openUpdateModal(productId) {
                         console.log("else")
                         console.log(newProductArrivalStatus)
                         let newProductData = ''
-                            if (newProductArrivalStatus === true || newProductArrivalStatus === false) {
-                                newProductData = {
-                                    // productId: productIdInput.value,
-                                    // manufacturerName: manufacturerInput.textContent,
-                                    categoryName: categoryOption.getAttribute('data-name'),
-                                    // manufacturerId: manufacturerInput.value,
-                                    categoryId: categoryOption.value,
-                                    name: productNameInput.value,
-                                    // color: productColors,
-                                    size: productSizeInput.value,
-                                    price: parseFloat(productPriceInput.value),
-                                    quantity: productQuantityInput.value,
-                                    // imageUrl: downloadURL,
-                                    ProductDescription: productDescriptionTextarea.value,
-                                    productDetails:productDetailsTextarea.value,
-                                    productSpecifications:productSpecificationsTextarea.value,
-                                    newProductArrivalStatus:newProductArrivalStatus
-                                };
-                            }
+                        if (newProductArrivalStatus === true || newProductArrivalStatus === false) {
+                            newProductData = {
+                                // productId: productIdInput.value,
+                                // manufacturerName: manufacturerInput.textContent,
+                                categoryName: categoryOption.getAttribute('data-name'),
+                                // manufacturerId: manufacturerInput.value,
+                                categoryId: categoryOption.value,
+                                name: productNameInput.value,
+                                // color: productColors,
+                                size: productSizeInput.value,
+                                price: parseFloat(productPriceInput.value),
+                                quantity: productQuantityInput.value,
+                                // imageUrl: downloadURL,
+                                ProductDescription: productDescriptionTextarea.value,
+                                productDetails: productDetailsTextarea.value,
+                                productSpecifications: productSpecificationsTextarea.value,
+                                newProductArrivalStatus: newProductArrivalStatus
+                            };
+                        }
                         console.log(newProductData);
                         updateDoc(productDoc.ref, newProductData).then((result) => {
                             console.log(result)
@@ -814,7 +814,8 @@ async function fetchNavCategories() {
         role="tablist" aria-orientation="vertical">
             <button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill"
                 data-bs-target="#v-pills-home" type="button" role="tab"
-                aria-controls="v-pills-home" aria-selected="true">${doc.data().name}
+                aria-controls="v-pills-home" aria-selected="true">
+                <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
             </button>
         </div>
         `

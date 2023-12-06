@@ -48,9 +48,9 @@ let options = {
     "key": "rzp_test_URpF9Gekqvl3jD", // Enter the Key ID generated from the Dashboard
     "amount": amount * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
     "currency": "INR",
-    "name": "Paint Pulse", //your business name
+    "name": "Indiherbs Medicorp", //your business name
     "description": "Test Transaction",
-    "image": "https://example.com/your_logo",
+    "image": "./assets/img/logo/logo.ico",
     //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     "handler": function (response) {
         console.log(response.razorpay_payment_id + "Payment successfull");
