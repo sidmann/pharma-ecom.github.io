@@ -1088,6 +1088,7 @@ async function embedSummaryproductCards() {
     let productsIds = getProductsIds()
     const q = query(collection(firestore, 'products'), where('productId', 'in', productsIds))
     productSnapshot = await getDocs(q)
+    // console.log(productSnapshot.docs)
 
     const checkoutSummaryProducts = document.querySelector('.checkout-summary-products')
     // console.log(productSnapshot);
