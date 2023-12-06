@@ -75,9 +75,10 @@ async function orderDetialsFunctions(){
     embedBill()
     embedOrderStatus()
     embedOrderDateAndTime()
-    embedMop()
+    await embedMop()
     await embedOrderedProducts()
-    embedAddress()
+    await embedAddress()
+    hideOrderDetailsLoader()
 }
 
 onAuthStateChanged(auth, async (user) => {
@@ -425,4 +426,15 @@ function embedShippingAddress(addressData){
                                         <strong title="Phone">Phone:</strong> <span class="shipping-phone">${addressData.mobileNumber}</span>
                                     </address>
     `
+}
+
+
+function hideOrderDetailsLoader(){
+    const orderDetailsLoader = document.querySelector('.order-details-loader')
+    const orderDetailsSection = document.querySelector('.order-details-section')
+
+    orderDetailsLoader.classList.add('d-none')
+    orderDetailsSection.classList.remove('d-none')
+    orderDetailsSection.classList.add('show-order-details')
+    
 }
