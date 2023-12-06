@@ -714,28 +714,30 @@
                                     <!-- <span class="me-3">Visa -1234</span> -->
                                     <span class="badge rounded-pill bg-info order-status"></span>
                                 </div>
-                                <div class="d-flex">
+                                <!-- <div class="d-flex">
                                     <button class="btn btn-link p-0 me-3 d-none d-lg-block btn-icon-text"><i
                                             class="bi bi-download"></i> <span class="text">Invoice</span></button>
-                                </div>
+                                </div> -->
                             </div>
                             <table class="table table-borderless">
                                 <tbody class="ordered-products">
                                     <!-- <tr>
-                          <td>
-                            <div class="d-flex mb-2">
-                              <div class="flex-shrink-0">
-                                <img src="./assets/img/product-images/paint_product2.jpg" alt="" width="35" class="img-fluid">
-                              </div>
-                              <div class="flex-lg-grow-1 ms-3">
-                                <h6 class="small mb-0"><a href="product-left-sidebar.html" class="text-reset">3 Mangoes Aluminium Paint</a></h6>
-                                <span class="small">Color: Black</span>
-                              </div>
-                            </div>
-                          </td>
-                          <td>1</td>
-                          <td class="text-end">$79.99</td>
-                        </tr> -->
+                                        <td>
+                                            <div class="d-flex mb-2">
+                                                <div class="flex-shrink-0">
+                                                    <img src="./assets/img/product-images/paint_product2.jpg" alt=""
+                                                        width="35" class="img-fluid">
+                                                </div>
+                                                <div class="flex-lg-grow-1 ms-3">
+                                                    <h6 class="small mb-0"><a href="product-left-sidebar.html"
+                                                            class="text-reset">3 Mangoes Aluminium Paint</a></h6>
+                                                    <span class="small">Color: Black</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>1</td>
+                                        <td class="text-end">$79.99</td>
+                                    </tr> -->
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -749,35 +751,32 @@
                                         </td>
                                     </tr>
                                     <!-- <tr>
-                          <td colspan="2">Discount (Code: NEWYEAR)</td>
-                          <td class="text-danger text-end">-$10.00</td>
-                        </tr> -->
-                        <tr class="fw-bold">
-                          <td colspan="2">TOTAL</td>
-                          <td class="text-end"><span>&#8377</span><span class="order-total"></span></td>
-                        </tr>
-                      </tfoot>
-                    </table>
-                  </div>
-                </div>
-                <!-- Payment -->
-                <div class="card mb-4">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <h3 class="h6 order-details-label">Payment Method</h3>
-                        <p><span class="order-mop"></span> &nbsp;&nbsp;&nbsp; Payment Id : <span class="order-payment-id"></span><br>
-                        Total: &#8377;<span class="order-total"></span> <span class="badge bg-success rounded-pill">PAID</span></p>
-                      </div>
-                      <div class="col-lg-6">
-                        <h3 class="h6 order-details-label">Billing address</h3>
-                        <address class="billing-address">
-                          <strong><span class="billing-fullname"></span></strong><br>
-                          <span class="billing-house-building"></span> <span class="billing-road-area-colony"></span><br>
-                          <span class="billing-city"></span> <span class="billing-state"></span> <span class="billing-pincode"></span><br>
-                          <abbr title="Phone">Phone:</abbr> <span class="billing-phone"></span>
-                        </address>
-                      </div>
+                                        <td colspan="2">Discount (Code: NEWYEAR)</td>
+                                        <td class="text-danger text-end">-$10.00</td>
+                                    </tr> -->
+                                    <tr class="fw-bold">
+                                        <td colspan="2">TOTAL</td>
+                                        <td class="text-end"><span>&#8377</span><span class="order-total"></span></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- Payment -->
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h3 class="h6 order-details-label">Payment Method</h3>
+                                    <p><span class="order-mop"></span> &nbsp;&nbsp;&nbsp; Payment Id : <span
+                                            class="order-payment-id"></span><br>
+                                        Total: &#8377;<span class="order-total"></span> <span
+                                            class="badge bg-success rounded-pill">PAID</span></p>
+                                </div>
+                                <div class="col-lg-6 billing-address">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -785,7 +784,8 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <h3 class="h6 order-details-label">Customer Notes</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam voluptatem recusandae nisi
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam voluptatem
+                                recusandae nisi
                                 distinctio nihil ratione deleniti. Corporis minima ea cum.</p>
                         </div>
                     </div>
@@ -797,35 +797,12 @@
                             <span><a href="#" class="text-decoration-underline" target="_blank">FF1234567890</a> <i
                                     class="bi bi-box-arrow-up-right"></i> </span>
                             <hr>
-                            <h3 class="h6 order-details-label">Address</h3>
-                            <address>
-                                <strong>John Doe</strong><br>
-                                1355 Market St, Suite 900<br>
-                                San Francisco, CA 94103<br>
-                                <abbr title="Phone">P:</abbr> (123) 456-7890
-                            </address>
+                            <div class="shipping-address"></div>
                         </div>
                     </div>
                 </div>
-                <div class="card mb-4">
-                  <!-- Shipping information -->
-                  <div class="card-body">
-                    <h3 class="h6 order-details-label">Shipping Information</h3>
-                    <strong>FedEx</strong>
-                    <span><a href="#" class="text-decoration-underline" target="_blank">FF1234567890</a> <i class="bi bi-box-arrow-up-right"></i> </span>
-                    <hr>
-                    <h3 class="h6 order-details-label">Address</h3>
-                    <address class="shipping-address">
-                        <strong><span class="shipping-fullname"></span></strong><br>
-                        <span class="shipping-house-building"></span> <span class="shipping-road-area-colony"></span><br>
-                        <span class="shipping-city"></span> <span class="state"></span> <span class="shipping-pincode"></span><br>
-                        <abbr title="Phone">Phone:</abbr> <span class="shipping-phone"></span>
-                      </address>
-                  </div>
-                </div>
-              </div>
+
             </div>
-        </div>
     </section>
     <!-- Wishlist section End -->
 
@@ -839,8 +816,8 @@
                             <div class="gi-footer-widget gi-footer-company">
                                 <img src="assets/img/logo/logo copy.png" class="gi-footer-logo" alt="footer logo">
                                 <p class="gi-footer-detail">Indiherbs Medicorp is a young company incorporated to
-                                promote the ancient
-                                science of Ayurveda, which was envised by our sages and healers many years ago.</p>
+                                    promote the ancient
+                                    science of Ayurveda, which was envised by our sages and healers many years ago.</p>
                                 <div class="gi-app-store">
                                     <a href="#" class="app-img"><img src="assets/img/app/android.png" class="android"
                                             alt="apple"></a>
@@ -965,7 +942,8 @@
                             <div class="footer-copy">
                                 <div class="footer-bottom-copy ">
                                     <div class="gi-copy">Copyright © <a class="site-name" href="index.html">Indiherbs
-                                    Medicorp</a> all rights reserved. Powered by Indiherbs Medicorp Pvt Ltd.</div>
+                                            Medicorp</a> all rights reserved. Powered by Indiherbs Medicorp Pvt Ltd.
+                                    </div>
                                 </div>
                             </div>
                             <!-- Footer Copyright End -->
