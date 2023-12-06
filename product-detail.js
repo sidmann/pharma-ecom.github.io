@@ -50,7 +50,6 @@ const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 const auth = getAuth(app);
 const storage = getStorage(app);
-// Function to check if the user is logged in
 function isUserLoggedIn() {
     return !!auth.currentUser;
 }
@@ -221,7 +220,7 @@ function onLoggedOut() {
  */
 async function getAndEmbedProductData(productId) {
     const productSnapshot = await getDocs(query(collection(firestore, 'products'), where('productId', '==', productId)))
-    console.log(productSnapshot.docs)
+    // console.log(productSnapshot.docs)
     const productData = productSnapshot.docs[0].data()
     console.log(productData);
     const productLoader = document.querySelector('.product-loader')
@@ -234,7 +233,7 @@ async function getAndEmbedProductData(productId) {
     const productCategory = document.querySelector('.product-category')
     const productSection = document.querySelector('.product-section')
     const productColorContainer = document.querySelector('#color-pro-container');
-    const selectedColorsContainer = document.querySelector('.selected-color')
+    // const selectedColorsContainer = document.querySelector('.selected-color')
     const productDesc = document.querySelector('.gi-single-desc')
     const productDetails =  document.querySelector('.gi-single-pro-tab-details')
     const productSpecifications = document.querySelector('.gi-single-pro-tab-spec');
@@ -248,7 +247,7 @@ async function getAndEmbedProductData(productId) {
     productName.textContent = productData.name
     productPrice.textContent = productData.price
     productDesc.textContent = productData.ProductDescription;
-    productSize.textContent = productData.size + ' ' + 'Ltr';
+    productSize.textContent = productData.size + ' ';
     productManufacturer.textContent = productData.manufacturerName;
     productIdNo.textContent = productData.productId;
     productCategory.textContent = productData.categoryName;
@@ -307,6 +306,7 @@ async function addToCart() {
                 // where('selected-color', '==', selectedColor)
             )
         )
+        console.log(cartSnapshot.docs[0]);
         if (cartSnapshot.empty) {
             await setDoc(doc(collection(firestore, 'users', auth.currentUser.uid, 'cart'), productId), {
                 productId: productId,
@@ -441,11 +441,8 @@ async function getCart() {
 function updateCart() {
     return new Promise(async (resolve) => {
         console.log("from update cart")
-        const shownCart = document.querySelector('#shown-cart')
 
         let cart = await getCart()
-        console.log(cart.length)
-
         if (cart.length) {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = cart.length)
         }
