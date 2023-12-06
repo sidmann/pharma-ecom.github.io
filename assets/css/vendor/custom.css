@@ -115,7 +115,7 @@ ol {
 
 .show-loader {
     /* animation-delay: 1s; */
-    /* animation: show 0.5s linear forwards; */
+    animation: show 0.5s linear forwards;
 }
 
 .hide-loader {
