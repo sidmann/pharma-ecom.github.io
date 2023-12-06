@@ -1,3 +1,10 @@
+/**
+ * @description
+ * 
+ * Respository for products
+ * @author dev
+ */
+
 import { 
     firestore, 
     auth, 

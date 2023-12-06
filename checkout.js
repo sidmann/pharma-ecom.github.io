@@ -34,7 +34,7 @@ const confirmLogoutBtn = document.getElementById("confirmLogoutBtn");
 const urlParam = new URLSearchParams(window.location.search)
 if (sessionStorage.getItem('bill')) {
     bill = JSON.parse(sessionStorage.getItem('bill'))
-    // sessionStorage.removeItem('bill')
+    sessionStorage.removeItem('bill')
     console.log(bill)
 }
 else {
@@ -1167,10 +1167,11 @@ async function payment(e) {
         minute: '2-digit',
         hour12: true, // Use 12-hour clock with AM/PM
     });
-   
+
 
     //create suceess callback function
     options.handler = async function (response) {
+        showOverlay()
         cartList.forEach(item => {
             console.log('from forEach')
             const res = productSnapshot.docs.findIndex(product => product.data().productId === item.productId)
@@ -1178,9 +1179,10 @@ async function payment(e) {
                 console.log('from forEach if ')
                 const res1 = cartList.findIndex(item1 => item1.productId === item.productId)
                 console.log('from forEach if if')
-                if (res1 >= 0){
+                if (res1 >= 0) {
                     console.log(cartList[res1], productSnapshot.docs[res].data().price)
                     cartList[res1].price = productSnapshot.docs[res].data().price
+                    cartList[res1].name = productSnapshot.docs[res].data().name
                 }
             }
         })
@@ -1208,6 +1210,7 @@ async function payment(e) {
         console.log(3)
         displayMessage('Payment Successfull. !', 'success')
         console.log(response)
+        hideOverlay()
         hideCheckout()
         setTimeout(() => {
             showCompleteOrderGif()
@@ -1243,5 +1246,32 @@ function showCompleteOrderGif() {
 
 }
 
+/**
+ * @author dev
+ */
+function showOverlay() {
+    const overlay = document.getElementById('overlay')
+    overlay.classList.remove('show-loader')
+    overlay.classList.remove('hide-loader')
+    overlay.classList.remove('d-none')
+    overlay.classList.add('show-loader')
+}
+
+/**
+ * @author dev
+ */
+function hideOverlay() {
+    console.log('hide overlay', 1)
+    const overlay = document.getElementById('overlay')
+    overlay.classList.remove('show-loader')
+    overlay.classList.remove('hide-loader')
+    console.log('hide overlay', 2)
+    overlay.classList.add('hide-loader')
+    console.log('hide overlay', 3)
+    setTimeout(() => {
+        document.getElementById('overlay').classList.add('d-none')
+    }, 500);
+    console.log('hide overlay', 4)
+}
 // document.querySelector('.address-option-existing-tab').classList.remove('border-primary', 'border', 'shadow-lg')
 // document.querySelector('.address-option-new-tab').classList.add('border-primary', 'border', 'shadow-lg')

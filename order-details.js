@@ -20,6 +20,8 @@ import { getOrderDetails } from "./assets/repository/orders/orders.js";
 //repo product
 import { getProductDetails} from "./assets/repository/products/products.js";
 
+import { getAddress } from "./assets/repository/address/address.js";
+
 //Global variables
 let loggedIn = false
 let userData = null
@@ -75,6 +77,7 @@ async function orderDetialsFunctions(){
     embedOrderDateAndTime()
     embedMop()
     await embedOrderedProducts()
+    embedAddress()
 }
 
 onAuthStateChanged(auth, async (user) => {
@@ -374,12 +377,12 @@ async function embedOrderedProducts(){
                                 <img src="${productDetails.imageUrl ? productDetails.imageUrl : './assets/img/logo/logo.ico'}" alt="" width="35" class="img-fluid">
                               </div>
                               <div class="flex-lg-grow-1 ms-3">
-                                <h6 class="small mb-0"><a href="product-details.js?productId=${item.productId}" class="text-reset">${productDetails.name}</a></h6>
-                                <span class="small">Color: Black</span>
+                                <h6 class="small mb-0"><a href="product-details.js?productId=${item.productId}" class="text-reset"><strong>${productDetails.name}</strong></a></h6>
+                                <span class="small"><span class="text-bold">Category :</span> <span class="text-muted">${productDetails.categoryName}</span></span>
                               </div>
                             </div>
                           </td>
-                          <td>${item.quantity}</td>
+                          <td><span class="text-muted">Qty : </span>${item.quantity}</td>
                           <td class="text-end"><span>&#8377</span><span>${item.price}</span></td>
         `
         orderedProductsContainer.appendChild(tr)
@@ -387,3 +390,39 @@ async function embedOrderedProducts(){
     await Promise.all(allPromises)
 }
 
+async function embedAddress(){
+    console.log(orderDetails.addressRef.id)
+    const addressData = await getAddress(orderDetails.addressRef, null, {addressRef: true})
+    console.log(addressData)
+
+    embedBillingAddress(addressData)
+    embedShippingAddress(addressData)
+}
+function embedBillingAddress(addressData){
+    const billingAddressContainer = document.querySelector('.billing-address')
+    billingAddressContainer.innerHTML = `
+                                    <h3 class="h6 order-details-label">Billing address</h3>
+                                    <address>
+                                        <strong><span class="billing-fullname">${addressData.fullName}</span></strong><br>
+                                        <span class="billing-house-building">${addressData.houseBuilding}</span> <span
+                                            class="billing-road-area-colony">${addressData.roadAreaColony}</span><br>
+                                        <span class="billing-city">${addressData.city}</span> <span class="billing-state">${addressData.state}</span> <span
+                                            class="billing-pincode">${addressData.pinCode}</span><br>
+                                        <strong title="Phone">Phone:</strong> <span class="billing-phone">${addressData.mobileNumber}</span>
+                                    </address>
+    `
+}
+function embedShippingAddress(addressData){
+    const shippingAddressContainer = document.querySelector('.shipping-address')
+    shippingAddressContainer.innerHTML = `
+                                    <h3 class="h6 order-details-label">shipping address</h3>
+                                    <address>
+                                        <strong><span class="shipping-fullname">${addressData.fullName}</span></strong><br>
+                                        <span class="shipping-house-building">${addressData.houseBuilding}</span> <span
+                                            class="shipping-road-area-colony">${addressData.roadAreaColony}</span><br>
+                                        <span class="shipping-city">${addressData.city}</span> <span class="shipping-state">${addressData.state}</span> <span
+                                            class="shipping-pincode">${addressData.pinCode}</span><br>
+                                        <strong title="Phone">Phone:</strong> <span class="shipping-phone">${addressData.mobileNumber}</span>
+                                    </address>
+    `
+}
