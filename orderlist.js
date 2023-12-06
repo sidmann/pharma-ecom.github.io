@@ -40,7 +40,20 @@ const auth = getAuth(app);
 const storage = getStorage(app);
 var userData = null;
 var loggedIn = null;
+const confirmLogoutBtn = document.getElementById("confirmLogoutBtn");
 
+// Add an event listener to the confirmation logout button
+confirmLogoutBtn.addEventListener("click", () => {
+    signOut(auth)
+        .then(() => {
+            // Redirect to the login page or perform any other actions
+            console.log("User logged out successfully");
+            window.location.href = "login.html";
+        })
+        .catch((error) => {
+            console.error("Error during logout:", error);
+        });
+});
 
 onAuthStateChanged(auth, async (user) => {
     if (user) {

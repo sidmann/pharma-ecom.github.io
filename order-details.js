@@ -26,10 +26,24 @@ import { getAddress } from "./assets/repository/address/address.js";
 let loggedIn = false
 let userData = null
 let orderDetails = null
+const confirmLogoutBtn = document.getElementById("confirmLogoutBtn");
 
 //check order param in url
 const orderId = new URLSearchParams(window.location.search).get('orderId')
 if (!orderId) window.location.href = 'index.html'
+
+// Add an event listener to the confirmation logout button
+confirmLogoutBtn.addEventListener("click", () => {
+    signOut(auth)
+        .then(() => {
+            // Redirect to the login page or perform any other actions
+            console.log("User logged out successfully");
+            window.location.href = "login.html";
+        })
+        .catch((error) => {
+            console.error("Error during logout:", error);
+        });
+});
 
 /**
  * 
