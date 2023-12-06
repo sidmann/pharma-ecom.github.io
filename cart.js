@@ -993,11 +993,11 @@ async function increaseQuantity(productData, event) {
             sessionStorage.setItem('cart', JSON.stringify(cart))
             userInput.value = ++userInput.value
         }
-        await postIncreaseDecreaseQuantity(productData)
     }
     else {
         displayMessage('you have reached max stock. !', 'danger')
     }
+    await postIncreaseDecreaseQuantity(productData)
 }
 
 /**

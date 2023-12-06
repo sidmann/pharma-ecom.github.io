@@ -12,14 +12,14 @@ const userCollRef = collection(firestore, 'user')
 
 
 export async function getAddress(addressIdOrRef, userId = null, options) {
-    const docRef = null
-    if (options.addressId) {
+    let docRef = null
+    if (options?.addressId) {
         docRef = doc(userCollRef, userId, 'addresses', addressIdOrRef)
     }
-    else if (options.addressRef) {
+    else if (options?.addressRef) {
         docRef = addressIdOrRef
     }
-    
+
     else throw new Error('please provide options {addressId: true} or {addressRef: true}  whether the first argument is addressId or addressRef')
 
     const addressSanpshot = await getDoc(docRef)

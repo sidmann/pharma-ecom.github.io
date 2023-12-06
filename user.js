@@ -203,6 +203,7 @@ onAuthStateChanged(auth, (user) => {
                 })
                 // totalPurchases(auth.currentUser.uid);
                 const totalGrandPurchases = document.querySelector('.total-purchases');
+                console.log(totalGrandPurchases)
                 totalAmountPurchases(auth.currentUser.uid).then(totalPurchasedoc => {
                     console.log(totalPurchasedoc);
                     totalGrandPurchases.innerHTML = `&#8377; ${totalPurchasedoc}` || '';
