@@ -84,7 +84,7 @@ async function getUserSnapshot(uid) {
 /**
  * Necessary functions to call after pageload
  */
-async function postPageLoadFunctions(){
+async function postPageLoadFunctions() {
     await updateCart();
     await fetchNavCategories();
     await fetchAndDisplayProducts();
@@ -95,7 +95,7 @@ async function postPageLoadFunctions(){
  * 
  * @author dev
  */
-function postPageLoadEventListener(){
+function postPageLoadEventListener() {
     document.querySelector('.checkout-btn').addEventListener('click', checkout)
 }
 /**
@@ -183,7 +183,7 @@ onAuthStateChanged(auth, async (user) => {
             if (docSnapshot.exists()) {
                 //set the navbar according to role
                 userData = docSnapshot.data();
-                
+
                 roleAccess(userData.role)
                 updateProfileName(userData.role, userData.firstName);
                 updateProfilePicture(userData.role, userData.profilePicture);
@@ -490,11 +490,11 @@ async function checkoutSummary() {
         let subTotal = 0
         cartList.forEach(item => {
             const price = getProductPrice(item.productId)
-            if (price){
+            if (price) {
                 subTotal += price * item.quantity
             }
         })
-        
+
         if (checkoutSummarySubtotal) checkoutSummarySubtotal.textContent = subTotal
         if (checkoutSummarydelivery) checkoutSummarydelivery.textContent = deliveryFee
         if (checkoutSummarytotal) checkoutSummarytotal.textContent = deliveryFee + subTotal
@@ -508,7 +508,7 @@ function getDeliveryFee() {
     return 500;
 }
 
-function getCoupanDiscount(){
+function getCoupanDiscount() {
     return 100;
 }
 
@@ -946,7 +946,7 @@ function getProductStock(productId) {
  * 
  * @author dev
  */
-function getProductPrice(productId){
+function getProductPrice(productId) {
     console.log('from getProductStock', productDocs.length)
     if (!productDocs.length) {
         return false
@@ -1013,10 +1013,10 @@ async function decreaseQuantity(productData, event) {
     console.log(1)
     let targetButton = event.target
     let userInput = document.querySelector(`.product-${productId} .user-quantity`)
-    
+
     //disable button
     targetButton.disabled = true
-    
+
     console.log(2)
     if (userInput.value >= 2) {
         await preIncreaseDecreaseQuantity()
@@ -1043,19 +1043,19 @@ async function decreaseQuantity(productData, event) {
         console.log(6)
     }
     else {
-        
+
     }
     await postIncreaseDecreaseQuantity(productData)
 }
 
-function preIncreaseDecreaseQuantity(){
+function preIncreaseDecreaseQuantity() {
     return new Promise(async (res) => {
         showOverlay()
         res()
     })
 }
 
-function postIncreaseDecreaseQuantity(productData){
+function postIncreaseDecreaseQuantity(productData) {
     return new Promise(async (res) => {
         cartList = await getCart()
         await checkoutSummary()
@@ -1070,24 +1070,24 @@ function postIncreaseDecreaseQuantity(productData){
 /**
  * @author dev
  */
-function showOverlay(){
+function showOverlay() {
     const overlay = document.getElementById('overlay')
-    overlay.classList.remove('show')
-    overlay.classList.remove('hide')
+    overlay.classList.remove('show-loader')
+    overlay.classList.remove('hide-loader')
     overlay.classList.remove('d-none')
-    overlay.classList.add('show')
+    overlay.classList.add('show-loader')
 }
 
 /**
  * @author dev
  */
-function hideOverlay(){
+function hideOverlay() {
     console.log('hide overlay', 1)
     const overlay = document.getElementById('overlay')
-    overlay.classList.remove('show')
-    overlay.classList.remove('hide')
+    overlay.classList.remove('show-loader')
+    overlay.classList.remove('hide-loader')
     console.log('hide overlay', 2)
-    overlay.classList.add('hide')
+    overlay.classList.add('hide-loader')
     console.log('hide overlay', 3)
     setTimeout(() => {
         document.getElementById('overlay').classList.add('d-none')
@@ -1095,7 +1095,7 @@ function hideOverlay(){
     console.log('hide overlay', 4)
 }
 
-function updateProductCardTotal(productData){
+function updateProductCardTotal(productData) {
     console.log(productData)
     const productCard = document.querySelector(`.product-${productData.productId}`)
     const productTotal = productCard.querySelector('.product-total')
@@ -1103,12 +1103,12 @@ function updateProductCardTotal(productData){
 }
 
 
-function checkout(){
+function checkout() {
     console.log('from checkout')
     const subtotal = document.querySelector('.checkout-summary-subtotal').textContent
     const deliveryFee = document.querySelector('.checkout-summary-delivery').textContent
     const total = document.querySelector('.checkout-summary-total').textContent
-    
+
     const bill = {
         subTotal: subtotal ? subtotal : null,
         deliveryFee: deliveryFee ? deliveryFee : null,

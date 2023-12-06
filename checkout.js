@@ -47,9 +47,9 @@ let options = {
     "key": "rzp_test_URpF9Gekqvl3jD", // Enter the Key ID generated from the Dashboard
     "amount": amount * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
     "currency": "INR",
-    "name": "Paint Pulse", //your business name
+    "name": "Indiherbs Medicorp", //your business name
     "description": "Test Transaction",
-    "image": "https://example.com/your_logo",
+    "image": "./assets/img/logo/logo.ico",
     //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     "handler": function (response) {
         console.log(response.razorpay_payment_id + "Payment successfull");
@@ -1170,6 +1170,19 @@ async function payment(e) {
 
     //create suceess callback function
     options.handler = async function (response) {
+        cartList.forEach(item => {
+            console.log('from forEach')
+            const res = productSnapshot.docs.findIndex(product => product.data().productId === item.productId)
+            if (res >= 0) {
+                console.log('from forEach if ')
+                const res1 = cartList.findIndex(item1 => item1.productId === item.productId)
+                console.log('from forEach if if')
+                if (res1 >= 0){
+                    console.log(cartList[res1], productSnapshot.docs[res].data().price)
+                    cartList[res1].price = productSnapshot.docs[res].data().price
+                }
+            }
+        })
         console.log(1)
         await setDoc(doc(collection(firestore, 'users', auth.currentUser.uid, 'orders'), orderId), {
             orderId: orderId,
