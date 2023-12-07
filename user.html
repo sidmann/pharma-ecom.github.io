@@ -151,12 +151,10 @@
                             <div class="header-top-social">
                                 <ul class="mb-0">
                                     <li class="list-inline-item">
-                                        <a href="javascript:void(0)"><i class="fi fi-rr-phone-call"></i></a>+91
-                                        9977221335
+                                        <a href="tel:+91-99772-21335" class="text-decoration-none text-secondary"><i class="fi fi-rr-phone-call translate-x-down-15"></i> &nbsp;<span class="font-size-0-8">+91 9977221335</span></a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <a href="javascript:void(0)"><i class="fi fi-brands-whatsapp"></i></a>+91
-                                        9977221335
+                                        <a href="tel:+91-99772-21335" class="text-decoration-none text-secondary"><i class="fi fi-brands-whatsapp translate-x-down-15"></i> &nbsp;<span class="font-size-0-8">+91 9977221335</span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -175,7 +173,7 @@
                                 <a class="gi-help" href="faq.html">Help?</a>
                                 <a class="gi-help" href="track-order.html">Track Order?</a>
                                 <!-- Language Start -->
-                                <div class="header-top-lan-curr header-top-lan dropdown">
+                                <!-- <div class="header-top-lan-curr header-top-lan dropdown">
                                     <button class="dropdown-toggle" data-bs-toggle="dropdown">English
                                         <i class="fi-rr-angle-small-down" aria-hidden="true"></i>
                                     </button>
@@ -183,18 +181,18 @@
                                         <li class="active"><a class="dropdown-item" href="#">English</a></li>
                                         <li><a class="dropdown-item" href="#">Italiano</a></li>
                                     </ul>
-                                </div>
+                                </div> -->
                                 <!-- Language End -->
                                 <!-- Currency Start -->
-                                <div class="header-top-lan-curr header-top-curr dropdown">
+                                <!-- <div class="header-top-lan-curr header-top-curr dropdown">
                                     <button class="dropdown-toggle" data-bs-toggle="dropdown">Dollar
                                         <i class="fi-rr-angle-small-down" aria-hidden="true"></i>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li class="active"><a class="dropdown-item" href="#">USD $</a></li>
+                                        <li class="active"><a class="dropdown-item" href="#">USD ₹</a></li>
                                         <li><a class="dropdown-item" href="#">EUR €</a></li>
                                     </ul>
-                                </div>
+                                </div> -->
                                 <!-- Currency End -->
                             </div>
                         </div>
@@ -491,7 +489,7 @@
                         </div>
                         <!-- Main Menu End -->
 
-                        <div class="gi-location-block">
+                        <!-- <div class="gi-location-block">
                             <div class="gi-location-menu">
                                 <div class="gi-location-toggle">
                                     <i class="fi fi-rr-marker location"></i>
@@ -531,7 +529,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>
@@ -602,11 +600,52 @@
                                     <li><a href="cart.html">Cart</a></li>
                                     <!-- <li><a href="checkout.html">Checkout</a></li> -->
                                     <li><a href="faq.html">FAQ</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="register.html">Register</a></li>
+                                    <!-- <li><a href="login.html">Login</a></li>
+                                    <li><a href="register.html">Register</a></li> -->
                                     <li><a href="track-order.html">Track Order</a></li>
                                     <li><a href="terms-condition.html">Terms Condition</a></li>
                                     <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                                    <li class="nav-item loggedOut">
+                                        <a class="nav-link custom-brand" href="register.html">Register</a>
+                                    </li>
+                                    <li class="nav-item loggedOut">
+                                        <a class="nav-link custom-brand active" href="login.html">Login</a>
+                                    </li>
+                                    <li class="nav-item d-none loggedIn" id="customerAppbar">
+                                        <a class="nav-link custom-brand" aria-current="page"
+                                            href="user.html">Profile</a>
+                                    </li>
+                                    <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
+                                        <a class="nav-link custom-brand" href="agent.html">Profile
+                                        </a>
+                                    </li> -->
+                                    <li class="nav-item d-none loggedIn" id="adminAppbar">
+                                        <a class="nav-link custom-brand" href="admin.html">Profile
+                                        </a>
+                                    </li>
+                                    <li class="nav-item d-none loggedIn" id="customerAppbar">
+                                        <a class="nav-link custom-brand" href="order-details.html">My Orders
+                                        </a>
+                                    </li>
+                                    <li class="nav-item d-none loggedIn" id="customerAppbar">
+                                        <a class="nav-link custom-brand" aria-current="page"
+                                            href="addresses.html">Addresses</a>
+                                    </li>
+                                    <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
+                                        <a class="nav-link custom-brand" href="agent_dashboard.html">Agent Dashboard
+                                        </a>
+                                    </li> -->
+                                    <li class="nav-item d-none loggedIn" id="adminAppbar">
+                                        <a class="nav-link custom-brand" href="admin_dashboard.html">Admin Dashboard
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" id="logout-btn">
+                                        <!-- Logout button with data-toggle and data-target attributes -->
+                                        <a class="nav-link custom-brand" data-bs-toggle="modal" type="button"
+                                            data-bs-target="#logoutConfirmationModal">
+                                            Logout
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -649,7 +688,7 @@
                                     alt="product" /></a>
                             <div class="gi-pro-content">
                                 <a href="products.html" class="cart-pro-title">Culicura Syrup</a>
-                                <span class="cart-price"><span>$25.00</span> x 1 Bottle</span>
+                                <span class="cart-price"><span>₹25.00</span> x 1 Bottle</span>
                                 <div class="qty-plus-minus">
                                     <input class="qty-input" type="text" name="gi-qtybtn" value="1" />
                                 </div>
@@ -662,7 +701,7 @@
                                     alt="product" /></a>
                             <div class="gi-pro-content">
                                 <a href="products.html" class="cart-pro-title">Digebest Syrup</a>
-                                <span class="cart-price"><span>$25.00</span> x 1 Bottle</span>
+                                <span class="cart-price"><span>₹25.00</span> x 1 Bottle</span>
                                 <div class="qty-plus-minus">
                                     <input class="qty-input" type="text" name="gi-qtybtn" value="1" />
                                 </div>
@@ -675,7 +714,7 @@
                                     alt="product" /></a>
                             <div class="gi-pro-content">
                                 <a href="products.html" class="cart-pro-title">Gynoshield Syrup</a>
-                                <span class="cart-price"><span>$25.00</span> x 1 Bottel</span>
+                                <span class="cart-price"><span>₹25.00</span> x 1 Bottel</span>
                                 <div class="qty-plus-minus">
                                     <input class="qty-input" type="text" name="gi-qtybtn" value="1" />
                                 </div>
@@ -690,15 +729,15 @@
                             <tbody>
                                 <tr>
                                     <td class="text-left">Sub-Total :</td>
-                                    <td class="text-right">$300.00</td>
+                                    <td class="text-right">₹300.00</td>
                                 </tr>
                                 <tr>
                                     <td class="text-left">VAT (20%) :</td>
-                                    <td class="text-right">$60.00</td>
+                                    <td class="text-right">₹60.00</td>
                                 </tr>
                                 <tr>
                                     <td class="text-left">Total :</td>
-                                    <td class="text-right primary-color">$360.00</td>
+                                    <td class="text-right primary-color">₹360.00</td>
                                 </tr>
                             </tbody>
                         </table>
