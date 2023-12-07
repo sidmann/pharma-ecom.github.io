@@ -61,11 +61,10 @@
                         <div class="header-top-social">
                             <ul class="mb-0">
                                 <li class="list-inline-item">
-                                    <a href="javascript:void(0)"><i class="fi fi-rr-phone-call"></i></a>+91 987 654 3210
+                                    <a href="tel:+91-99772-21335" class="text-decoration-none text-secondary"><i class="fi fi-rr-phone-call translate-x-down-15"></i> &nbsp;<span class="font-size-0-8">+91 9977221335</span></a>
                                 </li>
                                 <li class="list-inline-item">
-                                    <a href="javascript:void(0)"><i class="fi fi-brands-whatsapp"></i></a>+91 987654
-                                    3210
+                                    <a href="tel:+91-99772-21335" class="text-decoration-none text-secondary"><i class="fi fi-brands-whatsapp translate-x-down-15"></i> &nbsp;<span class="font-size-0-8">+91 9977221335</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -837,8 +836,29 @@
     <!-- Breadcrumb end -->
 
     <!-- Cart section -->
-    <section class="gi-cart-section padding-tb-40">
-        <h2 class="d-none">Cart Page</h2>
+    <section class="product-loader d-flex justify-content-center align-items-center" style="height: 400px;">
+        <div class="container h-75 d-flex justify-content-center align-items-center">
+            <div class="spinner-grow text-secondary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </section>
+    <section class="empty-cart d-none">
+        <div class="container-fluid  mt-100 d-flex justify-content-center align-items-center">
+            <div class="card w-75">
+                <div class="card-body">
+                    <div class="col-sm-12 empty-cart-cls text-center">
+                        <img src="./assets/images/emptyCart.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                        <h3><strong>Your Cart is Empty</strong></h3>
+                        <h4>Add something to make me happy :)</h4>
+                        <a href="products.html" class="btn btn-primary cart-btn-transform m-3" data-abc="true">Continue
+                            Shopping</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="gi-cart-section padding-tb-40 cart-section d-none">
         <div class="container">
             <div class="row">
                 <!-- Sidebar Area Start -->
@@ -931,34 +951,7 @@
                 </div>
                 <div class="gi-cart-leftside col-lg-8 col-md-12 m-t-991">
                     <!-- cart content Start -->
-                    <section class="empty-cart d-none">
-                        <div class="container-fluid  mt-100">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="col-sm-12 empty-cart-cls text-center">
-                                                <img src="./assets/images/emptyCart.png" width="130" height="130"
-                                                    class="img-fluid mb-4 mr-3">
-                                                <h3><strong>Your Cart is Empty</strong></h3>
-                                                <h4>Add something to make me happy :)</h4>
-                                                <a href="products.html" class="btn btn-primary cart-btn-transform m-3"
-                                                    data-abc="true">Continue Shopping</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <section class="product-loader">
-                        <div class="container h-75 d-flex justify-content-center">
-                            <div class="spinner-grow text-secondary" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div>
-                    </section>
-                    <div class="gi-cart-content cart-section d-none">
+                    <div class="gi-cart-content">
                         <div class="gi-cart-inner">
                             <div class="row">
                                 <form action="#">

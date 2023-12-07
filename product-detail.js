@@ -275,7 +275,7 @@ async function getAndEmbedProductData(productId) {
                 arrows: true,
                 focusOnSelect: true
             });
-            $('.zoom-image-hover').zoom()
+            // $('.zoom-image-hover').zoom()
         }, 10);
     }, 1000);
 }
@@ -289,33 +289,25 @@ async function addToCart() {
     const addToCartButton = document.querySelector('.add-to-cart')
     addToCartButton.disabled = true
     addToCartButton.textContent = 'ADDING ...'
+    console.log(document.querySelector('.user-quantity').value)
 
     if (loggedIn) {
-        // const selectedColor = document.querySelector('.selected-color');
-        // if (!selectedColor) {
-        //     // If no color is selected, display an error message or handle it as needed
-        //     addToCartButton.disabled = false
-        //     addToCartButton.textContent = 'ADD TO CART'
-        //     displayMessage('Please select a color before adding to cart.', 'danger');
-        //     return;
-        // }
         const cartSnapshot = await getDocs(
             query(
                 collection(firestore, 'users', auth.currentUser.uid, 'cart'),
                 where('productId', '==', productId)
-                // where('selected-color', '==', selectedColor)
             )
         )
         console.log(cartSnapshot.docs[0]);
         if (cartSnapshot.empty) {
             await setDoc(doc(collection(firestore, 'users', auth.currentUser.uid, 'cart'), productId), {
                 productId: productId,
-                quantity: document.querySelector('.user-quantity').value
+                quantity: +document.querySelector('.user-quantity').value
                 // selectedColor: selectedColor.textContent,
             })
         }
         else {
-            await updateDoc(cartSnapshot.docs[0].ref, { quantity: document.querySelector('.user-quantity').value })
+            await updateDoc(cartSnapshot.docs[0].ref, { quantity: +document.querySelector('.user-quantity').value })
         }
     }
     else {
@@ -326,13 +318,13 @@ async function addToCart() {
             const result = cart.findIndex(doc => doc.productId === productId)
             console.log(result)
             if (result >= 0) {
-                cart[result].quantity = document.querySelector('.user-quantity').value;
+                cart[result].quantity = +document.querySelector('.user-quantity').value;
                 sessionStorage.setItem('cart', JSON.stringify(cart))
             }
             else {
                 cart.push({
                     productId: productId,
-                    quantity: document.querySelector('.user-quantity').value,
+                    quantity: +document.querySelector('.user-quantity').value,
                 })
                 sessionStorage.setItem('cart', JSON.stringify(cart))
             }

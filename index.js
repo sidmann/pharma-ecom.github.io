@@ -284,7 +284,7 @@ async function fetchProductsForSlider() {
     productSliderSnapshot.forEach(async (doc) => {
         if (productCount < 8) {
             const productDoc = doc.data()
-            console.log(productDoc)
+            // console.log(productDoc)
             const productDiv = document.createElement('div')
             productDiv.classList.add('gi-product-content')
             productDiv.innerHTML = `
@@ -375,7 +375,7 @@ async function newArrivalProducts() {
     newArrivalSnapShot.forEach((doc) => {
         const newArrivalData = doc.data();
         if (newArrivalData.newProductArrivalStatus == true) {
-            console.log(newArrivalData)
+            // console.log(newArrivalData)
             const newArrivalDiv = document.createElement('div')
             newArrivalDiv.classList.add('col-md-4', 'col-sm-6', 'col-xs-6', 'gi-col-5', 'gi-product-box')
             newArrivalDiv.innerHTML = `
