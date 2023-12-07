@@ -62,7 +62,7 @@ confirmLogoutBtn.addEventListener("click", () => {
 
 // Use onAuthStateChanged to control access to admin dashboard
 onAuthStateChanged(auth, async (user) => {
-    embedCategoriesCard()
+    await embedCategoriesCard()
     await fetchProductsForSlider();
     await newArrivalProducts();
     if (user) {
