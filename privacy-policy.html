@@ -681,11 +681,52 @@
                                 <li><a href="cart.html">Cart</a></li>
                                 <!-- <li><a href="checkout.html">Checkout</a></li> -->
                                 <li><a href="faq.html">FAQ</a></li>
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="register.html">Register</a></li>
+                                <!-- <li><a href="login.html">Login</a></li>
+                                <li><a href="register.html">Register</a></li> -->
                                 <li><a href="track-order.html">Track Order</a></li>
                                 <li><a href="terms-condition.html">Terms Condition</a></li>
                                 <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                                <li class="nav-item loggedOut">
+                                    <a class="nav-link custom-brand" href="register.html">Register</a>
+                                </li>
+                                <li class="nav-item loggedOut">
+                                    <a class="nav-link custom-brand active" href="login.html">Login</a>
+                                </li>
+                                <li class="nav-item d-none loggedIn" id="customerAppbar">
+                                    <a class="nav-link custom-brand" aria-current="page"
+                                        href="user.html">Profile</a>
+                                </li>
+                                <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
+                                    <a class="nav-link custom-brand" href="agent.html">Profile
+                                    </a>
+                                </li> -->
+                                <li class="nav-item d-none loggedIn" id="adminAppbar">
+                                    <a class="nav-link custom-brand" href="admin.html">Profile
+                                    </a>
+                                </li>
+                                <li class="nav-item d-none loggedIn" id="customerAppbar">
+                                    <a class="nav-link custom-brand" href="order-details.html">My Orders
+                                    </a>
+                                </li>
+                                <li class="nav-item d-none loggedIn" id="customerAppbar">
+                                    <a class="nav-link custom-brand" aria-current="page"
+                                        href="addresses.html">Addresses</a>
+                                </li>
+                                <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
+                                    <a class="nav-link custom-brand" href="agent_dashboard.html">Agent Dashboard
+                                    </a>
+                                </li> -->
+                                <li class="nav-item d-none loggedIn" id="adminAppbar">
+                                    <a class="nav-link custom-brand" href="admin_dashboard.html">Admin Dashboard
+                                    </a>
+                                </li>
+                                <li class="nav-item" id="logout-btn">
+                                    <!-- Logout button with data-toggle and data-target attributes -->
+                                    <a class="nav-link custom-brand" data-bs-toggle="modal" type="button"
+                                        data-bs-target="#logoutConfirmationModal">
+                                        Logout
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
