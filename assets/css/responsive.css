@@ -282,7 +282,7 @@
     border-bottom: 1px solid #eee;
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex;
+    /* display: flex; */
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
@@ -291,6 +291,9 @@
     align-items: center;
     font-size: 14px;
     padding: 8px 10px;
+  }
+  .gi-cart-content .table-content table tbody > tr td.gi-cart-pro-remove{
+    width: auto;
   }
   .gi-cart-content .table-content table tbody > tr td:before {
     content: attr(data-label);

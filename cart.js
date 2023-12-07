@@ -389,8 +389,8 @@ async function fetchAndDisplayProducts() {
                                                         </div>
                                                     </td>
                                                     <td data-label="Total" class="gi-cart-pro-subtotal">&#8377;<span class="product-total">${productData.price * userQuantity}</span></td>
-                                                    <td data-label="Remove" class="gi-cart-pro-remove" >
-                                                        <a href="#" class="remove-product-parent"><i class="gicon gi-trash-o remove-product" data-id="${productData.productId}"></i></a>
+                                                    <td data-label="Remove" class="gi-cart-pro-remove">
+                                                        <a href="#" class="remove-product-parent mx-md-5"><i class="gicon gi-trash-o remove-product" data-id="${productData.productId}"></i></a>
                                                     </td>
                         `
 
