@@ -629,7 +629,7 @@ async function fetchNavCategories() {
 
         const list = document.createElement('li')
         list.innerHTML = `
-        <a href="javascript:void(0)">${doc.data().name}</a>
+        <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
         `
         mobileCategoryList.appendChild(list)
     })

@@ -18,7 +18,7 @@ import { getCartCount } from "./assets/repository/userCart/userCart.js";
 import { getOrderDetails } from "./assets/repository/orders/orders.js";
 
 //repo product
-import { getProductDetails} from "./assets/repository/products/products.js";
+import { getProductDetails } from "./assets/repository/products/products.js";
 
 import { getAddress } from "./assets/repository/address/address.js";
 
@@ -26,10 +26,24 @@ import { getAddress } from "./assets/repository/address/address.js";
 let loggedIn = false
 let userData = null
 let orderDetails = null
+const confirmLogoutBtn = document.getElementById("confirmLogoutBtn");
 
 //check order param in url
 const orderId = new URLSearchParams(window.location.search).get('orderId')
 if (!orderId) window.location.href = 'index.html'
+
+// Add an event listener to the confirmation logout button
+confirmLogoutBtn.addEventListener("click", () => {
+    signOut(auth)
+        .then(() => {
+            // Redirect to the login page or perform any other actions
+            console.log("User logged out successfully");
+            window.location.href = "login.html";
+        })
+        .catch((error) => {
+            console.error("Error during logout:", error);
+        });
+});
 
 /**
  * 
@@ -44,7 +58,7 @@ function updateCart() {
         const shownCart = document.querySelector('#shown-cart')
 
         let count = 0
-        if (loggedIn){
+        if (loggedIn) {
             count = await getCartCount(loggedIn, auth.currentUser.uid)
         }
         else count = await getCartCount(loggedIn)
@@ -69,15 +83,16 @@ async function postPageLoadFunctions() {
     await orderDetialsFunctions()
 }
 
-async function orderDetialsFunctions(){
+async function orderDetialsFunctions() {
     await getOrderedDetails()
     embedOrderId()
     embedBill()
     embedOrderStatus()
     embedOrderDateAndTime()
-    embedMop()
+    await embedMop()
     await embedOrderedProducts()
-    embedAddress()
+    await embedAddress()
+    hideOrderDetailsLoader()
 }
 
 onAuthStateChanged(auth, async (user) => {
@@ -155,7 +170,7 @@ function roleAccess(role) {
     const roleMap = new Map([
         ["ADMIN", "adminAppbar"],
         ["CUSTOMER", "customerAppbar"],
-        ["AGENT", "agentAppbar"],
+        // ["AGENT", "agentAppbar"],
     ]);
     const appbarList = document.querySelectorAll(`#${roleMap.get(role)}`);
     let vdsf = ""
@@ -172,9 +187,9 @@ function updateProfileName(role, fullName) {
         case 'CUSTOMER':
             profileNameElement = document.getElementById('customerAppbar').querySelector('.profile-name');
             break;
-        case 'AGENT':
-            profileNameElement = document.getElementById('agentAppbar').querySelector('.profile-name');
-            break;
+        // case 'AGENT':
+        //     profileNameElement = document.getElementById('agentAppbar').querySelector('.profile-name');
+        //     break;
         case 'ADMIN':
             profileNameElement = document.getElementById('adminAppbar').querySelector('.profile-name');
             break;
@@ -193,9 +208,9 @@ function updateProfilePicture(role, profilePicture) {
         case 'CUSTOMER':
             profilePictureElement = document.getElementById('customerAppbar').querySelector('#profile-picture');
             break;
-        case 'AGENT':
-            profilePictureElement = document.getElementById('agentAppbar').querySelector('#profile-picture');
-            break;
+        // case 'AGENT':
+        //     profilePictureElement = document.getElementById('agentAppbar').querySelector('#profile-picture');
+        //     break;
         case 'ADMIN':
             profilePictureElement = document.getElementById('adminAppbar').querySelector('#profile-picture');
             break;
@@ -212,8 +227,6 @@ function updateProfilePicture(role, profilePicture) {
         profilePictureElement.src = defaultProfilePicture;
     }
 }
-
-
 
 /**
  * 
@@ -255,7 +268,7 @@ async function fetchNavCategories() {
 
         const list = document.createElement('li')
         list.innerHTML = `
-        <a href="javascript:void(0)">${doc.data().name}</a>
+        <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
         `
         mobileCategoryList.appendChild(list)
     })
@@ -303,15 +316,15 @@ function displayMessage(message, type) {
     });
 }
 
-function embedOrderId(){
+function embedOrderId() {
     const orderIdEle = document.querySelector('.order-id')
-    if (orderIdEle){
+    if (orderIdEle) {
         orderIdEle.textContent = orderId
     }
 }
 
 
-function embedOrderDateAndTime(){
+function embedOrderDateAndTime() {
     const orderDate = document.querySelector('.order-date')
     const orderTime = document.querySelector('.order-time')
 
@@ -321,12 +334,12 @@ function embedOrderDateAndTime(){
     orderTime.classList.add('text-muted')
 }
 
-async function getOrderedDetails(){
+async function getOrderedDetails() {
     orderDetails = await getOrderDetails(orderId, auth.currentUser.uid)
     console.log(orderDetails)
 }
 
-async function embedOrderStatus(){
+async function embedOrderStatus() {
     const orderStatus = document.querySelector('.order-status')
     orderStatus.textContent = orderDetails.status
 }
@@ -338,7 +351,7 @@ async function embedOrderStatus(){
  * 
  * @author dev
  */
-async function embedBill(){
+async function embedBill() {
     const orderTotalList = document.querySelectorAll('.order-total')
     const orderDelivery = document.querySelector('.order-delivery')
     const orderSubtotal = document.querySelector('.order-subtotal')
@@ -350,7 +363,7 @@ async function embedBill(){
     orderSubtotal.textContent = orderDetails.bill.subTotal
 }
 
-async function embedMop(){
+async function embedMop() {
     const orderMop = document.querySelector('.order-mop')
     const orderMopId = document.querySelector('.order-payment-id')
 
@@ -361,7 +374,7 @@ async function embedMop(){
 /**
  * @author dev
  */
-async function embedOrderedProducts(){
+async function embedOrderedProducts() {
     const orderedProductsContainer = document.querySelector('.ordered-products')
     orderedProductsContainer.innerHTML = ``
 
@@ -390,15 +403,15 @@ async function embedOrderedProducts(){
     await Promise.all(allPromises)
 }
 
-async function embedAddress(){
+async function embedAddress() {
     console.log(orderDetails.addressRef.id)
-    const addressData = await getAddress(orderDetails.addressRef, null, {addressRef: true})
+    const addressData = await getAddress(orderDetails.addressRef, null, { addressRef: true })
     console.log(addressData)
 
     embedBillingAddress(addressData)
     embedShippingAddress(addressData)
 }
-function embedBillingAddress(addressData){
+function embedBillingAddress(addressData) {
     const billingAddressContainer = document.querySelector('.billing-address')
     billingAddressContainer.innerHTML = `
                                     <h3 class="h6 order-details-label">Billing address</h3>
@@ -412,7 +425,7 @@ function embedBillingAddress(addressData){
                                     </address>
     `
 }
-function embedShippingAddress(addressData){
+function embedShippingAddress(addressData) {
     const shippingAddressContainer = document.querySelector('.shipping-address')
     shippingAddressContainer.innerHTML = `
                                     <h3 class="h6 order-details-label">shipping address</h3>
@@ -425,4 +438,15 @@ function embedShippingAddress(addressData){
                                         <strong title="Phone">Phone:</strong> <span class="shipping-phone">${addressData.mobileNumber}</span>
                                     </address>
     `
+}
+
+
+function hideOrderDetailsLoader() {
+    const orderDetailsLoader = document.querySelector('.order-details-loader')
+    const orderDetailsSection = document.querySelector('.order-details-section')
+
+    orderDetailsLoader.classList.add('d-none')
+    orderDetailsSection.classList.remove('d-none')
+    orderDetailsSection.classList.add('show-order-details')
+
 }

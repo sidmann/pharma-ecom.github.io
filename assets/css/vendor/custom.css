@@ -251,10 +251,36 @@ ol {
 .show-order-complete-animation {
     display: block !important;
     animation-delay: 0.3s;
+    opacity: 0;
+    scale: 0;
     animation: showOrder 0.7s cubic-bezier(0.97, -0.1, 0.88, 0.47) forwards;
 }
 
 @keyframes showOrder {
+    from {
+        opacity: 0;
+        scale: 0;
+    }
+
+    to {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+
+
+
+.show-order-details-before{
+    opacity: 0;
+    scale: 0;
+}
+.show-order-details{
+    animation-delay: 0.1s;
+    animation: showOrderDetails 0.7s cubic-bezier(0.97, -0.1, 0.88, 0.47) forwards;
+}
+
+@keyframes showOrderDetails {
     from {
         opacity: 0;
         scale: 0;
