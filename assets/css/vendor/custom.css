@@ -291,3 +291,12 @@ ol {
         scale: 1;
     }
 }
+
+.translate-x-down-15{
+    transform: translateY(15%);
+}
+
+/* shashank */
+.font-size-0-8{
+    font-size: 0.8rem;
+}
