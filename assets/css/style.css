@@ -2274,7 +2274,7 @@ div#gi-main-menu-desk {
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
-          justify-content: center;
+          justify-content:end;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   padding-left: 0;
@@ -2451,7 +2451,7 @@ div#gi-main-menu-desk {
   display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
-          justify-content: space-between;
+          justify-content:space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
