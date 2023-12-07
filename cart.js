@@ -310,9 +310,8 @@ async function fetchAndDisplayProducts() {
 
         if (cartSnapshot.empty) {
             displayMessage('Cart is Empty!', 'danger')
-            document.querySelector('.product-loader').classList.add('d-none')
-            document.querySelector('.empty-cart').classList.remove('d-none')
-            document.querySelector('.cart-section').classList.add('d-none')
+            stopProductLoader()
+            showEmptyCart()
             return
         }
         //get the cart from user doc
@@ -327,7 +326,8 @@ async function fetchAndDisplayProducts() {
             cartList = JSON.parse(sessionStorage.getItem('cart'))
         }
         else {
-            displayMessage('Cart is Empty!', 'danger')
+            stopProductLoader()
+            showEmptyCart()
             return
         }
     }
@@ -569,194 +569,6 @@ function getJsonBill(element) {
     localStorage.setItem('checkoutSummary', JSON.stringify(checkoutSummary))
 }
 
-// async function filterCart(cartProductIds) {
-//     return new Promise(async (resolve) => {
-//         if (cartProductIds) {
-//             console.log('from filter')
-//             //showing loader while filtering
-//             const filterMsgElement = document.createElement('div')
-//             filterMsgElement.style.zIndex = '5'
-//             filterMsgElement.innerHTML =
-//                 `<h6 class="text-center">
-//                             Some Products seems to have been removed.
-//                         </h6>
-//                         <h5 class="text-center">
-//                             Please wait while we filter the cart for you!
-//                         </h5>
-//                         `
-//             document.querySelector('.loader').appendChild(filterMsgElement)
-//             showLoader()
-
-//             //get the local cart
-//             const localCart = JSON.parse(sessionStorage.getItem('cart'))
-
-//             //run loop through the product id to find which is missing
-//             const asyncOperations = cartProductIds.map(async (id) => {
-//                 const productSnapshot = await getDocs(query(productsRef, where('productId', '==', id)));
-//                 if (productSnapshot.empty) {
-//                     if (loggedIn) {
-//                         const userCartSnapshot = await getDocs(query(collection(firestore, 'users', auth.currentUser.uid, 'cart'), where('productId', '==', id)));
-//                         if (!userCartSnapshot.empty) {
-//                             await deleteDoc(userCartSnapshot.docs[0].ref);
-//                         }
-//                     }
-//                     else {
-//                         const result = localCart.findIndex(doc => doc.productId === id);
-//                         if (result >= 0) {
-//                             localCart.splice(result, 1);
-//                         }
-//                     }
-//                 }
-//             });
-
-//             try {
-//                 // Wait for all asynchronous operations to complete
-//                 await Promise.all(asyncOperations);
-
-//                 console.log(2)
-//                 // Once filtering is done, update the cart and stop the loader
-//                 if (!loggedIn) {
-//                     console.log(3)
-//                     if (localCart.length)
-//                         sessionStorage.setItem('cart', JSON.stringify(localCart));
-//                     else sessionStorage.removeItem('cart')
-//                 }
-//             } catch (error) {
-//                 // Handle errors if any of the Promises fail
-//                 console.error(error);
-//             } finally {
-//                 // Remove the filter message and stop the loader
-//                 setTimeout(() => {
-//                     console.log('from filter1')
-//                     filterMsgElement.remove();
-//                     stopLoader();
-//                     // Resolve the promise after all operations are completed
-//                     resolve();
-//                 }, 3000);
-//             }
-//         }
-//         else {
-//             console.log('from filter1')
-//             resolve()
-//         }
-//     })
-// }
-
-async function validateMembershipId(event) {
-    console.log(event);
-    if (event.target.value.length > 19) {
-        const proceedBtn = document.querySelector('.proceed-btn')
-        const btnLoading = document.querySelector('.proceed-spinner')
-        const btnStatus = document.querySelector('.proceed-status')
-        const membershipIdStatus = document.querySelector('.membership-id-status')
-
-        //show loader
-        btnLoading.classList.remove('d-none')
-        btnStatus.classList.add('d-none')
-
-        console.log(event.target.value.length)
-        const userRef = doc(firestore, 'users', auth.currentUser.uid);
-        const userDoc = await getDoc(userRef);
-
-
-        // User is not associated with an agent and doesn't have a referralCode
-        const userSnapshot = await getDocs(query(collection(firestore, 'users'), where('membershipId', '==', event.target.value)))
-
-        const membershipInpuField = document.querySelector('#membership-id-input')
-        if (userSnapshot.docs[0]) {
-            console.log("found")
-            membershipInpuField.classList.add('is-valid')
-            membershipInpuField.classList.remove('is-invalid')
-            membershipIdStatus.classList.add('d-none')
-            proceedBtn.disabled = false
-            btnLoading.classList.add('d-none')
-            btnStatus.classList.remove('d-none')
-
-            // Associate the referral ID with the user in the database
-            // await updateDoc(userRef, {
-            //     referralCode: event.target.value,
-            //     referredStatus: true
-            // });
-        } else {
-            console.log('not found')
-            membershipInpuField.classList.remove('is-valid')
-            membershipInpuField.classList.add('is-invalid')
-            membershipIdStatus.classList.remove('d-none')
-            proceedBtn.disabled = true
-            btnLoading.classList.add('d-none')
-            btnStatus.classList.remove('d-none')
-        }
-    }
-}
-
-
-async function getMembershipId(event) {
-    if (!loggedIn) {
-        event.target.disabled = false
-        event.target.innerHTML = 'Proceed to checkout'
-        displayMessage('Please log in to proceed!', 'danger')
-        return
-    }
-
-    var membershipModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
-        keyboard: false
-    });
-    membershipModal.show();
-
-    const fetchStatus = document.querySelector('.membership-id-fetch-status')
-    fetchStatus.classList.remove('d-none')
-
-    const userDoc = await getDoc(doc(firestore, 'users', auth.currentUser.uid))
-
-    //check if the user has membership id
-    if (!userDoc.get('referralCode')) {
-        fetchStatus.classList.add('d-none')
-        return
-    }
-    document.querySelector('#membership-id-input').value = userDoc.data().referralCode
-    fetchStatus.classList.add('d-none')
-
-    const keyupEvent = new Event('keyup', {
-        bubbles: false, // Allow the event to bubble up the DOM tree
-        cancelable: true, // Allow the event to be canceled
-        key: 'a', // Set the key that was pressed (you can change this to any key)
-    });
-
-    // Dispatch the 'keyup' event on the element
-    document.querySelector('#membership-id-input').dispatchEvent(keyupEvent);
-}
-
-function goToCheckout(event) {
-
-    //disable button
-    event.target.disabled = true
-
-    //show loader
-    event.target.innerHTML = `
-                                        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                                        <span role="status">redirecting...</span>
-                                        `
-
-    if (!loggedIn) {
-        event.target.disabled = false
-        event.target.innerHTML = 'Proceed to checkout'
-        displayMessage('Please log in to proceed!', 'danger')
-        return
-    }
-
-    getJsonBill(event.currentTarget)
-    setTimeout(() => {
-        console.log(event.target)
-        event.target.disabled = false
-        console.log(event.target.classList.contains('proceed-btn'))
-        console.log(event.target.classList.contains('proceed-status'))
-        if (event.target.classList.contains('proceed-btn') || event.target.classList.contains('proceed-status'))
-            event.target.textContent = 'Proceed'
-        else event.target.textContent = 'Skip and Continue'
-        window.location.href = 'checkout.html'
-    }, 1000);
-}
-
 //creates and returns a list of product ids from user cart data
 function getProductIds() {
     var productIds = []
@@ -765,51 +577,11 @@ function getProductIds() {
     return productIds
 }
 
-// function applyRealTime() {
-//     onSnapshot(query(collection(firestore, 'products'), where('productId', 'in', getProductIds())),
-//         (querySnapshot => {
-//             if (!querySnapshot.empty) {
-//                 console.log('inside onSnapshot')
-//                 console.log("dfaf")
-//                 checkoutSummary()
-//                 //fetchAndDisplayProducts()
-//                 let count = 0
-//                 querySnapshot.forEach(async (doc) => {
-//                     count++
-//                     console.log(doc.data().productId)
-//                     const itemCard = document.querySelector(`#product-${doc.data().productId}`)
-//                     itemCard.querySelector('.product-quantity').textContent = doc.data().quantity
-//                     if (doc.data().quantity < 1) {
-//                         itemCard.querySelector('.shown-stock').classList.add('d-none')
-//                         itemCard.querySelector('.out-of-stock').classList.remove('d-none')
-//                         itemCard.querySelector('.manage-quantity').classList.add('d-none')
-//                     }
-//                     else {
-//                         itemCard.querySelector('.shown-stock').classList.remove('d-none')
-//                         itemCard.querySelector('.out-of-stock').classList.add('d-none')
-//                         itemCard.querySelector('.manage-quantity').classList.remove('d-none')
-//                     }
-
-//                     if (itemCard.querySelector('.quantity input').value > +itemCard.querySelector('.product-quantity').textContent) {
-//                         const cartSnapshot = await getDocs(query(collection(firestore, 'users', auth.currentUser.uid, 'cart'), where('productId', '==', doc.data().productId)))
-
-//                         await updateDoc(cartSnapshot.docs[0].ref, { quantity: 1 })
-//                         itemCard.querySelector('.quantity input').value = 1
-//                     }
-//                 })
-
-//                 if (getProductIds().length != count) {
-//                     location.reload()
-//                 }
-//             }
-//         })
-//     )
-// }
-
 /**
  * Stop the loader for product
  */
 function stopProductLoader() {
+    console.log('from stopLoader')
     document.querySelector('.product-loader').classList.add('d-none')
     document.querySelector('.cart-section').classList.remove('d-none')
 
@@ -917,7 +689,6 @@ function showEmptyCart() {
     document.querySelector('.empty-cart').classList.remove('d-none')
     document.querySelector('.cart-section').classList.add('d-none')
 }
-
 
 /**
  * 
@@ -1055,6 +826,11 @@ function preIncreaseDecreaseQuantity() {
     })
 }
 
+/**
+ * 
+ * @param {string} productData 
+ * @returns {Promise}
+ */
 function postIncreaseDecreaseQuantity(productData) {
     return new Promise(async (res) => {
         cartList = await getCart()
@@ -1104,6 +880,10 @@ function updateProductCardTotal(productData) {
 
 
 function checkout() {
+    if (!loggedIn) {
+        displayMessage('Please Login to continue. !', 'danger')
+        return
+    }
     console.log('from checkout')
     const subtotal = document.querySelector('.checkout-summary-subtotal').textContent
     const deliveryFee = document.querySelector('.checkout-summary-delivery').textContent
