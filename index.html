@@ -674,11 +674,51 @@ Copyright 2023
                                 <li><a href="contact-us.html">Contact Us</a></li>
                                 <li><a href="cart.html">Cart</a></li>
                                 <li><a href="faq.html">FAQ</a></li>
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="register.html">Register</a></li>
+                                <!-- <li><a href="login.html">Login</a></li>
+                                <li><a href="register.html">Register</a></li> -->
                                 <li><a href="track-order.html">Track Order</a></li>
                                 <li><a href="terms-condition.html">Terms Condition</a></li>
                                 <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                                <li class="nav-item loggedOut">
+                                    <a class="nav-link custom-brand" href="register.html">Register</a>
+                                </li>
+                                <li class="nav-item loggedOut">
+                                    <a class="nav-link custom-brand active" href="login.html">Login</a>
+                                </li>
+                                <li class="nav-item d-none loggedIn" id="customerAppbar">
+                                    <a class="nav-link custom-brand" aria-current="page" href="user.html">Profile</a>
+                                </li>
+                                <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
+                                    <a class="nav-link custom-brand" href="agent.html">Profile
+                                    </a>
+                                </li> -->
+                                <li class="nav-item d-none loggedIn" id="adminAppbar">
+                                    <a class="nav-link custom-brand" href="admin.html">Profile
+                                    </a>
+                                </li>
+                                <li class="nav-item d-none loggedIn" id="customerAppbar">
+                                    <a class="nav-link custom-brand" href="order-details.html">My Orders
+                                    </a>
+                                </li>
+                                <li class="nav-item d-none loggedIn" id="customerAppbar">
+                                    <a class="nav-link custom-brand" aria-current="page"
+                                        href="addresses.html">Addresses</a>
+                                </li>
+                                <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
+                                    <a class="nav-link custom-brand" href="agent_dashboard.html">Agent Dashboard
+                                    </a>
+                                </li> -->
+                                <li class="nav-item d-none loggedIn" id="adminAppbar">
+                                    <a class="nav-link custom-brand" href="admin_dashboard.html">Admin Dashboard
+                                    </a>
+                                </li>
+                                <li class="nav-item" id="logout-btn" style="display: none">
+                                    <!-- Logout button with data-toggle and data-target attributes -->
+                                    <a class="nav-link custom-brand" data-bs-toggle="modal" type="button"
+                                        data-bs-target="#logoutConfirmationModal">
+                                        Logout
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -709,7 +749,6 @@ Copyright 2023
         </div>
         <!-- Mobile Menu sidebar End -->
     </header>
-
     <!-- Header End  -->
 
     <!-- Cart sidebar Start -->
@@ -1086,27 +1125,27 @@ Copyright 2023
                             </div>
                         </div>
                         <!-- <div class="col-sm-12 col-lg-2 gi-footer-info wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="gi-footer-widget">
-                            <h4 class="gi-footer-heading">Category</h4>
-                            <div class="gi-footer-links gi-footer-dropdown">
-                                <ul class="align-itegi-center">
-                                    <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Herbal
-                                            Supplements
-                                        </a></li>
-                                    <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Capsules</a>
-                                    </li>
-                                    <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html"> Syrups</a>
-                                    </li>
-                                    <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Tablets</a>
-                                    </li>
-                                    <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Creams</a>
-                                    </li>
-                                    <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Oils</a></li>
-                                </ul>
+                            <div class="gi-footer-widget">
+                                <h4 class="gi-footer-heading">Category</h4>
+                                <div class="gi-footer-links gi-footer-dropdown">
+                                    <ul class="align-itegi-center">
+                                        <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Herbal
+                                                Supplements
+                                            </a></li>
+                                        <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Capsules</a>
+                                        </li>
+                                        <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html"> Syrups</a>
+                                        </li>
+                                        <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Tablets</a>
+                                        </li>
+                                        <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Creams</a>
+                                        </li>
+                                        <li class="gi-footer-link"><a href="shop-left-sidebar-col-3.html">Oils</a></li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                    </div> -->
-                        <div class="col-sm-11 col-lg-2 gi-footer-account wow fadeInUp" data-wow-delay="0.2s">
+                        </div> -->
+                        <div class="col-sm-12 col-lg-2 gi-footer-account wow fadeInUp" data-wow-delay="0.2s">
                             <div class="gi-footer-widget">
                                 <h4 class="gi-footer-heading">Company</h4>
                                 <div class="gi-footer-links gi-footer-dropdown">
@@ -1124,18 +1163,21 @@ Copyright 2023
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-11 col-lg-2 gi-footer-service wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="col-sm-12 col-lg-2 gi-footer-service wow fadeInUp" data-wow-delay="0.3s">
                             <div class="gi-footer-widget">
-                                <h4 class="gi-footer-heading">Account</h4>
-                                <div class="gi-footer-links gi-footer-dropdown">
-                                    <ul class="align-itegi-center">
-                                        <!-- <li class="gi-footer-link"><a href="./register.html">Register</a></li> -->
-                                        <li class="gi-footer-link"><a href="privacy-policy.html">Return
-                                                Policy</a></li>
-                                        <li class="gi-footer-link"><a href="./track-order.html">Track order</a>
-                                        </li>
-                                        <li class="gi-footer-link"><a href="./cart.html">View Cart</a></li>
-                                    </ul>
+                                <div class="gi-footer-contact">
+
+                                    <h4 class="gi-footer-heading">Account</h4>
+                                    <div class="gi-footer-links gi-footer-dropdown">
+                                        <ul class="align-itegi-center">
+                                            <!-- <li class="gi-footer-link"><a href="./register.html">Register</a></li> -->
+                                            <li class="gi-footer-link"><a href="privacy-policy.html">Return
+                                                    Policy</a></li>
+                                            <li class="gi-footer-link"><a href="./track-order.html">Track order</a>
+                                            </li>
+                                            <li class="gi-footer-link"><a href="./cart.html">View Cart</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
