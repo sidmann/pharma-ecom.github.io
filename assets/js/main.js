@@ -4,8 +4,10 @@
 
   /*----------------------------- Site Loader & Popup --------------------*/
   $(window).on("load", function () {
-    $("#gi-overlay").fadeOut("slow");
-  });
+    setTimeout(() => {
+     $("#gi-overlay").fadeOut("slow");
+    }, 500);
+   });
 
   /*----------------------------- Scroll animation -------------------------------- */
   new WOW().init();

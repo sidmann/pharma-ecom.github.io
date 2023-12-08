@@ -611,7 +611,10 @@ async function removeProduct(productId, e) {
         const result = cart.findIndex(product => product.productId === productId)
         if (result >= 0) {
             cart.splice(result, 1)
-            sessionStorage.setItem('cart', JSON.stringify(cart))
+            if (cart.length){
+                sessionStorage.setItem('cart', JSON.stringify(cart))
+            }
+            else sessionStorage.removeItem('cart')
         }
     }
 
