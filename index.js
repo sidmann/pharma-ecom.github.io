@@ -397,13 +397,6 @@ async function newArrivalProducts() {
                                 <span class="flags">
                                     <span class="sale">New</span>
                                 </span>
-                                <div class="gi-pro-actions">
-                                    <a href="products.html"
-                                        class="gi-btn-group quickview" data-link-action="quickview"
-                                        title="Quick view" data-bs-toggle="modal"
-                                        data-bs-target="#gi_quickview_modal"><i
-                                            class="fi-rr-eye"></i></a>
-                                </div>
                             </div>
                         </div>
                         <div class="gi-pro-content">
