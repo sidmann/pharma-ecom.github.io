@@ -856,10 +856,10 @@ function populateManufacturerDropdown(targetDropdownId) {
         });
 }
 //----------------------------- Product Size in Ltr-----------------------------
-const openProductSizemodel = document.getElementById('addProductSizeButton');
-openProductSizemodel.addEventListener('click', () => {
+const openProductSizemodal = document.getElementById('addProductSizeButton');
+openProductSizemodal.addEventListener('click', () => {
     console.log("1");
-    document.getAnimations('productSizeName').value = '';
+    document.getElementById('productSizeName').value = '';
     populateProductSizeList();
 })
 
@@ -891,8 +891,8 @@ document.querySelector('#saveProductSizeButton').addEventListener('click', async
     if (productSizeName) {
         try {
             const ProductSizeId = await addProductSize(productSizeName);
-            console.log('productSize uploaded successfully');
-            displayMessage('ProductSize Uploaded', 'success');
+            console.log('product Size uploaded successfully');
+            displayMessage('Product Size Uploaded', 'success');
             populateProductSizeList();
             document.querySelector('#productSizeName').value = '';
         } catch (error) {
@@ -906,7 +906,7 @@ async function addProductSize(productSizeName) {
         const productSizeRef = collection(firestore, 'sizes');
         const docRef = await addDoc(productSizeRef, { size: productSizeName });
         await updateDoc(docRef, { sizeId: docRef.id })
-        document.querySelector('#productSizeDropdown').addEventListener('click', fetchCategories)
+        document.querySelector('#productSizeDropdown').addEventListener('click', fetchProductSizes)
         return docRef.id;
     } catch (error) {
         console.error('Error adding productsize:', error);
@@ -925,9 +925,9 @@ async function editProductSize(productsizeId, productSizeName) {
             // console.log("5")
             updateDoc(productSizeSnapshot.docs[0].ref, { size: updateProductSizeName })
                 .then(() => {
-                    console.log('ProductSize updated successfully');
-                    displayMessage('ProductSize updated successfully!', 'success');
-                    document.querySelector('#categoryDropdown').addEventListener('click', fetchCategories)
+                    console.log('Product Size updated successfully');
+                    displayMessage('Product Size updated successfully!', 'success');
+                    document.querySelector('#productSizeDropdown').addEventListener('click', fetchProductSizes)
                     populateProductSizeList();
                 })
                 .catch((error) => {
@@ -947,9 +947,9 @@ async function deleteProductSize(productSizeId, productSizeName) {
             if (!productSizeSnapshot.empty) {
                 await deleteDoc(productSizeSnapshot.docs[0].ref);
             }
-            console.log('productSize deleted successfully');
-            displayMessage('productSize deleted successfully!', 'success');
-            document.querySelector('#categoryDropdown').addEventListener('click', fetchCategories)
+            console.log('Product Size deleted successfully');
+            displayMessage('Product Size deleted successfully!', 'success');
+            document.querySelector('#productSizeDropdown').addEventListener('click', fetchProductSizes)
             populateProductSizeList();
         } catch (error) {
             console.error('Error deleting productsize:', error);
