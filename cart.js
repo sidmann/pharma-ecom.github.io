@@ -344,12 +344,13 @@ async function fetchAndDisplayProducts() {
 
     const unsubscribe = getDocs(q)
         .then(async (cartSnapshot) => {
-            console.log(cartSnapshot.size)
+            console.log(cartSnapshot.docs)
             if (cartItems.length > cartSnapshot.size) {
-                // await filterCart(cartItems)
-                // await updateCart()
-                fetchAndDisplayProducts()
-                return
+                displayMessage('Some Products seems to have been removed. !', 'danger')
+                if (cartSnapshot.size == 0) {
+                    showEmptyCart()
+                    return
+                }
             }
             productDocs = cartSnapshot.docs
             cartSnapshot.forEach(async (doc) => {
@@ -611,7 +612,10 @@ async function removeProduct(productId, e) {
         const result = cart.findIndex(product => product.productId === productId)
         if (result >= 0) {
             cart.splice(result, 1)
-            sessionStorage.setItem('cart', JSON.stringify(cart))
+            if (cart.length){
+                sessionStorage.setItem('cart', JSON.stringify(cart))
+            }
+            else sessionStorage.removeItem('cart')
         }
     }
 

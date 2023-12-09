@@ -1119,7 +1119,7 @@ async function embedSummaryproductCards() {
                                                 <i class="gicon gi-star"></i>
                                             </div>
                                             <span class="gi-price">
-                                                <span class="old-price"><span>&#8377;</span><span>${doc.data().price + 20}</span></span>&nbsp;
+                                                <span class="old-price"><span>&#8377;</span><span>${doc.data().price + 40}</span></span>&nbsp;
                                                 <span class="new-price"><span>&#8377;</span><span>${doc.data().price}</span></span>
                                             </span>
                                         </div>

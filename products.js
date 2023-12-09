@@ -228,7 +228,8 @@ onAuthStateChanged(auth, async (user) => {
     // const agentAppbar = document.getElementById("agentAppbar");
     if (user) {
         console.log("if")
-        document.querySelector('#logout-btn').style.display = 'block';
+        loggedIn = true
+        
         const docRef = doc(firestore, "users", user.uid);
         onLoggedIn();
         const docSnap = getDoc(docRef);
@@ -327,6 +328,7 @@ function onLoggedIn() {
     navItemList.forEach((navItem) => {
         navItem.style.display = "none";
     });
+    document.querySelector('#logout-btn').style.display = 'block';
 }
 
 //to execute upon logging out
@@ -933,7 +935,7 @@ async function embedSizesFilter() {
             sizeContainer.appendChild(size)
             // console.log(size.querySelector('input'))
             size.querySelector('input').addEventListener('change', (e) => {
-                if (e.target.checked) addFilterCard(ele.size + ' ' + ele.unit, 'size', ele.sizeId)
+                if (e.target.checked) addFilterCard(ele.size, 'size', ele.sizeId)
                 else removeFilterCard('size', ele.sizeId)
             })
         })
