@@ -1,11 +1,6 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+// ------------------------Import FireStore Services --------------------------------
 import {
-    getAuth,
-    onAuthStateChanged,
-    signOut,
-} from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
-import {
-    getFirestore,
+     firestore,
     collection,
     query,
     where,
@@ -17,44 +12,49 @@ import {
     onSnapshot,
     addDoc,
     deleteDoc,
-    or
-} from "https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore.js";
-import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-storage.js";
+    or,
+    and,
+    limit,
+    startAfter,
+    endAt,
+    orderBy,
+    getCountFromServer,
+    deleteField
+} from "./assets/repository/initialize.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyBrIAlkIyp5ALsv5RslbXA1oQVQL3eKhig",
-    authDomain: "pharma-ecom-app.firebaseapp.com",
-    projectId: "pharma-ecom-app",
-    storageBucket: "pharma-ecom-app.appspot.com",
-    messagingSenderId: "798776981223",
-    appId: "1:798776981223:web:16f92da76fe7c2f1cf9442"
-};
+// ----------------------Import Auth Services --------------------------
+import {
+    auth,
+    signOut,
+    onAuthStateChanged,
+    updatePassword,
+    EmailAuthProvider,
+    reauthenticateWithCredential,
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail,
+    createUserWithEmailAndPassword
+} from "./assets/repository/initialize.js";
 
-//************************global variable*********************************
-const app = initializeApp(firebaseConfig);
-const firestore = getFirestore(app);
-const auth = getAuth(app);
+// ----------------------Import Storage Services -----------------------------
+import {
+    storage,
+    ref,
+    uploadBytes,
+    getDownloadURL
+    } from "./assets/repository/initialize.js";
+
+
+
+//-------------------------- global variable ----------------------------------
 const productsRef = collection(firestore, 'products');
 var loggedIn = false;
 var cart = null
 var unsubscribeOnSnapshot = null
+var userData = null;
 const confirmLogoutBtn = document.getElementById("confirmLogoutBtn");
-
-//****************************event listener*******************************
-//to be added after loading all products
-function addEventListenerToProducts() {
-    console.log("inside add event")
-    document.querySelectorAll('.minus').forEach(btn => {
-        btn.addEventListener('click', minusQuantity)
-    })
-
-    document.querySelectorAll('.plus').forEach(btn => {
-        btn.addEventListener('click', plusQuantity)
-    })
-
-}
-
-//************************************************************************
+var orderId = new URLSearchParams(window.location.search).get('orderId')
+console.log(orderId);
+//-----------------------------------------------------------------------------
 
 /**
  * 
@@ -90,60 +90,58 @@ function getUserSnapshot(uid) {
         resolve(getDoc(userRef))
     })
 }
-//************************************************************************
+//*-----------------------------------------------------------------------
 
-// Use onAuthStateChanged to control access to admin dashboard
+/**
+ * OnAuthStateChanged 
+ * It will Check if User is Exist or Not
+ * Calling updateCart() function
+ * Calling roleAccess Based on the Role
+ * Calling updateProfileName Based user Data
+ * Calling updateProfilePicture Based on UserData
+ * 
+ * @returns mydev
+ */
 onAuthStateChanged(auth, async (user) => {
     const adminAppbar = document.getElementById("adminAppbar");
     const userAppbar = document.getElementById("userAppbar");
     // const agentAppbar = document.getElementById("agentAppbar");
-
     if (user) {
         document.querySelector('#logout-btn').style.display='block';
-        // User is logged in
+        console.log("from onAuthStateChanged")
         const docRef = doc(firestore, "users", user.uid);
         const docSnap = getDoc(docRef);
-        var userData = null;
+        // const orders= await fetchOrdersForUser();
+        await getOrderDetailsForTracking(orderId)
         onLoggedIn();
         docSnap.then(async (docSnapshot) => {
-            // console.log(docSnapshot)
             if (docSnapshot.exists()) {
-                console.log("from onAuthStateChanged")
                 loggedIn = true
                 userData = docSnapshot.data();
-                // roleAccess(userData.role);
-                // onLoggedIn();
-                //update cart
                 console.log(1)
                 await updateCart();
                 roleAccess(userData.role);
                 updateProfileName(userData.role,userData.firstName);
                 updateProfilePicture(userData.role,userData.profilePicture)
-                // await fetchManufacturers();
-                // await fetchCategories()
                 fetchNavCategories();
-                // fetchAndDisplayProducts();
             }
         });
     } else {
-        // User is not logged in
         loggedIn = false;
-        document.querySelector('#logout-btn').style.display = 'none';
         console.log(loggedIn)
-        // Hide both appbars or handle the state as needed
-        // onLoggedOut();
+        onLoggedOut();
         await updateCart();
-        // await fetchManufacturers();
-        // await fetchCategories()
         fetchNavCategories();
-        // fetchAndDisplayProducts();
     }
-    // Call the fetchAndDisplayProducts function to load products on page load
 });
 
-//*****************************loading and role access************************************
+/**
+ * 
+ * @param {*} access profileName for user
+ * @param {*} fullName 
+ * @returns mydev
+ */
 function updateProfileName(role, fullName) {
-    // Based on the role, select the appropriate element
     let profileNameElement;
     switch (role) {
         case 'CUSTOMER':
@@ -162,10 +160,16 @@ function updateProfileName(role, fullName) {
     profileNameElement.textContent = fullName;
 }
 
+
+/**
+ * 
+ * @param {*} role access profilePicture for user
+ * @param {*} profilePicture 
+ * @returns my dev
+ */
 function updateProfilePicture(role, profilePicture) {
     let profilePictureElement;
     const defaultProfilePicture = 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp';
-
     switch (role) {
         case 'CUSTOMER':
             profilePictureElement = document.getElementById('customerAppbar').querySelector('#profile-picture');
@@ -181,17 +185,19 @@ function updateProfilePicture(role, profilePicture) {
             return;
     }
 
-    // Check if profilePicture is empty or undefined
     if (profilePicture && profilePicture.trim() !== '') {
         profilePictureElement.src = profilePicture;
     } else {
-        // Set to the default profile picture if no picture is provided
         profilePictureElement.src = defaultProfilePicture;
     }
 }
 
+/**
+ * 
+ * @param {*} role access the AppBar based on the role
+ * @returns my dev
+ */
 function roleAccess(role) {
-    // console.log('inside role')
     const roleMap = new Map([
         ["ADMIN", "adminAppbar"],
         ["CUSTOMER", "customerAppbar"],
@@ -204,7 +210,11 @@ function roleAccess(role) {
     })
 }
 
-//to execut upon logging in
+
+/**
+ * hide or show the navbar items before and after login
+ * @returns mydev
+ */
 function onLoggedIn() {
     var navItemList = document.querySelectorAll(".loggedIn");
     navItemList.forEach((navItem) => {
@@ -217,7 +227,10 @@ function onLoggedIn() {
     });
 }
 
-//to execute upon logging out
+/**
+ * hide or show the navbar items before and after logout
+ * @returns mydev
+ */
 function onLoggedOut() {
     var navItemList = document.querySelectorAll(".loggedOut");
     navItemList.forEach((navItem) => {
@@ -228,178 +241,29 @@ function onLoggedOut() {
     navItemList.forEach((navItem) => {
         navItem.style.display = "none";
     });
+    document.querySelector('#logout-btn').style.display = 'none';
 }
 
-//stop the loader show the main body
-function stopLoader() {
-    document.querySelector("#overlay").classList.add("hidden");
-    document.querySelector("#main").classList.remove("hidden");
-}
 
-// Add an event listener to the confirmation logout button
+/**
+ * logout function
+ * @returns mydev
+ */
 confirmLogoutBtn.addEventListener("click", () => {
     signOut(auth)
         .then(() => {
-            // Redirect to the login page or perform any other actions
             console.log("User logged out successfully");
-            window.location.href = "login.html"; // Redirect to the login page
+            window.location.href = "login.html"; 
         })
         .catch((error) => {
             console.error("Error during logout:", error);
         });
 });
 
-// Function to fetch and display products
-async function fetchAndDisplayProducts(customQuery = false, productSnapshot = null) {
-    return new Promise(async (resolve) => {
-        const productsContainer = document.querySelector('.product-box');
-        productsContainer.innerHTML = ``
-        const productsRef = collection(firestore, 'products');
-        var productIds = []
-        cart = await getCart()
-        console.log(cart)
-        if (cart.length) {
-            cart.forEach(doc => productIds.push(doc.productId))
-        }
-        var cartStatus = false
-
-        var querySnapshot = null
-        if (customQuery) {
-            querySnapshot = productSnapshot
-        }
-        else {
-            querySnapshot = await getDocs(productsRef)
-        }
-        querySnapshot.forEach((doc) => {
-            const productData = doc.data();
-            console.log(productData)
-            //check if the product is present in cart
-            const resultIndex = productIds.findIndex(id => id === productData.productId)
-            if (resultIndex >= 0) cartStatus = true
-            else cartStatus = false
-
-            if (cartStatus) console.log(productData, productData.quantity >= 1 && cartStatus, cart[resultIndex].quantity)
-            const productUrl = productData.imageUrl;
-            // console.log(productUrl);
-            // Create a product card
-            const productCard = document.createElement('div');
-            productCard.classList.add('col-xl-4', 'col-lg-4', 'col-md-6', 'col-sm-6', 'col-xs-6', 'mb-6', 'gi-product-box', 'pro-gl-content')
-            // productCard.className = 'col-md-3'; // Adjust the class based on your layout
-            productCard.innerHTML = `
-                                    <div class="gi-product-content product" data-aos="fade-up" data-id="${productData.productId}">
-                                        <div class="gi-product-inner">
-                                            <div class="gi-pro-image-outer">
-                                                <div class="gi-pro-image">
-                                                    <a href="product-left-sidebar.html" class="image">
-                                                        <span class="label veg">
-                                                            <span class="dot"></span>
-                                                        </span>
-                                                        <img class="main-image" src="${productData.imageUrl}"
-                                                            alt="Product" >
-                                                        <img class="hover-image" src="${productData.imageUrl}"
-                                                            alt="Product">
-                                                    </a>
-                                                    <span class="flags">
-                                                        <span class="sale">Sale</span>
-                                                    </span>
-                                                    <div class="gi-pro-actions">
-                                                        <a class="gi-btn-group wishlist" title="Wishlist"><i
-                                                                class="fi-rr-heart"></i></a>
-                                                        <a href="#" class="gi-btn-group quickview"
-                                                            data-link-action="quickview" title="Quick view"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#gi_quickview_modal"><i
-                                                                class="fi-rr-eye"></i></a>
-                                                        <a href="javascript:void(0)" title="Add To Cart"
-                                                            class="gi-btn-group add-to-cart"><i
-                                                                class="fi-rr-shopping-basket"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="gi-pro-content">
-                                                <a href="shop-left-sidebar-col-3.html">
-                                                </a>
-                                                <h5 class="gi-pro-title"><a href="product-left-sidebar.html">${productData.name}</a></h5>
-                                                <p class="gi-info">Contrary to popular belief, Lorem Ipsum is not simply
-                                                    random text. It has roots in a piece of classical Latin literature
-                                                    from 45 BC, making it over 2000 years old.</p>
-                                                <div class="gi-pro-rat-price">
-                                                    <span class="gi-pro-rating">
-                                                        <i class="gicon gi-star fill"></i>
-                                                        <i class="gicon gi-star fill"></i>
-                                                        <i class="gicon gi-star fill"></i>
-                                                        <i class="gicon gi-star"></i>
-                                                        <i class="gicon gi-star"></i>
-                                                    </span>
-                                                    <span class="gi-price">
-                                                        <span class="new-price">$78.00</span>
-                                                        <span class="old-price">$85.00</span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-            `
-
-            // Append the product card to the container
-            productsContainer.appendChild(productCard);
-            productCard.querySelector('.add-to-cart').addEventListener('click', () => {
-                console.log(productData)
-                window.location.href = `product-detail.html?data=${productData.productId}`
-            })
-        });
-
-        //adding event listener to cart
-        // addEventListenerToProducts()
-        //add realtime updates
-        // {
-        //     if (!customQuery) {
-        //         unsubscribeOnSnapshot = onSnapshot(collection(firestore, 'products'),
-        //             (querySnapshot => {
-        //                 if (!querySnapshot.empty) {
-        //                     console.log('inside onSnapshot')
-        //                     console.log("dfaf")
-        //                     querySnapshot.forEach(doc => {
-        //                         const itemCard = document.querySelector(`#product-${doc.data().productId}`)
-        //                         itemCard.querySelector('.product-quantity').textContent = doc.data().quantity
-        //                         if (doc.data().quantity < 1) {
-        //                             itemCard.querySelector('.shown-stock').classList.add('d-none')
-        //                             itemCard.querySelector('.quantity').classList.add('d-none')
-        //                             itemCard.querySelector('.cart-btn').classList.add('d-none')
-        //                             itemCard.querySelector('.out-of-stock').classList.remove('d-none')
-        //                         }
-        //                         else {
-        //                             itemCard.querySelector('.shown-stock').classList.remove('d-none')
-        //                             // itemCard.querySelector('.quantity').classList.remove('d-none')
-        //                             itemCard.querySelector('.cart-btn').classList.remove('d-none')
-        //                             itemCard.querySelector('.out-of-stock').classList.add('d-none')
-        //                         }
-
-        //                         if (itemCard.querySelector('.quantity input').value > +itemCard.querySelector('.product-quantity').textContent) {
-        //                             itemCard.querySelector('.quantity input').value = 1
-        //                         }
-        //                     })
-        //                 }
-        //             })
-        //         )
-        //     }
-        // }
-        resolve()
-    })
-}
-
-
-//disable or enable all add to cart buttons
-function cartButtons(state) {
-    document.querySelectorAll('.cart').forEach((cart) => {
-        cart.disabled = state
-    })
-}
-
-function changeTextContent(target, textContent) {
-    target.textContent = textContent
-}
-
+/**
+ * get the cart details
+ * @returns mydev 
+ */
 async function getCart() {
     return new Promise(async (resolve) => {
         if (loggedIn) {
@@ -434,260 +298,6 @@ async function getCart() {
         }
     })
 }
-
-// async function showOrHideQuantity(productId, action) {
-//     console.log('showOrHideQuantity')
-//     return new Promise(async (resolve) => {
-//         var emptyCart = true
-//         if (loggedIn) {
-//             const cartSnapshot = await getDocs(
-//                 query(
-//                     collection(firestore, 'users', auth.currentUser.uid, 'cart'),
-//                     where('productId', '==', productId)
-//                 )
-//             )
-//             if (!cartSnapshot.empty) {
-//                 emptyCart = false
-//             }
-//             else {
-//                 emptyCart = true
-//             }
-//         }
-//         else {
-//             const cart = JSON.parse(sessionStorage.getItem('cart'))
-//             if (cart) {
-//                 emptyCart = false
-//             }
-//             else {
-//                 emptyCart = true
-//             }
-//         }
-//         if (!emptyCart) {
-//             console.log("from if")
-//             console.log(productId)
-//             if (action === 'hide') {
-//                 document.querySelector(`#product-${productId}`).querySelector('.quantity').classList.add('d-none')
-//             }
-//             else {
-//                 document.querySelector(`#product-${productId}`).querySelector('.quantity').classList.remove('d-none')
-//             }
-//         }
-//         else {
-//             console.log("from else")
-//             document.querySelector(`#product-${productId}`).querySelector('.quantity').classList.add('d-none')
-//         }
-//         console.log('showOrHideQuantity1')
-//         resolve()
-//     })
-
-// }
-
-
-function fetchManufacturers() {
-    return new Promise(async (resolve) => {
-        const filterOptionClone = document.querySelector('.filter-option').cloneNode(true)
-        const manufacturerContainer = document.querySelector('.manufacturer-filter-card')
-
-        const manufacturerSnapshot = await getDocs(collection(firestore, 'manufacturers'))
-
-        const filterOption = filterOptionClone.cloneNode(true)
-        const input = filterOption.querySelector('input')
-        input.setAttribute('name', 'manufacturers')
-        input.setAttribute('value', 'all')
-        input.setAttribute('id', 'all-manufacturer')
-
-        const label = filterOption.querySelector('label')
-        label.setAttribute('for', 'all-manufacturer')
-        label.innerHTML = 'All'
-        filterOption.classList.remove('d-none')
-        input.addEventListener('click', fetchFilteredProducts)
-        manufacturerContainer.appendChild(filterOption)
-
-        manufacturerSnapshot.forEach(doc => {
-            console.log(doc.data())
-
-            const filterOption = filterOptionClone.cloneNode(true)
-            const input = filterOption.querySelector('input')
-            input.setAttribute('name', 'manufacturers')
-            input.setAttribute('value', `${doc.data().manufacturerId}`)
-            input.setAttribute('id', `id-${doc.data().manufacturerId}`)
-            input.setAttribute('field', `manufacturerId`)
-            const label = filterOption.querySelector('label')
-            label.setAttribute('for', `id-${doc.data().manufacturerId}`)
-            label.innerHTML = `${doc.data().name}`
-            filterOption.classList.remove('d-none')
-            input.addEventListener('click', fetchFilteredProducts)
-            manufacturerContainer.appendChild(filterOption)
-        })
-        resolve()
-    })
-}
-
-function fetchCategories() {
-    return new Promise(async (resolve) => {
-        const categorySnapshot = await getDocs(collection(firestore, 'categories'))
-        if (categorySnapshot.empty) {
-            console.log('from empty')
-            resolve()
-            return
-        }
-
-        const categoryList = document.querySelector('.category-list')
-        categoryList.innerHTML = ``
-
-
-
-        categorySnapshot.forEach(doc => {
-            const list = document.createElement('li')
-            list.innerHTML = `
-                                            <div class="gi-sidebar-block-item">
-                                                <input type="checkbox">
-                                                <a href="javascript:void(0)">
-                                                    <span class="name" data-id="${doc.data().categoryId}">${doc.data().name}</span>
-                                                </a>
-                                                <span class="checked"></span>
-                                            </div>
-            `
-            categoryList.appendChild(list)
-
-            list.addEventListener('click', fetchFilteredProducts)
-        })
-        resolve()
-    })
-}
-
-async function fetchFilteredProducts(event) {
-    console.log('from fetchFilteredProducts')
-    const filterCards = document.querySelectorAll('.filter-card')
-    // console.log(filterCards)
-    const sortBy = []
-    var fieldValues = []
-    filterCards.forEach(filterCard => {
-        const radios = filterCard.querySelectorAll('div .filter-option input')
-        // console.log(radios)
-        var field = null
-        fieldValues = []
-        radios.forEach(radio => {
-            // console.log(radio)
-            console.log(radio.value, radio.value !== 'all')
-            if (radio.value !== 'all') {
-                console.log('from if', radio.checked)
-                if (radio.checked) {
-                    field = radio.getAttribute('field')
-                    fieldValues.push(radio.value)
-                }
-            }
-            else {
-                console.log('from else')
-                if (radio.checked) {
-                    radios.forEach(radio => {
-                        if (radio.value !== 'all') radio.checked = false
-                    })
-                    const result = sortBy.findIndex(feild => feild === radio.getAttribute('field'))
-                    if (result >= 0) {
-                        sortBy.splice(result, 1)
-                    }
-                }
-            }
-        })
-
-        if (fieldValues.length) {
-            sortBy.push({
-                field: field,
-                by: fieldValues
-            })
-        }
-    })
-    console.log(sortBy)
-    // return
-
-    if (sortBy.length) {
-        if (sortBy.length == 1) {
-            const productSnapshot = await getDocs(
-                query(
-                    collection(firestore, 'products'),
-                    or(
-                        where(sortBy[0].field, 'in', sortBy[0].by)
-                    )
-                )
-            )
-            unsubscribeOnSnapshot()
-            await fetchAndDisplayProducts(true, productSnapshot)
-            unsubscribeOnSnapshot = onSnapshot(
-                query(
-                    collection(firestore, 'products'),
-                    or(
-                        where(sortBy[0].field, 'in', sortBy[0].by)
-                    )
-                ),
-                (querySnapshot => {
-                    if (!querySnapshot.empty) {
-                        console.log('inside onSnapshot')
-                        console.log("dfaf")
-                        querySnapshot.forEach(doc => {
-                            realTimeActions(doc.data())
-                        })
-                    }
-                })
-            )
-        }
-        if (sortBy.length == 2) {
-            const productSnapshot = await getDocs(
-                query(
-                    collection(firestore, 'products'),
-                    where(sortBy[0].field, 'in', sortBy[0].by),
-                    where(sortBy[1].field, 'in', sortBy[1].by)
-                )
-            )
-            unsubscribeOnSnapshot()
-            await fetchAndDisplayProducts(true, productSnapshot)
-            unsubscribeOnSnapshot = onSnapshot(
-                query(
-                    collection(firestore, 'products'),
-                    collection(firestore, 'products'),
-                    where(sortBy[0].field, 'in', sortBy[0].by),
-                    where(sortBy[1].field, 'in', sortBy[1].by)
-                ),
-                (querySnapshot => {
-                    if (!querySnapshot.empty) {
-                        console.log('inside onSnapshot')
-                        console.log("dfaf")
-                        querySnapshot.forEach(doc => {
-                            realTimeActions(doc.data())
-                        })
-                    }
-                })
-            )
-        }
-    }
-    else {
-        fetchAndDisplayProducts()
-    }
-}
-
-function realTimeActions(data) {
-    console.log('from realTimeActions')
-    const itemCard = document.querySelector(`#product-${data.productId}`)
-    itemCard.querySelector('.product-quantity').textContent = data.quantity
-    if (data.quantity < 1) {
-        itemCard.querySelector('.shown-stock').classList.add('d-none')
-        itemCard.querySelector('.quantity').classList.add('d-none')
-        itemCard.querySelector('.cart-btn').classList.add('d-none')
-        itemCard.querySelector('.out-of-stock').classList.remove('d-none')
-    }
-    else {
-        itemCard.querySelector('.shown-stock').classList.remove('d-none')
-        // itemCard.querySelector('.quantity').classList.remove('d-none')
-        itemCard.querySelector('.cart-btn').classList.remove('d-none')
-        itemCard.querySelector('.out-of-stock').classList.add('d-none')
-    }
-
-    if (itemCard.querySelector('.quantity input').value > +itemCard.querySelector('.product-quantity').textContent) {
-        itemCard.querySelector('.quantity input').value = 1
-    }
-
-}
-
 
 /**
  * 
@@ -740,6 +350,67 @@ async function fetchNavCategories() {
         <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
         `
         mobileCategoryList.appendChild(list)
+    })
+}
+
+/**
+ * Tracking order Details function 
+ * @returns mydev
+ */
+async function getOrderDetailsForTracking(orderId){
+    const orderSnapshot =await getDocs(query(collection(firestore,'users',auth.currentUser.uid,'orders'),where('orderId','==',orderId)));
+    const orderData = orderSnapshot.docs[0].data();
+    console.log(orderData);
+    const giOrderId = document.querySelector('.gi-order-id');
+    const trackerOrderId = document.querySelector('#track-order-id')
+    trackerOrderId.textContent = orderData.orderId
+    giOrderId.textContent = orderData.orderId
+    await updateTrackingLOrderStatus(orderData.status)
+}
+
+ /**
+  * update Tracking order based Progressbar Percentage
+  * @param {*} status
+  * @returns mydev 
+  */
+ async function updateTrackingLOrderStatus(status){
+    console.log(status)
+    const progressBar = document.querySelector('.progress-bar')
+    const steps = document.querySelectorAll('.gi-step')
+    
+    const statusMap = {
+        'order_confirm':1,
+        'processing_order':2,
+        'quality_check':3,
+        'product_dispatched':4,
+        'product_delivered':5
+    }
+
+    const totalSteps = Object.keys(statusMap).length;
+    let completedSteps = statusMap[status] || 0;
+    console.log(completedSteps);
+    
+    const progressPercentage = (completedSteps / totalSteps) *100;
+    console.log(progressPercentage);
+    progressBar.style.width = `${progressPercentage}%`;
+
+    steps.forEach((step,index)=>{
+        if(index < completedSteps){
+            console.log("if")
+            step.classList.add('gi-step-completed')
+            step.classList.remove('gi-step-active')
+        }
+        else if(index === completedSteps){
+            console.log("else if")
+            step.classList.add('gi-step-active');
+            step.classList.remove('gi-step-completed')
+        }
+        else {
+            console.log("else")
+            step.classList.remove('gi-step-completed');
+            step.classList.remove('gi-step-active');
+            // step.classList.remove('fa-check')
+        }
     })
 }
 
