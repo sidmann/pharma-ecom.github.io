@@ -251,9 +251,9 @@ async function embedCategoriesCard() {
         loop: true,
         dots: false,
         nav: false,
-        smartSpeed: 1500,
-        autoplay: false,
-        items: itemsToShow,
+        smartSpeed: 10000,
+        autoplay: true,
+        items: 3,
         responsiveClass: true,
         responsive: {
             0: {
@@ -342,8 +342,8 @@ async function fetchProductsForSlider() {
         loop: true,
         dots: false,
         nav: false,
-        smartSpeed: 1000,
-        autoplay: false,
+        smartSpeed: 10000,
+        autoplay: true,
         items: 3,
         responsiveClass: true,
         responsive: {
