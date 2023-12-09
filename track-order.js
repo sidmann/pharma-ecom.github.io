@@ -53,7 +53,9 @@ var unsubscribeOnSnapshot = null
 var userData = null;
 const confirmLogoutBtn = document.getElementById("confirmLogoutBtn");
 var orderId = new URLSearchParams(window.location.search).get('orderId')
-console.log(orderId);
+// console.log(orderId);
+var userId =new URLSearchParams(window.location.search).get('userId')
+// console.log(userId)
 //-----------------------------------------------------------------------------
 
 /**
@@ -112,7 +114,7 @@ onAuthStateChanged(auth, async (user) => {
         const docRef = doc(firestore, "users", user.uid);
         const docSnap = getDoc(docRef);
         // const orders= await fetchOrdersForUser();
-        await getOrderDetailsForTracking(orderId)
+        await getOrderDetailsForTracking()
         onLoggedIn();
         docSnap.then(async (docSnapshot) => {
             if (docSnapshot.exists()) {
@@ -357,15 +359,37 @@ async function fetchNavCategories() {
  * Tracking order Details function 
  * @returns mydev
  */
-async function getOrderDetailsForTracking(orderId){
-    const orderSnapshot =await getDocs(query(collection(firestore,'users',auth.currentUser.uid,'orders'),where('orderId','==',orderId)));
-    const orderData = orderSnapshot.docs[0].data();
-    console.log(orderData);
-    const giOrderId = document.querySelector('.gi-order-id');
-    const trackerOrderId = document.querySelector('#track-order-id')
-    trackerOrderId.textContent = orderData.orderId
-    giOrderId.textContent = orderData.orderId
-    await updateTrackingLOrderStatus(orderData.status)
+async function getOrderDetailsForTracking(){
+    // console.log(orderId)
+    // console.log(auth.currentUser.uid)
+    // console.log(userId)
+    if(userId===null && orderId){
+        console.log("if")
+        const orderSnapshot = await getDocs(query(
+            collection(firestore, 'users', auth.currentUser.uid, 'orders'),
+            where('orderId', '==', orderId)
+        ));
+        const orderData = orderSnapshot.docs[0].data();
+        const giOrderId = document.querySelector('.gi-order-id');
+        const trackerOrderId = document.querySelector('#track-order-id')
+        trackerOrderId.textContent = orderData.orderId
+        giOrderId.textContent = orderData.orderId
+        await updateTrackingLOrderStatus(orderData.status)
+    }
+
+    else{
+        console.log("else")
+        const orderSnapshot = await getDocs(query(
+            collection(firestore, 'users', userId, 'orders'),
+            where('orderId', '==', orderId)
+        ));
+        const orderData = orderSnapshot.docs[0].data();
+        const giOrderId = document.querySelector('.gi-order-id');
+        const trackerOrderId = document.querySelector('#track-order-id')
+        trackerOrderId.textContent = orderData.orderId
+        giOrderId.textContent = orderData.orderId
+        await updateTrackingLOrderStatus(orderData.status)
+    }   
 }
 
  /**
@@ -396,17 +420,14 @@ async function getOrderDetailsForTracking(orderId){
 
     steps.forEach((step,index)=>{
         if(index < completedSteps){
-            console.log("if")
             step.classList.add('gi-step-completed')
             step.classList.remove('gi-step-active')
         }
         else if(index === completedSteps){
-            console.log("else if")
             step.classList.add('gi-step-active');
             step.classList.remove('gi-step-completed')
         }
         else {
-            console.log("else")
             step.classList.remove('gi-step-completed');
             step.classList.remove('gi-step-active');
             // step.classList.remove('fa-check')

@@ -29,7 +29,10 @@ let orderDetails = null
 const confirmLogoutBtn = document.getElementById("confirmLogoutBtn");
 
 //check order param in url
-const orderId = new URLSearchParams(window.location.search).get('orderId')
+var orderId = new URLSearchParams(window.location.search).get('orderId')
+// console.log(orderId)
+var userId =new URLSearchParams(window.location.search).get('userId')
+// console.log(userId);
 if (!orderId) window.location.href = 'index.html'
 
 // Add an event listener to the confirmation logout button
@@ -99,6 +102,7 @@ onAuthStateChanged(auth, async (user) => {
     if (user) {
         loggedIn = true
         onLoggedIn()
+        console.log(user.id)
 
         const docRef = doc(firestore, "users", user.uid);
         const docSnap = getDoc(docRef);
@@ -323,7 +327,7 @@ function embedOrderId() {
 }
 
 
-function embedOrderDateAndTime() {
+ function embedOrderDateAndTime() {
     const orderDate = document.querySelector('.order-date')
     const orderTime = document.querySelector('.order-time')
 
@@ -334,8 +338,17 @@ function embedOrderDateAndTime() {
 }
 
 async function getOrderedDetails() {
-    orderDetails = await getOrderDetails(orderId, auth.currentUser.uid)
-    console.log(orderDetails)
+    // console.log("2" + userId)
+    // console.log(userId)
+    if(userId===null && orderId){
+        console.log("if")
+        orderDetails = await getOrderDetails(orderId, auth.currentUser.uid)
+    }
+    else{
+        console.log("else")
+        orderDetails = await getOrderDetails(orderId, userId)
+    }
+    return orderDetails;
 }
 
 async function embedOrderStatus() {
@@ -381,6 +394,7 @@ async function embedOrderedProducts() {
 
     const allPromises = orderedProducts.map(async (item) => {
         const productDetails = await getProductDetails(item.productId)
+        // console.log(item.productId);
         const tr = document.createElement('tr')
         tr.innerHTML = `
                           <td>
