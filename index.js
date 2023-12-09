@@ -307,9 +307,9 @@ async function fetchProductsForSlider() {
                                             src="${productDoc.imageUrl}"
                                             alt="Product">
                                     </a>
-                                    <span class="flags">
+                                   <!-- <span class="flags">
                                         <span class="sale">Sale</span>
-                                    </span>
+                                    </span>-->
                                 </div>
                             </div>
                             <div class="gi-pro-content">
@@ -319,16 +319,16 @@ async function fetchProductsForSlider() {
                                  ${productDoc.name}
                                 </a></h5>
                                 <div class="gi-pro-rat-price">
-                                    <span class="gi-pro-rating">
+                                    <!--<span class="gi-pro-rating">
                                         <i class="gicon gi-star fill"></i>
                                         <i class="gicon gi-star fill"></i>
                                         <i class="gicon gi-star fill"></i>
                                         <i class="gicon gi-star fill"></i>
                                         <i class="gicon gi-star"></i>
-                                    </span>
+                                    </span> -->
                                     <span class="gi-price">
                                         <span class="new-price"><span>&#8377;</span>${productDoc.price}</span>
-                                        <span class="old-price"><span>&#8377;</span>${productDoc.price + 30}</span>
+                                       <!-- <span class="old-price"><span>&#8377;</span>${productDoc.price + 30}</span>-->
                                     </span>
                                 </div>
                             </div>
@@ -410,16 +410,16 @@ async function newArrivalProducts() {
                             <h5 class="gi-pro-title"><a href="products.html">
                                     ${newArrivalData.name}</a></h5>
                             <div class="gi-pro-rat-price">
-                                <span class="gi-pro-rating">
+                               <!-- <span class="gi-pro-rating">
                                     <i class="gicon gi-star fill"></i>
                                     <i class="gicon gi-star fill"></i>
                                     <i class="gicon gi-star fill"></i>
                                     <i class="gicon gi-star"></i>
                                     <i class="gicon gi-star"></i>
-                                </span>
+                                </span>-->
                                 <span class="gi-price">
                                     <span class="new-price"><span>&#8377</span>${newArrivalData.price}</span>
-                                    <span class="old-price"><span>&#8377</span>$65.00</span>
+                                    <!--<span class="old-price"><span>&#8377</span>$65.00</span> -->
                                 </span>
                             </div>
                         </div>
