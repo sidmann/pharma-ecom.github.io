@@ -225,7 +225,9 @@ async function getAndEmbedProductData(productId) {
     console.log(productData);
     const productLoader = document.querySelector('.product-loader')
     const productName = document.querySelector('.product-name')
+    const productStock = document.querySelector('.product-stock')
     const productPrice = document.querySelector('.product-price')
+    const productOldPrice = document.querySelector('.product-old-price')
     const productFirstImageList = document.querySelectorAll('.product-first-image')
     const productSize = document.querySelector('.product-size')
     const productManufacturer = document.querySelector('.product-manufacturer')
@@ -246,6 +248,7 @@ async function getAndEmbedProductData(productId) {
     // productFirstImage.src = productData.imageUrl
     productName.textContent = productData.name
     productPrice.textContent = productData.price
+    productOldPrice.textContent = 40 + +productData.price
     productDesc.textContent = productData.ProductDescription;
     productSize.textContent = productData.size + ' ';
     productManufacturer.textContent = productData.manufacturerName;
@@ -253,6 +256,7 @@ async function getAndEmbedProductData(productId) {
     productCategory.textContent = productData.categoryName;
     productDetails.textContent = productData.productDetails;
     productSpecifications.textContent = productData.productSpecifications;
+    productStock.textContent = productData.quantity ? 'IN STOCK' : 'OUT STOCK'
 
     setTimeout(() => {
         productLoader.classList.add('d-none')

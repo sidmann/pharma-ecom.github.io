@@ -215,39 +215,44 @@ async function embedCategoriesCard() {
     console.log('inside embed')
     const categories = await fetchCategories()
     const categoryBox = document.querySelector('.category-box')
-    // console.log(categories)
     categoryBox.innerHTML = ''
     let count = 1
-    let allPromises = categories.map(async (category) => {
+    let categoryCountPromises = categories.map(category => getCategoryCount(category.categoryId));
+
+    const categoryCounts = await Promise.all(categoryCountPromises);
+
+    let allPromises = categories.map((category, index) => {
         if (count == 6) count = 1
-        const categoryCount = await getCategoryCount(category.categoryId)
+        const categoryCount = categoryCounts[index];
         const categoryCard = document.createElement('span')
         categoryCard.innerHTML = `
-                            <div class="gi-cat-box gi-cat-box-${count}">
-                                <div class="gi-cat-icon">
-                                    <i class="fa fa-user-md"></i><br>
-                                    <div class="gi-cat-detail category-id" data-id="${category.categoryId}">
-                                        <a class="text-decoration-none text-black" href="products.html?categoryId=${category.categoryId}">
-                                            <h4 class="gi-cat-title">${category.name}</h4>
-                                        </a>
-                                        <p class="items">${categoryCount} Items</p> 
-                                    </div>
-                                </div>
-                            </div>
+            <div class="gi-cat-box gi-cat-box-${count}">
+                <div class="gi-cat-icon">
+                    <i class="fa fa-user-md"></i><br>
+                    <div class="gi-cat-detail category-id" data-id="${category.categoryId}">
+                        <a class="text-decoration-none text-black" href="products.html?categoryId=${category.categoryId}">
+                            <h4 class="gi-cat-title">${category.name}</h4>
+                        </a>
+                        <p class="items">${categoryCount} Items</p> 
+                    </div>
+                </div>
+            </div>
         `
         categoryBox.appendChild(categoryCard)
         count++
     })
 
-    await Promise.all(allPromises)
+    // Determine the number of items based on the category count
+    const totalCategoryCount = categoryCounts.reduce((total, count) => total + count, 0);
+    const itemsToShow = Math.min(totalCategoryCount, 6); // Set a maximum of 6 items
 
     $('.gi-category-block').owlCarousel({
         margin: 24,
         loop: true,
         dots: false,
         nav: false,
-        smartSpeed: 1500,
-        autoplay: false,
+        smartSpeed: 10000,
+        autoplay: true,
         items: 3,
         responsiveClass: true,
         responsive: {
@@ -337,8 +342,8 @@ async function fetchProductsForSlider() {
         loop: true,
         dots: false,
         nav: false,
-        smartSpeed: 1000,
-        autoplay: false,
+        smartSpeed: 10000,
+        autoplay: true,
         items: 3,
         responsiveClass: true,
         responsive: {
@@ -397,13 +402,6 @@ async function newArrivalProducts() {
                                 <span class="flags">
                                     <span class="sale">New</span>
                                 </span>
-                                <div class="gi-pro-actions">
-                                    <a href="products.html"
-                                        class="gi-btn-group quickview" data-link-action="quickview"
-                                        title="Quick view" data-bs-toggle="modal"
-                                        data-bs-target="#gi_quickview_modal"><i
-                                            class="fi-rr-eye"></i></a>
-                                </div>
                             </div>
                         </div>
                         <div class="gi-pro-content">

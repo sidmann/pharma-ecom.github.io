@@ -705,7 +705,7 @@ Copyright 2023
                                     </a>
                                 </li>
                                 <li class="nav-item d-none loggedIn" id="customerAppbar">
-                                    <a class="nav-link custom-brand" href="order-details.html">My Orders
+                                    <a class="nav-link custom-brand" href="orderlist.html">My Orders
                                     </a>
                                 </li>
                                 <li class="nav-item d-none loggedIn" id="customerAppbar">
@@ -889,8 +889,15 @@ Copyright 2023
         <div class="container">
             <div class="row m-b-minus-15px">
                 <div class="col-xl-12 border-content-color">
+                    <div class="section-title " data-aos="fade-up" data-aos-duration="2000" data-aos-delay="200">
+                        <div class="section-detail ">
+                            <h2 class="gi-title ">All <span>Categories</span></h2>
+                            <p>Don't wait. The time will never be just right.</p>
+                        </div>
+                        <div id="dealend" class="dealend-timer"></div>
+                    </div>
                     <div class="gi-category-block owl-carousel category-box">
-                        <!-- <span>f
+                        <!-- <span>
                         <div class="gi-cat-box gi-cat-box-1">
                             <div class="gi-cat-icon">
                                 <span class="gi-lbl">30%</span>
@@ -1066,7 +1073,7 @@ Copyright 2023
                         </div>
                         <div class="gi-service-desc">
                             <h3>Free Shipping</h3>
-                            <p>Free shipping on all US order or order above ₹200</p>
+                            <p>Free shipping on all India order or order above ₹200</p>
                         </div>
                     </div>
                 </div>
@@ -1098,7 +1105,7 @@ Copyright 2023
                     data-wow-delay=".8s">
                     <div class="gi-ser-inner">
                         <div class="gi-service-image">
-                            <i class="fi fi-ts-donate"></i>
+                            <i class="fi fi-ts-money"></i>
                         </div>
                         <div class="gi-service-desc">
                             <h3>Payment Secure</h3>
@@ -1132,7 +1139,7 @@ Copyright 2023
                                 </div> -->
                             </div>
                         </div>
-                     <!-- <div class="col-sm-12 col-lg-2 gi-footer-info wow fadeInUp" data-wow-delay="0.2s">
+                        <!-- <div class="col-sm-12 col-lg-2 gi-footer-info wow fadeInUp" data-wow-delay="0.2s">
                             <div class="gi-footer-widget">
                                 <h4 class="gi-footer-heading">Category</h4>
                                 <div class="gi-footer-links gi-footer-dropdown">
@@ -1174,19 +1181,16 @@ Copyright 2023
                         </div>
                         <div class="col-sm-12 col-lg-2 gi-footer-service wow fadeInUp" data-wow-delay="0.3s">
                             <div class="gi-footer-widget">
-                                <div class="gi-footer-contact">
-
-                                    <h4 class="gi-footer-heading">Account</h4>
-                                    <div class="gi-footer-links gi-footer-dropdown">
-                                        <ul class="align-itegi-center">
-                                            <!-- <li class="gi-footer-link"><a href="./register.html">Register</a></li> -->
-                                            <li class="gi-footer-link"><a href="privacy-policy.html">Return
-                                                    Policy</a></li>
-                                            <li class="gi-footer-link"><a href="./track-order.html">Track order</a>
-                                            </li>
-                                            <li class="gi-footer-link"><a href="./cart.html">View Cart</a></li>
-                                        </ul>
-                                    </div>
+                                <h4 class="gi-footer-heading">Account</h4>
+                                <div class="gi-footer-links gi-footer-dropdown">
+                                    <ul class="align-itegi-center">
+                                        <!-- <li class="gi-footer-link"><a href="./register.html">Register</a></li> -->
+                                        <li class="gi-footer-link"><a href="privacy-policy.html">Return
+                                                Policy</a></li>
+                                        <li class="gi-footer-link"><a href="./track-order.html">Track order</a>
+                                        </li>
+                                        <li class="gi-footer-link"><a href="./cart.html">View Cart</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -1274,7 +1278,7 @@ Copyright 2023
     <!-- Logout Confirmation Modal -->
     <div class="modal fade" id="logoutConfirmationModal" tabindex="-1" aria-labelledby="logoutConfirmationModalLabel"
         data-bs-backdrop="static" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered w-50">
+        <div class="modal-dialog modal-dialog-centered w-sm-50">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="logoutConfirmationModalLabel">

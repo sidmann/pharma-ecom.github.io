@@ -228,7 +228,8 @@ onAuthStateChanged(auth, async (user) => {
     // const agentAppbar = document.getElementById("agentAppbar");
     if (user) {
         console.log("if")
-        document.querySelector('#logout-btn').style.display = 'block';
+        loggedIn = true
+        
         const docRef = doc(firestore, "users", user.uid);
         onLoggedIn();
         const docSnap = getDoc(docRef);
@@ -327,6 +328,7 @@ function onLoggedIn() {
     navItemList.forEach((navItem) => {
         navItem.style.display = "none";
     });
+    document.querySelector('#logout-btn').style.display = 'block';
 }
 
 //to execute upon logging out
@@ -837,40 +839,45 @@ async function embedCategoriesCard() {
     console.log('inside embed')
     const categories = await fetchCategories_1()
     const categoryBox = document.querySelector('.category-box')
-    // console.log(categories)
     categoryBox.innerHTML = ''
     let count = 1
-    let allPromises = categories.map(async (category) => {
+    let categoryCountPromises = categories.map(category => getCategoryCount(category.categoryId));
+
+    const categoryCounts = await Promise.all(categoryCountPromises);
+
+    let allPromises = categories.map((category, index) => {
         if (count == 6) count = 1
-        const categoryCount = await getCategoryCount(category.categoryId)
+        const categoryCount = categoryCounts[index];
         const categoryCard = document.createElement('span')
         categoryCard.innerHTML = `
-                            <div class="gi-cat-box gi-cat-box-${count}">
-                                <div class="gi-cat-icon">
-                                    <i class="fa fa-user-md"></i><br>
-                                    <div class="gi-cat-detail category-id" data-id="${category.categoryId}">
-                                        <a class="text-decoration-none text-black" href="products.html?categoryId=${category.categoryId}">
-                                            <h4 class="gi-cat-title">${category.name}</h4>
-                                        </a>
-                                        <p class="items">${categoryCount} Items</p> 
-                                    </div>
-                                </div>
-                            </div>
+            <div class="gi-cat-box gi-cat-box-${count}">
+                <div class="gi-cat-icon">
+                    <i class="fa fa-user-md"></i><br>
+                    <div class="gi-cat-detail category-id" data-id="${category.categoryId}">
+                        <a class="text-decoration-none text-black" href="products.html?categoryId=${category.categoryId}">
+                            <h4 class="gi-cat-title">${category.name}</h4>
+                        </a>
+                        <p class="items">${categoryCount} Items</p> 
+                    </div>
+                </div>
+            </div>
         `
         categoryBox.appendChild(categoryCard)
         count++
     })
 
-    await Promise.all(allPromises)
+    // Determine the number of items based on the category count
+    const totalCategoryCount = categoryCounts.reduce((total, count) => total + count, 0);
+    const itemsToShow = Math.min(totalCategoryCount, 6); // Set a maximum of 6 items
 
     $('.gi-category-block').owlCarousel({
         margin: 24,
         loop: true,
         dots: false,
         nav: false,
-        smartSpeed: 1500,
-        autoplay: false,
-        items: 3,
+        smartSpeed: 10000,
+        autoplay: true,
+        items: itemsToShow,
         responsiveClass: true,
         responsive: {
             0: {
@@ -933,7 +940,7 @@ async function embedSizesFilter() {
             sizeContainer.appendChild(size)
             // console.log(size.querySelector('input'))
             size.querySelector('input').addEventListener('change', (e) => {
-                if (e.target.checked) addFilterCard(ele.size + ' ' + ele.unit, 'size', ele.sizeId)
+                if (e.target.checked) addFilterCard(ele.size, 'size', ele.sizeId)
                 else removeFilterCard('size', ele.sizeId)
             })
         })
