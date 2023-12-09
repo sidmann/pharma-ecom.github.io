@@ -117,7 +117,6 @@ onAuthStateChanged(auth, async (user) => {
         loggedIn = false
         onLoggedOut()
     }
-
     await postPageLoadFunctions()
 })
 

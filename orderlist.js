@@ -55,10 +55,15 @@ confirmLogoutBtn.addEventListener("click", () => {
         });
 });
 
+/**
+ * 
+ *
+ * @param {*} 
+ * @returns mydev
+ */
 onAuthStateChanged(auth, async (user) => {
     if (user) {
-        console.log("if")
-        document.querySelector('#logout-btn').style.display = 'block';
+        console.log("if")       
         loggedIn = true
         onLoggedIn();
         // User is authenticated
@@ -67,7 +72,6 @@ onAuthStateChanged(auth, async (user) => {
         const orders = await fetchOrdersForUser();
         displayOrdersInTable(orders);
         docSnap.then((docSnapshot) => {
-            // console.log(docSnapshot)
             if (docSnapshot.exists()) {
                 userData = docSnapshot.data();
                 console.log(userData.role);
@@ -76,21 +80,24 @@ onAuthStateChanged(auth, async (user) => {
                 updateCart();
                 fetchNavCategories();
                 updateProfilePicture(userData.role, userData.profilePicture)
-
-                // updateCart();
             }
         });
     } else {
         console.log("else");
         updateCart();
         fetchNavCategories();
-        // User is not authenticated, redirect to login page
-        // window.location.href = "login.html";
-        document.querySelector('#logout-btn').style.display = 'none';
+        onLoggedOut();
     }
 });
 
+/**
+ * 
+ *
+ * @param {*} 
+ * @returns mydev
+ */
 function onLoggedIn() {
+    console.log("onloggedIn")
     var navItemList = document.querySelectorAll(".loggedIn");
     navItemList.forEach((navItem) => {
         navItem.style.display = "block";
@@ -100,10 +107,37 @@ function onLoggedIn() {
     navItemList.forEach((navItem) => {
         navItem.style.display = "none";
     });
+    document.querySelector('#logout-btn').style.display = 'block';
 }
 
+/**
+ * 
+ *
+ * @param {*} 
+ * @returns mydev
+ */
+function onLoggedOut() {
+    console.log("onloggedOut")
+    var navItemList = document.querySelectorAll(".loggedOut");
+    navItemList.forEach((navItem) => {
+        navItem.style.display = "block";
+    });
+
+    navItemList = document.querySelectorAll(".loggedIn");
+    navItemList.forEach((navItem) => {
+        navItem.style.display = "none";
+    });
+
+    document.querySelector('#logout-btn').style.display = 'none';
+}
+
+/**
+ * 
+ *
+ * @param {*} 
+ * @returns mydev
+ */
 function updateProfileName(role, fullName) {
-    // Based on the role, select the appropriate element
     let profileNameElement;
     switch (role) {
         case 'CUSTOMER':
@@ -122,8 +156,12 @@ function updateProfileName(role, fullName) {
     profileNameElement.textContent = fullName;
 }
 
+/**
+ * 
+ * @param {*} role
+ * @return mydev 
+ */
 function roleAccess(role) {
-    // console.log('inside role')
     const roleMap = new Map([
         ["ADMIN", "adminAppbar"],
         ["CUSTOMER", "customerAppbar"],
@@ -154,6 +192,12 @@ function updateCart() {
     })
 }
 
+/**
+ * 
+ *
+ * @param {*} 
+ * @returns dev
+ */
 async function fetchNavCategories() {
     const categoryList = document.querySelector('.nav-category')
     const mobileCategoryList = document.querySelector('.mobile-nav-category')
@@ -204,6 +248,12 @@ async function fetchNavCategories() {
     })
 }
 
+/**
+ * 
+ *
+ * @param {*} 
+ * @returns dev
+ */
 async function getCart() {
     return new Promise(async (resolve) => {
         if (loggedIn) {
@@ -239,6 +289,12 @@ async function getCart() {
     })
 }
 
+/**
+ * 
+ *
+ * @param {*} 
+ * @returns mydev
+ */
 function updateProfilePicture(role, profilePicture) {
     let profilePictureElement;
     const defaultProfilePicture = 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp';
@@ -258,28 +314,19 @@ function updateProfilePicture(role, profilePicture) {
             return;
     }
 
-    // Check if profilePicture is empty or undefined
     if (profilePicture && profilePicture.trim() !== '') {
         profilePictureElement.src = profilePicture;
     } else {
-        // Set to the default profile picture if no picture is provided
         profilePictureElement.src = defaultProfilePicture;
     }
 }
 
-//to execute upon logging out
-function onLoggedOut() {
-    var navItemList = document.querySelectorAll(".loggedOut");
-    navItemList.forEach((navItem) => {
-        navItem.style.display = "block";
-    });
-
-    navItemList = document.querySelectorAll(".loggedIn");
-    navItemList.forEach((navItem) => {
-        navItem.style.display = "none";
-    });
-}
-
+/**
+ * 
+ *
+ * @param {*} 
+ * @returns mydev
+ */
 async function fetchOrdersForUser() {
     console.log(loggedIn)
     const userRef = doc(firestore, "users", auth.currentUser.uid);
@@ -288,11 +335,9 @@ async function fetchOrdersForUser() {
     try {
         const querySnapshot = await getDocs(ordersRef);
         const orders = [];
-
         if (!querySnapshot.empty) {
             querySnapshot.forEach((doc) => {
                 const orderData = doc.data();
-                // console.log(orderData);
                 orders.push(orderData);
             });
         }
@@ -318,7 +363,7 @@ async function displayOrdersInTable(orders) {
            <td><span class="avl">${order.status}</span></td>
             <td>
                 <span class="tbl-btn">
-                    <a class="gi-btn-2 add-to-cart m-r-5px" href="track-order.html" title="Track Order">
+                    <a class="gi-btn-2 add-to-cart m-r-5px" href="track-order.html?orderId=${order.orderId}" title="Track Order">
                         <i class="fi-rr-truck-moving"></i>
                     </a>
                     <a class="gi-btn-1 gi-remove-wish" href="order-details.html?orderId=${order.orderId}" title="Order Details">
