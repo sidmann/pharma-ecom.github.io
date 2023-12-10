@@ -304,9 +304,38 @@ function fetchAndDisplayAddresses() {
 
                 // Create a Bootstrap card for each address
                 const card = document.createElement("div");
-                card.classList.add("col-9", "mx-auto", "mb-2");
+                card.classList.add("col-6","mx=auto","mb-2");
                 card.innerHTML = `
-                    <div class="card shadow">
+                    <div class="col-md-12" >
+                        <div class="bg-white card addresses-item mb-4 border border-primary shadow">
+                            <div class="gold-members p-4">
+                                <div class="media">
+                                    <div class="mr-3"><i class="icofont-ui-home icofont-3x"></i></div>
+                                    <div class="media-body position-relative">
+                                    <span class="position-absolute top-0 end-0 badge bg-success text-bold ${doc.data().isDefault ? '' : 'd-none'}">Default</span>
+                                    <h5 class="card-title">${fullName}</h5><br>
+                                    <h6 class="card-subtitle mb-2 text-muted">${mobileNumber}</h6>
+                                    <p class="card-text">${houseBuilding}, ${roadAreaColony}<br>${pinCode}, ${city}, ${state}</p>
+                                    <p class="card-text">Type: ${addressType}</p>
+                                    ${isDefault ?
+                                        `<p class="mb-0 text-black font-weight-bold" >
+                                            <a class="gi-btn-1 edit-address me-2" data-address-id="${doc.id}" id="edit-${doc.id}" data-bs-toggle="modal" data-bs-target="#editAddressModal" data-bs-toggle="modal" href="#exampleModalToggle" role="button" href="#">EDIT <i class="fi-rr-pencil"></i></a> 
+                                            <a class="gi-btn-1 bg-danger delete-address me-2" data-address-id="${doc.id}" id="delete-${doc.id}"  href="#">DELETE <i class="fi-rs-trash"></i></a>
+                                            <!-- span class="gi-btn-1 bg-success set-default-address me-2">DEFAULT</1span> -->` :
+                                            `<p class="mb-0 text-black font-weight-bold">
+                                            <a class="gi-btn-1 edit-address me-2" data-address-id="${doc.id}" id="edit-${doc.id}" data-bs-toggle="modal" data-bs-target="#editAddressModal" data-bs-toggle="modal" href="#exampleModalToggle" role="button" href="#">EDIT <i class="fi-rr-pencil"></i></a> 
+                                            <a class="gi-btn-1 bg-danger delete-address me-2" data-address-id="${doc.id}" id="delete-${doc.id}"  href="#">DELETE <i class="fi-rs-trash"></i></a>
+                                            <a class="gi-btn-1 set-default-address" data-address-id="${doc.id}" id="default-${doc.id}" style="background-color:#007BA7;">Set as Default</a>`}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                
+                
+                `
+                    <!--<div class="card shadow">
                         <div class="card-body">
                             <h5 class="card-title">${fullName}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">${mobileNumber}</h6>
@@ -322,7 +351,7 @@ function fetchAndDisplayAddresses() {
                             `}
                         </div>
                     </div>
-                `;
+                -->`
 
                 addressCardContainer.appendChild(card);
 
