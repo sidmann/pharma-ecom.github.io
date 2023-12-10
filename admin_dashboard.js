@@ -59,7 +59,6 @@ function fetchAndDisplayUserData() {
         getDocs(usersRef)
             .then((querySnapshot) => {
                 const userDetails = document.getElementById('userDetailsData');
-
                 querySnapshot.forEach((doc) => {
                     const userData = doc.data();
                     const userRow = createTableRow(userData, doc);
@@ -75,6 +74,7 @@ function fetchAndDisplayUserData() {
 //Create User Role
 function createTableRow(userData, doc) {
     const userRow = document.createElement('tr');
+    console.log(userData)
     userRow.innerHTML = `
                 <td>${userData.firstName || ''}</td>
                 <td>${userData.lastName || ''}</td>

@@ -1,5 +1,5 @@
 //auth
-import { auth, onAuthStateChanged } from "./assets/repository/initialize.js";
+import { auth, onAuthStateChanged,signOut } from "./assets/repository/initialize.js";
 
 //firesotre
 import {
@@ -424,7 +424,9 @@ async function embedAddress() {
     embedBillingAddress(addressData)
     embedShippingAddress(addressData)
 }
+
 function embedBillingAddress(addressData) {
+    console.log(addressData)
     const billingAddressContainer = document.querySelector('.billing-address')
     billingAddressContainer.innerHTML = `
                                     <h3 class="h6 order-details-label">Billing address</h3>

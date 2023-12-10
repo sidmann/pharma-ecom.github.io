@@ -46,12 +46,13 @@ function isUserLoggedIn() {
     return !!auth.currentUser;
 }
 
-//***********************************event listener**************************************
-// Add an event listener to the confirmation logout button
+/**
+ * logout function
+ * @returns mydev
+ */
 confirmLogoutBtn.addEventListener("click", () => {
     signOut(auth)
         .then(() => {
-            // Redirect to the login page or perform any other actions
             console.log("User logged out successfully");
             window.location.href = "login.html";
         })
@@ -60,7 +61,10 @@ confirmLogoutBtn.addEventListener("click", () => {
         });
 });
 
-// Use onAuthStateChanged to control access to admin dashboard
+/**
+ * OnauthStateChanged function
+ * @return mydev
+ */
 onAuthStateChanged(auth, async (user) => {
     await embedCategoriesCard()
     await fetchProductsForSlider();
@@ -70,11 +74,9 @@ onAuthStateChanged(auth, async (user) => {
         document.querySelector('#logout-btn').style.display = 'block';
         loggedIn = true
         onLoggedIn();
-        // User is authenticated
         const docRef = doc(firestore, "users", user.uid);
         const docSnap = getDoc(docRef);
         docSnap.then((docSnapshot) => {
-            // console.log(docSnapshot)
             if (docSnapshot.exists()) {
                 userData = docSnapshot.data();
                 console.log(userData.role);
@@ -109,7 +111,6 @@ function roleAccess(role) {
 }
 
 function updateProfileName(role, fullName) {
-    // Based on the role, select the appropriate element
     console.log(fullName)
     let profileNameElement;
     switch (role) {
@@ -148,11 +149,9 @@ function updateProfilePicture(role, profilePicture) {
             return;
     }
 
-    // Check if profilePicture is empty or undefined
     if (profilePicture && profilePicture.trim() !== '') {
         profilePictureElement.src = profilePicture;
     } else {
-        // Set to the default profile picture if no picture is provided
         profilePictureElement.src = defaultProfilePicture;
     }
 }
@@ -432,7 +431,8 @@ async function newArrivalProducts() {
 }
 
 // -------------------------------------------------------------------
-//********************************************************************/
+
+
 /**
  * 
  * @param {*} message 
@@ -472,7 +472,8 @@ function displayMessage(message, type) {
         toast.remove();
     });
 }
-//********************************************************************/
+//-----------------------------------------------------------------------/
+
 /**
  * 
  * @returns promise
@@ -533,7 +534,7 @@ async function getCart() {
         }
     })
 }
-//**************************************************************************
+//--------------------------------------------------------------------------
 
 /**
  * 

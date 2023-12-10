@@ -87,11 +87,9 @@ async function postPageLoadEventListener() {
 }
 
 //******************************event listener********************************************
-// Add an event listener to the confirmation logout button
 confirmLogoutBtn.addEventListener("click", () => {
     signOut(auth)
         .then(() => {
-            // Redirect to the login page or perform any other actions
             console.log("User logged out successfully");
             window.location.href = "login.html";
         })
@@ -131,9 +129,6 @@ onAuthStateChanged(auth, async (user) => {
             if (docSnapshot.exists()) {
                 userData = docSnapshot.data();
                 roleAccess(userData.role);
-                //for navigation items
-                onLoggedIn();
-                //show the page
                 updateProfileName(userData.role, userData.firstName);
                 updateProfilePicture(userData.role, userData.profilePicture);
 
@@ -141,7 +136,6 @@ onAuthStateChanged(auth, async (user) => {
         });
     } else {
         document.querySelector('#logout-btn').style.display = 'none';
-        // User is not logged in
         loggedIn = false;
     }
     console.log('onauth', 6)
@@ -150,7 +144,6 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 function roleAccess(role) {
-    // console.log('inside role')
     const roleMap = new Map([
         ["ADMIN", "adminAppbar"],
         ["CUSTOMER", "customerAppbar"],
@@ -164,7 +157,6 @@ function roleAccess(role) {
 
 function updateProfileName(role, fullName) {
     console.log(fullName)
-    // Based on the role, select the appropriate element
     let profileNameElement;
     switch (role) {
         case 'CUSTOMER':
@@ -202,16 +194,14 @@ function updateProfilePicture(role, profilePicture) {
             return;
     }
 
-    // Check if profilePicture is empty or undefined
     if (profilePicture && profilePicture.trim() !== '') {
         profilePictureElement.src = profilePicture;
     } else {
-        // Set to the default profile picture if no picture is provided
         profilePictureElement.src = defaultProfilePicture;
     }
 }
 
-//to execut upon logging in
+
 function onLoggedIn() {
     var navItemList = document.querySelectorAll(".loggedIn");
     navItemList.forEach((navItem) => {
@@ -1193,7 +1183,7 @@ async function payment(e) {
             bill: bill,
             addressRef: doc(firestore, 'users', auth.currentUser.uid, 'addresses', addressId),
             mop: ['rzp', response],
-            status: 'placed',
+            status: 'order_confirm',
             orderDate: currentDate.toLocaleDateString(),
             orderTime: currentTime,
         })

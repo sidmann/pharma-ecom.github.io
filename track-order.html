@@ -860,9 +860,45 @@
     </div>
     <!-- Breadcrumb end -->
 
+      <!-- Login section -->
+      <section class="gi-login padding-tb-40">
+        <div class="container d-none" id="input-track-order-block" >
+            <div class="section-title-2">
+                <h2 class="gi-title">Track Order Id<span></span></h2>
+                <p>Get access to your Orders and Recommendations.</p>
+            </div>
+            <div class="text-center">
+                <div class="gi-login-box">
+                    <div class="gi-login-wrapper">
+                        <div class="gi-login-container">
+                            <div class="gi-login-form text-center" id="track-order-form" >
+                                <form id="">
+                                    <span class="gi-login-wrap">
+                                        <label>Tracking Id*</label>
+                                        <input type="text" name="track-order-id" id="input-product-order-id" placeholder="Enter your tracking"
+                                            required />
+                                        <span id="emailError" class="error-message"></span>
+                                    </span>
+                                    <span class="gi-login-wrap gi-login-btn">
+                                        <button class="gi-btn-1" type="submit" id="sub_btn">
+                                            Submit
+                                        </button>
+                                    </span>
+                                    <span class="alert error-message text-center" id="loginError"
+                                        style="display: none; color: red">
+                                    </span>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Track Order section -->
     <section class="gi-track padding-tb-40">
-        <div class="container">
+        <div class="container d-none" id="track-order-block">
             <div class="section-title-2">
                 <h2 class="gi-title">Track<span> Order</span></h2>
                 <p>We delivering happiness and needs, Faster than you can think.</p>

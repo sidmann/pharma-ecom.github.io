@@ -53,8 +53,18 @@ var unsubscribeOnSnapshot = null
 var userData = null;
 const confirmLogoutBtn = document.getElementById("confirmLogoutBtn");
 var orderId = new URLSearchParams(window.location.search).get('orderId')
+if(orderId){
+    console.log("if")
+   document.querySelector('#track-order-block').classList.remove('d-none')
+   document.querySelector('#input-track-order-block').classList.add('none')
+}
+else{
+    console.log("esle")
+    document.querySelector('#input-track-order-block').classList.remove('d-none')
+    document.querySelector('#track-order-block').classList.add('none')
+}
 // console.log(orderId);
-var userId =new URLSearchParams(window.location.search).get('userId')
+var userId = new URLSearchParams(window.location.search).get('userId')
 // console.log(userId)
 //-----------------------------------------------------------------------------
 
@@ -355,6 +365,37 @@ async function fetchNavCategories() {
     })
 }
 
+document.querySelector('#track-order-form').addEventListener('click',fetchTrackOrderDetailsForInputTrackingId)
+
+async function fetchTrackOrderDetailsForInputTrackingId(e){
+    e.preventDefault();
+    console.log("1")
+    const inputProductOrderId = document.querySelector('#input-product-order-id').value
+
+    if(auth.currentUser.uid && inputProductOrderId){
+        const orderDetailsSnapshot = await getDocs(query(
+            collection(firestore,'users',auth.currentUser.uid,'orders'),
+            where("orderId","==",inputProductOrderId)));
+            if(orderDetailsSnapshot && orderDetailsSnapshot.docs.length>0){
+                console.log("3")
+                // document.querySelector('#input-track-order-block').classList.add()
+                document.querySelector('#track-order-block').classList.remove('d-none')
+                const prodcutDetailsData = orderDetailsSnapshot.docs[0].data()
+                // console.log(prodcutDetailsData)
+                await updateTrackingLOrderStatus(prodcutDetailsData.status);
+            }
+            else{
+                console.log("No tracking Status exist for this order")
+                displayMessage("No tracking Status exist for this order",'danger')
+            }
+    }
+    else{
+        console.log("please enter the prodcut id to track")
+        displayMessage("please enter the prodcut id to track",'danger')
+    }
+
+}
+
 /**
  * Tracking order Details function 
  * @returns mydev
@@ -370,10 +411,11 @@ async function getOrderDetailsForTracking(){
             where('orderId', '==', orderId)
         ));
         const orderData = orderSnapshot.docs[0].data();
+        console.log(orderData.orderId)
         const giOrderId = document.querySelector('.gi-order-id');
+        giOrderId.textContent = orderData.orderId
         const trackerOrderId = document.querySelector('#track-order-id')
         trackerOrderId.textContent = orderData.orderId
-        giOrderId.textContent = orderData.orderId
         await updateTrackingLOrderStatus(orderData.status)
     }
 
@@ -385,9 +427,9 @@ async function getOrderDetailsForTracking(){
         ));
         const orderData = orderSnapshot.docs[0].data();
         const giOrderId = document.querySelector('.gi-order-id');
+        giOrderId.textContent = orderData.orderId
         const trackerOrderId = document.querySelector('#track-order-id')
         trackerOrderId.textContent = orderData.orderId
-        giOrderId.textContent = orderData.orderId
         await updateTrackingLOrderStatus(orderData.status)
     }   
 }
