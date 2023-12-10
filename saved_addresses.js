@@ -75,7 +75,7 @@ document.querySelector("#editMobileNumber").addEventListener("keyup", () => {
 
 //event for firstName validation
 document.querySelector("#editFullName").addEventListener("keyup", () => {
-    if (!isValidFirstName(document.querySelector("#editFullName").value.split(' ')[0])) {
+    if (!isValidFullName(document.querySelector("#editFullName").value)) {
         // Display an error message
         document.getElementById("nameError").textContent =
             "*Name must be at least 3 characters.";
@@ -395,6 +395,7 @@ function deleteAddress(addressId) {
 
                         var data = addressSnapshot.docs[0].data()
                         data.isDefault = true
+                        console.log(data)
 
                         await updateDoc(doc(firestore, 'users', user, 'addresses', addressSnapshot.docs[0].id), data)
 
@@ -499,7 +500,7 @@ function submitEditedAddress() {
     document.querySelector('#editAddressSubmitBtn').disabled = true
     document.querySelector('#editAddressSubmitBtn').textContent = 'Saving...'
 
-    const [firstName, lastName] = document.getElementById("editFullName").value.split(" ");
+    const fullName = document.getElementById("editFullName").value;
     const mobileNumber = document.getElementById("editMobileNumber").value;
     const houseBuilding = document.getElementById("editHouseBuilding").value;
     const roadAreaColony = document.getElementById("editRoadAreaColony").value;
@@ -522,7 +523,7 @@ function submitEditedAddress() {
     };
 
     // Check if any of the required fields are empty
-    if (!firstName || !mobileNumber || !houseBuilding || !roadAreaColony || !pinCode || !city || !state || !addressType) {
+    if (!fullName || !mobileNumber || !houseBuilding || !roadAreaColony || !pinCode || !city || !state || !addressType) {
         // Display a message to the user
         displayMessage("Please fill in all the required details.", "danger");
         document.querySelector('#editAddressSubmitBtn').disabled = false
@@ -531,8 +532,8 @@ function submitEditedAddress() {
     }
 
     // Validate first name (minimum 3 characters)
-    if (!isValidFirstName(firstName) || (!isValidPhoneNumber(mobileNumber)) || (!isValidPinCode(pinCode))) {
-        console.log(!isValidFirstName(firstName))
+    if (!isValidFullName(fullName) || (!isValidPhoneNumber(mobileNumber)) || (!isValidPinCode(pinCode))) {
+        console.log(!isValidFullName(fullName))
         console.log((!isValidPhoneNumber(mobileNumber)))
         document.querySelector('#editAddressSubmitBtn').disabled = false
         document.querySelector('#editAddressSubmitBtn').textContent = 'Save Changes'
@@ -643,7 +644,7 @@ function displayMessage(message, type) {
 
 //*************************Validation**************************
 // Function to validate first name (minimum 3 characters)
-function isValidFirstName(name) {
+function isValidFullName(name) {
     return name.length >= 3;
 }
 
