@@ -62,10 +62,14 @@
                         <div class="header-top-social">
                             <ul class="mb-0">
                                 <li class="list-inline-item">
-                                    <a href="tel:+91-99772-21335" class="text-decoration-none text-secondary"><i class="fi fi-rr-phone-call translate-x-down-15"></i> &nbsp;<span class="font-size-0-8">+91 9977221335</span></a>
+                                    <a href="tel:+91-99772-21335" class="text-decoration-none text-secondary"><i
+                                            class="fi fi-rr-phone-call translate-x-down-15"></i> &nbsp;<span
+                                            class="font-size-0-8">+91 9977221335</span></a>
                                 </li>
                                 <li class="list-inline-item">
-                                    <a href="tel:+91-99772-21335" class="text-decoration-none text-secondary"><i class="fi fi-brands-whatsapp translate-x-down-15"></i> &nbsp;<span class="font-size-0-8">+91 9977221335</span></a>
+                                    <a href="tel:+91-99772-21335" class="text-decoration-none text-secondary"><i
+                                            class="fi fi-brands-whatsapp translate-x-down-15"></i> &nbsp;<span
+                                            class="font-size-0-8">+91 9977221335</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -162,7 +166,7 @@
                         <div class="align-self-center gi-header-logo">
                             <div class="header-logo">
                                 <a href="index.html"><img src="assets/images/logo.ico" alt="Site Logo"
-                                        style="width: 170px " /></a>
+                                        ></a>
                             </div>
                         </div>
                         <!-- Header Logo End -->
@@ -715,8 +719,7 @@
                                     <a class="nav-link custom-brand active" href="login.html">Login</a>
                                 </li>
                                 <li class="nav-item d-none loggedIn" id="customerAppbar">
-                                    <a class="nav-link custom-brand" aria-current="page"
-                                        href="user.html">Profile</a>
+                                    <a class="nav-link custom-brand" aria-current="page" href="user.html">Profile</a>
                                 </li>
                                 <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
                                     <a class="nav-link custom-brand" href="agent.html">Profile
@@ -920,19 +923,19 @@
                                         <span class="text-right"><span>&#8377;</span><span
                                                 class="checkout-summary-delivery">0.0</span></span>
                                     </div>
-                                    <div>
-                                        <span class="text-left">Coupan Discount</span>
-                                        <span class="text-right"><a class="gi-checkout-coupan">Apply Coupan</a></span>
+                                    <!-- <div>
+                                        <span class="text-left">Coupon Discount</span>
+                                        <span class="text-right"><a class="gi-checkout-coupan">Apply Coupon</a></span>
                                     </div>
                                     <div class="gi-checkout-coupan-content">
                                         <form class="gi-checkout-coupan-form" name="gi-checkout-coupan-form"
                                             method="post" action="#">
                                             <input class="gi-coupan" type="text" required=""
-                                                placeholder="Enter Your Coupan Code" name="gi-coupan" value="">
+                                                placeholder="Enter Your Coupon Code" name="gi-coupan" value="">
                                             <button class="gi-coupan-btn gi-btn-2" type="submit" name="subscribe"
                                                 value="">Apply</button>
                                         </form>
-                                    </div>
+                                    </div> -->
                                     <div class="gi-checkout-summary-total">
                                         <span class="text-left">Total Amount</span>
                                         <span class="text-right"><span>&#8377;</span><span
@@ -977,8 +980,7 @@
                         </div>
                         <!-- Sidebar Summary Block -->
                     </div>
-                    <div class="gi-sidebar-wrap gi-checkout-del-wrap">
-                        <!-- Sidebar Summary Block -->
+                    <!-- <div class="gi-sidebar-wrap gi-checkout-del-wrap">
                         <div class="gi-sidebar-block">
                             <div class="gi-sb-title">
                                 <h3 class="gi-sidebar-title">Delivery Method</h3>
@@ -1008,9 +1010,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Sidebar Summary Block -->
-                    </div>
-
+                    </div> -->
                 </div>
                 <div class="gi-checkout-leftside col-lg-8 col-md-12 m-t-991">
                     <!-- checkout content Start -->
@@ -1085,65 +1085,54 @@
                                         <div class="gi-check-bill-form">
                                             <form action="#" method="post" id="address-option-new-tab">
                                                 <span class="gi-bill-wrap gi-bill-half">
-                                                    <label>First Name*</label>
-                                                    <input type="text" name="firstname"
-                                                        placeholder="Enter your first name" required>
+                                                    <label for="displayName">Full Name*</label>
+                                                    <input type="text" name="fullname"
+                                                        placeholder="Enter your full name" id="displayName" required>
+                                                    <small id="nameError" class="text-danger"></small>
                                                 </span>
                                                 <span class="gi-bill-wrap gi-bill-half">
-                                                    <label>Last Name*</label>
-                                                    <input type="text" name="lastname"
-                                                        placeholder="Enter your last name" required>
+                                                    <label for="phone">Mobile Number*</label>
+                                                    <input type="tel" name="phone" placeholder="Enter your phone number"
+                                                        id="phone" required>
+                                                    <small id="phoneError" class="text-danger"></small>
                                                 </span>
                                                 <span class="gi-bill-wrap">
-                                                    <label>Address</label>
-                                                    <input type="text" name="address" placeholder="Address Line 1">
+                                                    <label for="houseBuilding">House No./Building Name:</label>
+                                                    <input type="text" name="houseBuilding" placeholder="Address Line 1"
+                                                        id="houseBuilding" required>
+                                                </span>
+                                                <span class="gi-bill-wrap">
+                                                    <label for="roadAreaColony">Road Name/Area/Colony:</label>
+                                                    <input type="text" name="roadAreaColony"
+                                                        placeholder="Address Line 2" id="roadAreaColony" required>
                                                 </span>
                                                 <span class="gi-bill-wrap gi-bill-half">
-                                                    <label>City *</label>
+                                                    <label for="pinCode">Pin Code</label>
+                                                    <input type="text" name="pinCode" placeholder="Enter you pin code"
+                                                        id="pinCode" required>
+                                                </span>
+                                                <span class="gi-bill-wrap gi-bill-half">
+                                                    <label for="city">City *</label>
+                                                    <input type="text" name="city" placeholder="Enter you city"
+                                                        id="city" required>
+                                                </span>
+                                                <span class="gi-bill-wrap gi-bill-half">
+                                                    <label>Region State *</label>
+                                                    <input type="text" name="state" placeholder="Enter your state"
+                                                        id="state" required>
+                                                </span>
+                                                <span class="gi-bill-wrap gi-bill-half">
+                                                    <label for="addressType">Address Type</label>
                                                     <span class="gi-bl-select-inner">
-                                                        <select name="gi_select_city" id="gi-select-city"
-                                                            class="gi-bill-select">
-                                                            <option selected disabled>City</option>
-                                                            <option value="1">City 1</option>
-                                                            <option value="2">City 2</option>
-                                                            <option value="3">City 3</option>
-                                                            <option value="4">City 4</option>
-                                                            <option value="5">City 5</option>
+                                                        <select name="gi_select_state" id="addressType"
+                                                            class="gi-bill-select" required>
+                                                            <option value="Home">Home</option>
+                                                            <option value="Work">Work</option>
                                                         </select>
                                                     </span>
                                                 </span>
-                                                <span class="gi-bill-wrap gi-bill-half">
-                                                    <label>Post Code</label>
-                                                    <input type="text" name="postalcode" placeholder="Post Code">
-                                                </span>
-                                                <span class="gi-bill-wrap gi-bill-half">
-                                                    <label>Country *</label>
-                                                    <span class="gi-bl-select-inner">
-                                                        <select name="gi_select_country" id="gi-select-country"
-                                                            class="gi-bill-select">
-                                                            <option selected disabled>Country</option>
-                                                            <option value="1">Country 1</option>
-                                                            <option value="2">Country 2</option>
-                                                            <option value="3">Country 3</option>
-                                                            <option value="4">Country 4</option>
-                                                            <option value="5">Country 5</option>
-                                                        </select>
-                                                    </span>
-                                                </span>
-                                                <span class="gi-bill-wrap gi-bill-half">
-                                                    <label>Region State</label>
-                                                    <span class="gi-bl-select-inner">
-                                                        <select name="gi_select_state" id="gi-select-state"
-                                                            class="gi-bill-select">
-                                                            <option selected disabled>Region/State</option>
-                                                            <option value="1">Region/State 1</option>
-                                                            <option value="2">Region/State 2</option>
-                                                            <option value="3">Region/State 3</option>
-                                                            <option value="4">Region/State 4</option>
-                                                            <option value="5">Region/State 5</option>
-                                                        </select>
-                                                    </span>
-                                                </span>
+                                                <button type="submit" id="addAddressBtn" class="gi-btn-2">Add New
+                                                    Address</button>
                                             </form>
                                             <div id="address-option-existing-tab" class="d-none">
                                                 <div class="row address-container">
@@ -1178,10 +1167,8 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
-
                             </div>
                             <div class="gi-checkout-wrap m-b-40 padding-bottom-3 dev-transition">
                                 <div class="gi-checkout-block gi-check-bill">
@@ -1238,7 +1225,7 @@
     <!-- Checkout section End -->
 
     <!-- New product section -->
-    <section class="gi-new-product padding-tb-40">
+    <!-- <section class="gi-new-product padding-tb-40">
         <div class="container">
             <div class="row overflow-hidden m-b-minus-24px">
                 <div class="gi-new-prod-section col-lg-12">
@@ -1516,7 +1503,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- New product section End -->
     <!-- Footer Start -->
     <footer class="gi-footer m-t-30">
@@ -1672,7 +1659,7 @@
                                     <div class="payment-link">
                                         <img src="assets/img/hero-bg/payment.png" alt="payment">
                                     </div>
-                            
+
                                 </div>
                             </div>
                         </div>
