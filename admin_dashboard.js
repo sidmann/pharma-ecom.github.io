@@ -62,7 +62,6 @@ function fetchAndDisplayUserData() {
 
                 querySnapshot.forEach((doc) => {
                     const userData = doc.data();
-                    // Create a table row for each user
                     const userRow = createTableRow(userData, doc);
                     userDetails.appendChild(userRow);
                 });
@@ -83,26 +82,22 @@ function createTableRow(userData, doc) {
                 <td>${userData.phoneNumber || ''}</td>
                 <td>${userData.role || ''}</td>
                 <td>
-                    <button class="btn btn-primary view-orders-btn"
-                            data-bs-toggle="modal"
-                            data-bs-target="#orderModal"
-                            id='user-${doc.id}'
-                            data-email="${userData.email}"
-                            data-user-id="${doc.id}">
+                    <a class="btn btn-primary" type="button"
+                            href="orderlist.html?userId=${doc.id}">
                         View Orders
-                    </button>
+                    </a>
                 </td>
                 `;
 
-    const viewOrdersBtn = userRow.querySelector(".view-orders-btn");
-    viewOrdersBtn.addEventListener("click", async (event) => {
-        const userId = event.target.getAttribute('data-user-id');
-        console.log(userId, event.target)
+    // const viewOrdersBtn = userRow.querySelector(".view-orders-btn");
+    // viewOrdersBtn.addEventListener("click", async (event) => {
+    //     const userId = event.target.getAttribute('data-user-id');
+    //     console.log(userId, event.target)
 
         // Open order modal
         // orderModal.show();
-        await fetchAndDisplayAllOrders(userId, event.target);
-    });
+    //     await fetchAndDisplayAllOrders(userId, event.target);
+    // });
     return userRow;
 }
 

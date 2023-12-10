@@ -2008,12 +2008,12 @@ function productQuickView(productData) {
     const modalProductName = modal.querySelector('.modal-product-name')
     const modalProductDesc = modal.querySelector('.modal-product-desc')
     const modalProductPrice = modal.querySelector('.modal-product-price')
-    const modalProductOldPrice = modal.querySelector('.modal-product-old-price')
+    // const modalProductOldPrice = modal.querySelector('.modal-product-old-price')
 
     modalProductImage.src = productData.imageUrl
     modalProductName.textContent = productData.name
     modalProductPrice.textContent = parseFloat(productData.price)
-    modalProductOldPrice.textContent = parseFloat(productData.price + 20)
+    // modalProductOldPrice.textContent = parseFloat(productData.price + 20)
     modalProductDesc.textContent=productData.ProductDescription;
 
     modal.querySelector('.add-to-cart').addEventListener('click', redirectToProductDetails.bind(this, productData.productId))
