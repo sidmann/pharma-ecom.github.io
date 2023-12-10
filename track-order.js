@@ -365,7 +365,7 @@ async function fetchNavCategories() {
     })
 }
 
-document.querySelector('#track-order-form').addEventListener('click',fetchTrackOrderDetailsForInputTrackingId)
+document.querySelector('#track-order-form').addEventListener('submit',fetchTrackOrderDetailsForInputTrackingId)
 
 async function fetchTrackOrderDetailsForInputTrackingId(e){
     e.preventDefault();
@@ -378,7 +378,7 @@ async function fetchTrackOrderDetailsForInputTrackingId(e){
             where("orderId","==",inputProductOrderId)));
             if(orderDetailsSnapshot && orderDetailsSnapshot.docs.length>0){
                 console.log("3")
-                // document.querySelector('#input-track-order-block').classList.add()
+                document.querySelector('#input-track-order-block').classList.add('d-none')
                 document.querySelector('#track-order-block').classList.remove('d-none')
                 const prodcutDetailsData = orderDetailsSnapshot.docs[0].data()
                 // console.log(prodcutDetailsData)
