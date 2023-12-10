@@ -674,7 +674,7 @@
 
         <!-- Add New Address Form -->
         <div id="" class="mt-4 mb-4">
-            <form id="addressForm">
+            <!-- <form id="addressForm">
                 <div class="address-container">
                     <div class="mb-3 w-75 ms-4">
                         <label for="displayName">Full Name:</label>
@@ -713,10 +713,10 @@
                             <option value="Work">Work</option>
                         </select>
                     </div>
-                    <!-- <div class="mb-3">
+                    <div class="mb-3">
                             <label for="address">Address:</label>
                             <textarea class="form-control" id="address" rows="3" required></textarea>
-                        </div> -->
+                        </div> 
                     <div class="d-flex justify-content-around w-75" id="add-btn">
                         <div>
                             <button type="submit" id="addAddressBtn" class="btn btn-primary">Add New
@@ -729,6 +729,107 @@
                     </div>
                 </div>
             </form>
+        </div>-->
+        <div class="gi-checkout-wrap m-b-40 padding-bottom-3 dev-transition">
+            <div class="gi-checkout-block gi-check-bill">
+                <div class="gi-bl-block-content">
+                    <div class="gi-check-bill-form">
+                        <form id="addressForm">
+                            <span class="gi-bill-wrap gi-bill-half">
+                                <label for="displayName">Full Name*</label>
+                                <input type="text" name="fullname"
+                                    placeholder="Enter your full name" id="displayName" required>
+                                <small id="nameError" class="text-danger"></small>
+                            </span>
+                            <span class="gi-bill-wrap gi-bill-half">
+                                <label for="phone">Mobile Number*</label>
+                                <input type="tel" name="phone" placeholder="Enter your phone number"
+                                    id="phone" required>
+                                <small id="phoneError" class="text-danger"></small>
+                            </span>
+                            <span class="gi-bill-wrap">
+                                <label for="houseBuilding">House No./Building Name:</label>
+                                <input type="text" name="houseBuilding" placeholder="Address Line 1"
+                                    id="houseBuilding" required>
+                            </span>
+                            <span class="gi-bill-wrap">
+                                <label for="roadAreaColony">Road Name/Area/Colony:</label>
+                                <input type="text" name="roadAreaColony"
+                                    placeholder="Address Line 2" id="roadAreaColony" required>
+                            </span>
+                            <span class="gi-bill-wrap gi-bill-half">
+                                <label for="pinCode">Pin Code</label>
+                                <input type="text" name="pinCode" placeholder="Enter you pin code"
+                                    id="pinCode" required>
+                            </span>
+                            <span class="gi-bill-wrap gi-bill-half">
+                                <label for="city">City *</label>
+                                <input type="text" name="city" placeholder="Enter you city"
+                                    id="city" required>
+                            </span>
+                            <span class="gi-bill-wrap gi-bill-half">
+                                <label>Region State *</label>
+                                <input type="text" name="state" placeholder="Enter your state"
+                                    id="state" required>
+                            </span>
+                            <span class="gi-bill-wrap gi-bill-half">
+                                <label for="addressType">Address Type</label>
+                                <span class="gi-bl-select-inner">
+                                    <select name="gi_select_state" id="addressType"
+                                        class="gi-bill-select" required>
+                                        <option value="Home">Home</option>
+                                        <option value="Work">Work</option>
+                                    </select>
+                                </span>
+                            </span>
+                            <div class="d-flex justify-content-between w-100" id="add-btn">
+                                <div>
+                                    
+                                    <button type="submit" id="addAddressBtn" class="btn btn-primary">Add New
+                                            Address</button>
+                                        
+                                </div>
+                                <div>
+                                    <a href="saved_addresses.html" class="btn btn-primary" role="button">Show Saved
+                                        Addresses</a>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="address-option-existing-tab" class="d-none">
+                            <div class="row address-container">
+                                <!-- <div class="col-md-6">
+                                        <div
+                                            class="bg-white card addresses-item mb-4 shadow-sm border border-primary shadow-lg first dev-transition">
+                                            <div class="gold-members p-4">
+                                                <div class="media">
+                                                    <div class="mr-3"><i
+                                                            class="icofont-ui-home icofont-3x"></i>
+                                                    </div>
+                                                    <div class="media-body position-relative">
+                                                        <h6 class="mb-1 text-secondary">Home</h6>
+                                                        <p class="text-black">NCC, Model Town Rd, Pritm
+                                                            Nagar, Model Town, Ludhiana, Punjab 141002,
+                                                            India
+                                                        </p>
+                                                        <p class="mb-0 text-black font-weight-bold">
+                                                            <a class=" mr-3 gi-btn-1"
+                                                                data-bs-toggle="modal"
+                                                                href="#exampleModalToggle" role="button"
+                                                                href="#">EDIT <i
+                                                                    class="fi-rr-pencil"></i></a>
+                                                            <a class="gi-btn-2" href="#">DELETE <i
+                                                                    class="fi-rs-trash"></i></a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Toast Body -->
