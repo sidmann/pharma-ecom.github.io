@@ -264,7 +264,7 @@ document.querySelector("#phone").addEventListener("keyup", () => {
 
 //event for firstName validation
 document.querySelector("#displayName").addEventListener("keyup", () => {
-    if (!isValidFirstName(document.querySelector("#displayName").value.split(' ')[0])) {
+    if (!isValidFullName(document.querySelector("#displayName").value.split(' ')[0])) {
         // Display an error message
         document.getElementById("nameError").textContent =
             "*Name must be at least 3 characters.";
@@ -327,8 +327,6 @@ document.getElementById("addressForm").addEventListener("submit", async function
 
     const user = auth.currentUser.uid;
 
-    const [firstName, lastName] = document.getElementById("displayName").value.split(" ");
-
     // Get all the form input values
     const fullName = document.getElementById("displayName").value;
     const mobileNumber = document.getElementById("phone").value;
@@ -350,8 +348,8 @@ document.getElementById("addressForm").addEventListener("submit", async function
         }
 
         // Validate first name (minimum 3 characters)
-        if (!isValidFirstName(firstName) || (!isValidPhoneNumber(mobileNumber)) || (!isValidPinCode(pinCode))) {
-            console.log(!isValidFirstName(firstName))
+        if (!isValidFullName(fullName) || (!isValidPhoneNumber(mobileNumber)) || (!isValidPinCode(pinCode))) {
+            console.log(!isValidFullName(fullName))
             console.log((!isValidPhoneNumber(mobileNumber)))
             console.log((!isValidPinCode(pinCode)))
             document.querySelector('#addAddressBtn').disabled = false
@@ -464,7 +462,7 @@ function displayMessage(message, type) {
 
 //------------------------------------ Validation --------------------------------------------- 
 // Function to validate first name (minimum 3 characters)
-function isValidFirstName(name) {
+function isValidFullName(name) {
     return name.length >= 3;
 }
 

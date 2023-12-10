@@ -41,6 +41,9 @@ const storage = getStorage(app);
 var userData = null;
 var loggedIn = null;
 const confirmLogoutBtn = document.getElementById("confirmLogoutBtn");
+var userId = new URLSearchParams(window.location.search).get('userId');
+console.log(userId);
+// if(!userId) window.location.href="admin_dashboard.html"
 
 // Add an event listener to the confirmation logout button
 confirmLogoutBtn.addEventListener("click", () => {
@@ -69,6 +72,7 @@ onAuthStateChanged(auth, async (user) => {
         // User is authenticated
         const docRef = doc(firestore, "users", user.uid);
         const docSnap = getDoc(docRef);
+        console.log(userId)
         const orders = await fetchOrdersForUser();
         displayOrdersInTable(orders);
         docSnap.then((docSnapshot) => {
@@ -328,9 +332,16 @@ function updateProfilePicture(role, profilePicture) {
  * @returns mydev
  */
 async function fetchOrdersForUser() {
-    console.log(loggedIn)
-    const userRef = doc(firestore, "users", auth.currentUser.uid);
-    const ordersRef = collection(userRef, "orders");
+    console.log(userId)
+    let ordersRef = null;
+    if(userId){
+        const userRef = doc(firestore, "users",userId);
+        ordersRef = collection(userRef, "orders");
+    }
+    else{
+        const userRef = doc(firestore, "users", auth.currentUser.uid);
+        ordersRef = collection(userRef, "orders");
+    }
 
     try {
         const querySnapshot = await getDocs(ordersRef);
@@ -363,10 +374,10 @@ async function displayOrdersInTable(orders) {
            <td><span class="avl">${order.status}</span></td>
             <td>
                 <span class="tbl-btn">
-                    <a class="gi-btn-2 add-to-cart m-r-5px" href="track-order.html?orderId=${order.orderId}" title="Track Order">
+                    <a class="gi-btn-2 add-to-cart m-r-5px" href="track-order.html?orderId=${order.orderId}${userId?`&userId=${userId}`:''}" title="Track Order">
                         <i class="fi-rr-truck-moving"></i>
                     </a>
-                    <a class="gi-btn-1 gi-remove-wish" href="order-details.html?orderId=${order.orderId}" title="Order Details">
+                    <a class="gi-btn-1 gi-remove-wish" href="order-details.html?orderId=${order.orderId}${userId?`&userId=${userId}`:''}" title="Order Details">
                         <i class="fi-rr-list"></i>
                     </a>
                 </span>

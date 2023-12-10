@@ -38,7 +38,7 @@ if (sessionStorage.getItem('bill')) {
     console.log(bill)
 }
 else {
-    window.location.href = 'products.html'
+    window.location.href = 'cart.html'
 }
 
 
@@ -382,155 +382,161 @@ async function fetchAllAddress() {
 //****************************add new address************************************
 
 //event for phone number validation
-// document.querySelector("#phone").addEventListener("keyup", () => {
-//     // Validate phone number
-//     if (!isValidPhoneNumber(document.querySelector("#phone").value)) {
-//         // Display an error message
-//         document.getElementById("phoneError").textContent =
-//             "*Phone number must be 10 digits.";
-//         document.getElementById("phoneError").style.scale = "1"
-//         // Stop the function execution if validation fails
-//     } else {
-//         document.getElementById("phoneError").textContent = "";
-//     }
-// });
+document.querySelector("#phone").addEventListener("keyup", () => {
+    // Validate phone number
+    if (!isValidPhoneNumber(document.querySelector("#phone").value)) {
+        // Display an error message
+        document.getElementById("phoneError").textContent =
+            "*Phone number must be 10 digits.";
+        document.getElementById("phoneError").style.scale = "1"
+        // Stop the function execution if validation fails
+    } else {
+        document.getElementById("phoneError").textContent = "";
+    }
+});
 
 //event for firstName validation
-// document.querySelector("#displayName").addEventListener("keyup", () => {
-//     if (!isValidFirstName(document.querySelector("#displayName").value.split(' ')[0])) {
-//         // Display an error message
-//         document.getElementById("nameError").textContent =
-//             "*Name must be at least 3 characters.";
-//     }
-//     else {
-//         document.getElementById("nameError").textContent = ''
-//     }
-// });
+document.querySelector("#displayName").addEventListener("keyup", () => {
+    if (!isValidFullName(document.querySelector("#displayName").value)) {
+        // Display an error message
+        document.getElementById("nameError").textContent =
+            "*Name must be at least 3 characters.";
+    }
+    else {
+        document.getElementById("nameError").textContent = ''
+    }
+});
 
 // Function to fetch city and state based on pin code
-// document.getElementById("pinCode").addEventListener("input", function () {
-//     const pinCode = this.value;
-//     if (pinCode.length == 6) {
-//         fetch(`https://india-pincode-with-latitude-and-longitude.p.rapidapi.com/api/v1/pincode/${pinCode}`, {
-//             method: "GET",
-//             headers: {
-//                 'X-RapidAPI-Host': 'india-pincode-with-latitude-and-longitude.p.rapidapi.com',
-//                 "X-RapidAPI-Key": "0a9d852b21mshf63ae2f46afe026p106862jsn399415a4e227",
-//             },
-//         })
-//             .then(response => response.json())
-//             .then(data => {
-//                 if (data && data[0]) {
-//                     document.getElementById("city").value = data[0].district;
-//                     document.getElementById("state").value = data[0].state;
-//                 } else {
-//                     displayMessage('Pin code not found.', 'danger');
-//                     // alert("Pin code not found.");
-//                 }
-//             })
-//             .catch(error => {
-//                 displayMessage('Error fetching pin code data.', 'danger');
-//                 // alert("Error fetching pin code data.");
-//                 console.error(error);
-//             });
-//     }
-// });
+document.getElementById("pinCode").addEventListener("input", function () {
+    const pinCode = this.value;
+    if (pinCode.length == 6) {
+        fetch(`https://india-pincode-with-latitude-and-longitude.p.rapidapi.com/api/v1/pincode/${pinCode}`, {
+            method: "GET",
+            headers: {
+                'X-RapidAPI-Host': 'india-pincode-with-latitude-and-longitude.p.rapidapi.com',
+                "X-RapidAPI-Key": "0a9d852b21mshf63ae2f46afe026p106862jsn399415a4e227",
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data && data[0]) {
+                    document.getElementById("city").value = data[0].district;
+                    document.getElementById("state").value = data[0].state;
+                } else {
+                    displayMessage('Pin code not found.', 'danger');
+                    // alert("Pin code not found.");
+                }
+            })
+            .catch(error => {
+                displayMessage('Error fetching pin code data.', 'danger');
+                // alert("Error fetching pin code data.");
+                console.error(error);
+            });
+    }
+});
 
 // Event listener for the address form submission
-// document.getElementById("addressForm").addEventListener("submit", async function (event) {
+document.getElementById("address-option-new-tab").addEventListener("submit", async function (event) {
 
-//     document.querySelector('#addAddressBtn').disabled = true
-//     document.querySelector('#addAddressBtn').textContent = 'Adding Address...'
-//     event.preventDefault();
+    document.querySelector('#addAddressBtn').disabled = true
+    document.querySelector('#addAddressBtn').textContent = 'Adding Address...'
+    event.preventDefault();
 
-//     const user = auth.currentUser.uid;
+    const user = auth.currentUser.uid;
 
-//     const [firstName, lastName] = document.getElementById("displayName").value.split(" ");
+    // Get all the form input values
+    const fullName = document.getElementById("displayName").value;
+    const mobileNumber = document.getElementById("phone").value;
+    const houseBuilding = document.getElementById("houseBuilding").value;
+    const roadAreaColony = document.getElementById("roadAreaColony").value;
+    const pinCode = document.getElementById("pinCode").value;
+    const city = document.getElementById("city").value;
+    const state = document.getElementById("state").value;
+    const addressType = document.getElementById("addressType").value;
 
-//     // Get all the form input values
-//     const fullName = document.getElementById("displayName").value;
-//     const mobileNumber = document.getElementById("phone").value;
-//     const houseBuilding = document.getElementById("houseBuilding").value;
-//     const roadAreaColony = document.getElementById("roadAreaColony").value;
-//     const pinCode = document.getElementById("pinCode").value;
-//     const city = document.getElementById("city").value;
-//     const state = document.getElementById("state").value;
-//     const addressType = document.getElementById("addressType").value;
+    try {
+        // Check if any of the required fields are empty
+        if (!fullName || !mobileNumber || !houseBuilding || !roadAreaColony || !pinCode || !city || !state || !addressType) {
+            // Display a message to the user
+            displayMessage("Please fill in all the required details.", "danger");
+            document.querySelector('#addAddressBtn').disabled = false
+            document.querySelector('#addAddressBtn').textContent = 'Add Address'
+            return; // Stop the function execution if any required field is empty
+        }
 
-//     try {
-//         // Check if any of the required fields are empty
-//         if (!fullName || !mobileNumber || !houseBuilding || !roadAreaColony || !pinCode || !city || !state || !addressType) {
-//             // Display a message to the user
-//             displayMessage("Please fill in all the required details.", "danger");
-//             document.querySelector('#addAddressBtn').disabled = false
-//             document.querySelector('#addAddressBtn').textContent = 'Add Address'
-//             return; // Stop the function execution if any required field is empty
-//         }
+        // Validate first name (minimum 3 characters)
+        if (!isValidFullName(fullName) || (!isValidPhoneNumber(mobileNumber)) || (!isValidPinCode(pinCode))) {
+            console.log(!isValidFullName(fullName))
+            console.log((!isValidPhoneNumber(mobileNumber)))
+            document.querySelector('#addAddressBtn').disabled = false
+            document.querySelector('#addAddressBtn').textContent = 'Add Address'
+            displayMessage('Please check your entered values!', 'danger')
+            return; // Stop the function execution if validation fails
+        }
 
-//         // Validate first name (minimum 3 characters)
-//         if (!isValidFirstName(firstName) || (!isValidPhoneNumber(mobileNumber)) || (!isValidPinCode(pinCode))) {
-//             console.log(!isValidFirstName(firstName))
-//             console.log((!isValidPhoneNumber(mobileNumber)))
-//             document.querySelector('#addAddressBtn').disabled = false
-//             document.querySelector('#addAddressBtn').textContent = 'Add Address'
-//             displayMessage('Please check your entered values!', 'danger')
-//             return; // Stop the function execution if validation fails
-//         }
+        // Create an object with the address data
+        const addressData = {
+            fullName,
+            mobileNumber,
+            houseBuilding,
+            roadAreaColony,
+            pinCode,
+            city,
+            state,
+            addressType,
+            isDefault: false,
+        };
 
-//         // Create an object with the address data
-//         const addressData = {
-//             fullName,
-//             mobileNumber,
-//             houseBuilding,
-//             roadAreaColony,
-//             pinCode,
-//             city,
-//             state,
-//             addressType,
-//             isDefault: false,
-//         };
+        // Reference to the user's addresses collection
+        const userAddressesRef = collection(firestore, 'users', user, 'addresses');
+        // Add the address data to Firestore
 
-//         // Reference to the user's addresses collection
-//         const userAddressesRef = collection(firestore, 'users', user, 'addresses');
-//         // Add the address data to Firestore
+        // Check if this is the first address being added
+        const isFirstAddress = !(await getCurrentDefaultAddress());
 
-//         // Check if this is the first address being added
-//         const isFirstAddress = !(await getCurrentDefaultAddress());
+        // Add the address data to Firestore
+        const newAddressRef = await addDoc(userAddressesRef, addressData);
 
-//         // Add the address data to Firestore
-//         const newAddressRef = await addDoc(userAddressesRef, addressData);
+        // Add the address Id
+        await updateDoc(newAddressRef, { addressId: newAddressRef.id });
 
-//         if (isFirstAddress) {
-//             // If this is the first address, set it as the default address
-//             await updateDoc(newAddressRef, { isDefault: true });
-//         }
+        console.log(isFirstAddress);
 
-//         // Address added successfully
-//         console.log("Address added to Firestore");
+        if (isFirstAddress) {
+            // If this is the first address, set it as the default address
+            await updateDoc(newAddressRef, { isDefault: true });
+        }
 
-//         // Display a success message to the user
-//         displayMessage("Address added successfully.", "success");
+        // Address added successfully
+        console.log("Address added to Firestore");
 
-//         document.querySelector('#addAddressBtn').disabled = false
-//         document.querySelector('#addAddressBtn').textContent = 'Add Address'
+        // Display a success message to the user
+        displayMessage("Address added successfully.", "success");
 
-//         // Reset the form after adding the address
-//         document.getElementById("addressForm").reset();
-//         fetchAllAddress()
-//     } catch (error) {
-//         // Handle errors here
-//         console.error("Error adding address to Firestore: ", error);
+        document.querySelector('#addAddressBtn').disabled = false
+        document.querySelector('#addAddressBtn').textContent = 'Add Address'
 
-//         // Display an error message to the user
-//         displayMessage("Error adding address. Please try again.", "danger");
+        // Reset the form after adding the address
+        document.getElementById("address-option-new-tab").reset();
+        showOverlay()
+        await postPageLoadAddressAction()
+        hideOverlay()
+        // fetchAllAddress()
+    } catch (error) {
+        // Handle errors here
+        console.error("Error adding address to Firestore: ", error);
 
-//         document.querySelector('#addAddressBtn').disabled = false
-//         document.querySelector('#addAddressBtn').textContent = 'Add Address'
-//     } finally {
-//         document.querySelector('#addAddressBtn').disabled = false;
-//         document.querySelector('#addAddressBtn').textContent = 'Add Address';
-//     }
-// });
+        // Display an error message to the user
+        displayMessage("Error adding address. Please try again.", "danger");
+
+        document.querySelector('#addAddressBtn').disabled = false
+        document.querySelector('#addAddressBtn').textContent = 'Add Address'
+    } finally {
+        document.querySelector('#addAddressBtn').disabled = false;
+        document.querySelector('#addAddressBtn').textContent = 'Add Address';
+    }
+});
 
 // Function to get the current default address
 async function getCurrentDefaultAddress() {
@@ -546,7 +552,7 @@ async function getCurrentDefaultAddress() {
 }
 
 // Function to validate first name (minimum 3 characters)
-function isValidFirstName(name) {
+function isValidFullName(name) {
     return name.length >= 3;
 }
 
@@ -876,7 +882,7 @@ async function checkForExistingAddress() {
         const countSnapshot = await getCountFromServer(getAddressRef())
         return countSnapshot.data().count
     } catch (error) {
-        // firebaseErrorHandler(error)
+        firebaseErrorHandler(error)
     }
 }
 
@@ -979,6 +985,7 @@ async function embedAddress() {
         return
     }
     const addressContainer = document.querySelector('.address-container')
+    addressContainer.innerHTML = ``
     addressDocs.forEach(doc => {
         const addressCard = document.createElement('div')
         addressCard.classList.add('col-md-6')
@@ -1001,7 +1008,7 @@ async function embedAddress() {
                                                 <span class="address-pincode text-bold">${doc.data().pinCode}</span>
                                             </p>
                                             <div class="mb-0 text-black font-weight-bold d-flex flex-wrap gap-3">
-                                                <a class="align-self-center mr-3 gi-btn-1" href="#">EDIT <i
+                                                <a class="align-self-center mr-3 gi-btn-1" href="saved_addresses.html">EDIT <i
                                                         class="fi-rr-pencil"></i></a>
                                                 <a class="align-self-center gi-btn-2 address-select-btn" href="javascript:void(0)">SELECT</a>
                                             </div>
@@ -1111,15 +1118,7 @@ async function embedSummaryproductCards() {
                                         <div class="gi-pro-content">
                                             <h5 class="gi-pro-title"><a href="products.html">
                                                     ${doc.data().name}</a></h5>
-                                            <div class="gi-pro-rating">
-                                                <i class="gicon gi-star fill"></i>
-                                                <i class="gicon gi-star fill"></i>
-                                                <i class="gicon gi-star fill"></i>
-                                                <i class="gicon gi-star fill"></i>
-                                                <i class="gicon gi-star"></i>
-                                            </div>
                                             <span class="gi-price">
-                                                <span class="old-price"><span>&#8377;</span><span>${doc.data().price + 40}</span></span>&nbsp;
                                                 <span class="new-price"><span>&#8377;</span><span>${doc.data().price}</span></span>
                                             </span>
                                         </div>
