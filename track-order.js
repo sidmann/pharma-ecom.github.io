@@ -381,6 +381,8 @@ async function fetchTrackOrderDetailsForInputTrackingId(e){
                 document.querySelector('#input-track-order-block').classList.add('d-none')
                 document.querySelector('#track-order-block').classList.remove('d-none')
                 const prodcutDetailsData = orderDetailsSnapshot.docs[0].data()
+                const trackerOrderId = document.getElementById('track-order-id')
+                trackerOrderId.textContent = prodcutDetailsData.orderId
                 // console.log(prodcutDetailsData)
                 await updateTrackingLOrderStatus(prodcutDetailsData.status);
             }
@@ -414,7 +416,7 @@ async function getOrderDetailsForTracking(){
         console.log(orderData.orderId)
         const giOrderId = document.querySelector('.gi-order-id');
         giOrderId.textContent = orderData.orderId
-        const trackerOrderId = document.querySelector('#track-order-id')
+        const trackerOrderId = document.getElementById('track-order-id')
         trackerOrderId.textContent = orderData.orderId
         await updateTrackingLOrderStatus(orderData.status)
     }
@@ -428,7 +430,7 @@ async function getOrderDetailsForTracking(){
         const orderData = orderSnapshot.docs[0].data();
         const giOrderId = document.querySelector('.gi-order-id');
         giOrderId.textContent = orderData.orderId
-        const trackerOrderId = document.querySelector('#track-order-id')
+        const trackerOrderId = document.getElementById('track-order-id')
         trackerOrderId.textContent = orderData.orderId
         await updateTrackingLOrderStatus(orderData.status)
     }   
