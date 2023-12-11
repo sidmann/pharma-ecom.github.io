@@ -188,6 +188,7 @@ onAuthStateChanged(auth, (user) => {
                 userData = docSnapshot.data();
                 roleAccess(userData.role);
                 populateShownDetails();
+                populateProfileData(userData);
                 updateCart();
                 console.log(auth.currentUser.uid);
                 // const viewOrdersBtn = document.querySelector(".view-orders-btn");
@@ -725,31 +726,31 @@ async function saveUserProfile(uid, profileData) {
 // }
 
 // Event listener for the "Edit Profile" button
-document.getElementById("edit-profile").addEventListener("click", () => {
-    // Get the current user
+// document.getElementById("edit-profile").addEventListener("click", () => {
+//     // Get the current user
 
-    if (userData) {
-        // Populate the modal with the user's current data
-        populateProfileData(userData);
-    }
-});
+//     if (userData) {
+//         // Populate the modal with the user's current data
+//         populateProfileData(userData);
+//     }
+// });
 
 //populate shown details
 function populateShownDetails() {
     if (userData) {
-        const shownEmail = document.getElementById("shown-email");
-        const shownPhoneNumber = document.getElementById("shown-phoneNumber");
-        const shownName = document.getElementById("shown-name");
-        const shownRole = document.getElementById("shown-role");
+        // const shownEmail = document.getElementById("shown-email");
+        // const shownPhoneNumber = document.getElementById("shown-phoneNumber");
+        // const shownName = document.getElementById("shown-name");
+        // const shownRole = document.getElementById("shown-role");
         // const shownReferralCode = document.getElementById("shown-referralCode");
         const shownProfilePicture = document.getElementById("shown-profilePicture");
 
 
         // Populate the elements with user information
-        shownEmail.textContent = userData.email || "";
-        shownPhoneNumber.textContent = userData.phoneNumber || "";
-        shownName.textContent = (userData.firstName || "") + " " + (userData.lastName || "");
-        shownRole.textContent = userData.role || "";
+        // shownEmail.textContent = userData.email || "";
+        // shownPhoneNumber.textContent = userData.phoneNumber || "";
+        // shownName.textContent = (userData.firstName || "") + " " + (userData.lastName || "");
+        // shownRole.textContent = userData.role || "";
         // shownReferralCode.textContent = userData.referralCode || "No Referral Id";
         shownProfilePicture.src = userData.profilePicture || "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp";
     }
@@ -1071,3 +1072,27 @@ async function fetchNavCategories() {
         mobileCategoryList.appendChild(list)
     })
 }
+function previewImage() {
+    var fileInput = document.getElementById('profilePicture');
+    var previewImage = document.getElementById('shown-profilePicture');
+
+    fileInput.addEventListener('change', function() {
+      var file = fileInput.files[0];
+
+      if (file) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          previewImage.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        // Reset the preview if no file is selected
+        previewImage.src = "#";
+      }
+    });
+  }
+
+  // Call the function to enable image preview
+  previewImage();
