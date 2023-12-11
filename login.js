@@ -1,9 +1,7 @@
-
 //------------------------Firebase Config-----------------------//
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+// firesStore
 import {
-    getFirestore,
+    firestore,
     collection,
     query,
     where,
@@ -12,27 +10,30 @@ import {
     doc,
     getDoc,
     addDoc
-} from "https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore.js";
-import {
-    getAuth,
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-    sendPasswordResetEmail,
-} from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
+} from "./assets/repository/initialize.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyBrIAlkIyp5ALsv5RslbXA1oQVQL3eKhig",
-    authDomain: "pharma-ecom-app.firebaseapp.com",
-    projectId: "pharma-ecom-app",
-    storageBucket: "pharma-ecom-app.appspot.com",
-    messagingSenderId: "798776981223",
-    appId: "1:798776981223:web:16f92da76fe7c2f1cf9442"
-};
+//Auth 
+import {
+    auth,
+    onAuthStateChanged,
+    signOut,
+    updatePassword,
+    EmailAuthProvider,
+    reauthenticateWithCredential,
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail,
+    createUserWithEmailAndPassword
+} from "./assets/repository/initialize.js";
+
+import {
+    storage,
+    ref,
+    uploadBytes,
+    getDownloadURL
+} from "./assets/repository/initialize.js"
+//------------------------------------------------------------------//
 
 //--------------------- global var ---------------------------------//
-const app = initializeApp(firebaseConfig);
-const firestore = getFirestore(app);
-const auth = getAuth(app);
 var loggedIn = null
 
 //--------------------------gloabal scripts---------------------------//
@@ -40,9 +41,8 @@ updateCart();
 fetchNavCategories();
 
 //-------------------------cart dependency---------------------------//
-//update cart function cart(dependency)
 /**
- * 
+ * update cart function cart(dependency)
  * @returns promise
  * 
  * requires: 
@@ -50,11 +50,8 @@ fetchNavCategories();
  */
 function updateCart() {
     return new Promise(async (resolve) => {
-        console.log("from update cart")
         const shownCart = document.querySelector('#shown-cart')
-
         let cart = await getCart()
-        console.log(cart.length)
 
         if (cart.length) {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = cart.length)
@@ -67,29 +64,26 @@ function updateCart() {
     })
 }
 
+/**
+ * to get cart 
+ * @returns mydev
+ */
 async function getCart() {
     return new Promise(async (resolve) => {
         if (loggedIn) {
-            console.log("form getCArt()")
             const cartSnapshot = await getDocs(collection(firestore, 'users', auth.currentUser.uid, 'cart'))
-            console.log("form getCArt(1.1)")
             if (cartSnapshot.empty) {
-                console.log("form getCArt(1.2)")
                 resolve([])
             }
-            console.log("form getCArt(1.3)")
             let cart = []
             cartSnapshot.forEach(doc => {
                 cart.push(doc.data())
             })
-            console.log("form getCArt(1.4)")
             resolve(cart)
         }
         else {
-            console.log("form getCArt1)")
             const cartSnapshot = JSON.parse(sessionStorage.getItem('cart'))
             if (!cartSnapshot) {
-                console.log('from true')
                 resolve([])
                 return
             }
@@ -110,8 +104,13 @@ function getUserSnapshot(uid) {
         resolve(getDoc(userRef))
     })
 }
-//-------------------------------------------------------------
 
+
+/**
+ * Decrypting the password  
+ * @param {*} password 
+ * @returns mydev
+ */
 function decPass(password) {
     const secretKey = "yourSecretKey";
     const bytes = CryptoJS.AES.decrypt(password, secretKey);
@@ -121,33 +120,31 @@ function decPass(password) {
 
 document.addEventListener("DOMContentLoaded", function () {
     // Function to toggle password visibility
-    // function togglePasswordVisibility() {
-    //     const passwordInput = document.getElementById("password");
-    //     const passwordToggle = document.getElementById("passwordToggle");
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById("password");
+        const passwordToggle = document.getElementById("passwordToggle");
 
-    //     if (passwordInput.type === "password") {
-    //         passwordInput.type = "text";
-    //         passwordToggle.classList.remove("fa-eye");
-    //         passwordToggle.classList.add("fa-eye-slash");
-    //     } else {
-    //         passwordInput.type = "password";
-    //         passwordToggle.classList.remove("fa-eye-slash");
-    //         passwordToggle.classList.add("fa-eye");
-    //     }
-    // }
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            passwordToggle.classList.remove("fa-eye");
+            passwordToggle.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            passwordToggle.classList.remove("fa-eye-slash");
+            passwordToggle.classList.add("fa-eye");
+        }
+    }
 
-    // // Add a click event listener to the password toggle icon
-    // const passwordToggle = document.getElementById("passwordToggle");
-    // if (passwordToggle) {
-    //     passwordToggle.addEventListener("click", togglePasswordVisibility);
-    // }
+    // Add a click event listener to the password toggle icon
+    const passwordToggle = document.getElementById("passwordToggle");
+    if (passwordToggle) {
+        passwordToggle.addEventListener("click", togglePasswordVisibility);
+    }
 
-    // Function to save email and password to localStorage
     function saveLoginCredentials(email) {
         localStorage.setItem("rememberedEmail", email);
     }
 
-    // Function to retrieve saved email and password from localStorage
     function getRememberedCredentials() {
         const rememberedEmail = localStorage.getItem("rememberedEmail");
         if (rememberedEmail) {
@@ -156,19 +153,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Add an event listener to check if the "Remember Password" checkbox is selected
     function rememberMe() {
         if (document.getElementById("rememberMe").checked) {
-            // If the checkbox is checked, save email and password
             const email = document.getElementById("email").value;
             saveLoginCredentials(email);
         } else {
-            // If the checkbox is unchecked, remove saved email and password
             localStorage.removeItem("rememberedEmail");
         }
     }
 
-    // Call this function to populate email and password if remembered
     getRememberedCredentials();
     function detectUserRole(email) {
         const usersRef = collection(firestore, "users");
@@ -180,7 +173,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (!snapshot.empty) {
                     snapshot.forEach((doc) => {
                         const role = doc.data().role;
-                        // Redirect the user based on their role
                         if (role === "ADMIN") {
                             window.location.href = "admin.html";
                             window.history.replaceState({}, "", "admin.html");
@@ -207,9 +199,6 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(async (userCredential) => {
 
                 await convertLocalCartToRemote()
-                //adding local cart to user cart
-
-                // display message
                 document.querySelector('#sub_btn').textContent = 'Submit'
                 displayMessage('Login Successful!', 'success')
                 // User successfully signed in
@@ -218,12 +207,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 document.querySelector('#sub_btn').disabled = false
                 sessionStorage.removeItem('cart')
-                // Call the function to detect the user's role
                 detectUserRole(email);
 
             })
             .catch((error) => {
-                // Handle authentication errors
                 const authError = document.getElementById("loginError");
                 console.error(error)
                 // console.log(error.message.match(/Firebase:(.*)\(auth\/.*\)/))
@@ -237,7 +224,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     else
                         authError.innerHTML = errorCode.split('-').join(' ') + '<br>' + error.message.match(/Firebase:(.*)\(auth\/.*\)/)[1];
                 } else {
-                    // This is not a Firebase authentication error
                     authError.textContent = "An error occurred. Please try again later.";
                 }
                 authError.style.display = "block";
