@@ -187,6 +187,7 @@ onAuthStateChanged(auth, (user) => {
                 console.log(userData)
                 roleAccess(userData.role);
                 populateShownDetails();
+                populateProfileData(userData);
                 updateCart();
                 getUserRealTime();
                 fetchNavCategories();
@@ -323,33 +324,58 @@ function updateProfile(uid, profileData) {
 }
 
 // Event listener for the "Edit Profile" button
-document.getElementById("edit-profile").addEventListener("click", () => {
-    // Get the current user
+// document.getElementById("edit-profile").addEventListener("click", () => {
+//     // Get the current user
 
-    if (userData) {
-        // Populate the modal with the user's current data
-        populateProfileData(userData);
-    }
-});
+//     if (userData) {
+//         // Populate the modal with the user's current data
+//         populateProfileData(userData);
+//     }
+// });
 
 //populate shown details
 function populateShownDetails() {
     if (userData) {
-        const shownEmail = document.getElementById("shown-email");
-        const shownPhoneNumber = document.getElementById("shown-phoneNumber");
-        const shownName = document.getElementById("shown-name");
-        const shownRole = document.getElementById("shown-role");
+        // const shownEmail = document.getElementById("shown-email");
+        // const shownPhoneNumber = document.getElementById("shown-phoneNumber");
+        // const shownName = document.getElementById("shown-name");
+        // const shownRole = document.getElementById("shown-role");
         const shownProfilePicture = document.getElementById("shown-profilePicture");
 
 
         // Populate the elements with user information
-        shownEmail.textContent = userData.email || "";
-        shownPhoneNumber.textContent = userData.phoneNumber || "";
-        shownName.textContent = (userData.firstName || '') + " " + (userData.lastName || "");
-        shownRole.textContent = userData.role || "";
+        // shownEmail.textContent = userData.email || "";
+        // shownPhoneNumber.textContent = userData.phoneNumber || "";
+        // shownName.textContent = (userData.firstName || '') + " " + (userData.lastName || "");
+        // shownRole.textContent = userData.role || "";
         shownProfilePicture.src = userData.profilePicture || "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp";
     }
 }
+
+// Function to handle file input change and update the profile picture preview
+function handleProfilePictureChange() {
+    const profilePictureInput = document.getElementById("profilePicture");
+    const shownProfilePicture = document.getElementById("shown-profilePicture");
+
+    const file = profilePictureInput.files[0];
+
+    if (file) {
+        // Read the selected file as a data URL
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            shownProfilePicture.src = e.target.result; // Set the preview image source
+        };
+
+        reader.readAsDataURL(file);
+    } else {
+        // If no file is selected, reset the preview to the default image
+        shownProfilePicture.src =
+            "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp";
+    }
+}
+
+// Attach the event listener to the file input
+document.getElementById("profilePicture").addEventListener("change", handleProfilePictureChange);
 
 // Event listener for the "Save Changes" button in the edit profile modal
 document.getElementById("saveProfileChangesBtn").addEventListener("click", async () => {
