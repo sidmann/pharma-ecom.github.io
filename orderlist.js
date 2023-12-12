@@ -74,9 +74,6 @@ onAuthStateChanged(auth, async (user) => {
         // User is authenticated
         const docRef = doc(firestore, "users", user.uid);
         const docSnap = getDoc(docRef);
-        console.log(userId)
-        // orders = await fetchOrdersForUser();
-        // displayOrdersInTable(orders);
         fetchOrdersForDisplay();
         docSnap.then((docSnapshot) => {
             if (docSnapshot.exists()) {
@@ -87,6 +84,8 @@ onAuthStateChanged(auth, async (user) => {
                 updateCart();
                 fetchNavCategories();
                 updateProfilePicture(userData.role, userData.profilePicture)
+                if(userData.role==='ADMIN')
+                   document.querySelector('#update-order-status-head').style.display = 'block';
             }
         });
     } else {
@@ -98,7 +97,8 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 /**
- * 
+ * fetchOrderForUser
+ * displayOrdersInTable
  * @returns mydev
  */
 async function fetchOrdersForDisplay(){
@@ -366,7 +366,6 @@ async function fetchOrdersForUser() {
 }
 
 async function displayOrdersInTable(orders) {
-    const updateTrackOrderModel = document.querySelector('.updateTrackStatusModel')
     const tableBody = document.querySelector('.wish-empt');
     tableBody.innerHTML = "";
 
@@ -406,6 +405,7 @@ async function displayOrdersInTable(orders) {
         tableBody.appendChild(newRow);
         
     });
+
     const updateTrackingStatusButtons = document.querySelectorAll('.update-tracking-status');
     updateTrackingStatusButtons.forEach(button => {
         console.log("1")

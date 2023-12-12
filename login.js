@@ -266,14 +266,9 @@ document.addEventListener("DOMContentLoaded", function () {
       if (user) {
         console.log("if");
         document.querySelector('#logout-btn').style.display='block';
-        // console.log(user)
-        // const uid = user.uid;
-        // ...
       } else {
         console.log("else");
           document.querySelector('#logout-btn').style.display = 'none';
-        // User is signed out, display the sign-out message
-        // displaySignOutMessage();
       }
     });
 
