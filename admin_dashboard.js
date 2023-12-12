@@ -74,7 +74,7 @@ function fetchAndDisplayUserData() {
 //Create User Role
 function createTableRow(userData, doc) {
     const userRow = document.createElement('tr');
-    console.log(userData)
+    // console.log(userData)
     userRow.innerHTML = `
                 <td>${userData.firstName || ''}</td>
                 <td>${userData.lastName || ''}</td>
@@ -1185,7 +1185,7 @@ function displayMessage(message, type) {
     // Create a clone of the toast template
     const toast = document.querySelector(".toast").cloneNode(true);
 
-    console.log(toast)
+    // console.log(toast)
     // Set the success message
     toast.querySelector(".compare-note").innerHTML = message;
 

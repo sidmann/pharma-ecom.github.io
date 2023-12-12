@@ -368,7 +368,7 @@ async function fetchTrackOrderDetailsForInputTrackingId(e){
     const inputProductOrderId = document.querySelector('#input-product-order-id').value
     if(!loggedIn){
         console.log("")
-        displayMessage("Please continue with login",'danger')
+        displayMessage("Please login to know your product tracking details",'danger')
         return;
      }
 
@@ -457,7 +457,7 @@ async function getOrderDetailsForTracking(){
 
     const totalSteps = Object.keys(statusMap).length;
     let completedSteps = statusMap[status] || 0;
-    console.log(completedSteps);
+    // console.log(completedSteps);
     
     const progressPercentage = (completedSteps / totalSteps) *100;
     console.log(progressPercentage);
