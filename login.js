@@ -126,12 +126,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (passwordInput.type === "password") {
             passwordInput.type = "text";
-            passwordToggle.classList.remove("fa-eye");
-            passwordToggle.classList.add("fa-eye-slash");
+            passwordToggle.classList.remove("fi-rr-eye");
+            passwordToggle.classList.add("fi-rr-eye-crossed");
         } else {
             passwordInput.type = "password";
-            passwordToggle.classList.remove("fa-eye-slash");
-            passwordToggle.classList.add("fa-eye");
+            passwordToggle.classList.remove("fi-rr-eye-crossed");
+            passwordToggle.classList.add("fi-rr-eye");
         }
     }
 

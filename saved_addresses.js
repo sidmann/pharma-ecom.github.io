@@ -307,7 +307,7 @@ function fetchAndDisplayAddresses() {
                 card.classList.add("col-6","mx=auto","mb-2");
                 card.innerHTML = `
                     <div class="col-md-12" >
-                        <div class="bg-white card addresses-item mb-4 border border-primary shadow">
+                        <div class="bg-white card addresses-item mb-4 border border-gray shadow">
                             <div class="gold-members p-4">
                                 <div class="media">
                                     <div class="mr-3"><i class="icofont-ui-home icofont-3x"></i></div>

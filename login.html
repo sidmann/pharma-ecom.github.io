@@ -31,6 +31,12 @@
     <link rel="stylesheet" id="main_style" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/responsive.css" />
     <link rel="stylesheet" href="assets/css/vendor/custom.css" />
+
+    <style>
+        input[type="password"]::-ms-reveal {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -908,16 +914,24 @@
                         <div class="gi-login-container">
                             <div class="gi-login-form" id="formContainer">
                                 <form action="#" method="post" id="loginForm">
-                                    <span class="gi-login-wrap">
+                                    <span class="input-group gi-login-wrap">
                                         <label>Email Address*</label>
                                         <input type="email" name="email" id="email" placeholder="Enter your email"
                                             required />
+                                        <div class="position-absolute" style="right: 10px; top: 40%; cursor: pointer;">
+                                            <i class="fi-rr-envelope"></i>
+                                        </div>
                                         <span id="emailError" class="error-message"></span>
                                     </span>
-                                    <span class="gi-login-wrap">
+                                    <span class="input-group gi-login-wrap">
                                         <label>Password*</label>
-                                        <input type="password" name="password" id="password" placeholder="Enter your password" required />
-                                        <span id="passWordError" class="error-message"></span>
+                                        <input type="password" name="password" id="password"
+                                            placeholder="Enter your password" required />
+                                        <div id="passwordVisibility" class="position-absolute"
+                                            style="right: 10px; top: 45%; cursor: pointer;">
+                                            <i class="fi-rr-eye" id="passwordToggle"></i>
+                                        </div>
+                                        <span id="passwordError" class="error-message"></span>
                                     </span>
                                     <span><input type="checkbox" id="rememberMe"
                                             style="height: auto" />&nbsp;<label>Remember
