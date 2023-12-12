@@ -130,6 +130,83 @@
             top: -5px;
             left: 15px;
         }
+
+        #profilePicture {
+            display: none
+        }
+
+        #profile-custom-button {
+            background-color: #B56917;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .admin-profile .card .card-header {
+            font-family: "Manrope", sans-serif;
+            font-weight: 500;
+        }
+
+        .admin-profile .card-header:first-child {
+            border-radius: 0.35rem 0.35rem 0 0;
+        }
+
+        .admin-profile .card-header {
+            padding: 1rem 1.35rem;
+            margin-bottom: 0;
+            background-color: rgba(33, 40, 50, 0.03);
+            border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+        }
+
+        /* admin-profile-details */
+
+        .fonttext {
+            font-family: "Poppins, sans-serif";
+
+        }
+
+        .admin-profile .card {
+            box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+
+        }
+
+        .admin-profile .card .card-header {
+            font-family: "Poppins, sans-serif";
+            font-weight: 500;
+        }
+
+        .admin-profile .card-header:first-child {
+            border-radius: 0.35rem 0.35rem 0 0;
+        }
+
+        .admin-profile .card-header {
+            padding: 1rem 1.35rem;
+            margin-bottom: 0;
+            background-color: rgba(44, 101, 182, 0.03);
+            border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+        }
+
+        .admin-profile .form-control,
+        .dataTable-input {
+            display: block;
+            width: 100%;
+            padding: 0.875rem 1.125rem;
+            font-size: 0.875rem;
+            font-weight: 400;
+            line-height: 1;
+            color: #69707a;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #c5ccd6;
+            /* -webkit-appearance: none; */
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 0.35rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        input[type="password"]::-ms-reveal {
+            display: none;
+        }
     </style>
 </head>
 
@@ -752,132 +829,88 @@
     </div>
     <!-- Cart sidebar End -->
 
-    <main>
-        <h2 class="text-center mt-2">Welcome to the Admin-Profile</h2>
-        <div class="user-details">
-            <!-- Display user details here -->
-            <section>
-                <div class="container">
-                    <div class="row d-flex justify-content-center align-items-center h-100">
-                        <div class="col col-lg-10mb-lg-0">
-                            <div class="card mb-3">
-                                <div class="row g-0">
-                                    <div class="col-md-4 gradient-custom text-center text-white">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                                            alt="Avatar" class="img-fluid my-5 rounded-circle"
-                                            style="width: 80px; scale: 1.5;" id="shown-profilePicture" />
-                                        <h5 id="shown-name"></h5>
-                                        <p id="shown-role"></p>
-                                        <a class="mr-3 gi-btn-1" id="edit-profile" data-bs-toggle="modal"
-                                            data-bs-target="#editProfileModal">EDIT <i class="fi-rr-pencil"></i></a>
-                                        <div class="d-flex justify-content-center mb-2">
-                                            <button href="#" class="btn btn-primary change-password-btn"
-                                                data-bs-toggle="modal" data-bs-target="#changePasswordModal">
-                                                Change Password
-                                            </button>
+    <section class="gi-register padding-tb-40">
+        <div class="container-xl px-4 mt-4 admin-profile">
+            <div class="section-title-2">
+                <h2 class="gi-title">Admin Profile<span></span></h2>
+                <p>Best place to buy and sell digital products.</p>
+            </div>
+            <!-- Account page navigation-->
+            <hr class="mt-0 mb-4">
+            <div class="row">
+                <div class="col-xl-4">
+                    <!-- Profile picture card-->
+                    <div class="card mb-4 mb-xl-0 h-100 ">
+                        <div class="card-header">Profile Picture</div>
+                        <div class="card-body text-center ">
+                            <!-- Profile picture image-->
+                            <input type="file" id="profilePicture" accept="image/*">
+                            <br>
+                            <img id="shown-profilePicture"
+                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                                alt="Avatar" class="img-fluid rounded-circle border border-gray shadow"
+                                style="width:190px;height:190px">
+                            <br>
+                            <br>
+                            <div class="small font-italic text-muted">JPG or PNG no larger than 5 MB</div>
+                            <label for="profilePicture" id="profile-custom-button" class="gi-btn-1 mt-3">Select
+                                Image</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8">
+                    <!-- Account details card-->
+                    <div class="card mb-4 h-100 border border-gray">
+                        <div class="card-header">Account Details</div>
+                        <div class="card-body">
+                            <div class="modal-body">
+                                <form>
+                                    <!-- Form Row-->
+                                    <div class="row gx-3 mb-3 account-details">
+                                        <!-- Name-->
+                                        <span class="col-md-6 mb-3 mb-md-0">
+                                            <label class="small mb-1 form-label fonttext" for="displayName">Name</label>
+                                            <input class="form-control h-75 fonttext" id="displayName" type="text"
+                                                placeholder="Enter your full name" required>
+                                            <small id="nameError" class="text-danger"></small>
+                                        </span>
+    
+                                        <!-- Phone Number -->
+                                        <span class="col-md-6">
+                                            <label class="small mb-1 fonttext" for="phone">Phone Number</label>
+                                            <input class="form-control h-75 fonttext" id="phone" type="tel"
+                                                placeholder="Enter your phone number" required>
+                                            <small id="phoneError" class="text-danger"></small>
+                                        </span>
+                                    </div>
+    
+                                    <!-- Form Row-->
+                                    <div class="row gx-3 mb-3 account-details">
+                                        <!-- Profile Picture Upload-->
+                                        <div class="col-md-6"></div>
+                                        <!-- Email -->
+                                        <div class="col-md-12">
+                                            <label class="gi small mb-1 fonttext" for="email">Email</label>
+                                            <input class="form-control h-75 fonttext" id="email" type="email"
+                                                placeholder="Enter your email address" readonly>
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body p-4">
-                                            <h6>Information</h6>
-                                            <hr class="mt-0 mb-4" />
-                                            <div class="row pt-1">
-                                                <div class="col-sm-6 mb-3">
-                                                    <h6>Email</h6>
-                                                    <p class="text-muted" id="shown-email"></p>
-                                                </div>
-                                                <div class="col-sm-6 mb-3">
-                                                    <h6>Phone</h6>
-                                                    <p class="text-muted" id="shown-phoneNumber"></p>
-                                                </div>
-                                            </div>
-                                            <!-- <h6>Other Details</h6> -->
-                                            <hr class="mt-0 mb-4" />
-                                            <!-- <div class="row pt-1"> -->
-                                                <!-- <div class="col-sm-6 mb-3">
-                                                    <h6>Membership Id</h6>
-                                                    <p class="text-muted">dsfsf@!23</p>
-                                                </div> -->
-                                                <!-- <div class="col-sm-6 mb-3">
-                                                    <h6>Total Sales</h6>
-                                                    <p class="text-muted">&#8377;100,000</p>
-                                                </div> -->
-                                            <!-- </div>  -->
-                                            <!-- <div class="d-flex justify-content-start">
-                                                <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
-                                                <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
-                                                <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
-                                            </div> -->
-                                        </div>
-                                    </div>
-                                </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-between  ">
+                                <button type="button" class="gi-btn-1 bg-success mt-5" id="saveProfileChangesBtn">
+                                    Save Changes
+                                </button>
+                                <button href="#" class="gi-btn-1 bg-gray mt-5" data-bs-toggle="modal"
+                                    data-bs-target="#changePasswordModal" style="background:#4A412A;">Change
+                                    Password</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
-    </main>
-    <!-- Footer -->
-    <!-- <div class="p-2">
-            <footer class="text-center p-3 rounded-3">
-                &copy; <Strong>2023 Paint Pulse. All Rights Reserved.</Strong>
-            </footer>
-        </div> -->
-    </div>
-
-    <!-- Edit Profile Modal -->
-    <div class="modal fade" id="editProfileModal" tabindex="-1" data-bs-backdrop="static"
-        aria-labelledby="editProfileModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered w-sm-50">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editProfileModalLabel">
-                        Edit Profile
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editProfileForm">
-                        <!-- Profile Picture Upload -->
-                        <div class="mb-3">
-                            <label for="profilePicture" class="form-label">Profile Picture</label>
-                            <input type="file" class="form-control border-primary" id="profilePicture" accept="image/*"
-                                style="height: auto;" />
-                        </div>
-
-                        <!-- Name -->
-                        <div class="mb-3">
-                            <label for="displayName" class="form-label">Name</label>
-                            <input type="text" class="form-control border-primary" id="displayName" />
-                            <small id="nameError" class="text-danger"></small>
-                        </div>
-
-                        <!-- Email (readonly) -->
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control border-primary" id="email" readonly />
-                        </div>
-
-                        <!-- Phone Number -->
-                        <div class="mb-3">
-                            <label for="phone" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control border-primary" id="phone" />
-                            <small id="phoneError" class="text-danger"></small>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                    </button>
-                    <button type="button" class="btn btn-primary" id="saveProfileChangesBtn">
-                        Save Changes
-                    </button>
-                </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- Change Password Modal -->
     <div class="modal fade" id="changePasswordModal" tabindex="-1" data-bs-backdrop="static"

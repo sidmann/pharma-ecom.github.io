@@ -429,7 +429,7 @@ function embedBillingAddress(addressData) {
     console.log(addressData)
     const billingAddressContainer = document.querySelector('.billing-address')
     billingAddressContainer.innerHTML = `
-                                    <h3 class="h6 order-details-label">Billing address</h3>
+                                    <h3 class="h6 order-details-label">Billing Address</h3>
                                     <address>
                                         <strong><span class="billing-fullname">${addressData.fullName}</span></strong><br>
                                         <span class="billing-house-building">${addressData.houseBuilding}</span> <span
@@ -443,7 +443,7 @@ function embedBillingAddress(addressData) {
 function embedShippingAddress(addressData) {
     const shippingAddressContainer = document.querySelector('.shipping-address')
     shippingAddressContainer.innerHTML = `
-                                    <h3 class="h6 order-details-label">shipping address</h3>
+                                    <h3 class="h6 order-details-label">Shipping Address</h3>
                                     <address>
                                         <strong><span class="shipping-fullname">${addressData.fullName}</span></strong><br>
                                         <span class="shipping-house-building">${addressData.houseBuilding}</span> <span
