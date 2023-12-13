@@ -756,6 +756,31 @@ function populateShownDetails() {
     }
 }
 
+// Function to handle file input change and update the profile picture preview
+function handleProfilePictureChange() {
+    const profilePictureInput = document.getElementById("profilePicture");
+    const shownProfilePicture = document.getElementById("shown-profilePicture");
+
+    const file = profilePictureInput.files[0];
+
+    if (file) {
+        // Read the selected file as a data URL
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            shownProfilePicture.src = e.target.result; // Set the preview image source
+        };
+
+        reader.readAsDataURL(file);
+    } else {
+        // If no file is selected, reset the preview to the default image
+        shownProfilePicture.src =
+            "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp";
+    }
+}
+
+// Attach the event listener to the file input
+document.getElementById("profilePicture").addEventListener("change", handleProfilePictureChange);
+
 // Event listener for the "Save Changes" button in the edit profile modal
 document.getElementById("saveProfileChangesBtn").addEventListener("click", async () => {
     // Get the current user

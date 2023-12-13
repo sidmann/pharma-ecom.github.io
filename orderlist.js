@@ -40,10 +40,12 @@ const auth = getAuth(app);
 const storage = getStorage(app);
 var userData = null;
 var loggedIn = null;
+// var orders=null;
 const confirmLogoutBtn = document.getElementById("confirmLogoutBtn");
 var userId = new URLSearchParams(window.location.search).get('userId');
 console.log(userId);
 // if(!userId) window.location.href="admin_dashboard.html"
+
 
 // Add an event listener to the confirmation logout button
 confirmLogoutBtn.addEventListener("click", () => {
@@ -72,9 +74,7 @@ onAuthStateChanged(auth, async (user) => {
         // User is authenticated
         const docRef = doc(firestore, "users", user.uid);
         const docSnap = getDoc(docRef);
-        console.log(userId)
-        const orders = await fetchOrdersForUser();
-        displayOrdersInTable(orders);
+        fetchOrdersForDisplay();
         docSnap.then((docSnapshot) => {
             if (docSnapshot.exists()) {
                 userData = docSnapshot.data();
@@ -84,6 +84,8 @@ onAuthStateChanged(auth, async (user) => {
                 updateCart();
                 fetchNavCategories();
                 updateProfilePicture(userData.role, userData.profilePicture)
+                if(userData.role==='ADMIN')
+                   document.querySelector('#update-order-status-head').style.display = 'block';
             }
         });
     } else {
@@ -93,6 +95,16 @@ onAuthStateChanged(auth, async (user) => {
         onLoggedOut();
     }
 });
+
+/**
+ * fetchOrderForUser
+ * displayOrdersInTable
+ * @returns mydev
+ */
+async function fetchOrdersForDisplay(){
+   const orders = await fetchOrdersForUser();
+    displayOrdersInTable(orders);
+}
 
 /**
  * 
@@ -261,26 +273,19 @@ async function fetchNavCategories() {
 async function getCart() {
     return new Promise(async (resolve) => {
         if (loggedIn) {
-            console.log("form getCArt()")
             const cartSnapshot = await getDocs(collection(firestore, 'users', auth.currentUser.uid, 'cart'))
-            console.log("form getCArt(1.1)")
             if (cartSnapshot.empty) {
-                console.log("form getCArt(1.2)")
                 resolve([])
             }
-            console.log("form getCArt(1.3)")
             let cart = []
             cartSnapshot.forEach(doc => {
                 cart.push(doc.data())
             })
-            console.log("form getCArt(1.4)")
             resolve(cart)
         }
         else {
-            console.log("form getCArt1)")
             const cartSnapshot = JSON.parse(sessionStorage.getItem('cart'))
             if (!cartSnapshot) {
-                console.log('from true')
                 resolve([])
                 return
             }
@@ -382,7 +387,15 @@ async function displayOrdersInTable(orders) {
                     </a>
                 </span>
             </td>
+            <td>${userData.role ==='ADMIN'?`
+                <button class="btn btn-dark w-75 mt-3 update-tracking-status"
+                data-order-id="${order.orderId}" 
+                data-bs-toggle="modal" 
+                data-bs-target="#updateTrackStatusModel">
+                Update
+            </button>`:''}</td>
         `;
+        
         const orderProducts = newRow.querySelector('.order-products')
         order.productsDetails.forEach(product => {
             const span = document.createElement('span')
@@ -390,5 +403,76 @@ async function displayOrdersInTable(orders) {
             orderProducts.appendChild(span)
         });
         tableBody.appendChild(newRow);
+        
+    });
+
+    const updateTrackingStatusButtons = document.querySelectorAll('.update-tracking-status');
+    updateTrackingStatusButtons.forEach(button => {
+        console.log("1")
+        button.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const orderId = e.target.getAttribute('data-order-id');
+            document.querySelector('#order-id').value = orderId;
+        });
+    });
+}
+
+
+document.getElementById('update-track-status-form').addEventListener('submit', updateTrackOrderStatus);
+async function updateTrackOrderStatus(e) {
+    e.preventDefault();
+    try {
+        const trackOrderId = document.getElementById('order-id').value;
+        const trackOrderStatusSelectedOption = document.getElementById('track-status').value;
+
+        if (trackOrderId && trackOrderStatusSelectedOption && userId) {
+            const orderRef = doc(firestore, 'users', userId, 'orders', trackOrderId);
+            await updateDoc(orderRef, {
+                status: trackOrderStatusSelectedOption
+            });
+            displayMessage("Track order status updated successfully",'success')
+            fetchOrdersForDisplay();
+            console.log('Order status updated successfully');
+        } else {
+            displayMessage("Please the select option",'danger')
+           
+            console.error('Please the select option');
+        }
+    } catch (error) {
+        console.error('Error updating order status:', error);
+    }
+}
+
+
+function displayMessage(message, type) {
+    // Get the toast container element
+    const toastContainer = document.querySelector(".toast-container");
+
+    // Create a clone of the toast template
+    const toast = document.querySelector(".toast").cloneNode(true);
+
+    // console.log(toast)
+    // Set the success message
+    toast.querySelector(".compare-note").innerHTML = message;
+
+    //set text type  success/danger
+    if (type === "danger") {
+        toast.classList.remove("bg-success");
+        toast.classList.add("bg-danger");
+    } else {
+        toast.classList.add("bg-success");
+        toast.classList.remove("bg-danger");
+    }
+
+    // Append the toast to the container
+    toastContainer.appendChild(toast);
+
+    // Initialize the Bootstrap toast and show it
+    const bsToast = new bootstrap.Toast(toast);
+    bsToast.show();
+
+    // Remove the toast after it's closed
+    toast.addEventListener("hidden.bs.toast", function () {
+        toast.remove();
     });
 }

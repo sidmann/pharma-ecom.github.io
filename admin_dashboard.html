@@ -145,10 +145,14 @@
                         <div class="header-top-social">
                             <ul class="mb-0">
                                 <li class="list-inline-item">
-                                    <a href="tel:+91-99772-21335" class="text-decoration-none text-secondary"><i class="fi fi-rr-phone-call translate-x-down-15"></i> &nbsp;<span class="font-size-0-8">+91 9977221335</span></a>
+                                    <a href="tel:+91-99772-21335" class="text-decoration-none text-secondary"><i
+                                            class="fi fi-rr-phone-call translate-x-down-15"></i> &nbsp;<span
+                                            class="font-size-0-8">+91 9977221335</span></a>
                                 </li>
                                 <li class="list-inline-item">
-                                    <a href="tel:+91-99772-21335" class="text-decoration-none text-secondary"><i class="fi fi-brands-whatsapp translate-x-down-15"></i> &nbsp;<span class="font-size-0-8">+91 9977221335</span></a>
+                                    <a href="tel:+91-99772-21335" class="text-decoration-none text-secondary"><i
+                                            class="fi fi-brands-whatsapp translate-x-down-15"></i> &nbsp;<span
+                                            class="font-size-0-8">+91 9977221335</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -236,8 +240,7 @@
                         <!-- Header Logo Start -->
                         <div class="align-self-center gi-header-logo">
                             <div class="header-logo">
-                                <a href="index.html"><img src="assets/images/logo.ico" alt="Site Logo"
-                                        ></a>
+                                <a href="index.html"><img src="assets/images/logo.ico" alt="Site Logo"></a>
                             </div>
                         </div>
                         <!-- Header Logo End -->
@@ -606,8 +609,7 @@
                                     <a class="nav-link custom-brand active" href="login.html">Login</a>
                                 </li>
                                 <li class="nav-item d-none loggedIn" id="customerAppbar">
-                                    <a class="nav-link custom-brand" aria-current="page"
-                                        href="user.html">Profile</a>
+                                    <a class="nav-link custom-brand" aria-current="page" href="user.html">Profile</a>
                                 </li>
                                 <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
                                     <a class="nav-link custom-brand" href="agent.html">Profile
@@ -1081,18 +1083,20 @@
                         </div>
                     </form>
                     <h5>Category List</h5>
-                    <table class="container">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
+                    <div class="cate-table-container" style="max-height: 300px; overflow-y: auto;">
+                        <table class="container">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
 
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="categoryList">
-                            <!-- Category names will be populated dynamically -->
-                        </tbody>
-                    </table>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="categoryList">
+                                <!-- Category names will be populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -1134,6 +1138,7 @@
                     </form>
 
                     <h5>Color Shade List</h5>
+
                     <table class="container">
                         <thead>
                             <tr>
@@ -1146,11 +1151,13 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
             </div>
         </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
     </div>
 
     <!-- Add Product Size Modal -->
@@ -1176,17 +1183,19 @@
                     </form>
 
                     <h5>Product Size List</h5>
-                    <table class="container">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="productSizeList">
-                            <!-- Product Size will be populated dynamically -->
-                        </tbody>
-                    </table>
+                    <div class="table-container" style="max-height: 300px; overflow-y: auto;">
+                        <table class="container">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productSizeList">
+                                <!-- Product Size will be populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

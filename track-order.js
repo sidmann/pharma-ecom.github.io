@@ -119,23 +119,24 @@ onAuthStateChanged(auth, async (user) => {
     const userAppbar = document.getElementById("userAppbar");
     // const agentAppbar = document.getElementById("agentAppbar");
     if (user) {
-        document.querySelector('#logout-btn').style.display='block';
-        console.log("from onAuthStateChanged")
+        console.log("from onAuthStateChanged" )
         const docRef = doc(firestore, "users", user.uid);
         const docSnap = getDoc(docRef);
         // const orders= await fetchOrdersForUser();
-        await getOrderDetailsForTracking()
         onLoggedIn();
         docSnap.then(async (docSnapshot) => {
             if (docSnapshot.exists()) {
                 loggedIn = true
                 userData = docSnapshot.data();
+                console.log(userData)
                 console.log(1)
                 await updateCart();
                 roleAccess(userData.role);
                 updateProfileName(userData.role,userData.firstName);
                 updateProfilePicture(userData.role,userData.profilePicture)
                 fetchNavCategories();
+                if(orderId)
+                await getOrderDetailsForTracking()
             }
         });
     } else {
@@ -237,6 +238,7 @@ function onLoggedIn() {
     navItemList.forEach((navItem) => {
         navItem.style.display = "none";
     });
+    document.querySelector('#logout-btn').style.display='block';
 }
 
 /**
@@ -279,26 +281,19 @@ confirmLogoutBtn.addEventListener("click", () => {
 async function getCart() {
     return new Promise(async (resolve) => {
         if (loggedIn) {
-            console.log("form getCArt()")
             const cartSnapshot = await getDocs(collection(firestore, 'users', auth.currentUser.uid, 'cart'))
-            console.log("form getCArt(1.1)")
             if (cartSnapshot.empty) {
-                console.log("form getCArt(1.2)")
                 resolve([])
             }
-            console.log("form getCArt(1.3)")
             let cart = []
             cartSnapshot.forEach(doc => {
                 cart.push(doc.data())
             })
-            console.log("form getCArt(1.4)")
             resolve(cart)
         }
         else {
-            console.log("form getCArt1)")
             const cartSnapshot = JSON.parse(sessionStorage.getItem('cart'))
             if (!cartSnapshot) {
-                console.log('from true')
                 resolve([])
                 return
             }
@@ -371,6 +366,11 @@ async function fetchTrackOrderDetailsForInputTrackingId(e){
     e.preventDefault();
     console.log("1")
     const inputProductOrderId = document.querySelector('#input-product-order-id').value
+    if(!loggedIn){
+        console.log("")
+        displayMessage("Please login to know your product tracking details",'danger')
+        return;
+     }
 
     if(auth.currentUser.uid && inputProductOrderId){
         const orderDetailsSnapshot = await getDocs(query(
@@ -407,6 +407,7 @@ async function getOrderDetailsForTracking(){
     // console.log(auth.currentUser.uid)
     // console.log(userId)
     if(userId===null && orderId){
+        
         console.log("if")
         const orderSnapshot = await getDocs(query(
             collection(firestore, 'users', auth.currentUser.uid, 'orders'),
@@ -456,7 +457,7 @@ async function getOrderDetailsForTracking(){
 
     const totalSteps = Object.keys(statusMap).length;
     let completedSteps = statusMap[status] || 0;
-    console.log(completedSteps);
+    // console.log(completedSteps);
     
     const progressPercentage = (completedSteps / totalSteps) *100;
     console.log(progressPercentage);
