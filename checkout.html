@@ -1083,56 +1083,104 @@
                                             </span>
                                         </span>
                                         <div class="gi-check-bill-form">
+                                            
                                             <form action="#" method="post" id="address-option-new-tab">
-                                                <span class="gi-bill-wrap gi-bill-half">
-                                                    <label for="displayName">Full Name*</label>
-                                                    <input type="text" name="fullname"
-                                                        placeholder="Enter your full name" id="displayName" required>
-                                                    <small id="nameError" class="text-danger"></small>
-                                                </span>
-                                                <span class="gi-bill-wrap gi-bill-half">
-                                                    <label for="phone">Mobile Number*</label>
-                                                    <input type="tel" name="phone" placeholder="Enter your phone number"
-                                                        id="phone" required>
-                                                    <small id="phoneError" class="text-danger"></small>
-                                                </span>
-                                                <span class="gi-bill-wrap">
-                                                    <label for="houseBuilding">House No./Building Name:</label>
-                                                    <input type="text" name="houseBuilding" placeholder="Address Line 1"
+                                                <button id="get-loc" class="btn btn-dark mb-4" data-bs-toggle="modal" data-bs-target="#location-details"><i class="fi-rs-location-alt"></i> Use my location</button>
+                                                <div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <span class="gi-bill-wrap gi-bill-half">
+                                                                <label for="displayName">Full Name*</label>
+                                                                <input type="text" name="fullname"
+                                                                    placeholder="Enter your full name" id="displayName" required>
+                                                                <small id="nameError" class="text-danger"></small>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <span class="gi-bill-wrap gi-bill-half">
+                                                                <label for="phone">Mobile Number*</label>
+                                                                <input type="tel" name="phone" placeholder="Enter your phone number"
+                                                                    id="phone" required>
+                                                                <small id="phoneError" class="text-danger"></small>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <span class="gi-bill-wrap">
+                                                        <label for="houseBuilding">House No./Building Name:</label>
+                                                        <input type="text" name="houseBuilding" placeholder="Address Line 1"
                                                         id="houseBuilding" required>
-                                                </span>
-                                                <span class="gi-bill-wrap">
-                                                    <label for="roadAreaColony">Road Name/Area/Colony:</label>
-                                                    <input type="text" name="roadAreaColony"
-                                                        placeholder="Address Line 2" id="roadAreaColony" required>
-                                                </span>
-                                                <span class="gi-bill-wrap gi-bill-half">
-                                                    <label for="pinCode">Pin Code</label>
-                                                    <input type="text" name="pinCode" placeholder="Enter you pin code"
-                                                        id="pinCode" required>
-                                                </span>
-                                                <span class="gi-bill-wrap gi-bill-half">
-                                                    <label for="city">City *</label>
-                                                    <input type="text" name="city" placeholder="Enter you city"
-                                                        id="city" required>
-                                                </span>
-                                                <span class="gi-bill-wrap gi-bill-half">
-                                                    <label>Region State *</label>
-                                                    <input type="text" name="state" placeholder="Enter your state"
-                                                        id="state" required>
-                                                </span>
-                                                <span class="gi-bill-wrap gi-bill-half">
-                                                    <label for="addressType">Address Type</label>
-                                                    <span class="gi-bl-select-inner">
-                                                        <select name="gi_select_state" id="addressType"
-                                                            class="gi-bill-select" required>
-                                                            <option value="Home">Home</option>
-                                                            <option value="Work">Work</option>
-                                                        </select>
                                                     </span>
-                                                </span>
-                                                <button type="submit" id="addAddressBtn" class="gi-btn-2">Add New
-                                                    Address</button>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <span class="gi-bill-wrap">
+                                                                <label for="roadAreaColony" >Road Name/Area/Colony:</label>
+                                                                <input type="text" name="roadAreaColony"
+                                                                placeholder="Address Line 2" id="roadAreaColony" required>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <span class="gi-bill-wrap gi-bill-half">
+                                                                <label for="pinCode">Pin Code</label>
+                                                                <input type="text" name="pinCode" placeholder="Enter you pin code"
+                                                                    id="pinCode" required>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <span class="gi-bill-wrap gi-bill-half">
+                                                                <label for="city">City *</label>
+                                                                <input type="text" name="city" placeholder="Enter you city"
+                                                                    id="city" required>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <span class="gi-bill-wrap gi-bill-half">
+                                                                <label>Region State *</label>
+                                                                <input type="text" name="state" placeholder="Enter your state"
+                                                                    id="state" required>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <span class="gi-bill-wrap gi-bill-half">
+                                                                <label for="addressType">Address Type</label>
+                                                                <span class="gi-bl-select-inner">
+                                                                    <select name="gi_select_state" id="addressType"
+                                                                        class="gi-bill-select" required>
+                                                                        <option value="Home">Home</option>
+                                                                        <option value="Work">Work</option>
+                                                                    </select>
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    
+                                                    
+                                                    <button type="submit" id="addAddressBtn" class="gi-btn-2">Add New
+                                                        Address</button>
+                                                    <div class="modal fade" id="location-details" tabindex="-1" aria-labelledby="location-detailsLabel"
+                                                        data-bs-backdrop="static" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered">
+                                                            <div class="modal-content w-100 h-20">
+                                                                <div class="modal-header">
+                                                                    <div class="modal-title">Location Details</div>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    
+                                                                    <h5 class="text-center" id="location-detailsLabel"></h5>
+                                                                    <!-- Add a button to confirm address -->
+                                                                    <div class="d-flex justify-content-center">
+                                                                        <button type="button" class="gi-btn-1"  id="confirmAddressBtn" style="background-color:#FF8000;">Confirm Address</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </form>
                                             <div id="address-option-existing-tab" class="d-none">
                                                 <div class="row address-container">
@@ -1807,6 +1855,57 @@
     <!-- Main Js -->
     <script src="assets/js/main.js"></script>
     <script type="module" src="./checkout.js"></script>
+     <!-- for displaying Use my location -->
+     <script>
+        let locationbutton = document.getElementById("get-loc");
+        let locationdiv = document.getElementById("location-detailsLabel");
+    
+        locationbutton.addEventListener("click", () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showlocation, checkerror);
+            } else {
+                locationdiv.innerText = "the browser does not support geolocation";
+            }
+        });
+    
+        const checkerror = (error) => {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    locationdiv.innerText = "please allow access to location";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    locationdiv.innerText = "location information unavailable";
+                    break;
+                case error.TIMEOUT:
+                    locationdiv.innerText = "this request to get user location is timed out";
+                    break;
+                
+            }
+        };
+    
+        const showlocation = async (position) => {
+            let response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json&accept-language=en`);
+            let data = await response.json();
+    
+            console.log(data);
+            locationdiv.innerHTML = `<h4>Location found</h4>\n${data.address.neighbourhood
+                ? `${data.address.neighbourhood},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
+                : `${data.address.road},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`}`;
+
+    
+            // Add an event listener to the "Confirm Address" button
+            document.getElementById("confirmAddressBtn").addEventListener("click", () => {
+                // Populate the form fields based on the condition
+                document.getElementById("roadAreaColony").value = data.address.neighbourhood || data.address.road;
+                document.getElementById("pinCode").value = data.address.postcode;
+                document.getElementById("city").value = data.address.city;
+                document.getElementById("state").value = data.address.state;
+                
+                // Close the modal after confirming the address
+                $('#location-details').modal('hide');
+            });
+        };
+    </script>
 </body>
 
 </html>
