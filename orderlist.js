@@ -388,10 +388,10 @@ async function displayOrdersInTable(orders) {
                 </span>
             </td>
             <td>${userData.role ==='ADMIN'?`
-                <button class="btn btn-dark w-75 mt-3 update-tracking-status"
+                <button class="gi-btn-1 mt-2 update-tracking-status"
                 data-order-id="${order.orderId}" 
                 data-bs-toggle="modal" 
-                data-bs-target="#updateTrackStatusModel">
+                data-bs-target="#updateTrackStatusModal">
                 Update
             </button>`:''}</td>
         `;
@@ -420,6 +420,8 @@ async function displayOrdersInTable(orders) {
 
 document.getElementById('update-track-status-form').addEventListener('submit', updateTrackOrderStatus);
 async function updateTrackOrderStatus(e) {
+    document.querySelector('#sub_btn').disabled = true;
+    document.querySelector('#sub_btn').textContent = 'Updating ...'
     e.preventDefault();
     try {
         const trackOrderId = document.getElementById('order-id').value;
@@ -430,13 +432,15 @@ async function updateTrackOrderStatus(e) {
             await updateDoc(orderRef, {
                 status: trackOrderStatusSelectedOption
             });
-            displayMessage("Track order status updated successfully",'success')
+            displayMessage("Track Order Status Updated Successfully",'success')
             fetchOrdersForDisplay();
+            document.querySelector('#sub_btn').disabled = false;
+            document.querySelector('#sub_btn').textContent = 'Save Changes'
             console.log('Order status updated successfully');
         } else {
-            displayMessage("Please the select option",'danger')
+            displayMessage("Please Select Option",'danger')
            
-            console.error('Please the select option');
+            console.error('Please Select Option');
         }
     } catch (error) {
         console.error('Error updating order status:', error);
