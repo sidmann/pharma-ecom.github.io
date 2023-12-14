@@ -21,7 +21,7 @@ const confirmLogoutBtn = document.getElementById("confirmLogoutBtn");
 
 //*************************************global scripts********************************************
 updateCart();
-fetchNavCategories();
+// fetchNavCategories();
 
 //**********************************************************************************************
 
@@ -50,7 +50,7 @@ onAuthStateChanged(auth, async (user) => {
                 await updateCart();
                 // await fetchManufacturers();
                 // await fetchCategories()
-                fetchNavCategories()
+                // fetchNavCategories()
                 // fetchAndDisplayProducts();
             }
         });
@@ -61,7 +61,7 @@ onAuthStateChanged(auth, async (user) => {
         await updateCart();
         // await fetchManufacturers();
         // await fetchCategories()
-        fetchNavCategories();
+        // fetchNavCategories();
         document.querySelector('#logout-btn').style.display = 'none';
         // fetchAndDisplayProducts();
         // stopLoader();

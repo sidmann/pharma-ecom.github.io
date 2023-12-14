@@ -86,7 +86,7 @@ async function getUserSnapshot(uid) {
  */
 async function postPageLoadFunctions() {
     await updateCart();
-    await fetchNavCategories();
+    // await fetchNavCategories();
     await fetchAndDisplayProducts();
 }
 

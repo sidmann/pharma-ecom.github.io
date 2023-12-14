@@ -210,7 +210,7 @@ onAuthStateChanged(auth, (user) => {
                 //     totalGrandPurchases.innerHTML = `&#8377; ${totalPurchasedoc}` || '';
                 // })
                 getUserRealTime();
-                fetchNavCategories();
+                // fetchNavCategories();
             }
         });
     } else {

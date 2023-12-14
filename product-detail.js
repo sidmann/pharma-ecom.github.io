@@ -106,7 +106,7 @@ onAuthStateChanged(auth, (user) => {
                 updateCart();
                 updateProfileName(userData.role, userData.firstName);
                 updateProfilePicture(userData.role, userData.profilePicture);
-                fetchNavCategories();
+                // fetchNavCategories();
                 // getUserRealTime()
             }
         });
@@ -115,7 +115,7 @@ onAuthStateChanged(auth, (user) => {
         loggedIn = false;
         document.querySelector('#logout-btn').style.display = 'none';
         updateCart();
-        fetchNavCategories();
+        // fetchNavCategories();
     }
 });
 
@@ -228,7 +228,7 @@ async function getAndEmbedProductData(productId) {
     // const productStock = document.querySelector('.product-stock')
     const productPrice = document.querySelector('.product-price')
     // const productOldPrice = document.querySelector('.product-old-price')
-    const productFirstImageList = document.querySelectorAll('.product-first-image')
+    const productFirstImageList = document.querySelector('.product-first-image')
     const productSize = document.querySelector('.product-size')
     const productManufacturer = document.querySelector('.product-manufacturer')
     const productIdNo = document.querySelector('.product-id')
@@ -239,12 +239,11 @@ async function getAndEmbedProductData(productId) {
     const productDesc = document.querySelector('.gi-single-desc')
     const productDetails =  document.querySelector('.gi-single-pro-tab-details')
     const productSpecifications = document.querySelector('.gi-single-pro-tab-spec');
-    console.log(productDesc)
     productColorContainer.innerHTML = '';
 
     // console.log(productFirstImageList[0],productFirstImageList[1])
-    productFirstImageList[0].src = productData.imageUrl
-    productFirstImageList[1].src = productData.imageUrl
+    productFirstImageList.src = productData.imageUrl
+    // productFirstImageList[1].src = productData.imageUrl
     // productFirstImage.src = productData.imageUrl
     productName.textContent = productData.name
     productPrice.textContent = productData.price

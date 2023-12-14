@@ -66,9 +66,9 @@ confirmLogoutBtn.addEventListener("click", () => {
  * @return mydev
  */
 onAuthStateChanged(auth, async (user) => {
-    await embedCategoriesCard()
+    // await embedCategoriesCard()
     await fetchProductsForSlider();
-    await newArrivalProducts();
+    // await newArrivalProducts();
     if (user) {
         console.log("if")
         document.querySelector('#logout-btn').style.display = 'block';
@@ -85,13 +85,13 @@ onAuthStateChanged(auth, async (user) => {
                 updateProfilePicture(userData.role, userData.profilePicture)
                 // getUserRealTime()
                 updateCart();
-                fetchNavCategories();
+                // fetchNavCategories();
             }
         });
     } else {
         console.log("else");
         updateCart();
-        fetchNavCategories();
+        // fetchNavCategories();
         document.querySelector('#logout-btn').style.display = 'none';
         // window.location.href = "login.html";
     }
@@ -210,72 +210,72 @@ function fetchCategories() {
 /**
  * Function to embed Categories card in home page
  */
-async function embedCategoriesCard() {
-    console.log('inside embed')
-    const categories = await fetchCategories()
-    const categoryBox = document.querySelector('.category-box')
-    categoryBox.innerHTML = ''
-    let count = 1
-    let categoryCountPromises = categories.map(category => getCategoryCount(category.categoryId));
+// async function embedCategoriesCard() {
+//     console.log('inside embed')
+//     const categories = await fetchCategories()
+//     const categoryBox = document.querySelector('.category-box')
+//     categoryBox.innerHTML = ''
+//     let count = 1
+//     let categoryCountPromises = categories.map(category => getCategoryCount(category.categoryId));
 
-    const categoryCounts = await Promise.all(categoryCountPromises);
+//     const categoryCounts = await Promise.all(categoryCountPromises);
 
-    let allPromises = categories.map((category, index) => {
-        if (count == 6) count = 1
-        const categoryCount = categoryCounts[index];
-        const categoryCard = document.createElement('span')
-        categoryCard.innerHTML = `
-            <div class="gi-cat-box gi-cat-box-${count}">
-                <div class="gi-cat-icon">
-                    <i class="fa fa-user-md"></i><br>
-                    <div class="gi-cat-detail category-id" data-id="${category.categoryId}">
-                        <a class="text-decoration-none text-black" href="products.html?categoryId=${category.categoryId}">
-                            <h4 class="gi-cat-title">${category.name}</h4>
-                        </a>
-                        <p class="items">${categoryCount} Items</p> 
-                    </div>
-                </div>
-            </div>
-        `
-        categoryBox.appendChild(categoryCard)
-        count++
-    })
+//     let allPromises = categories.map((category, index) => {
+//         if (count == 6) count = 1
+//         const categoryCount = categoryCounts[index];
+//         const categoryCard = document.createElement('span')
+//         categoryCard.innerHTML = `
+//             <div class="gi-cat-box gi-cat-box-${count}">
+//                 <div class="gi-cat-icon">
+//                     <i class="fa fa-user-md"></i><br>
+//                     <div class="gi-cat-detail category-id" data-id="${category.categoryId}">
+//                         <a class="text-decoration-none text-black" href="products.html?categoryId=${category.categoryId}">
+//                             <h4 class="gi-cat-title">${category.name}</h4>
+//                         </a>
+//                         <p class="items">${categoryCount} Items</p> 
+//                     </div>
+//                 </div>
+//             </div>
+//         `
+//         categoryBox.appendChild(categoryCard)
+//         count++
+//     })
 
-    // Determine the number of items based on the category count
-    const totalCategoryCount = categoryCounts.reduce((total, count) => total + count, 0);
-    const itemsToShow = Math.min(totalCategoryCount, 6); // Set a maximum of 6 items
+//     // Determine the number of items based on the category count
+//     const totalCategoryCount = categoryCounts.reduce((total, count) => total + count, 0);
+//     const itemsToShow = Math.min(totalCategoryCount, 6); // Set a maximum of 6 items
 
-    $('.gi-category-block').owlCarousel({
-        margin: 24,
-        loop: true,
-        dots: false,
-        nav: false,
-        smartSpeed: 10000,
-        autoplay: true,
-        items: 3,
-        responsiveClass: true,
-        responsive: {
-            0: {
-                items: 1
-            },
-            420: {
-                items: 2
-            },
-            768: {
-                items: 3
-            },
-            992: {
-                items: 4
-            },
-            1200: {
-                items: 5
-            },
-            1400: {
-                items: 6
-            }
-        }
-    });
-}
+//     $('.gi-category-block').owlCarousel({
+//         margin: 24,
+//         loop: true,
+//         dots: false,
+//         nav: false,
+//         smartSpeed: 10000,
+//         autoplay: true,
+//         items: 3,
+//         responsiveClass: true,
+//         responsive: {
+//             0: {
+//                 items: 1
+//             },
+//             420: {
+//                 items: 2
+//             },
+//             768: {
+//                 items: 3
+//             },
+//             992: {
+//                 items: 4
+//             },
+//             1200: {
+//                 items: 5
+//             },
+//             1400: {
+//                 items: 6
+//             }
+//         }
+//     });
+// }
 
 // ------------------------- Featured Product-----------------------------
 async function fetchProductsForSlider() {
@@ -370,65 +370,65 @@ async function fetchProductsForSlider() {
 
 
 // -------------------new Arrival-----------------------------------------
-async function newArrivalProducts() {
-    const newArrivalProduct = document.querySelector('#new-product-arrival-section')
-    newArrivalProduct.innerHTML = ''
+// async function newArrivalProducts() {
+//     const newArrivalProduct = document.querySelector('#new-product-arrival-section')
+//     newArrivalProduct.innerHTML = ''
 
-    const newArrivalCollection = collection(firestore, 'products')
-    const newArrivalSnapShot = await getDocs(newArrivalCollection);
-    newArrivalSnapShot.forEach((doc) => {
-        const newArrivalData = doc.data();
-        if (newArrivalData.newProductArrivalStatus == true) {
-            // console.log(newArrivalData)
-            const newArrivalDiv = document.createElement('div')
-            newArrivalDiv.classList.add('col-md-4', 'col-sm-6', 'col-xs-6', 'gi-col-5', 'gi-product-box')
-            newArrivalDiv.innerHTML = `
-                <div class="gi-product-content">
-                    <div class="gi-product-inner">
-                        <div class="gi-pro-image-outer">
-                            <div class="gi-pro-image">
-                                <a href="products.html" class="image">
-                                    <span class="label veg">
-                                        <span class="dot"></span>
-                                    </span>
-                                    <img class="main-image"
-                                        src="${newArrivalData.imageUrl}"
-                                        alt="Product">
-                                    <img class="hover-image"
-                                        src="${newArrivalData.imageUrl}"
-                                        alt="Product">
-                                </a>
-                                <span class="flags">
-                                    <span class="sale">New</span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="gi-pro-content">
-                            <a href="products.html">
-                            </a>
-                            <h5 class="gi-pro-title"><a href="products.html">
-                                    ${newArrivalData.name}</a></h5>
-                            <div class="gi-pro-rat-price">
-                               <!-- <span class="gi-pro-rating">
-                                    <i class="gicon gi-star fill"></i>
-                                    <i class="gicon gi-star fill"></i>
-                                    <i class="gicon gi-star fill"></i>
-                                    <i class="gicon gi-star"></i>
-                                    <i class="gicon gi-star"></i>
-                                </span>-->
-                                <span class="gi-price">
-                                    <span class="new-price"><span>&#8377</span>${newArrivalData.price}</span>
-                                    <!--<span class="old-price"><span>&#8377</span>$65.00</span> -->
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `
-            newArrivalProduct.appendChild(newArrivalDiv);
-        }
-    })
-}
+//     const newArrivalCollection = collection(firestore, 'products')
+//     const newArrivalSnapShot = await getDocs(newArrivalCollection);
+//     newArrivalSnapShot.forEach((doc) => {
+//         const newArrivalData = doc.data();
+//         if (newArrivalData.newProductArrivalStatus == true) {
+//             // console.log(newArrivalData)
+//             const newArrivalDiv = document.createElement('div')
+//             newArrivalDiv.classList.add('col-md-4', 'col-sm-6', 'col-xs-6', 'gi-col-5', 'gi-product-box')
+//             newArrivalDiv.innerHTML = `
+//                 <div class="gi-product-content">
+//                     <div class="gi-product-inner">
+//                         <div class="gi-pro-image-outer">
+//                             <div class="gi-pro-image">
+//                                 <a href="products.html" class="image">
+//                                     <span class="label veg">
+//                                         <span class="dot"></span>
+//                                     </span>
+//                                     <img class="main-image"
+//                                         src="${newArrivalData.imageUrl}"
+//                                         alt="Product">
+//                                     <img class="hover-image"
+//                                         src="${newArrivalData.imageUrl}"
+//                                         alt="Product">
+//                                 </a>
+//                                 <span class="flags">
+//                                     <span class="sale">New</span>
+//                                 </span>
+//                             </div>
+//                         </div>
+//                         <div class="gi-pro-content">
+//                             <a href="products.html">
+//                             </a>
+//                             <h5 class="gi-pro-title"><a href="products.html">
+//                                     ${newArrivalData.name}</a></h5>
+//                             <div class="gi-pro-rat-price">
+//                                <!-- <span class="gi-pro-rating">
+//                                     <i class="gicon gi-star fill"></i>
+//                                     <i class="gicon gi-star fill"></i>
+//                                     <i class="gicon gi-star fill"></i>
+//                                     <i class="gicon gi-star"></i>
+//                                     <i class="gicon gi-star"></i>
+//                                 </span>-->
+//                                 <span class="gi-price">
+//                                     <span class="new-price"><span>&#8377</span>${newArrivalData.price}</span>
+//                                     <!--<span class="old-price"><span>&#8377</span>$65.00</span> -->
+//                                 </span>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             `
+//             newArrivalProduct.appendChild(newArrivalDiv);
+//         }
+//     })
+// }
 
 // -------------------------------------------------------------------
 
@@ -503,26 +503,19 @@ function updateCart() {
 async function getCart() {
     return new Promise(async (resolve) => {
         if (loggedIn) {
-            console.log("form getCArt()")
             const cartSnapshot = await getDocs(collection(firestore, 'users', auth.currentUser.uid, 'cart'))
-            console.log("form getCArt(1.1)")
             if (cartSnapshot.empty) {
-                console.log("form getCArt(1.2)")
                 resolve([])
             }
-            console.log("form getCArt(1.3)")
             let cart = []
             cartSnapshot.forEach(doc => {
                 cart.push(doc.data())
             })
-            console.log("form getCArt(1.4)")
             resolve(cart)
         }
         else {
-            console.log("form getCArt1)")
             const cartSnapshot = JSON.parse(sessionStorage.getItem('cart'))
             if (!cartSnapshot) {
-                console.log('from true')
                 resolve([])
                 return
             }
@@ -551,13 +544,13 @@ async function fetchNavCategories() {
         </div>
     </div>
     `
-    mobileCategoryList.innerHTML = `
-    <div class='w-100 d-flex justify-content-center'>
-        <div class="spinner-grow text-secondary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-    `
+    // mobileCategoryList.innerHTML = `
+    // <div class='w-100 d-flex justify-content-center'>
+    //     <div class="spinner-grow text-secondary" role="status">
+    //         <span class="visually-hidden">Loading...</span>
+    //     </div>
+    // </div>
+    // `
     const categorySnapshot = await getDocs(collection(firestore, 'categories'))
     if (categorySnapshot.empty) {
         console.log('from empty')
@@ -566,7 +559,7 @@ async function fetchNavCategories() {
     }
 
     categoryList.innerHTML = ``
-    mobileCategoryList.innerHTML = ``
+    // mobileCategoryList.innerHTML = ``
 
     categorySnapshot.forEach(doc => {
         const span = document.createElement('span')
@@ -582,10 +575,10 @@ async function fetchNavCategories() {
         `
         categoryList.appendChild(span)
 
-        const list = document.createElement('li')
-        list.innerHTML = `
-        <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
-        `
-        mobileCategoryList.appendChild(list)
+        // const list = document.createElement('li')
+        // list.innerHTML = `
+        // <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
+        // `
+        // mobileCategoryList.appendChild(list)
     })
 }

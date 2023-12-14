@@ -192,7 +192,7 @@ onAuthStateChanged(auth, (user) => {
                 fetchAndDisplayUserData();
                 updateProfileName(userData.role, userData.firstName);
                 updateProfilePicture(userData.role, userData.profilePicture)
-                fetchNavCategories();
+                // fetchNavCategories();
                 updateCart();
             }
         });

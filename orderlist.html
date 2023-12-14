@@ -292,13 +292,13 @@
                 <div class="gi-nav-bar">
                     <!-- Category Toggle -->
                     <div class="gi-category-icon-block">
-                        <div class="gi-category-menu">
+                        <!-- <div class="gi-category-menu">
                             <div class="gi-category-toggle">
                                 <i class="fi fi-rr-apps"></i>
                                 <span class="text">All Categories</span>
                                 <i class="fi-rr-angle-small-down d-1199 gi-angle" aria-hidden="true"></i>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="gi-cat-dropdown">
                             <div class="gi-cat-block">
                                 <div
@@ -535,7 +535,7 @@
                             <a href="index.html">Home</a>
                         </li>
 
-                        <li><a href="javascript:void(0)">Categories</a>
+                        <!-- <li><a href="javascript:void(0)">Categories</a>
                             <ul class="sub-menu mobile-nav-category">
                                 <li>
                                     <a href="javascript:void(0)">IndiHerbs Medicorp</a>
@@ -574,7 +574,7 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
                         <li class="non-drop">
                             <a href="products.html">Products</a>
                         </li>
@@ -805,7 +805,7 @@
     </section>
     <!-- Wishlist section End -->
 
-    <div class="modal fade" id="updateTrackStatusModel" tabindex="-1" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="updateTrackStatusModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         data-bs-backdrop="static" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered w-50">
             <div class="modal-content">
@@ -816,26 +816,25 @@
                 <div class="modal-body">
                     <form id="update-track-status-form">
                         <div class="w-100">
-                            <label for="email" class="mb-1">OrderId:</label><br>
+                            <label for="email" class="mb-1">Order Id:</label><br>
                             <input type="text" id="order-id" name="order-id" readonly placeholder=""
                                 class="border-primary">
                         </div><br>
 
                         <div class="text-start">
-                            <label for="track-status" class=" text-start">Select Option:</label><br>
+                            <label for="track-status" class=" text-start">Select Order Status:</label><br>
                             <select id="track-status" class="mx-auto" aria-label="Select Track Status"
                                 style="height: 40px;border-radius: 2%;">
-                                <option selected disabled>Select a Role</option>
-                                <option value="order_confirm">Order Confirm</option>
-                                <option value="processing_order">Processing Order</option>
-                                <option value="quality_check">Quality Check</option>
-                                <option value="product_dispatched">Product Dispatched</option>
-                                <option value="product_delivered">Product Delivered</option>
+                                <option value="Order Confirmed">Order Confirmed</option>
+                                <option value="Processing Order">Processing Order</option>
+                                <option value="Quality Check">Quality Check</option>
+                                <option value="Product Dispatched">Product Dispatched</option>
+                                <option value="Product Delivered">Product Delivered</option>
                             </select><br>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save
+                            <button type="submit" id="sub_btn" class="btn btn-primary">Save
                                 changes</button>
                         </div>
                     </form>

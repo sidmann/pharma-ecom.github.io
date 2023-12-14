@@ -65,7 +65,7 @@ else{
 }
 // console.log(orderId);
 var userId = new URLSearchParams(window.location.search).get('userId')
-// console.log(userId)
+console.log(userId)
 //-----------------------------------------------------------------------------
 
 /**
@@ -134,7 +134,7 @@ onAuthStateChanged(auth, async (user) => {
                 roleAccess(userData.role);
                 updateProfileName(userData.role,userData.firstName);
                 updateProfilePicture(userData.role,userData.profilePicture)
-                fetchNavCategories();
+                // fetchNavCategories();
                 if(orderId)
                 await getOrderDetailsForTracking()
             }
@@ -144,7 +144,7 @@ onAuthStateChanged(auth, async (user) => {
         console.log(loggedIn)
         onLoggedOut();
         await updateCart();
-        fetchNavCategories();
+        // fetchNavCategories();
     }
 });
 
@@ -364,10 +364,13 @@ document.querySelector('#track-order-form').addEventListener('submit',fetchTrack
 
 async function fetchTrackOrderDetailsForInputTrackingId(e){
     e.preventDefault();
-    console.log("1")
     const inputProductOrderId = document.querySelector('#input-product-order-id').value
+    // console.log(auth.currentUser.uid)
+    // console.log(inputProductOrderId)
+    // console.log(userId);
+
     if(!loggedIn){
-        console.log("")
+        console.log("556")
         displayMessage("Please login to know your product tracking details",'danger')
         return;
      }
@@ -391,7 +394,7 @@ async function fetchTrackOrderDetailsForInputTrackingId(e){
                 displayMessage("No tracking Status exist for this order",'danger')
             }
     }
-    else{
+    else if(user){
         console.log("please enter the prodcut id to track")
         displayMessage("please enter the prodcut id to track",'danger')
     }
