@@ -179,7 +179,7 @@ onAuthStateChanged(auth, (user) => {
                 updateProfileName(userData.role,userData.firstName);
                 updateProfilePicture(userData.role,userData.profilePicture)
                 updateCart();
-                fetchNavCategories();
+                // fetchNavCategories();
             }
         });
     } else {

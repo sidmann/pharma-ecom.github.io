@@ -148,14 +148,14 @@ function getUserSnapshot(uid) {
                 updateProfileName(userData.role,userData.firstName);
                 updateProfilePicture(userData.role,userData.profilePicture)
                 updateCart();
-                fetchNavCategories();
+                // fetchNavCategories();
             }
         });
     } else {
         loggedIn = false;
         document.querySelector('#logout-btn').style.display = 'none';
         updateCart();
-        fetchNavCategories();
+        // fetchNavCategories();
         // User is not authenticated, redirect to login page
         // window.location.href = "login.html";
     }

@@ -93,7 +93,7 @@ function addEventListenerToProducts() {
     document.querySelectorAll('.minus').forEach(btn => {
         btn.addEventListener('click', minusQuantity)
     })
-
+    
     document.querySelectorAll('.plus').forEach(btn => {
         btn.addEventListener('click', plusQuantity)
     })
@@ -101,52 +101,51 @@ function addEventListenerToProducts() {
 
 function filterEventListeners() {
     console.log("inside fliterEventListeners")
-    const slider = document.getElementById('gi-sliderPrice');
-    if (slider) {
-        const rangeMin = parseInt(slider.dataset.min);
-        const rangeMax = parseInt(slider.dataset.max);
-        const step = parseInt(slider.dataset.step);
-        const filterInputs = document.querySelectorAll('input.filter__input');
-
-        noUiSlider.create(slider, {
-            start: [rangeMin, rangeMax],
-            connect: true,
-            step: step,
-            range: {
-                'min': rangeMin,
-                'max': rangeMax
-            },
-
-            // make numbers whole
-            format: {
-                to: value => value,
-                from: value => value
-            }
-        });
-
-        // bind inputs with noUiSlider 
-        slider.noUiSlider.on('update', (values, handle) => {
-            filterInputs[handle].value = values[handle];
-            console.log(fetchProcess)
-            priceFilterChange = true
-            if (!fetchProcess) fetch()
-            console.log('from uislider')
-        });
-
-        filterInputs.forEach((input, indexInput) => {
-            input.addEventListener('change', () => {
-                slider.noUiSlider.setHandle(indexInput, input.value);
-            })
-        });
-    }
     document.getElementById('filter-clear-all').addEventListener('click', clearAllFilters)
-    document.getElementById('filter-search').addEventListener('click', fetch)
+    // document.getElementById('filter-search').addEventListener('click', fetch)
     document.querySelector('.sort-by').addEventListener('change', sortChange)
     document.querySelector('.prev-page').addEventListener('click', prevPage)
     document.querySelector('.next-page').addEventListener('click', nextPage)
-}
+    // const slider = document.getElementById('gi-sliderPrice');
+    // if (slider) {
+    //     const rangeMin = parseInt(slider.dataset.min);
+    //     const rangeMax = parseInt(slider.dataset.max);
+    //     const step = parseInt(slider.dataset.step);
+    //     const filterInputs = document.querySelectorAll('input.filter__input');
 
-//************************************************************************
+    //     noUiSlider.create(slider, {
+    //         start: [rangeMin, rangeMax],
+    //         connect: true,
+    //         step: step,
+    //         range: {
+    //             'min': rangeMin,
+    //             'max': rangeMax
+    //         },
+
+    //         // make numbers whole
+    //         format: {
+    //             to: value => value,
+    //             from: value => value
+    //         }
+    //     });
+
+    //     // bind inputs with noUiSlider 
+    //     slider.noUiSlider.on('update', (values, handle) => {
+    //         filterInputs[handle].value = values[handle];
+    //         console.log(fetchProcess)
+    //         priceFilterChange = true
+    //         if (!fetchProcess) fetch()
+    //         console.log('from uislider')
+    //     });
+
+    //     filterInputs.forEach((input, indexInput) => {
+    //         input.addEventListener('change', () => {
+    //             slider.noUiSlider.setHandle(indexInput, input.value);
+    //         })
+    //     });
+    // }
+}
+//------------------------------------------------------------------------------------
 
 
 /**
@@ -216,6 +215,7 @@ async function postPageLoadFunctions() {
     // await fetchCategories();
     // await embedCategoriesCard()
     // await embedSizesFilter()
+    await fetch()
     redirectedCategory()
     filterEventListeners()
 }
@@ -230,12 +230,12 @@ onAuthStateChanged(auth, async (user) => {
         console.log("if")
         loggedIn = true
         
+       
         const docRef = doc(firestore, "users", user.uid);
         onLoggedIn();
         const docSnap = getDoc(docRef);
         
         docSnap.then(async (docSnapshot) => {
-            // console.log(docSnapshot)
             if (docSnapshot.exists()) {
                 console.log("from onAuthStateChanged")
                 loggedIn = true
@@ -247,15 +247,14 @@ onAuthStateChanged(auth, async (user) => {
         });
     } else {
         document.querySelector('#logout-btn').style.display = 'none';
-        // User is not logged in
         loggedIn = false;
     }
     await postPageLoadFunctions()
 });
 
-//*****************************loading and role access************************************
+//-----------------------------loading and role access---------------------------------
+
 function roleAccess(role) {
-    // console.log('inside role')
     const roleMap = new Map([
         ["ADMIN", "adminAppbar"],
         ["CUSTOMER", "customerAppbar"],
@@ -291,13 +290,11 @@ function updateProfilePicture(role, profilePicture) {
     if (profilePicture && profilePicture.trim() !== '') {
         profilePictureElement.src = profilePicture;
     } else {
-        // Set to the default profile picture if no picture is provided
         profilePictureElement.src = defaultProfilePicture;
     }
 }
 
 function updateProfileName(role, fullName) {
-    // Based on the role, select the appropriate element
     console.log(fullName)
     let profileNameElement;
     switch (role) {
@@ -371,6 +368,7 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
 
         productsDocs.forEach((doc) => {
             const productData = doc.data();
+            // console.log(productData)
             //check if the product is present in cart
             const resultIndex = productIds.findIndex(id => id === productData.productId)
             if (resultIndex >= 0) cartStatus = true
@@ -1052,23 +1050,23 @@ async function fetch() {
         })
 
         //sort price
-        const slider = document.getElementById('gi-sliderPrice');
-        const price = [slider.dataset.min, slider.dataset.max]
-        const priceFrom = document.querySelector('.price-from')
-        const priceTo = document.querySelector('.price-to')
+        // const slider = document.getElementById('gi-sliderPrice');
+        // const price = [slider.dataset.min, slider.dataset.max]
+        // const priceFrom = document.querySelector('.price-from')
+        // const priceTo = document.querySelector('.price-to')
 
-        console.log(priceTo.value)
-        if ((priceFrom.value === slider.dataset.min && priceTo.value === slider.dataset.max) || !priceTo.value || !priceFrom.value) priceFilter = false
-        else {
-            price.splice(0)
-            console.log(price)
-            price.push(parseInt(priceFrom.value))
-            price.push(parseInt(priceTo.value))
-            priceFilter = true
-        }
+        // console.log(priceTo.value)
+        // if ((priceFrom.value === slider.dataset.min && priceTo.value === slider.dataset.max) || !priceTo.value || !priceFrom.value) priceFilter = false
+        // else {
+        //     price.splice(0)
+        //     console.log(price)
+        //     price.push(parseInt(priceFrom.value))
+        //     price.push(parseInt(priceTo.value))
+        //     priceFilter = true
+        // }
 
-        console.log(categories, sizes, price)
-        console.log(categoryFilter, sizeFilter, priceFilter)
+        // console.log(categories, sizes, price)
+        // console.log(categoryFilter, sizeFilter, priceFilter)
 
         let q = null
         if (categoryFilter && !sizeFilter && !priceFilter) {

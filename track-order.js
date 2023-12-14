@@ -134,7 +134,7 @@ onAuthStateChanged(auth, async (user) => {
                 roleAccess(userData.role);
                 updateProfileName(userData.role,userData.firstName);
                 updateProfilePicture(userData.role,userData.profilePicture)
-                fetchNavCategories();
+                // fetchNavCategories();
                 if(orderId)
                 await getOrderDetailsForTracking()
             }
@@ -144,7 +144,7 @@ onAuthStateChanged(auth, async (user) => {
         console.log(loggedIn)
         onLoggedOut();
         await updateCart();
-        fetchNavCategories();
+        // fetchNavCategories();
     }
 });
 

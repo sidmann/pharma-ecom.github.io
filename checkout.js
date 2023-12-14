@@ -69,7 +69,7 @@ let options = {
 async function postPageLoadFunctions() {
     document.querySelector('.order-id').textContent = orderId
     await updateCart();
-    await fetchNavCategories();
+    // await fetchNavCategories();
     await postPageLoadAddressAction()
     await updateSummary()
 }

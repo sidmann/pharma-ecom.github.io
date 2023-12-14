@@ -85,13 +85,13 @@ onAuthStateChanged(auth, async (user) => {
                 updateProfilePicture(userData.role, userData.profilePicture)
                 // getUserRealTime()
                 updateCart();
-                fetchNavCategories();
+                // fetchNavCategories();
             }
         });
     } else {
         console.log("else");
         updateCart();
-        fetchNavCategories();
+        // fetchNavCategories();
         document.querySelector('#logout-btn').style.display = 'none';
         // window.location.href = "login.html";
     }

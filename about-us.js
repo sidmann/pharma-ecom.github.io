@@ -162,14 +162,14 @@ function getUserSnapshot(uid) {
                 roleAccess(userData.role);
                 updateProfileName(userData.role,userData.firstName)
                 updateCart();
-                fetchNavCategories();
+                // fetchNavCategories();
                 updateProfilePicture(userData.role,userData.profilePicture)
             }
         });
     } else {
         console.log("else");
         updateCart();
-        fetchNavCategories();
+        // fetchNavCategories();
         // window.location.href = "login.html";
         onLoggedOut()
     }
