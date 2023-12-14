@@ -122,7 +122,7 @@ onAuthStateChanged(auth, async (user) => {
                 updateProfilePicture(userData.role,userData.profilePicture)
                 // await fetchManufacturers();
                 // await fetchCategories()
-                fetchNavCategories();
+                // fetchNavCategories();
                 // fetchAndDisplayProducts();
             }
         });
@@ -136,7 +136,7 @@ onAuthStateChanged(auth, async (user) => {
         await updateCart();
         // await fetchManufacturers();
         // await fetchCategories()
-        fetchNavCategories();
+        // fetchNavCategories();
         // fetchAndDisplayProducts();
     }
     // Call the fetchAndDisplayProducts function to load products on page load

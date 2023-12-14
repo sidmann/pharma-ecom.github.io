@@ -38,7 +38,7 @@ var loggedIn = null
 
 //--------------------------gloabal scripts---------------------------//
 updateCart();
-fetchNavCategories();
+// fetchNavCategories();
 
 //-------------------------cart dependency---------------------------//
 /**

@@ -190,7 +190,7 @@ onAuthStateChanged(auth, (user) => {
                 populateProfileData(userData);
                 updateCart();
                 getUserRealTime();
-                fetchNavCategories();
+                // fetchNavCategories();
             }
         });
     } else {

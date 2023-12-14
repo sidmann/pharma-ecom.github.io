@@ -82,7 +82,7 @@ function updateCart() {
  */
 async function postPageLoadFunctions() {
     await updateCart();
-    await fetchNavCategories();
+    // await fetchNavCategories();
     await orderDetialsFunctions()
 }
 

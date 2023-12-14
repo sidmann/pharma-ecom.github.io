@@ -82,7 +82,7 @@ onAuthStateChanged(auth, async (user) => {
                 roleAccess(userData.role);
                 updateProfileName(userData.role, userData.firstName)
                 updateCart();
-                fetchNavCategories();
+                // fetchNavCategories();
                 updateProfilePicture(userData.role, userData.profilePicture)
                 if(userData.role==='ADMIN')
                    document.querySelector('#update-order-status-head').style.display = 'block';
@@ -91,7 +91,7 @@ onAuthStateChanged(auth, async (user) => {
     } else {
         console.log("else");
         updateCart();
-        fetchNavCategories();
+        // fetchNavCategories();
         onLoggedOut();
     }
 });

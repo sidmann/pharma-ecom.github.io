@@ -152,7 +152,7 @@ onAuthStateChanged(auth, (user) => {
                 updateProfileName(userData.role,userData.firstName);
                 updateProfilePicture(userData.role,userData.profilePicture)
                 updateCart();
-                fetchNavCategories();
+                // fetchNavCategories();
             }
         });
     } else {
@@ -567,15 +567,41 @@ const showlocation = async (position) => {
     let data = await response.json();
 
     console.log(data);
-    locationdiv.innerHTML = `<h4>Location found</h4>\n${data.address.neighbourhood
-        ? `${data.address.neighbourhood},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
-        : `${data.address.road},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`}`;
+    // console.log(data.display_name)
+    try {
+        displayMessage('Location found', 'success');
+        locationdiv.innerHTML = `${
+          data.address.neighbourhood
+            ? `${data.address.neighbourhood},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
+            : data.address.road
+              ? `${data.address.road},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
+              : data.address.city_district
+                ? `${data.address.city_district},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
+                : `${data.address.suburb},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
+        }`;
+      } catch (error) {
+        displayMessage('Unable to retrieve location. Please reload the page.', 'danger');
+
+        
+        console.error('Error:', error);
+      }
+      
+    // locationdiv.innerHTML = `<h4>Location found</h4>\n${
+    //     data.address.neighbourhood
+    //       ? `${data.address.neighbourhood},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
+    //       : data.address.road
+    //         ? `${data.address.road},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
+    //         : data.address.city_district
+    //           ? `${data.address.city_district},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
+    //           : `${data.address.suburb},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
+    //   }`;
+      
 
 
     // Add an event listener to the "Confirm Address" button
     document.getElementById("confirmAddressBtn").addEventListener("click", () => {
         // Populate the form fields based on the condition
-        document.getElementById("roadAreaColony").value = data.address.neighbourhood || data.address.road;
+        document.getElementById("roadAreaColony").value = data.address.neighbourhood || data.address.road || data.address.city_district || data.address.suburb;
         document.getElementById("pinCode").value = data.address.postcode;
         document.getElementById("city").value = data.address.city;
         document.getElementById("state").value = data.address.state;

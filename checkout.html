@@ -1085,8 +1085,8 @@
                                         <div class="gi-check-bill-form">
                                             
                                             <form action="#" method="post" id="address-option-new-tab">
-                                                <button id="get-loc" class="btn btn-dark mb-4" data-bs-toggle="modal" data-bs-target="#location-details"><i class="fi-rs-location-alt"></i> Use my location</button>
                                                 <div>
+                                                <button id="get-loc" class="btn btn-dark mb-4" data-bs-toggle="modal" data-bs-target="#location-details"><i class="fi-rs-location-alt"></i> Use my location</button>
                                                     <div class="row">
                                                         <div class="col-sm-6">
                                                             <span class="gi-bill-wrap gi-bill-half">
@@ -1856,56 +1856,7 @@
     <script src="assets/js/main.js"></script>
     <script type="module" src="./checkout.js"></script>
      <!-- for displaying Use my location -->
-     <script>
-        let locationbutton = document.getElementById("get-loc");
-        let locationdiv = document.getElementById("location-detailsLabel");
-    
-        locationbutton.addEventListener("click", () => {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showlocation, checkerror);
-            } else {
-                locationdiv.innerText = "the browser does not support geolocation";
-            }
-        });
-    
-        const checkerror = (error) => {
-            switch (error.code) {
-                case error.PERMISSION_DENIED:
-                    locationdiv.innerText = "please allow access to location";
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    locationdiv.innerText = "location information unavailable";
-                    break;
-                case error.TIMEOUT:
-                    locationdiv.innerText = "this request to get user location is timed out";
-                    break;
-                
-            }
-        };
-    
-        const showlocation = async (position) => {
-            let response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json&accept-language=en`);
-            let data = await response.json();
-    
-            console.log(data);
-            locationdiv.innerHTML = `<h4>Location found</h4>\n${data.address.neighbourhood
-                ? `${data.address.neighbourhood},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
-                : `${data.address.road},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`}`;
 
-    
-            // Add an event listener to the "Confirm Address" button
-            document.getElementById("confirmAddressBtn").addEventListener("click", () => {
-                // Populate the form fields based on the condition
-                document.getElementById("roadAreaColony").value = data.address.neighbourhood || data.address.road;
-                document.getElementById("pinCode").value = data.address.postcode;
-                document.getElementById("city").value = data.address.city;
-                document.getElementById("state").value = data.address.state;
-                
-                // Close the modal after confirming the address
-                $('#location-details').modal('hide');
-            });
-        };
-    </script>
 </body>
 
 </html>

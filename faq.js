@@ -145,7 +145,7 @@ function getUserSnapshot(uid) {
             if (docSnapshot.exists()) {
                 userData = docSnapshot.data();
                 roleAccess(userData.role);
-                fetchNavCategories();
+                // fetchNavCategories();
                 updateProfileName(userData.role,userData.firstName)
                 updateProfilePicture(userData.role,userData.profilePicture)
                 updateCart();
@@ -153,7 +153,7 @@ function getUserSnapshot(uid) {
         });
     } else {
         updateCart();
-        fetchNavCategories();
+        // fetchNavCategories();
         document.querySelector('#logout-btn').style.display = 'none';
         // User is not authenticated, redirect to login page
         // window.location.href = "login.html";
