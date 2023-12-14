@@ -451,11 +451,11 @@ async function getOrderDetailsForTracking(){
     const steps = document.querySelectorAll('.gi-step')
     
     const statusMap = {
-        'order_confirm':1,
-        'processing_order':2,
-        'quality_check':3,
-        'product_dispatched':4,
-        'product_delivered':5
+        'Order Confirmed':1,
+        'Processing Order':2,
+        'Quality Check':3,
+        'Product Dispatched':4,
+        'Product Delivered':5
     }
 
     const totalSteps = Object.keys(statusMap).length;

@@ -782,21 +782,15 @@ async function getCart() {
     return new Promise(async (resolve) => {
         let cart = []
         if (loggedIn) {
-            console.log("form getCArt()")
             const cartSnapshot = await getDocs(collection(firestore, 'users', auth.currentUser.uid, 'cart'))
-            console.log("form getCArt(1.1)")
             if (cartSnapshot.empty) {
-                console.log("form getCArt(1.2)")
                 resolve([])
             }
-            console.log("form getCArt(1.3)")
             cartSnapshot.forEach(doc => {
                 cart.push(doc.data())
             })
-            console.log("form getCArt(1.4)")
         }
         else {
-            console.log("form getCArt1)")
             const cartSnapshot = JSON.parse(sessionStorage.getItem('cart'))
             if (!cartSnapshot) {
                 console.log('from true')
@@ -1182,7 +1176,7 @@ async function payment(e) {
             bill: bill,
             addressRef: doc(firestore, 'users', auth.currentUser.uid, 'addresses', addressId),
             mop: ['rzp', response],
-            status: 'order_confirm',
+            status: 'Order Confirmed',
             orderDate: currentDate.toLocaleDateString(),
             orderTime: currentTime,
         })

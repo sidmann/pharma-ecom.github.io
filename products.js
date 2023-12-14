@@ -213,13 +213,13 @@ async function postPageLoadFunctions() {
     await updateCart();
     // await fetchNavCategories();
     // await fetchCategories();
-    // await embedCategoriesCard()
+    // await embedCategoriesCard();
     // await embedSizesFilter()
     await fetch()
-    redirectedCategory()
+    // redirectedCategory()
     filterEventListeners()
 }
-//************************************************************************
+//----------------------------------------------------------------
 
 // Use onAuthStateChanged to control access to admin dashboard
 onAuthStateChanged(auth, async (user) => {
@@ -384,7 +384,7 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
                                             <div class="gi-pro-image-outer">
                                                 <div class="gi-pro-image">
                                                     <div href="#" class="quickview" data-link-action="quickview" title="Quick view">
-                                                        <a href="product-left-sidebar.html" class="image">
+                                                        <a href="#" class="image">
                                                             <span class="label veg">
                                                                 <span class="dot"></span>
                                                             </span>
@@ -402,9 +402,7 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
                                                 </div>
                                             </div>
                                             <div class="gi-pro-content">
-                                                <a href="shop-left-sidebar-col-3.html">
-                                                </a>
-                                                <h5 class="gi-pro-title"><a href="product-left-sidebar.html">${productData.name}</a></h5>
+                                                <h5 class="gi-pro-title"><a href="#">${productData.name}</a></h5>
                                                 <p class="gi-info">${productData.ProductDescription}</p>
                                                 <div class="gi-pro-rat-price">
                                                     <span class="gi-price">
