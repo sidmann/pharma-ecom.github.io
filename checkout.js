@@ -1300,15 +1300,36 @@ function hideOverlay() {
             let data = await response.json();
     
             console.log(data);
-            locationdiv.innerHTML = `<h4>Location found</h4>\n${data.address.neighbourhood
-                ? `${data.address.neighbourhood},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
-                : `${data.address.road},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`}`;
+            try {
+                locationdiv.innerHTML = `<h4>Location found</h4>\n${
+                  data.address.neighbourhood
+                    ? `${data.address.neighbourhood},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
+                    : data.address.road
+                      ? `${data.address.road},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
+                      : data.address.city_district
+                        ? `${data.address.city_district},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
+                        : `${data.address.suburb},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
+                }`;
+              } catch (error) {
+                locationdiv.innerHTML = '<p>Please reload the page</p>';
+                console.error('Error:', error);
+              }
+              
+            // locationdiv.innerHTML = `<h4>Location found</h4>\n${
+            //     data.address.neighbourhood
+            //       ? `${data.address.neighbourhood},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
+            //       : data.address.road
+            //         ? `${data.address.road},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
+            //         : data.address.city_district
+            //           ? `${data.address.city_district},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
+            //           : `${data.address.suburb},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
+            //   }`;
 
     
             // Add an event listener to the "Confirm Address" button
             document.getElementById("confirmAddressBtn").addEventListener("click", () => {
                 // Populate the form fields based on the condition
-                document.getElementById("roadAreaColony").value = data.address.neighbourhood || data.address.road;
+                document.getElementById("roadAreaColony").value = data.address.neighbourhood || data.address.road || data.address.city_district || data.address.suburb;
                 document.getElementById("pinCode").value = data.address.postcode;
                 document.getElementById("city").value = data.address.city;
                 document.getElementById("state").value = data.address.state;

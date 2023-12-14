@@ -385,19 +385,21 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
                                         <div class="gi-product-inner">
                                             <div class="gi-pro-image-outer">
                                                 <div class="gi-pro-image">
-                                                    <a href="product-left-sidebar.html" class="image">
-                                                        <span class="label veg">
-                                                            <span class="dot"></span>
-                                                        </span>
-                                                        <img class="product-image" src="${productData.imageUrl}"
-                                                            alt="Product">
-                                                        <img class="hover-image product-image" src="${productData.imageUrl}"
-                                                            alt="Product">
-                                                    </a>
+                                                    <div href="#" class="quickview" data-link-action="quickview" title="Quick view">
+                                                        <a href="product-left-sidebar.html" class="image">
+                                                            <span class="label veg">
+                                                                <span class="dot"></span>
+                                                            </span>
+                                                            <img class="product-image" src="${productData.imageUrl}"
+                                                                alt="Product">
+                                                            <img class="hover-image product-image" src="${productData.imageUrl}"
+                                                                alt="Product">
+                                                        </a>
+                                                    </div>
                                                     <div class="gi-pro-actions">
-                                                        <a href="#" class="gi-btn-group quickview"
+                                                       <!-- <a href="#" class="gi-btn-group quickview"
                                                             data-link-action="quickview" title="Quick view"><i
-                                                            class="fi-rr-eye"></i></a>
+                                                            class="fi-rr-eye"></i></a>-->
                                                     </div>
                                                 </div>
                                             </div>
