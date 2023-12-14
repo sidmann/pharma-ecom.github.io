@@ -213,13 +213,13 @@ async function postPageLoadFunctions() {
     await updateCart();
     // await fetchNavCategories();
     // await fetchCategories();
-    // await embedCategoriesCard()
+    // await embedCategoriesCard();
     // await embedSizesFilter()
     await fetch()
-    redirectedCategory()
+    // redirectedCategory()
     filterEventListeners()
 }
-//************************************************************************
+//----------------------------------------------------------------
 
 // Use onAuthStateChanged to control access to admin dashboard
 onAuthStateChanged(auth, async (user) => {
