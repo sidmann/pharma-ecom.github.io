@@ -390,6 +390,7 @@ async function displayOrdersInTable(orders) {
             <td>${userData.role ==='ADMIN'?`
                 <button class="gi-btn-1 mt-2 update-tracking-status"
                 data-order-id="${order.orderId}" 
+                data-order-status="${order.status}"
                 data-bs-toggle="modal" 
                 data-bs-target="#updateTrackStatusModal">
                 Update
@@ -413,6 +414,31 @@ async function displayOrdersInTable(orders) {
             e.preventDefault();
             const orderId = e.target.getAttribute('data-order-id');
             document.querySelector('#order-id').value = orderId;
+            const orderStatus =e.target.getAttribute('data-order-status')
+            document.querySelector('#current-order-tracking-status').textContent = orderStatus
+            console.log(orderStatus);
+            
+            const trackStatusSelect = document.querySelector('#track-status') 
+            let statusMap = {
+                'order_confirm':1,
+                'processing_order':2,
+                'quality_check':3,
+                'product_dispatched':4,
+                'product_delivered':5
+            }
+            if(orderStatus){
+                const currentStatusValue = statusMap[orderStatus];
+                for (const option of trackStatusSelect.options) {
+                    const optionStatus = statusMap[option.value];
+                    option.disabled = optionStatus <= currentStatusValue;
+                }
+
+                for(const option of trackStatusSelect.options){
+                    const optionStatus = statusMap[option.value];
+                    option.disabled = optionStatus!== currentStatusValue + 1;
+                }
+                trackStatusSelect.value = orderStatus;
+            } 
         });
     });
 }
