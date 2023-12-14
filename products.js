@@ -212,10 +212,10 @@ function redirectedCategory() {
  */
 async function postPageLoadFunctions() {
     await updateCart();
-    await fetchNavCategories();
-    await fetchCategories();
-    await embedCategoriesCard()
-    await embedSizesFilter()
+    // await fetchNavCategories();
+    // await fetchCategories();
+    // await embedCategoriesCard()
+    // await embedSizesFilter()
     redirectedCategory()
     filterEventListeners()
 }

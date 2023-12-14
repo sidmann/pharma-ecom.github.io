@@ -4679,7 +4679,7 @@ i.gicon.gi-star.fill {
 .gi-hero .gi-main-content .gi-slider-content .gi-main-slider .swiper-slide {
   height: 700px;
   background-size:cover;
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat; */
 }
 .gi-hero .gi-main-content .gi-slider-content .gi-main-slider .slide-1 {
   background-image: url(../images/indi-pic2.jpg);
