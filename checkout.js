@@ -1182,7 +1182,7 @@ async function payment(e) {
             bill: bill,
             addressRef: doc(firestore, 'users', auth.currentUser.uid, 'addresses', addressId),
             mop: ['rzp', response],
-            status: 'order_confirm',
+            status: 'Order Confirmed',
             orderDate: currentDate.toLocaleDateString(),
             orderTime: currentTime,
         })

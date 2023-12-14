@@ -420,7 +420,7 @@ async function displayOrdersInTable(orders) {
             
             const trackStatusSelect = document.querySelector('#track-status') 
             let statusMap = {
-                'Order Confirm':1,
+                'Order Confirmed':1,
                 'Processing Order':2,
                 'Quality Check':3,
                 'Product Dispatched':4,
