@@ -411,40 +411,42 @@ function deleteAddress(addressId) {
                 .then(async () => {
                     // Address deleted successfully
                     console.log("Address deleted successfully");
-                    // You can refresh the address list or perform other actions hered
+                    // You can refresh the address list or perform other actions here
 
-                    getDocs(collection(firestore, 'users', user, 'addresses')).then(async (addressSnapshot) => {
+                    const addressSnapshot = await getDocs(collection(firestore, 'users', user, 'addresses'));
+
                         if (addressSnapshot.empty) {
                             fetchAndDisplayAddresses();
-                            displayMessage('Address deleted successfully!', 'success');
-                            return
+                            displayMessage('Please add your address!', 'success');
+                            resolve(true);
+                            return;
                         }
 
-                        console.log(addressSnapshot.docs[0].id)
+                        const remainingAddresses = addressSnapshot.docs.filter(doc => doc.data().isDefault === true);
 
-                        var data = addressSnapshot.docs[0].data()
-                        data.isDefault = true
-                        console.log(data)
+                        console.log(remainingAddresses);
 
-                        await updateDoc(doc(firestore, 'users', user, 'addresses', addressSnapshot.docs[0].id), data)
-
+                        if (remainingAddresses.length === 0) {
+                        console.log('inside if');
+                        const firstAddressId = addressSnapshot.docs[0].id;
+                        const data = { isDefault: true };
+                        await updateDoc(doc(firestore, 'users', user, 'addresses', firstAddressId), data);
+                        }
 
                         fetchAndDisplayAddresses();
                         displayMessage('Address deleted successfully!', 'success');
+                        resolve(true);
                     })
-                    resolve(true)
-                })
                 .catch((error) => {
                     displayMessage('Error deleting address', 'danger');
                     console.error("Error deleting address:", error);
-                    // Handle the error, display an error message, or perform other actions
+                    resolve(false);
                 });
         }
         else {
-            console.log(5, 'from false')
-            resolve(false)
+            console.log(5, 'from false');
+            resolve(false);
         }
-
     })
 }
 

@@ -420,11 +420,11 @@ async function displayOrdersInTable(orders) {
             
             const trackStatusSelect = document.querySelector('#track-status') 
             let statusMap = {
-                'order_confirm':1,
-                'processing_order':2,
-                'quality_check':3,
-                'product_dispatched':4,
-                'product_delivered':5
+                'Order Confirm':1,
+                'Processing Order':2,
+                'Quality Check':3,
+                'Product Dispatched':4,
+                'Product Delivered':5
             }
             if(orderStatus){
                 const currentStatusValue = statusMap[orderStatus];
