@@ -1301,7 +1301,8 @@ function hideOverlay() {
     
             console.log(data);
             try {
-                locationdiv.innerHTML = `<h4>Location found</h4>\n${
+                displayMessage('Location found', 'success');
+                locationdiv.innerHTML = `${
                   data.address.neighbourhood
                     ? `${data.address.neighbourhood},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
                     : data.address.road
@@ -1311,7 +1312,9 @@ function hideOverlay() {
                         : `${data.address.suburb},${data.address.city},${data.address.state},${data.address.country},${data.address.postcode}`
                 }`;
               } catch (error) {
-                locationdiv.innerHTML = '<p>Please reload the page</p>';
+                displayMessage('Unable to retrieve location. Please reload the page.', 'danger');
+        
+                
                 console.error('Error:', error);
               }
               
