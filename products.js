@@ -385,26 +385,18 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
                                         <div class="gi-product-inner">
                                             <div class="gi-pro-image-outer">
                                                 <div class="gi-pro-image">
-                                                    <a href="product-left-sidebar.html" class="image">
-                                                        <span class="label veg">
-                                                            <span class="dot"></span>
-                                                        </span>
-                                                        <img class="product-image" src="${productData.imageUrl}"
-                                                            alt="Product">
-                                                        <img class="hover-image product-image" src="${productData.imageUrl}"
-                                                            alt="Product">
-                                                    </a>
-                                                    <div class="gi-pro-actions">
-                                                        <a href="#" class="gi-btn-group quickview"
-                                                            data-link-action="quickview" title="Quick view"><i
-                                                            class="fi-rr-eye"></i></a>
+                                                    <div href="#" class="quickview">
+                                                        <a href="#" class="image">
+                                                            <img class="product-image" src="${productData.imageUrl}"
+                                                                alt="Product">
+                                                            <img class="hover-image product-image" src="${productData.imageUrl}"
+                                                                alt="Product">
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="gi-pro-content">
-                                                <a href="shop-left-sidebar-col-3.html">
-                                                </a>
-                                                <h5 class="gi-pro-title"><a href="product-left-sidebar.html">${productData.name}</a></h5>
+                                                <h5 class="gi-pro-title"><a href="#">${productData.name}</a></h5>
                                                 <p class="gi-info">${productData.ProductDescription}</p>
                                                 <div class="gi-pro-rat-price">
                                                     <span class="gi-price">

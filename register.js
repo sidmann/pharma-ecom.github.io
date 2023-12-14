@@ -295,26 +295,26 @@ document.querySelector("#password").addEventListener("keyup", () => {
 });
 
 // Function to toggle password visibility
-// function togglePasswordVisibility() {
-//     const passwordInput = document.getElementById("password");
-//     const passwordToggle = document.getElementById("passwordToggle");
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById("password");
+    const passwordToggle = document.getElementById("passwordToggle");
 
-//     if (passwordInput.type === "password") {
-//         passwordInput.type = "text";
-//         passwordToggle.classList.remove("fa-eye");
-//         passwordToggle.classList.add("fa-eye-slash");
-//     } else {
-//         passwordInput.type = "password";
-//         passwordToggle.classList.remove("fa-eye-slash");
-//         passwordToggle.classList.add("fa-eye");
-//     }
-// }
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        passwordToggle.classList.remove("fi-rr-eye");
+        passwordToggle.classList.add("fi-rr-eye-crossed");
+    } else {
+        passwordInput.type = "password";
+        passwordToggle.classList.remove("fi-rr-eye-crossed");
+        passwordToggle.classList.add("fi-rr-eye");
+    }
+}
 
 // Add a click event listener to the password toggle icon
-// const passwordToggle = document.getElementById("passwordToggle");
-// if (passwordToggle) {
-//     passwordToggle.addEventListener("click", togglePasswordVisibility);
-// }
+const passwordToggle = document.getElementById("passwordToggle");
+if (passwordToggle) {
+    passwordToggle.addEventListener("click", togglePasswordVisibility);
+}
 
 // Function to validate the referralCode format
 // function isValidReferralCode(referralCode) {
