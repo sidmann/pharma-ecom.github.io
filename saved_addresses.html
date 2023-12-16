@@ -140,10 +140,14 @@
                             <div class="header-top-social">
                                 <ul class="mb-0">
                                     <li class="list-inline-item">
-                                        <a href="tel:+91-99772-21335" class="text-decoration-none text-secondary"><i class="fi fi-rr-phone-call translate-x-down-15"></i> &nbsp;<span class="font-size-0-8">+91 9977221335</span></a>
+                                        <a href="tel:+91-99772-21335" class="text-decoration-none text-secondary"><i
+                                                class="fi fi-rr-phone-call translate-x-down-15"></i> &nbsp;<span
+                                                class="font-size-0-8">+91 9977221335</span></a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <a href="tel:+91-99772-21335" class="text-decoration-none text-secondary"><i class="fi fi-brands-whatsapp translate-x-down-15"></i> &nbsp;<span class="font-size-0-8">+91 9977221335</span></a>
+                                        <a href="tel:+91-99772-21335" class="text-decoration-none text-secondary"><i
+                                                class="fi fi-brands-whatsapp translate-x-down-15"></i> &nbsp;<span
+                                                class="font-size-0-8">+91 9977221335</span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -231,8 +235,7 @@
                             <!-- Header Logo Start -->
                             <div class="align-self-center gi-header-logo">
                                 <div class="header-logo">
-                                    <a href="index.html"><img src="assets/images/logo.ico" alt="Site Logo"
-                                            ></a>
+                                    <a href="index.html"><img src="assets/images/logo.ico" alt="Site Logo"></a>
                                 </div>
                             </div>
                             <!-- Header Logo End -->
@@ -271,7 +274,7 @@
                                                             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
                                                                 alt="profile" id="profile-picture"
                                                                 class="rounded-circle"
-                                                                style="height: 30px; width: 30px;"> 
+                                                                style="height: 30px; width: 30px;">
                                                         </span>&nbsp;
                                                         <span class="badge text-bg-warning profile-name mt-1 h-100">
                                                         </span>
@@ -308,7 +311,7 @@
                                                 <a class="nav-link custom-brand active" href="login.html">Login</a>
                                             </li>
                                             <li class="nav-item d-none loggedIn" id="customerAppbar">
-                                                <a class="nav-link custom-brand" aria-current="page"
+                                                <a class="nav-link custom-brand active" aria-current="page"
                                                     href="user.html">Profile</a>
                                             </li>
                                             <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
@@ -519,7 +522,6 @@
                                 </div>
                             </div>
                         </div> -->
-
                     </div>
                 </div>
             </div>
@@ -746,144 +748,140 @@
 
         <!-- edit address section -->
         <div class="container">
-                <div class="col-md-12">
-                    <div class="shadow-sm bg-white p-4 h-100">
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade  active show" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="font-weight-bold mt-0 mb-4">Manage Addresses</h4>
-                                    <a class="gi-btn-1 mb-4" href="addresses.html">Add New</a>
-                                </div>
-                                <!-- Display the addresses in card form -->
-                                <div class="row" id="addressCardContainer" >
+            <div class="col-md-12">
+                <div class="shadow-sm bg-white p-4 h-100">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade  active show" id="addresses" role="tabpanel"
+                            aria-labelledby="addresses-tab">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="font-weight-bold mt-0 mb-4">Manage Addresses</h4>
+                                <a class="gi-btn-1 mb-4" href="addresses.html">Add New</a>
+                            </div>
+                            <!-- Display the addresses in card form -->
+                            <div class="row" id="addressCardContainer">
 
-                                    <!-- Address cards will be dynamically added here -->
-                                </div>
+                                <!-- Address cards will be dynamically added here -->
                             </div>
                         </div>
                     </div>
                 </div>
-        <!-- </div> -->
-    </section>
-    <!-- addressbook section End -->
-
-        
-
-        <!-- <div class="container products-container"> -->
-            <!-- <h2 class="text-center mt-4">Saved Addresses</h2> -->
-
-            
-
-            <!-- Edit Address Modal -->
-            <div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel"
-                data-bs-backdrop="static" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editAddressModalLabel">Edit Address</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <input type="hidden" id="editAddressId">
-                                <div class="row">
-                                    <div class="col-sm-6" >
-                                        <label for="editFullName" class="form-label">Full Name:</label>
-                                        <input type="text" class="form-control border-primary h-50 p-2 " id="editFullName" required>
-                                        <small id="nameError" class="text-danger"></small>
-                                    </div>
-                                    <div class="col-sm-6" >
-                                        <label for="editMobileNumber">Mobile Number:</label>
-                                        <input type="tel" class="form-control border-primary h-50 p-2 mt-2 mb-2" id="editMobileNumber"required>
-                                        <small id="phoneError" class="text-danger"></small>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="editHouseBuilding">House No./Building Name:</label>
-                                        <input type="text" class="form-control border-primary h-50 p-2 mt-2 mb-2" id="editHouseBuilding"
-                                            required>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="editRoadAreaColony">Road Name/Area/Colony:</label>
-                                        <input type="text" class="form-control border-primary h-50 p-2 mt-2 mb-2" id="editRoadAreaColony"
-                                            required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="editPinCode">Pin Code:</label>
-                                        <input type="text" class="form-control border-primary h-50 p-2 mt-2   mb-2" id="editPinCode" required>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="editCity">City:</label>
-                                        <input type="text" class="form-control border-primary h-50 p-2 mt-2   mb-2" id="editCity" required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="editState">State:</label>
-                                        <input type="text" class="form-control border-primary h-50 p-2 mt-2   mb-2" id="editState" required>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="editAddressType">Address Type:</label>
-                                        <select class="form-select border-primary mt-2  h-50 p-2  mb-2" id="editAddressType" required>
-                                            <option value="Home">Home</option>
-                                            <option value="Work">Work</option>
-                                        </select>
-                                    </div>
-                                </div> 
-                                <!-- Add fields for other address details (mobile number, house/building, road/area/colony, etc.) -->
-                                <!-- ... -->
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="editAddressSubmitBtn">Save
-                                Changes</button>
-                        </div>
-                    </div>
-                </div>
-            <!-- </div> -->
-
-            <!-- Logout Confirmation Modal -->
-            <div class="modal fade" id="logoutConfirmationModal" tabindex="-1"
-                aria-labelledby="logoutConfirmationModalLabel" data-bs-backdrop="static" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered w-sm-50">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="logoutConfirmationModalLabel">
-                                Confirm Logout
-                            </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">Are you sure you want to logout?</div>
-                        <div class="modal-footer">
-                            <!-- Cancel button to close the modal -->
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                Cancel
-                            </button>
-                            <!-- Logout button to trigger the logout -->
-                            <button type="button" class="btn btn-primary" id="confirmLogoutBtn">
-                                Logout
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </div>
-
-            <!-- Toast Body -->
-            <div class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true"
-                id="toast-bg">
-                <div class="notify d-flex justify-content-between">
-                    <span class="compare-note d-inline"></span>
-                    <button type="button" class="btn-close d-inline" data-bs-dismiss="toast"
-                        aria-label="Close"></button>
-                </div>
-            </div>
-            <!-- Toast Message End -->
-
         </div>
+
+        <!-- Edit Address Modal -->
+        <div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel"
+            data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editAddressModalLabel">Edit Address</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <input type="hidden" id="editAddressId">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="editFullName" class="form-label">Full Name:</label>
+                                    <input type="text" class="form-control border-primary h-50 p-2 " id="editFullName"
+                                        required>
+                                    <small id="nameError" class="text-danger"></small>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="editMobileNumber">Mobile Number:</label>
+                                    <input type="tel" class="form-control border-primary h-50 p-2 mt-2 mb-2"
+                                        id="editMobileNumber" required>
+                                    <small id="phoneError" class="text-danger"></small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="editHouseBuilding">House No./Building Name:</label>
+                                    <input type="text" class="form-control border-primary h-50 p-2 mt-2 mb-2"
+                                        id="editHouseBuilding" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="editRoadAreaColony">Road Name/Area/Colony:</label>
+                                    <input type="text" class="form-control border-primary h-50 p-2 mt-2 mb-2"
+                                        id="editRoadAreaColony" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="editPinCode">Pin Code:</label>
+                                    <input type="text" class="form-control border-primary h-50 p-2 mt-2   mb-2"
+                                        id="editPinCode" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="editCity">City:</label>
+                                    <input type="text" class="form-control border-primary h-50 p-2 mt-2   mb-2"
+                                        id="editCity" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="editState">State:</label>
+                                    <input type="text" class="form-control border-primary h-50 p-2 mt-2   mb-2"
+                                        id="editState" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="editAddressType">Address Type:</label>
+                                    <select class="form-select border-primary mt-2  h-50 p-2  mb-2" id="editAddressType"
+                                        required>
+                                        <option value="Home">Home</option>
+                                        <option value="Work">Work</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Add fields for other address details (mobile number, house/building, road/area/colony, etc.) -->
+                            <!-- ... -->
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="editAddressSubmitBtn">Save
+                            Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logout Confirmation Modal -->
+        <div class="modal fade" id="logoutConfirmationModal" tabindex="-1"
+            aria-labelledby="logoutConfirmationModalLabel" data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered w-sm-50">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="logoutConfirmationModalLabel">
+                            Confirm Logout
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">Are you sure you want to logout?</div>
+                    <div class="modal-footer">
+                        <!-- Cancel button to close the modal -->
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                        <!-- Logout button to trigger the logout -->
+                        <button type="button" class="btn btn-primary" id="confirmLogoutBtn">
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Body -->
+        <div class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true"
+            id="toast-bg">
+            <div class="notify d-flex justify-content-between">
+                <span class="compare-note d-inline"></span>
+                <button type="button" class="btn-close d-inline" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+        <!-- Toast Message End -->
+
     </div>
 
     <!-- Back to top  -->

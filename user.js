@@ -645,8 +645,6 @@ async function fetchAndDisplayOrderDetails(order, orderDetailsContainer) {
 
 //******************************************************************************************
 
-
-
 function populateProfileData(userData) {
     // document.getElementById("profile-avatar").src = userData.profilePic || "default-profile-pic.jpg";
     document.getElementById("displayName").value =
@@ -1097,27 +1095,3 @@ async function fetchNavCategories() {
         mobileCategoryList.appendChild(list)
     })
 }
-function previewImage() {
-    var fileInput = document.getElementById('profilePicture');
-    var previewImage = document.getElementById('shown-profilePicture');
-
-    fileInput.addEventListener('change', function() {
-      var file = fileInput.files[0];
-
-      if (file) {
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-          previewImage.src = e.target.result;
-        };
-
-        reader.readAsDataURL(file);
-      } else {
-        // Reset the preview if no file is selected
-        previewImage.src = "#";
-      }
-    });
-  }
-
-  // Call the function to enable image preview
-  previewImage();
