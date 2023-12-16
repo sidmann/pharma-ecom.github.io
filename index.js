@@ -292,7 +292,7 @@ async function fetchProductsForSlider() {
             const productDiv = document.createElement('div')
             productDiv.classList.add('gi-product-content')
             productDiv.innerHTML = `
-                        <div class="gi-product-inner">
+                       <!-- <div class="gi-product-inner">
                             <div class="gi-pro-image-outer">
                                 <div class="gi-pro-image">
                                     <a href="products.html" class="image">
@@ -305,6 +305,20 @@ async function fetchProductsForSlider() {
                                         <img class="hover-image"
                                             src="${productDoc.imageUrl}"
                                             alt="Product">
+                                    </a>-->
+                                   <!-- <span class="flags">
+                                        <span class="sale">Sale</span>
+                                        
+                                    </span>-->
+                               <!-- </div>
+                            </div>-->
+                            <div class="gi-product-inner">
+                            <div class="gi-pro-image-outer">
+                                <div class="gi-pro-image">
+                                        <a href="products.html">
+                                        <img class="main-image"
+                                        src="${productDoc.imageUrl}" style="width:235px; text-align:center; margin:auto; display:block;transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"
+                                        alt="Product">
                                     </a>
                                    <!-- <span class="flags">
                                         <span class="sale">Sale</span>
@@ -331,17 +345,47 @@ async function fetchProductsForSlider() {
                                     </span>
                                 </div>
                             </div>
-                        </div>
-        `
+                        </div>`
             productSlider.appendChild(productDiv)
             productCount++;
         }
     })
-    $('.gi-product-slider').owlCarousel({
+    // $('.gi-product-slider').owlCarousel({
+    //     loop: true,
+    //     dots: false,
+    //     nav: false,
+    //     smartSpeed: 10000,
+    //     autoplay: true,
+    //     items: 3,
+    //     responsiveClass: true,
+    //     responsive: {
+    //         0: {
+    //             items: 1
+    //         },
+    //         421: {
+    //             items: 2
+    //         },
+    //         768: {
+    //             items: 3
+    //         },
+    //         992: {
+    //             items: 3
+    //         },
+    //         1200: {
+    //             items: 4
+    //         },
+    //         1367: {
+    //             items: 5
+    //         }
+    //     }
+    // });
+    var owl = $('.gi-product-slider');
+
+    owl.owlCarousel({
         loop: true,
         dots: false,
         nav: false,
-        smartSpeed: 10000,
+        smartSpeed: 5000,
         autoplay: true,
         items: 3,
         responsiveClass: true,
@@ -366,6 +410,17 @@ async function fetchProductsForSlider() {
             }
         }
     });
+
+    // Pause the slider on mouseenter
+    owl.on('mouseenter', function () {
+        owl.trigger('stop.owl.autoplay');
+    });
+
+    // Resume the slider on mouseleave
+    owl.on('mouseleave', function () {
+        owl.trigger('play.owl.autoplay');
+    });
+
 }
 
 
