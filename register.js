@@ -451,7 +451,7 @@ async function submitForm(e) {
             document.querySelector('#sub_btn').textContent = 'Submit'
             displayMessage("Signup Successful!", 'success')
             console.log()
-            await signInWithEmailAndPassword(auth, email, password)
+            // await signInWithEmailAndPassword(auth, email, password)
             await signOut(auth)
 
             // Clear form

@@ -332,26 +332,6 @@ function fetchAndDisplayAddresses() {
                             </div>
                         </div>
                     </div>`;
-                
-                
-                `
-                    <!--<div class="card shadow">
-                        <div class="card-body">
-                            <h5 class="card-title">${fullName}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">${mobileNumber}</h6>
-                            <p class="card-text">${houseBuilding}, ${roadAreaColony}<br>${pinCode}, ${city}, ${state}</p>
-                            <p class="card-text">Type: ${addressType}</p>
-                            ${isDefault ?
-                        `<button class="btn btn-danger delete-address me-2" data-address-id="${doc.id}" id="delete-${doc.id}">Delete</button>
-                            <button class="btn btn-secondary edit-address me-2" data-address-id="${doc.id}" id="edit-${doc.id}" data-bs-toggle="modal" data-bs-target="#editAddressModal">Edit</button>
-                            <span class="badge bg-success">Default</span>` :
-                        `<button class="btn btn-danger delete-address me-2" data-address-id="${doc.id}" id="delete-${doc.id}">Delete</button>
-                            <button class="btn btn-secondary edit-address me-2" data-address-id="${doc.id}" id="edit-${doc.id}" data-bs-toggle="modal" data-bs-target="#editAddressModal">Edit</button>
-                            <button class="btn btn-primary set-default-address me-2" data-address-id="${doc.id}" id="default-${doc.id}">Set as Default</button>
-                            `}
-                        </div>
-                    </div>
-                -->`
 
                 addressCardContainer.appendChild(card);
 

@@ -1040,7 +1040,7 @@ function selectAddress(addressDoc, e) {
                                         <span class="address-pincode text-bold">${addressDoc.data().pinCode}</span>
                                     </p>
                                     <div class="mb-0 text-black font-weight-bold d-flex flex-wrap gap-3">
-                                        <a class="align-self-center mr-3 gi-btn-1" href="#">EDIT <i
+                                        <a class="align-self-center mr-3 gi-btn-1" href="saved_addresses.html">EDIT <i
                                                 class="fi-rr-pencil"></i></a>
                                     </div>
                                 </div>

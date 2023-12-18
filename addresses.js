@@ -264,7 +264,7 @@ document.querySelector("#phone").addEventListener("keyup", () => {
 
 //event for firstName validation
 document.querySelector("#displayName").addEventListener("keyup", () => {
-    if (!isValidFullName(document.querySelector("#displayName").value.split(' ')[0])) {
+    if (!isValidFullName(document.querySelector("#displayName").value)) {
         // Display an error message
         document.getElementById("nameError").textContent =
             "*Name must be at least 3 characters.";
