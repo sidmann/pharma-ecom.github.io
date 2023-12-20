@@ -374,6 +374,11 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
             if (resultIndex >= 0) cartStatus = true
             else cartStatus = false
 
+            let productDescriptionPoints = '';
+            if(productData.ProductDescription){
+                 productDescriptionPoints = productData.ProductDescription.split('•').map((point)=>point.trim()).join('<br> &nbsp> &nbsp')
+            }
+
             // if (cartStatus) console.log(productData, productData.quantity >= 1 && cartStatus, cart[resultIndex].quantity)
             // Create a product card
             const productCard = document.createElement('div');
@@ -404,7 +409,7 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
                                             <div class="gi-pro-content">
                                                 <h5 class="gi-pro-title"><a href="#">${productData.name}</a></h5>
                                                 <h5 class="gi-pro-title"><a href="#"><i>${productData.tagLine}</i></a></h5>
-                                                <p class="gi-info">${productData.ProductDescription}</p>
+                                                <p class="gi-info">${productDescriptionPoints}</p>
                                                 <div class="gi-pro-rat-price">
                                                     <span class="gi-price">
                                                         <span class="new-price"><span>&#8377;</span><span

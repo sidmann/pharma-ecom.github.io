@@ -236,9 +236,9 @@ async function getAndEmbedProductData(productId) {
     const productSection = document.querySelector('.product-section')
     const productColorContainer = document.querySelector('#color-pro-container');
     // const selectedColorsContainer = document.querySelector('.selected-color')
-    const productDesc = document.querySelector('.gi-single-desc')
-    const productDetails =  document.querySelector('.gi-single-pro-tab-details')
-    const productSpecifications = document.querySelector('.gi-single-pro-tab-spec');
+    let productDesc = document.querySelector('.gi-single-desc')
+    let productDetails =  document.querySelector('.gi-single-pro-tab-details')
+    let productSpecifications = document.querySelector('.gi-single-pro-tab-spec');
     productColorContainer.innerHTML = '';
 
     // console.log(productFirstImageList[0],productFirstImageList[1])
@@ -248,12 +248,32 @@ async function getAndEmbedProductData(productId) {
     productName.textContent = productData.name
     productPrice.textContent = productData.price
     // productOldPrice.textContent = 40 + +productData.price
-    productDesc.textContent = productData.ProductDescription;
+    
+    //product Description
+    let productDescDiv = document.createElement('div');
+    let productDescriptionPoints = ''
+    console.log(productData.ProductDescription)
+    if(productData.ProductDescription){
+        productDescriptionPoints = productData.ProductDescription.split('•').map((point)=>point.trim()).join('<br>&nbsp> &nbsp')
+    }
+    productDescDiv.innerHTML = `${productDescriptionPoints}`
+    productDesc.appendChild(productDescDiv);
+
     productSize.textContent = productData.size + ' ';
     productManufacturer.textContent = productData.manufacturerName;
     productIdNo.textContent = productData.productId;
     productCategory.textContent = productData.categoryName;
-    productDetails.textContent = productData.productDetails;
+
+    //Product Details
+    let productDetailsDiv = document.createElement('div');
+    let productDetailsPoints = ''
+    if(productData.productDetails){
+      productDetailsPoints = productData.productDetails.split('•').map((point)=>point.trim()).join('<br>&nbsp> &nbsp');
+    }
+    productDetailsDiv.innerHTML = `${productDetailsPoints}`;
+    productDetails.appendChild(productDetailsDiv);
+
+
     productSpecifications.textContent = productData.productSpecifications;
     // productStock.textContent = productData.quantity ? 'IN STOCK' : 'OUT STOCK'
 
