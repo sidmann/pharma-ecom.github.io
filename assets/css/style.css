@@ -2020,7 +2020,7 @@ i.gicon.gi-star.fill {
   transition: all 0.3s ease;
 }
 .header-logo img {
-  width: 150px;
+  width: 140px;
 }
 
 .col.gi-header-logo {
@@ -3349,9 +3349,9 @@ body.gi-menu-open:before {
         -ms-flex-direction: column;
             flex-direction: column;
   }
-  .gi-header-bottom .gi-flex .gi-header-logo {
+  /* .gi-header-bottom .gi-flex .gi-header-logo {
     margin-bottom: 15px;
-  }
+  } */
 }
 @media (max-width: 480px) {
   .gi-mobile-menu {

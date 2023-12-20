@@ -331,6 +331,9 @@ async function fetchProductsForSlider() {
                                 <h5 class="gi-pro-title"><a href="products.html">
                                  ${productDoc.name}
                                 </a></h5>
+                                <h5 class="gi-pro-title"><a href="products.html">
+                                 <i>${productDoc.tagLine}</i>
+                                </a></h5>
                                 <div class="gi-pro-rat-price">
                                     <!--<span class="gi-pro-rating">
                                         <i class="gicon gi-star fill"></i>

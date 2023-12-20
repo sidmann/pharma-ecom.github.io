@@ -3345,9 +3345,9 @@ body.gi-menu-open:before {
         -ms-flex-direction: column;
             flex-direction: column;
   }
-  .gi-header-bottom .gi-flex .gi-header-logo {
+  /* .gi-header-bottom .gi-flex .gi-header-logo {
     margin-bottom: 15px;
-  }
+  } */
 }
 @media (max-width: 480px) {
   .gi-mobile-menu {
@@ -4680,18 +4680,18 @@ i.gicon.gi-star.fill {
   display: flex;
 }
 .gi-hero .gi-main-content .gi-slider-content .gi-main-slider .swiper-slide {
-  height: 700px;
+  height: 600px;
   background-size:cover;
   /* background-repeat: no-repeat; */
 }
 
-.gi-hero .gi-main-content .gi-slider-content .gi-main-slider .slide-1 {
+.gi-hero .gi-main-content .gi-slider-content .gi-main-slider .slide-7 {
   background-image: url(../images/indi-pic9.jpg);
   background-position: center;
   background-size: 75% 90%;
   background-repeat: no-repeat;
 }
-.gi-hero .gi-main-content .gi-slider-content .gi-main-slider .slide-2 {
+.gi-hero .gi-main-content .gi-slider-content .gi-main-slider .slide-10 {
   background-image: url(../images/indi-pic3.jpg);
   background-position: center;
   background-size: 75% 90%;
@@ -4721,7 +4721,7 @@ i.gicon.gi-star.fill {
   background-size: 75% 90%;
   background-repeat: no-repeat;
 }
-.gi-hero .gi-main-content .gi-slider-content .gi-main-slider .slide-7 {
+.gi-hero .gi-main-content .gi-slider-content .gi-main-slider .slide-1 {
   background-image: url(../images/indi-pic7.jpg);
   background-position: center;
   background-size: 75% 90%;
@@ -4739,7 +4739,7 @@ i.gicon.gi-star.fill {
   background-size: 75% 90%;
   background-repeat: no-repeat;
 }
-.gi-hero .gi-main-content .gi-slider-content .gi-main-slider .slide-10 {
+.gi-hero .gi-main-content .gi-slider-content .gi-main-slider .slide-2 {
   background-image: url(../images/indi-pic13.jpg);
   background-position: center;
   background-size: 75% 90%;

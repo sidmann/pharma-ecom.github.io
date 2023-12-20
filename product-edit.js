@@ -328,6 +328,7 @@ function createProductRow(productId, productData) {
             <td>${productData.manufacturerName}</td>
             <td>${productData.categoryName}</td>
             <td>${productData.name}</td>
+            <td>${productData.tagLine}</td>
             <td>${productData.size}</td>
             <td>${productData.price}</td>
             <td>${productData.quantity}</td>
@@ -451,8 +452,9 @@ newProductArrivalStatusNo.addEventListener('change', function () {
 async function openUpdateModal(productId) {
 
     const productNameInput = document.querySelector('#productName');
-    const manufacturerInput = document.querySelector('#manufacturerName')
-    const categoryDropdown = document.querySelector('#categoryDropdown')
+    const productTagLineInput = document.querySelector('#productTagLine');
+    const manufacturerInput = document.querySelector('#manufacturerName');
+    const categoryDropdown = document.querySelector('#categoryDropdown');
     // const productColorInput = document.querySelector('#productColor');
     // const colorShadeInput = document.querySelector('#colorShadeDropdown');
     const productSizeInput = document.querySelector('#productSize');
@@ -496,6 +498,7 @@ async function openUpdateModal(productId) {
 
                 // productColorInput.value = productData.color;
                 productNameInput.value = productData.name;
+                productTagLineInput.value = productData.tagLine;
                 productSizeInput.value = productData.size;
                 productPriceInput.value = productData.price;
                 productQuantityInput.value = productData.quantity;
@@ -564,6 +567,7 @@ async function openUpdateModal(productId) {
                                                 // manufacturerId: manufacturerInput.value,
                                                 categoryId: categoryOption.value,
                                                 name: productNameInput.value,
+                                                tagLine: productTagLineInput.value,
                                                 // color: productColors,
                                                 size: productSizeInput.value,
                                                 price: parseFloat(productPriceInput.value),
@@ -604,6 +608,7 @@ async function openUpdateModal(productId) {
                                 // manufacturerId: manufacturerInput.value,
                                 categoryId: categoryOption.value,
                                 name: productNameInput.value,
+                                tagLine: productTagLineInput.value,
                                 // color: productColors,
                                 size: productSizeInput.value,
                                 price: parseFloat(productPriceInput.value),

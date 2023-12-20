@@ -1025,6 +1025,7 @@ async function uploadProduct() {
     const productId = generateUniqueProductId();
     // console.log(productId);
     const productName = document.getElementById('productName').value;
+    const productTagLine = document.getElementById('productTagLine').value;
     const productQuantity = document.getElementById('productQuantity').value;
     const productPrice = document.getElementById('productPrice').value;
     const fileInput = document.getElementById('productImage');
@@ -1037,7 +1038,7 @@ async function uploadProduct() {
     const productSpecificationsTextarea = document.querySelector('#product-specifications')
     const selectedFile = fileInput.files[0];
 
-    if (productName && productQuantity && productPrice && manufacturerOption && categoryOption
+    if (productName && productTagLine && productQuantity && productPrice && manufacturerOption && categoryOption
         && productSizeOption && selectedFile && productDescriptionTextarea && productDetailsTextarea
         && productSpecificationsTextarea && (newProductArrivalStatus === true || newProductArrivalStatus === false)) {
         // const fileName = selectedFile.name;
@@ -1058,6 +1059,7 @@ async function uploadProduct() {
                         productData = {
                             productId: productId,
                             name: productName,
+                            tagLine: productTagLine,
                             // size: productSize,
                             quantity: productQuantity,
                             price: parseFloat(productPrice),

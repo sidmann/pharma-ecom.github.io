@@ -403,6 +403,7 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
                                             </div>
                                             <div class="gi-pro-content">
                                                 <h5 class="gi-pro-title"><a href="#">${productData.name}</a></h5>
+                                                <h5 class="gi-pro-title"><a href="#"><i>${productData.tagLine}</i></a></h5>
                                                 <p class="gi-info">${productData.ProductDescription}</p>
                                                 <div class="gi-pro-rat-price">
                                                     <span class="gi-price">
