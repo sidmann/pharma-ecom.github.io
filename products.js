@@ -375,8 +375,8 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
             else cartStatus = false
 
             let productDescriptionPoints = '';
-            if(productData.ProductDescription){
-                 productDescriptionPoints = productData.ProductDescription.split('•').map((point)=>point.trim()).join('<br> &nbsp> &nbsp')
+            if (productData.ProductDescription) {
+                productDescriptionPoints = formatDescription(productData.ProductDescription);
             }
 
             // if (cartStatus) console.log(productData, productData.quantity >= 1 && cartStatus, cart[resultIndex].quantity)
@@ -409,7 +409,7 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
                                             <div class="gi-pro-content">
                                                 <h5 class="gi-pro-title"><a href="#">${productData.name}</a></h5>
                                                 <h5 class="gi-pro-title"><a href="#"><i>${productData.tagLine}</i></a></h5>
-                                                <p class="gi-info">${productDescriptionPoints}</p>
+                                                <div class="gi-info"><strong>Description:</strong><p>${productDescriptionPoints}</p></div>
                                                 <div class="gi-pro-rat-price">
                                                     <span class="gi-price">
                                                         <span class="new-price"><span>&#8377;</span><span
@@ -479,6 +479,15 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
     })
 }
 
+// Function to format product description points
+function formatDescription(description) {
+    if (!description) {
+        return '';
+    }
+
+    const pointsArray = description.split('•').map((point) => point.trim());
+    return pointsArray.map((point) => `<li>${point}</li>`).join('');
+}
 
 /**
  * get cart 
@@ -2007,25 +2016,30 @@ async function fetch() {
  * @author dev
  */
 function productQuickView(productData) {
-    const modal = document.getElementById('gi_quickview_modal').cloneNode(true)
-    const modalProductImage = modal.querySelector('.modal-product-image')
-    const modalProductName = modal.querySelector('.modal-product-name')
-    const modalProductDesc = modal.querySelector('.modal-product-desc')
-    const modalProductPrice = modal.querySelector('.modal-product-price')
-    // const modalProductOldPrice = modal.querySelector('.modal-product-old-price')
+    const modal = document.getElementById('gi_quickview_modal').cloneNode(true);
+    const modalProductImage = modal.querySelector('.modal-product-image');
+    const modalProductName = modal.querySelector('.modal-product-name');
+    const modalProductDesc = modal.querySelector('.modal-product-desc');
+    const modalProductPrice = modal.querySelector('.modal-product-price');
 
-    modalProductImage.src = productData.imageUrl
-    modalProductName.textContent = productData.name
-    modalProductPrice.textContent = parseFloat(productData.price)
-    // modalProductOldPrice.textContent = parseFloat(productData.price + 20)
-    modalProductDesc.textContent=productData.ProductDescription;
+    modalProductImage.src = productData.imageUrl;
+    modalProductName.textContent = productData.name;
+    modalProductPrice.textContent = parseFloat(productData.price);
+    modalProductDesc.innerHTML = formatModalDescription(productData.ProductDescription);
+    modal.querySelector('.add-to-cart').addEventListener('click', redirectToProductDetails.bind(this, productData.productId));
 
-    modal.querySelector('.add-to-cart').addEventListener('click', redirectToProductDetails.bind(this, productData.productId))
-
-    //for zoom
+    // For zoom
     const mymodal = new bootstrap.Modal(modal);
-    mymodal.show()
-    // modal.addEventListener('hidden.bs.modal', modalDestructor, {once: true})
+    mymodal.show();
+}
+
+function formatModalDescription(description) {
+    if (!description) {
+        return '';
+    }
+
+    const pointsArray = description.split('•').map((point) => point.trim());
+    return pointsArray.map((point) => `<li>${point}</li>`).join('');
 }
 
 /**

@@ -251,10 +251,9 @@ async function getAndEmbedProductData(productId) {
     
     //product Description
     let productDescDiv = document.createElement('div');
-    let productDescriptionPoints = ''
-    console.log(productData.ProductDescription)
-    if(productData.ProductDescription){
-        productDescriptionPoints = productData.ProductDescription.split('•').map((point)=>point.trim()).join('<br>&nbsp> &nbsp')
+    let productDescriptionPoints = '';
+    if (productData.ProductDescription) {
+        productDescriptionPoints = formatDescription(productData.ProductDescription);
     }
     productDescDiv.innerHTML = `${productDescriptionPoints}`
     productDesc.appendChild(productDescDiv);
@@ -268,13 +267,19 @@ async function getAndEmbedProductData(productId) {
     let productDetailsDiv = document.createElement('div');
     let productDetailsPoints = ''
     if(productData.productDetails){
-      productDetailsPoints = productData.productDetails.split('•').map((point)=>point.trim()).join('<br>&nbsp> &nbsp');
+        productDetailsPoints = formatDetails(productData.productDetails);
     }
     productDetailsDiv.innerHTML = `${productDetailsPoints}`;
     productDetails.appendChild(productDetailsDiv);
 
-
-    productSpecifications.textContent = productData.productSpecifications;
+    //Product Specifications
+    let productSpecificationsDiv = document.createElement('div');
+    let productSpecificationsPoints = ''
+    if (productData.productSpecifications) {
+        productSpecificationsPoints = formatSpecifications(productData.productSpecifications);
+    }
+    productSpecificationsDiv.innerHTML = `${productSpecificationsPoints}`;
+    productSpecifications.appendChild(productSpecificationsDiv);
     // productStock.textContent = productData.quantity ? 'IN STOCK' : 'OUT STOCK'
 
     setTimeout(() => {
@@ -303,6 +308,35 @@ async function getAndEmbedProductData(productId) {
     }, 1000);
 }
 
+// Function to format product description points
+function formatDescription(description) {
+    if (!description) {
+        return '';
+    }
+
+    const pointsArray = description.split('•').map((point) => point.trim());
+    return pointsArray.map((point) => `<li>${point}</li>`).join('');
+}
+
+// Function to format product detail points
+function formatDetails(details) {
+    if (!details) {
+        return '';
+    }
+
+    const detailsArray = details.split('•').map((detail) => detail.trim());
+    return detailsArray.map((detail) => `<li>${detail}</li>`).join('');
+}
+
+// Function to format product detail points
+function formatSpecifications(specifications) {
+    if (!specifications) {
+        return '';
+    }
+
+    const specificationsArray = specifications.split('•').map((specification) => specification.trim());
+    return specificationsArray.map((specification) => `<li>${specification}</li>`).join('');
+}
 
 /**
  * Add to Cart
