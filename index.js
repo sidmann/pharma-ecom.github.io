@@ -286,7 +286,6 @@ async function fetchProductsForSlider() {
     const productSliderSnapshot = await getDocs(productSliderCollection);
     let productCount = 0;
     productSliderSnapshot.forEach(async (doc) => {
-        if (productCount < 8) {
             const productDoc = doc.data()
             // console.log(productDoc)
             const productDiv = document.createElement('div')
@@ -351,7 +350,6 @@ async function fetchProductsForSlider() {
                         </div>`
             productSlider.appendChild(productDiv)
             productCount++;
-        }
     })
     // $('.gi-product-slider').owlCarousel({
     //     loop: true,
