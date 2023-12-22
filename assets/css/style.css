@@ -47,7 +47,6 @@
 .gi-footer {
 
 }
-
 @font-face {
   font-family: "Manrope", sans-serif;
   src: url("../fonts/manrope/Manrope-ExtraLight.ttf") format("truetype");
@@ -2996,7 +2995,6 @@ body.gi-menu-open:before {
 .gi-menu-content > ul > li.active > ul > li.active > .menu-toggle::before {
   content: "-";
 }
-
 /*===== Mobile menus =====*/
 .gi-mobile-menu-overlay {
   display: none;

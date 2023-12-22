@@ -277,6 +277,7 @@ function fetchCategories() {
 //     });
 // }
 
+
 // ------------------------- Featured Product-----------------------------
 async function fetchProductsForSlider() {
     const productSlider = document.querySelector('#products-for-slider')
@@ -351,6 +352,7 @@ async function fetchProductsForSlider() {
             productSlider.appendChild(productDiv)
             productCount++;
     })
+
     // $('.gi-product-slider').owlCarousel({
     //     loop: true,
     //     dots: false,
@@ -380,6 +382,7 @@ async function fetchProductsForSlider() {
     //         }
     //     }
     // });
+
     var owl = $('.gi-product-slider');
 
     owl.owlCarousel({
