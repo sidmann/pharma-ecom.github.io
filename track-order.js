@@ -123,6 +123,9 @@ onAuthStateChanged(auth, async (user) => {
         const docRef = doc(firestore, "users", user.uid);
         const docSnap = getDoc(docRef);
         // const orders= await fetchOrdersForUser();
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.remove('d-none');
+        });
         onLoggedIn();
         docSnap.then(async (docSnapshot) => {
             if (docSnapshot.exists()) {
@@ -142,7 +145,9 @@ onAuthStateChanged(auth, async (user) => {
     } else {
         loggedIn = false;
         console.log(loggedIn)
-        onLoggedOut();
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.add('d-none');
+        });
         await updateCart();
         // fetchNavCategories();
     }
@@ -238,7 +243,6 @@ function onLoggedIn() {
     navItemList.forEach((navItem) => {
         navItem.style.display = "none";
     });
-    document.querySelector('#logout-btn').style.display='block';
 }
 
 /**
@@ -255,7 +259,6 @@ function onLoggedOut() {
     navItemList.forEach((navItem) => {
         navItem.style.display = "none";
     });
-    document.querySelector('#logout-btn').style.display = 'none';
 }
 
 

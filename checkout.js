@@ -109,7 +109,9 @@ onAuthStateChanged(auth, async (user) => {
 
     if (user) {
         //check if local storage has cart information
-        document.querySelector('#logout-btn').style.display = 'block';
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.remove('d-none');
+        });
         if (!localStorage.getItem('checkoutSummary')) {
             // location.href = 'cart.html'
         }
@@ -135,7 +137,9 @@ onAuthStateChanged(auth, async (user) => {
             }
         });
     } else {
-        document.querySelector('#logout-btn').style.display = 'none';
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.add('d-none');
+        });
         loggedIn = false;
     }
     console.log('onauth', 6)

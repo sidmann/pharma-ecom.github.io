@@ -68,9 +68,12 @@ confirmLogoutBtn.addEventListener("click", () => {
  */
 onAuthStateChanged(auth, async (user) => {
     if (user) {
-        console.log("if")       
+        console.log("if")
         loggedIn = true
         onLoggedIn();
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.remove('d-none');
+        });
         // User is authenticated
         const docRef = doc(firestore, "users", user.uid);
         const docSnap = getDoc(docRef);
@@ -84,15 +87,17 @@ onAuthStateChanged(auth, async (user) => {
                 updateCart();
                 // fetchNavCategories();
                 updateProfilePicture(userData.role, userData.profilePicture)
-                if(userData.role==='ADMIN')
-                   document.querySelector('#update-order-status-head').style.display = 'block';
+                if (userData.role === 'ADMIN')
+                    document.querySelector('#update-order-status-head').style.display = 'block';
             }
         });
     } else {
         console.log("else");
         updateCart();
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.add('d-none');
+        });
         // fetchNavCategories();
-        onLoggedOut();
     }
 });
 
@@ -101,8 +106,8 @@ onAuthStateChanged(auth, async (user) => {
  * displayOrdersInTable
  * @returns mydev
  */
-async function fetchOrdersForDisplay(){
-   const orders = await fetchOrdersForUser();
+async function fetchOrdersForDisplay() {
+    const orders = await fetchOrdersForUser();
     displayOrdersInTable(orders);
 }
 
@@ -123,7 +128,6 @@ function onLoggedIn() {
     navItemList.forEach((navItem) => {
         navItem.style.display = "none";
     });
-    document.querySelector('#logout-btn').style.display = 'block';
 }
 
 /**
@@ -143,8 +147,6 @@ function onLoggedOut() {
     navItemList.forEach((navItem) => {
         navItem.style.display = "none";
     });
-
-    document.querySelector('#logout-btn').style.display = 'none';
 }
 
 /**
@@ -339,11 +341,11 @@ function updateProfilePicture(role, profilePicture) {
 async function fetchOrdersForUser() {
     console.log(userId)
     let ordersRef = null;
-    if(userId){
-        const userRef = doc(firestore, "users",userId);
+    if (userId) {
+        const userRef = doc(firestore, "users", userId);
         ordersRef = collection(userRef, "orders");
     }
-    else{
+    else {
         const userRef = doc(firestore, "users", auth.currentUser.uid);
         ordersRef = collection(userRef, "orders");
     }
@@ -379,24 +381,24 @@ async function displayOrdersInTable(orders) {
            <td><span class="avl">${order.status}</span></td>
             <td>
                 <span class="tbl-btn">
-                    <a class="gi-btn-2 add-to-cart m-r-5px" href="track-order.html?orderId=${order.orderId}${userId?`&userId=${userId}`:''}" title="Track Order">
+                    <a class="gi-btn-2 add-to-cart m-r-5px" href="track-order.html?orderId=${order.orderId}${userId ? `&userId=${userId}` : ''}" title="Track Order">
                         <i class="fi-rr-truck-moving"></i>
                     </a>
-                    <a class="gi-btn-1 gi-remove-wish" href="order-details.html?orderId=${order.orderId}${userId?`&userId=${userId}`:''}" title="Order Details">
+                    <a class="gi-btn-1 gi-remove-wish" href="order-details.html?orderId=${order.orderId}${userId ? `&userId=${userId}` : ''}" title="Order Details">
                         <i class="fi-rr-list"></i>
                     </a>
                 </span>
             </td>
-            <td>${userData.role ==='ADMIN'?`
+            <td>${userData.role === 'ADMIN' ? `
                 <button class="gi-btn-1 mt-2 update-tracking-status"
                 data-order-id="${order.orderId}" 
                 data-order-status="${order.status}"
                 data-bs-toggle="modal" 
                 data-bs-target="#updateTrackStatusModal">
                 Update
-            </button>`:''}</td>
+            </button>`: ''}</td>
         `;
-        
+
         const orderProducts = newRow.querySelector('.order-products')
         order.productsDetails.forEach(product => {
             const span = document.createElement('span')
@@ -404,7 +406,7 @@ async function displayOrdersInTable(orders) {
             orderProducts.appendChild(span)
         });
         tableBody.appendChild(newRow);
-        
+
     });
 
     const updateTrackingStatusButtons = document.querySelectorAll('.update-tracking-status');
@@ -414,31 +416,31 @@ async function displayOrdersInTable(orders) {
             e.preventDefault();
             const orderId = e.target.getAttribute('data-order-id');
             document.querySelector('#order-id').value = orderId;
-            const orderStatus =e.target.getAttribute('data-order-status')
+            const orderStatus = e.target.getAttribute('data-order-status')
             document.querySelector('#current-order-tracking-status').textContent = orderStatus
             console.log(orderStatus);
-            
-            const trackStatusSelect = document.querySelector('#track-status') 
+
+            const trackStatusSelect = document.querySelector('#track-status')
             let statusMap = {
-                'Order Confirmed':1,
-                'Processing Order':2,
-                'Quality Check':3,
-                'Product Dispatched':4,
-                'Product Delivered':5
+                'Order Confirmed': 1,
+                'Processing Order': 2,
+                'Quality Check': 3,
+                'Product Dispatched': 4,
+                'Product Delivered': 5
             }
-            if(orderStatus){
+            if (orderStatus) {
                 const currentStatusValue = statusMap[orderStatus];
                 for (const option of trackStatusSelect.options) {
                     const optionStatus = statusMap[option.value];
                     option.disabled = optionStatus <= currentStatusValue;
                 }
 
-                for(const option of trackStatusSelect.options){
+                for (const option of trackStatusSelect.options) {
                     const optionStatus = statusMap[option.value];
-                    option.disabled = optionStatus!== currentStatusValue + 1;
+                    option.disabled = optionStatus !== currentStatusValue + 1;
                 }
                 trackStatusSelect.value = orderStatus;
-            } 
+            }
         });
     });
 }
@@ -458,14 +460,14 @@ async function updateTrackOrderStatus(e) {
             await updateDoc(orderRef, {
                 status: trackOrderStatusSelectedOption
             });
-            displayMessage("Track Order Status Updated Successfully",'success')
+            displayMessage("Track Order Status Updated Successfully", 'success')
             fetchOrdersForDisplay();
             document.querySelector('#sub_btn').disabled = false;
             document.querySelector('#sub_btn').textContent = 'Save Changes'
             console.log('Order status updated successfully');
         } else {
-            displayMessage("Please Select Option",'danger')
-           
+            displayMessage("Please Select Option", 'danger')
+
             console.error('Please Select Option');
         }
     } catch (error) {

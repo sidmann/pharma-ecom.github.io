@@ -136,7 +136,9 @@ function getUserSnapshot(uid) {
     if (user) {
         loggedIn = true
         onLoggedIn();
-        document.querySelector('#logout-btn').style.display='block';
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.remove('d-none');
+        });
         // User is authenticated
         const docRef = doc(firestore, "users", user.uid);
         const docSnap = getDoc(docRef);
@@ -153,7 +155,9 @@ function getUserSnapshot(uid) {
         });
     } else {
         loggedIn = false;
-        document.querySelector('#logout-btn').style.display = 'none';
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.add('d-none');
+        });
         updateCart();
         // fetchNavCategories();
         // User is not authenticated, redirect to login page

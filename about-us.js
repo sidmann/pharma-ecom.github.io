@@ -150,7 +150,9 @@ function getUserSnapshot(uid) {
   onAuthStateChanged(auth, (user) => {
     if (user) {
         console.log("if")
-       
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.remove('d-none');
+        });
         loggedIn = true
         onLoggedIn();
         const docRef = doc(firestore, "users", user.uid);
@@ -167,6 +169,9 @@ function getUserSnapshot(uid) {
             }
         });
     } else {
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.add('d-none');
+        });
         console.log("else");
         updateCart();
         // fetchNavCategories();

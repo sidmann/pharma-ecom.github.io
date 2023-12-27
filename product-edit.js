@@ -79,7 +79,9 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         loggedIn = true;
         onLoggedIn();
-        document.querySelector('#logout-btn').style.display = 'block';
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.remove('d-none');
+        });
         // User is authenticated
         // console.log("onAuthStateChanged")
         const docRef = doc(firestore, "users", user.uid);
@@ -96,6 +98,9 @@ onAuthStateChanged(auth, (user) => {
             }
         });
     } else {
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.add('d-none');
+        });
         // User is not authenticated, redirect to login page
         window.location.href = "login.html";
     }

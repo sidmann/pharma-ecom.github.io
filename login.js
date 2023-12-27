@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         } else if (role === "CUSTOMER") {
                             window.location.href = "user.html";
                             window.history.replaceState({}, "", "user.html");
-                        } 
+                        }
                         // else if (role === "AGENT") {
                         //     window.location.href = "agent.html";
                         //     window.history.replaceState({}, "", "agent.html");
@@ -262,14 +262,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     onAuthStateChanged(auth, (user) => {
-      console.log('inside onauth')
-      if (user) {
-        console.log("if");
-        document.querySelector('#logout-btn').style.display='block';
-      } else {
-        console.log("else");
-          document.querySelector('#logout-btn').style.display = 'none';
-      }
+        console.log('inside onauth')
+        if (user) {
+            console.log("if");
+            document.querySelectorAll('.logout-btn').forEach((btn) => {
+                btn.classList.remove('d-none');
+            });
+        } else {
+            console.log("else");
+            document.querySelectorAll('.logout-btn').forEach((btn) => {
+                btn.classList.add('d-none');
+            });
+        }
     });
 
     // Function to show the "Forgot Password" form and hide the login form
@@ -375,7 +379,7 @@ async function convertLocalCartToRemote() {
             const cart = JSON.parse(sessionStorage.getItem('cart'))
             console.log(cart)
 
-            
+
             console.log('3')
             if (cartSnapshot.empty) {
                 console.log('4')

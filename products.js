@@ -229,12 +229,12 @@ onAuthStateChanged(auth, async (user) => {
     if (user) {
         console.log("if")
         loggedIn = true
-        
-       
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.remove('d-none');
+        });       
         const docRef = doc(firestore, "users", user.uid);
         onLoggedIn();
         const docSnap = getDoc(docRef);
-        
         docSnap.then(async (docSnapshot) => {
             if (docSnapshot.exists()) {
                 console.log("from onAuthStateChanged")
@@ -246,7 +246,9 @@ onAuthStateChanged(auth, async (user) => {
             }
         });
     } else {
-        document.querySelector('#logout-btn').style.display = 'none';
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.add('d-none');
+        });
         loggedIn = false;
     }
     await postPageLoadFunctions()
@@ -325,7 +327,6 @@ function onLoggedIn() {
     navItemList.forEach((navItem) => {
         navItem.style.display = "none";
     });
-    document.querySelector('#logout-btn').style.display = 'block';
 }
 
 //to execute upon logging out
