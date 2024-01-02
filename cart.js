@@ -176,7 +176,9 @@ onAuthStateChanged(auth, async (user) => {
         const docSnap = getDoc(docRef);
         var userData = null;
         loggedIn = true
-        document.querySelector('#logout-btn').style.display = 'block';
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.remove('d-none');
+        });
         onLoggedIn();
         docSnap.then(async (docSnapshot) => {
             // console.log(docSnapshot)
@@ -193,7 +195,9 @@ onAuthStateChanged(auth, async (user) => {
         // User is not logged in
         loggedIn = false
         console.log("form else")
-        document.querySelector('#logout-btn').style.display = 'none';
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.add('d-none');
+        });
     }
     await postPageLoadFunctions()
     postPageLoadEventListener()

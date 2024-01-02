@@ -139,7 +139,9 @@ function getUserSnapshot(uid) {
 onAuthStateChanged(auth, (user) => {
     if (user) {
         loggedIn = true
-        document.querySelector('#logout-btn').style.display='block';
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.remove('d-none');
+        });
         onLoggedIn();
         // User is authenticated
         const docRef = doc(firestore, "users", user.uid);
@@ -156,7 +158,9 @@ onAuthStateChanged(auth, (user) => {
             }
         });
     } else {
-        document.querySelector('#logout-btn').style.display='none';
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.add('d-none');
+        });
         window.location.href = "login.html";
     }
 });

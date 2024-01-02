@@ -119,7 +119,9 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         console.log("if")
         loggedIn = true
-        document.querySelector('#logout-btn').style.display='block';
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.remove('d-none');
+        });
         onLoggedIn();
         // User is authenticated
         const docRef = doc(firestore, "users", user.uid);
@@ -137,11 +139,11 @@ onAuthStateChanged(auth, (user) => {
         });
     } else {
         console.log("else")
-        document.querySelector('#logout-btn').style.display='none';
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.add('d-none');
+        });
         // User is not authenticated, redirect to login page
         loggedIn = false;
-        // window.location.href = "login.html";
-        onLoggedOut();
         updateCart();
         // fetchNavCategories();
     }

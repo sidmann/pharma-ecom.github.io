@@ -32,7 +32,9 @@ onAuthStateChanged(auth, async (user) => {
 
     if (user) {
         console.log("if")
-        document.querySelector('#logout-btn').style.display='block';
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.remove('d-none');
+        });
         const docRef = doc(firestore, "users", user.uid);
         onLoggedIn();
         const docSnap = getDoc(docRef);
@@ -59,10 +61,12 @@ onAuthStateChanged(auth, async (user) => {
         loggedIn = false
         // onLoggedOut();
         await updateCart();
+        document.querySelectorAll('.logout-btn').forEach((btn) => {
+            btn.classList.add('d-none');
+        });
         // await fetchManufacturers();
         // await fetchCategories()
         // fetchNavCategories();
-        document.querySelector('#logout-btn').style.display = 'none';
         // fetchAndDisplayProducts();
         // stopLoader();
     }
