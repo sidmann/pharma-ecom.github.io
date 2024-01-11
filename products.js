@@ -25,7 +25,7 @@ import {
     orderBy
 } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore.js";
 import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-storage.js";
-import { getCategoryCount } from "./assets/repository/products/products.js";
+// import { getCategoryCount } from "./assets/repository/products/products.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBrIAlkIyp5ALsv5RslbXA1oQVQL3eKhig",
@@ -61,11 +61,11 @@ let nextPageFlag = false
 let prevPageFlag = false
 let doNotFetch = false
 
-const productFilterFieldMap = {
-    category: 'categoryId',
-    size: 'sizeId',
-    price: 'price',
-}
+// const productFilterFieldMap = {
+//     category: 'categoryId',
+//     size: 'sizeId',
+//     price: 'price',
+// }
 
 const productSortFieldMap = {
     name: 'name',
@@ -101,9 +101,9 @@ function addEventListenerToProducts() {
 
 function filterEventListeners() {
     console.log("inside fliterEventListeners")
-    document.getElementById('filter-clear-all').addEventListener('click', clearAllFilters)
+    // document.getElementById('filter-clear-all').addEventListener('click', clearAllFilters)
     // document.getElementById('filter-search').addEventListener('click', fetch)
-    document.querySelector('.sort-by').addEventListener('change', sortChange)
+    // document.querySelector('.sort-by').addEventListener('change', sortChange)
     document.querySelector('.prev-page').addEventListener('click', prevPage)
     document.querySelector('.next-page').addEventListener('click', nextPage)
     // const slider = document.getElementById('gi-sliderPrice');
@@ -188,23 +188,23 @@ function checkUrlParam(field) {
     return urlParam.get(field)
 }
 
-function redirectedCategory() {
-    console.log("redirect")
-    const categoryId = checkUrlParam('categoryId')
-    if (categoryId) {
-        console.log(categoryId)
-        const category = document.getElementById(`${ categoryId }`).querySelector('input')
-        console.log(category)
-        const applyBtn = document.querySelector('#filter-search')
-        category.checked = true
-        doNotFetch = false
-        category.dispatchEvent(new Event('change'))
-        applyBtn.dispatchEvent(new Event('click'))
-    }
-    else {
-        doNotFetch = false
-    }
-}
+// function redirectedCategory() {
+//     console.log("redirect")
+//     const categoryId = checkUrlParam('categoryId')
+//     if (categoryId) {
+//         console.log(categoryId)
+//         const category = document.getElementById(`${ categoryId }`).querySelector('input')
+//         console.log(category)
+//         const applyBtn = document.querySelector('#filter-search')
+//         category.checked = true
+//         doNotFetch = false
+//         category.dispatchEvent(new Event('change'))
+//         applyBtn.dispatchEvent(new Event('click'))
+//     }
+//     else {
+//         doNotFetch = false
+//     }
+// }
 
 /**
  * Necessary fucntions to call after pageload
@@ -570,38 +570,38 @@ function fetchManufacturers() {
     })
 }
 
-function fetchCategories() {
-    return new Promise(async (resolve) => {
-        const categorySnapshot = await getDocs(collection(firestore, 'categories'))
-        if (categorySnapshot.empty) {
-            console.log('from empty')
-            resolve()
-            return
-        }
+// function fetchCategories() {
+//     return new Promise(async (resolve) => {
+//         const categorySnapshot = await getDocs(collection(firestore, 'categories'))
+//         if (categorySnapshot.empty) {
+//             console.log('from empty')
+//             resolve()
+//             return
+//         }
 
-        const categoryList = document.querySelector('.category-list')
-        categoryList.innerHTML = ``
-        categorySnapshot.forEach(doc => {
-            const list = document.createElement('li')
-            list.id = doc.id
-            list.innerHTML = `
-                                            <div class="gi-sidebar-block-item">
-                                                <input type="checkbox">
-                                                <a href="javascript:void(0)">
-                                                    <span class="category" data-id="${doc.data().categoryId}">${doc.data().name}</span>
-                                                </a>
-                                                <span class="checked"></span>
-                                            </div>
-            `
-            categoryList.appendChild(list)
-            list.querySelector('input').addEventListener('change', (e) => {
-                if (e.target.checked) addFilterCard(doc.data().name, 'category', doc.data().categoryId)
-                else removeFilterCard('category', doc.data().categoryId)
-            })
-        })
-        resolve()
-    })
-}
+//         const categoryList = document.querySelector('.category-list')
+//         categoryList.innerHTML = ``
+//         categorySnapshot.forEach(doc => {
+//             const list = document.createElement('li')
+//             list.id = doc.id
+//             list.innerHTML = `
+//                                             <div class="gi-sidebar-block-item">
+//                                                 <input type="checkbox">
+//                                                 <a href="javascript:void(0)">
+//                                                     <span class="category" data-id="${doc.data().categoryId}">${doc.data().name}</span>
+//                                                 </a>
+//                                                 <span class="checked"></span>
+//                                             </div>
+//             `
+//             categoryList.appendChild(list)
+//             list.querySelector('input').addEventListener('change', (e) => {
+//                 if (e.target.checked) addFilterCard(doc.data().name, 'category', doc.data().categoryId)
+//                 else removeFilterCard('category', doc.data().categoryId)
+//             })
+//         })
+//         resolve()
+//     })
+// }
 
 async function fetchFilteredProducts(event) {
     console.log('from fetchFilteredProducts')
@@ -739,48 +739,48 @@ function realTimeActions(data) {
  * 
  * @returns promise
  */
-async function fetchNavCategories() {
-    const categoryList = document.querySelector('.nav-category')
-    const mobileCategoryList = document.querySelector('.mobile-nav-category')
+// async function fetchNavCategories() {
+//     const categoryList = document.querySelector('.nav-category')
+//     const mobileCategoryList = document.querySelector('.mobile-nav-category')
 
-    mobileCategoryList.innerHTML = `
-    <div class='w-100 d-flex justify-content-center'>
-        <div class="spinner-grow text-secondary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-    `
-    const categorySnapshot = await getDocs(collection(firestore, 'categories'))
-    if (categorySnapshot.empty) {
-        console.log('from empty')
-        resolve()
-        return
-    }
+//     mobileCategoryList.innerHTML = `
+//     <div class='w-100 d-flex justify-content-center'>
+//         <div class="spinner-grow text-secondary" role="status">
+//             <span class="visually-hidden">Loading...</span>
+//         </div>
+//     </div>
+//     `
+//     const categorySnapshot = await getDocs(collection(firestore, 'categories'))
+//     if (categorySnapshot.empty) {
+//         console.log('from empty')
+//         resolve()
+//         return
+//     }
 
-    categoryList.innerHTML = ``
-    mobileCategoryList.innerHTML = ``
+//     categoryList.innerHTML = ``
+//     mobileCategoryList.innerHTML = ``
 
-    categorySnapshot.forEach(doc => {
-        const span = document.createElement('span')
-        span.innerHTML = `
-        <div class="gi-tab-list nav flex-column nav-pills me-3" id="v-pills-tab"
-        role="tablist" aria-orientation="vertical">
-            <button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill"
-                data-bs-target="#v-pills-home" type="button" role="tab"
-                aria-controls="v-pills-home" aria-selected="true">
-                <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
-            </button>
-        </div>
-        `
-        categoryList.appendChild(span)
+//     categorySnapshot.forEach(doc => {
+//         const span = document.createElement('span')
+//         span.innerHTML = `
+//         <div class="gi-tab-list nav flex-column nav-pills me-3" id="v-pills-tab"
+//         role="tablist" aria-orientation="vertical">
+//             <button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill"
+//                 data-bs-target="#v-pills-home" type="button" role="tab"
+//                 aria-controls="v-pills-home" aria-selected="true">
+//                 <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
+//             </button>
+//         </div>
+//         `
+//         categoryList.appendChild(span)
 
-        const list = document.createElement('li')
-        list.innerHTML = `
-        <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
-        `
-        mobileCategoryList.appendChild(list)
-    })
-}
+//         const list = document.createElement('li')
+//         list.innerHTML = `
+//         <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
+//         `
+//         mobileCategoryList.appendChild(list)
+//     })
+// }
 
 /**
  * 
@@ -829,92 +829,92 @@ function displayMessage(message, type) {
  *  name
  * }]
  */
-function fetchCategories_1() {
-    console.log('inside categories')
-    return new Promise(async (res) => {
-        const categories = []
-        const categorySnapshot = await getDocs(collection(firestore, 'categories'))
-        if (categorySnapshot.empty) {
-            res(categories)
-        }
-        else {
-            categorySnapshot.forEach(doc => {
-                categories.push(doc.data())
-            })
-            res(categories)
-        }
-    })
-}
+// function fetchCategories_1() {
+//     console.log('inside categories')
+//     return new Promise(async (res) => {
+//         const categories = []
+//         const categorySnapshot = await getDocs(collection(firestore, 'categories'))
+//         if (categorySnapshot.empty) {
+//             res(categories)
+//         }
+//         else {
+//             categorySnapshot.forEach(doc => {
+//                 categories.push(doc.data())
+//             })
+//             res(categories)
+//         }
+//     })
+// }
 
 /**
  * Function to embed Categories card in home page
  */
-async function embedCategoriesCard() {
-    console.log('inside embed')
-    const categories = await fetchCategories_1()
-    const categoryBox = document.querySelector('.category-box')
-    categoryBox.innerHTML = ''
-    let count = 1
-    let categoryCountPromises = categories.map(category => getCategoryCount(category.categoryId));
+// async function embedCategoriesCard() {
+//     console.log('inside embed')
+//     const categories = await fetchCategories_1()
+//     const categoryBox = document.querySelector('.category-box')
+//     categoryBox.innerHTML = ''
+//     let count = 1
+//     let categoryCountPromises = categories.map(category => getCategoryCount(category.categoryId));
 
-    const categoryCounts = await Promise.all(categoryCountPromises);
+//     const categoryCounts = await Promise.all(categoryCountPromises);
 
-    let allPromises = categories.map((category, index) => {
-        if (count == 6) count = 1
-        const categoryCount = categoryCounts[index];
-        const categoryCard = document.createElement('span')
-        categoryCard.innerHTML = `
-            <div class="gi-cat-box gi-cat-box-${count}">
-                <div class="gi-cat-icon">
-                    <i class="fa fa-user-md"></i><br>
-                    <div class="gi-cat-detail category-id" data-id="${category.categoryId}">
-                        <a class="text-decoration-none text-black" href="products.html?categoryId=${category.categoryId}">
-                            <h4 class="gi-cat-title">${category.name}</h4>
-                        </a>
-                        <p class="items">${categoryCount} Items</p> 
-                    </div>
-                </div>
-            </div>
-        `
-        categoryBox.appendChild(categoryCard)
-        count++
-    })
+//     let allPromises = categories.map((category, index) => {
+//         if (count == 6) count = 1
+//         const categoryCount = categoryCounts[index];
+//         const categoryCard = document.createElement('span')
+//         categoryCard.innerHTML = `
+//             <div class="gi-cat-box gi-cat-box-${count}">
+//                 <div class="gi-cat-icon">
+//                     <i class="fa fa-user-md"></i><br>
+//                     <div class="gi-cat-detail category-id" data-id="${category.categoryId}">
+//                         <a class="text-decoration-none text-black" href="products.html?categoryId=${category.categoryId}">
+//                             <h4 class="gi-cat-title">${category.name}</h4>
+//                         </a>
+//                         <p class="items">${categoryCount} Items</p> 
+//                     </div>
+//                 </div>
+//             </div>
+//         `
+//         categoryBox.appendChild(categoryCard)
+//         count++
+//     })
 
-    // Determine the number of items based on the category count
-    const totalCategoryCount = categoryCounts.reduce((total, count) => total + count, 0);
-    const itemsToShow = Math.min(totalCategoryCount, 6); // Set a maximum of 6 items
+//     // Determine the number of items based on the category count
+//     const totalCategoryCount = categoryCounts.reduce((total, count) => total + count, 0);
+//     const itemsToShow = Math.min(totalCategoryCount, 6); // Set a maximum of 6 items
 
-    $('.gi-category-block').owlCarousel({
-        margin: 24,
-        loop: true,
-        dots: false,
-        nav: false,
-        smartSpeed: 10000,
-        autoplay: true,
-        items: itemsToShow,
-        responsiveClass: true,
-        responsive: {
-            0: {
-                items: 1
-            },
-            420: {
-                items: 2
-            },
-            768: {
-                items: 3
-            },
-            992: {
-                items: 4
-            },
-            1200: {
-                items: 5
-            },
-            1400: {
-                items: 6
-            }
-        }
-    });
-}
+//     $('.gi-category-block').owlCarousel({
+//         margin: 24,
+//         loop: true,
+//         dots: false,
+//         nav: false,
+//         smartSpeed: 10000,
+//         autoplay: true,
+//         items: itemsToShow,
+//         responsiveClass: true,
+//         responsive: {
+//             0: {
+//                 items: 1
+//             },
+//             420: {
+//                 items: 2
+//             },
+//             768: {
+//                 items: 3
+//             },
+//             992: {
+//                 items: 4
+//             },
+//             1200: {
+//                 items: 5
+//             },
+//             1400: {
+//                 items: 6
+//             }
+//         }
+//     });
+// }
 
 /**'
  * @returns promise = [{unit, size}]
@@ -961,11 +961,10 @@ async function embedSizesFilter() {
     }
 }
 
-function filter() {
-    const categoryList = document.querySelector('.category-list')
-    const sizeList = document.querySelector('.size-list')
-
-}
+// function filter() {
+//     const categoryList = document.querySelector('.category-list')
+//     const sizeList = document.querySelector('.size-list')
+// }
 
 /**
  * 
@@ -1010,7 +1009,7 @@ function clearAllFilters() {
         span.remove()
     })
     resetPageNotebook()
-    fetch()
+    // fetch()
 }
 
 /**

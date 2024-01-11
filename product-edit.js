@@ -331,7 +331,6 @@ function createProductRow(productId, productData) {
 
     productRow.innerHTML = `
             <td>${productData.manufacturerName}</td>
-            <td>${productData.categoryName}</td>
             <td>${productData.name}</td>
             <td>${productData.tagLine}</td>
             <td>${productData.size}</td>
@@ -459,7 +458,7 @@ async function openUpdateModal(productId) {
     const productNameInput = document.querySelector('#productName');
     const productTagLineInput = document.querySelector('#productTagLine');
     const manufacturerInput = document.querySelector('#manufacturerName');
-    const categoryDropdown = document.querySelector('#categoryDropdown');
+    // const categoryDropdown = document.querySelector('#categoryDropdown');
     // const productColorInput = document.querySelector('#productColor');
     // const colorShadeInput = document.querySelector('#colorShadeDropdown');
     const productSizeInput = document.querySelector('#productSize');
@@ -498,8 +497,8 @@ async function openUpdateModal(productId) {
                 console.log(productData);
                 manufacturerInput.innerHTML = productData.manufacturerName;
                 console.log(17)
-                if (await fetchCategories())
-                    categoryDropdown.value = productData.categoryId;
+                // if (await fetchCategories())
+                //     categoryDropdown.value = productData.categoryId;
 
                 // productColorInput.value = productData.color;
                 productNameInput.value = productData.name;
@@ -548,7 +547,7 @@ async function openUpdateModal(productId) {
                     document.querySelector('#updateButton').textContent = 'Saving...'
 
                     // const manufacturerOption = document.getElementById('manufacturerDropdown').options[document.getElementById('manufacturerDropdown').selectedIndex];
-                    const categoryOption = document.getElementById('categoryDropdown').options[document.getElementById('categoryDropdown').selectedIndex];
+                    // const categoryOption = document.getElementById('categoryDropdown').options[document.getElementById('categoryDropdown').selectedIndex];
                     // const colorShadeOption = document.getElementById('colorShadeDropdown').options[document.getElementById('colorShadeDropdown').selectedIndex];
 
                     if (productImageInput.files.length > 0) {
@@ -568,9 +567,9 @@ async function openUpdateModal(productId) {
                                             newProductData = {
                                                 // productId: productIdInput.value,
                                                 // manufacturerName: manufacturerInput.textContent,
-                                                categoryName: categoryOption.getAttribute('data-name'),
+                                                // categoryName: categoryOption.getAttribute('data-name'),
                                                 // manufacturerId: manufacturerInput.value,
-                                                categoryId: categoryOption.value,
+                                                // categoryId: categoryOption.value,
                                                 name: productNameInput.value,
                                                 tagLine: productTagLineInput.value,
                                                 // color: productColors,
@@ -609,9 +608,9 @@ async function openUpdateModal(productId) {
                             newProductData = {
                                 // productId: productIdInput.value,
                                 // manufacturerName: manufacturerInput.textContent,
-                                categoryName: categoryOption.getAttribute('data-name'),
+                                // categoryName: categoryOption.getAttribute('data-name'),
                                 // manufacturerId: manufacturerInput.value,
-                                categoryId: categoryOption.value,
+                                // categoryId: categoryOption.value,
                                 name: productNameInput.value,
                                 tagLine: productTagLineInput.value,
                                 // color: productColors,
@@ -684,36 +683,36 @@ async function fetchManufacturers() {
     })
 }
 
-async function fetchCategories() {
-    return new Promise(async (resolve) => {
-        const select = document.querySelector('#categoryDropdown')
-        select.innerHTML = `<option value="">
-                        Loading ...
-                    </option>`
-        const categorySnapshot = await getDocs(collection(firestore, 'categories'))
-        if (!categorySnapshot.empty) {
-            select.removeEventListener('click', fetchCategories)
-            select.innerHTML = ``
-            const option = document.createElement('option')
-            option.innerHTML = `Please select`
-            option.setAttribute('value', ' ')
-            select.appendChild(option)
-            categorySnapshot.forEach(doc => {
-                const option = document.createElement('option')
-                option.setAttribute('value', doc.data().categoryId)
-                option.setAttribute('data-name', doc.data().name)
-                option.innerHTML = `${doc.data().name}`
-                select.appendChild(option)
-            })
-        }
-        else {
-            select.innerHTML = `<option value="">Please select</option>`
-            displayMessage('No categories added!', 'danger')
-            resolve(false)
-        }
-        resolve(true)
-    })
-}
+// async function fetchCategories() {
+//     return new Promise(async (resolve) => {
+//         const select = document.querySelector('#categoryDropdown')
+//         select.innerHTML = `<option value="">
+//                         Loading ...
+//                     </option>`
+//         const categorySnapshot = await getDocs(collection(firestore, 'categories'))
+//         if (!categorySnapshot.empty) {
+//             select.removeEventListener('click', fetchCategories)
+//             select.innerHTML = ``
+//             const option = document.createElement('option')
+//             option.innerHTML = `Please select`
+//             option.setAttribute('value', ' ')
+//             select.appendChild(option)
+//             categorySnapshot.forEach(doc => {
+//                 const option = document.createElement('option')
+//                 option.setAttribute('value', doc.data().categoryId)
+//                 option.setAttribute('data-name', doc.data().name)
+//                 option.innerHTML = `${doc.data().name}`
+//                 select.appendChild(option)
+//             })
+//         }
+//         else {
+//             select.innerHTML = `<option value="">Please select</option>`
+//             displayMessage('No categories added!', 'danger')
+//             resolve(false)
+//         }
+//         resolve(true)
+//     })
+// }
 
 async function fetchColorShades(manufacturerId) {
     console.log(17.1)
@@ -789,52 +788,52 @@ function displayMessage(message, type) {
  * 
  * @returns promise
  */
-async function fetchNavCategories() {
-    const categoryList = document.querySelector('.nav-category')
-    const mobileCategoryList = document.querySelector('.mobile-nav-category')
+// async function fetchNavCategories() {
+//     const categoryList = document.querySelector('.nav-category')
+//     const mobileCategoryList = document.querySelector('.mobile-nav-category')
 
-    categoryList.innerHTML = `
-    <div class='w-100 d-flex justify-content-center'>
-        <div class="spinner-grow text-secondary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-    `
-    mobileCategoryList.innerHTML = `
-    <div class='w-100 d-flex justify-content-center'>
-        <div class="spinner-grow text-secondary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-    `
-    const categorySnapshot = await getDocs(collection(firestore, 'categories'))
-    if (categorySnapshot.empty) {
-        console.log('from empty')
-        resolve()
-        return
-    }
+//     categoryList.innerHTML = `
+//     <div class='w-100 d-flex justify-content-center'>
+//         <div class="spinner-grow text-secondary" role="status">
+//             <span class="visually-hidden">Loading...</span>
+//         </div>
+//     </div>
+//     `
+//     mobileCategoryList.innerHTML = `
+//     <div class='w-100 d-flex justify-content-center'>
+//         <div class="spinner-grow text-secondary" role="status">
+//             <span class="visually-hidden">Loading...</span>
+//         </div>
+//     </div>
+//     `
+//     const categorySnapshot = await getDocs(collection(firestore, 'categories'))
+//     if (categorySnapshot.empty) {
+//         console.log('from empty')
+//         resolve()
+//         return
+//     }
 
-    categoryList.innerHTML = ``
-    mobileCategoryList.innerHTML = ``
+//     categoryList.innerHTML = ``
+//     mobileCategoryList.innerHTML = ``
 
-    categorySnapshot.forEach(doc => {
-        const span = document.createElement('span')
-        span.innerHTML = `
-        <div class="gi-tab-list nav flex-column nav-pills me-3" id="v-pills-tab"
-        role="tablist" aria-orientation="vertical">
-            <button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill"
-                data-bs-target="#v-pills-home" type="button" role="tab"
-                aria-controls="v-pills-home" aria-selected="true">
-                <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
-            </button>
-        </div>
-        `
-        categoryList.appendChild(span)
+//     categorySnapshot.forEach(doc => {
+//         const span = document.createElement('span')
+//         span.innerHTML = `
+//         <div class="gi-tab-list nav flex-column nav-pills me-3" id="v-pills-tab"
+//         role="tablist" aria-orientation="vertical">
+//             <button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill"
+//                 data-bs-target="#v-pills-home" type="button" role="tab"
+//                 aria-controls="v-pills-home" aria-selected="true">
+//                 <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
+//             </button>
+//         </div>
+//         `
+//         categoryList.appendChild(span)
 
-        const list = document.createElement('li')
-        list.innerHTML = `
-        <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
-        `
-        mobileCategoryList.appendChild(list)
-    })
-}
+//         const list = document.createElement('li')
+//         list.innerHTML = `
+//         <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
+//         `
+//         mobileCategoryList.appendChild(list)
+//     })
+// }

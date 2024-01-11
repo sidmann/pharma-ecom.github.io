@@ -42,7 +42,7 @@ confirmLogoutBtn.addEventListener("click", () => {
 
 //AddEventListener to loading the Options when we open DropDown
 document.querySelector('#manufacturerDropdown').addEventListener('click', fetchManufacturers)
-document.querySelector('#categoryDropdown').addEventListener('click', fetchCategories)
+// document.querySelector('#categoryDropdown').addEventListener('click', fetchCategories)
 // document.querySelector('#colorShadeDropdown').addEventListener('click', fetchColorShades)
 document.querySelector('#productSizeDropdown').addEventListener('click', fetchProductSizes);
 // document.querySelector('#colorShadeManufacturer').addEventListener('change', populateColorShadeList)
@@ -565,18 +565,18 @@ async function addManufacturer(manufacturerName) {
 }
 
 // Add a new Category
-async function addCategory(categoryName) {
-    try {
-        const categoryRef = collection(firestore, 'categories');
-        const docRef = await addDoc(categoryRef, { name: categoryName });
-        await updateDoc(docRef, { categoryId: docRef.id })
-        document.querySelector('#categoryDropdown').addEventListener('click', fetchCategories)
-        return docRef.id; // Return the ID of the added document
-    } catch (error) {
-        console.error('Error adding category:', error);
-        throw error; // Re-throw the error for handling at the calling code
-    }
-}
+// async function addCategory(categoryName) {
+//     try {
+//         const categoryRef = collection(firestore, 'categories');
+//         const docRef = await addDoc(categoryRef, { name: categoryName });
+//         await updateDoc(docRef, { categoryId: docRef.id })
+//         document.querySelector('#categoryDropdown').addEventListener('click', fetchCategories)
+//         return docRef.id; // Return the ID of the added document
+//     } catch (error) {
+//         console.error('Error adding category:', error);
+//         throw error; // Re-throw the error for handling at the calling code
+//     }
+// }
 
 // Function to edit a manufacturer
 async function editManufacturer(manufacturerId, manufacturerName) {
@@ -627,48 +627,48 @@ async function deleteManufacturer(manufacturerId) {
 }
 
 // Function to edit a category
-async function editCategory(categoryId, categoryName) {
-    // Implement your edit logic here
-    // You can open a modal or update the category name in the same modal
-    const updatedCategoryName = prompt('Edit Category Name:', categoryName);
-    if (updatedCategoryName !== null) {
-        const categoryCollection = collection(firestore, 'categories')
-        const categorySnapshot = await getDocs(query(categoryCollection, where('categoryId', '==', categoryId)))
-        if (!categorySnapshot.empty) {
-            updateDoc(categorySnapshot.docs[0].ref, { name: updatedCategoryName })
-                .then(() => {
-                    console.log('Category updated successfully');
-                    displayMessage('Category updated successfully!', 'success');
-                    document.querySelector('#categoryDropdown').addEventListener('click', fetchCategories)
-                    populateCategoryList();
-                })
-                .catch((error) => {
-                    console.error('Error updating category:', error);
-                });
-        }
-    }
-}
+// async function editCategory(categoryId, categoryName) {
+//     // Implement your edit logic here
+//     // You can open a modal or update the category name in the same modal
+//     const updatedCategoryName = prompt('Edit Category Name:', categoryName);
+//     if (updatedCategoryName !== null) {
+//         const categoryCollection = collection(firestore, 'categories')
+//         const categorySnapshot = await getDocs(query(categoryCollection, where('categoryId', '==', categoryId)))
+//         if (!categorySnapshot.empty) {
+//             updateDoc(categorySnapshot.docs[0].ref, { name: updatedCategoryName })
+//                 .then(() => {
+//                     console.log('Category updated successfully');
+//                     displayMessage('Category updated successfully!', 'success');
+//                     document.querySelector('#categoryDropdown').addEventListener('click', fetchCategories)
+//                     populateCategoryList();
+//                 })
+//                 .catch((error) => {
+//                     console.error('Error updating category:', error);
+//                 });
+//         }
+//     }
+// }
 
 // Function to delete a category
-async function deleteCategory(categoryId) {
-    // Implement your delete logic here
-    const confirmation = confirm('Are you sure you want to delete this category?');
-    if (confirmation) {
-        try {
-            const categoryCollection = collection(firestore, 'categories')
-            const categorySnapshot = await getDocs(query(categoryCollection, where('categoryId', '==', categoryId)))
-            if (!categorySnapshot.empty) {
-                await deleteDoc(categorySnapshot.docs[0].ref);
-            }
-            console.log('Category deleted successfully');
-            displayMessage('Category deleted successfully!', 'success');
-            document.querySelector('#categoryDropdown').addEventListener('click', fetchCategories)
-            populateCategoryList();
-        } catch (error) {
-            console.error('Error deleting category:', error);
-        }
-    }
-}
+// async function deleteCategory(categoryId) {
+//     // Implement your delete logic here
+//     const confirmation = confirm('Are you sure you want to delete this category?');
+//     if (confirmation) {
+//         try {
+//             const categoryCollection = collection(firestore, 'categories')
+//             const categorySnapshot = await getDocs(query(categoryCollection, where('categoryId', '==', categoryId)))
+//             if (!categorySnapshot.empty) {
+//                 await deleteDoc(categorySnapshot.docs[0].ref);
+//             }
+//             console.log('Category deleted successfully');
+//             displayMessage('Category deleted successfully!', 'success');
+//             document.querySelector('#categoryDropdown').addEventListener('click', fetchCategories)
+//             populateCategoryList();
+//         } catch (error) {
+//             console.error('Error deleting category:', error);
+//         }
+//     }
+// }
 
 async function fetchManufacturers() {
     const select = document.querySelector('#manufacturerDropdown')
@@ -697,31 +697,31 @@ async function fetchManufacturers() {
     }
 }
 
-async function fetchCategories() {
-    const select = document.querySelector('#categoryDropdown')
-    select.innerHTML = `<option value="">
-                                Loading ...
-                            </option>`
-    const categorySnapshot = await getDocs(collection(firestore, 'categories'))
-    if (!categorySnapshot.empty) {
-        select.removeEventListener('click', fetchCategories)
-        select.innerHTML = ``
-        const option = document.createElement('option')
-        option.innerHTML = `Please select`
-        select.appendChild(option)
-        categorySnapshot.forEach(doc => {
-            const option = document.createElement('option')
-            option.setAttribute('value', doc.data().name)
-            option.setAttribute('data-id', doc.data().categoryId)
-            option.innerHTML = `${doc.data().name}`
-            select.appendChild(option)
-        })
-    }
-    else {
-        select.innerHTML = `<option value="">Please select</option>`
-        displayMessage('No categories added!', 'danger')
-    }
-}
+// async function fetchCategories() {
+//     const select = document.querySelector('#categoryDropdown')
+//     select.innerHTML = `<option value="">
+//                                 Loading ...
+//                             </option>`
+//     const categorySnapshot = await getDocs(collection(firestore, 'categories'))
+//     if (!categorySnapshot.empty) {
+//         select.removeEventListener('click', fetchCategories)
+//         select.innerHTML = ``
+//         const option = document.createElement('option')
+//         option.innerHTML = `Please select`
+//         select.appendChild(option)
+//         categorySnapshot.forEach(doc => {
+//             const option = document.createElement('option')
+//             option.setAttribute('value', doc.data().name)
+//             option.setAttribute('data-id', doc.data().categoryId)
+//             option.innerHTML = `${doc.data().name}`
+//             select.appendChild(option)
+//         })
+//     }
+//     else {
+//         select.innerHTML = `<option value="">Please select</option>`
+//         displayMessage('No categories added!', 'danger')
+//     }
+// }
 
 // Add a click event listener to open the manufacturer modal
 const openManufacturerModalButton = document.getElementById('addManufacturerButton');
@@ -733,14 +733,14 @@ openManufacturerModalButton.addEventListener('click', () => {
 });
 
 // Add a click event listener to open the category modal
-const openCategoryModalButton = document.getElementById('addCategoryButton');
-openCategoryModalButton.addEventListener('click', () => {
-    // Clear the category form
-    console.log('from addBtn')
-    document.getElementById('categoryName').value = '';
-    populateCategoryList();
-    // $('#categoryModal').modal('show');
-});
+// const openCategoryModalButton = document.getElementById('addCategoryButton');
+// openCategoryModalButton.addEventListener('click', () => {
+//     // Clear the category form
+//     console.log('from addBtn')
+//     document.getElementById('categoryName').value = '';
+//     populateCategoryList();
+//     // $('#categoryModal').modal('show');
+// });
 
 // Populate Manufacturer List
 function populateManufacturerList() {
@@ -769,30 +769,30 @@ function populateManufacturerList() {
 }
 
 // Populate Category List
-function populateCategoryList() {
-    const categoryList = document.getElementById('categoryList');
-    getDocs(collection(firestore, 'categories'))
-        .then((categories) => {
-            categoryList.innerHTML = ''; // Clear the list
-            categories.forEach((categoryDoc) => {
-                const category = categoryDoc.data();
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${category.name}</td>
-                    <td>
-                        <button class="btn btn-sm btn-primary edit">Edit</button>
-                        <button class="btn btn-sm btn-danger delete">Delete</button>
-                    </td>
-                `;
-                categoryList.appendChild(row);
-                row.querySelector('.edit').addEventListener('click', () => editCategory(category.categoryId, category.name))
-                row.querySelector('.delete').addEventListener('click', () => deleteCategory(category.categoryId))
-            });
-        })
-        .catch((error) => {
-            console.error('Error getting categories:', error);
-        });
-}
+// function populateCategoryList() {
+//     const categoryList = document.getElementById('categoryList');
+//     getDocs(collection(firestore, 'categories'))
+//         .then((categories) => {
+//             categoryList.innerHTML = ''; // Clear the list
+//             categories.forEach((categoryDoc) => {
+//                 const category = categoryDoc.data();
+//                 const row = document.createElement('tr');
+//                 row.innerHTML = `
+//                     <td>${category.name}</td>
+//                     <td>
+//                         <button class="btn btn-sm btn-primary edit">Edit</button>
+//                         <button class="btn btn-sm btn-danger delete">Delete</button>
+//                     </td>
+//                 `;
+//                 categoryList.appendChild(row);
+//                 row.querySelector('.edit').addEventListener('click', () => editCategory(category.categoryId, category.name))
+//                 row.querySelector('.delete').addEventListener('click', () => deleteCategory(category.categoryId))
+//             });
+//         })
+//         .catch((error) => {
+//             console.error('Error getting categories:', error);
+//         });
+// }
 
 // Add Manufacturer
 document.getElementById('saveManufacturerButton').addEventListener('click', async () => {
@@ -811,20 +811,20 @@ document.getElementById('saveManufacturerButton').addEventListener('click', asyn
 });
 
 // Add Category
-document.getElementById('saveCategoryButton').addEventListener('click', async () => {
-    const categoryName = document.getElementById('categoryName').value;
-    if (categoryName) {
-        try {
-            const categoryId = await addCategory(categoryName);
-            console.log('Category added successfully');
-            displayMessage('Category added successfully!', 'success');
-            populateCategoryList(); // Update the category list
-            document.getElementById('categoryName').value = ''; // Clear the input field
-        } catch (error) {
-            console.error('Error adding category:', error);
-        }
-    }
-});
+// document.getElementById('saveCategoryButton').addEventListener('click', async () => {
+//     const categoryName = document.getElementById('categoryName').value;
+//     if (categoryName) {
+//         try {
+//             const categoryId = await addCategory(categoryName);
+//             console.log('Category added successfully');
+//             displayMessage('Category added successfully!', 'success');
+//             populateCategoryList(); // Update the category list
+//             document.getElementById('categoryName').value = ''; // Clear the input field
+//         } catch (error) {
+//             console.error('Error adding category:', error);
+//         }
+//     }
+// });
 
 
 // Function to populate the manufacturer dropdown in the modal
@@ -1034,7 +1034,7 @@ async function uploadProduct() {
     const productPrice = document.getElementById('productPrice').value;
     const fileInput = document.getElementById('productImage');
     const manufacturerOption = document.getElementById('manufacturerDropdown').options[document.getElementById('manufacturerDropdown').selectedIndex];
-    const categoryOption = document.getElementById('categoryDropdown').options[document.getElementById('categoryDropdown').selectedIndex];
+    // const categoryOption = document.getElementById('categoryDropdown').options[document.getElementById('categoryDropdown').selectedIndex];
     // const colorShadeOption = document.getElementById('colorShadeDropdown').options[document.getElementById('colorShadeDropdown').selectedIndex];
     const productSizeOption = document.getElementById('productSizeDropdown').options[document.getElementById('productSizeDropdown').selectedIndex];
     const productDescriptionTextarea = document.querySelector('#product-description');
@@ -1042,7 +1042,7 @@ async function uploadProduct() {
     const productSpecificationsTextarea = document.querySelector('#product-specifications')
     const selectedFile = fileInput.files[0];
 
-    if (productName && productTagLine && productQuantity && productPrice && manufacturerOption && categoryOption
+    if (productName && productTagLine && productQuantity && productPrice && manufacturerOption
         && productSizeOption && selectedFile && productDescriptionTextarea && productDetailsTextarea
         && productSpecificationsTextarea && (newProductArrivalStatus === true || newProductArrivalStatus === false)) {
         // const fileName = selectedFile.name;
@@ -1070,8 +1070,8 @@ async function uploadProduct() {
                             imageUrl: downloadURL,
                             manufacturerName: manufacturerOption.value,
                             manufacturerId: manufacturerOption.getAttribute('data-id'),
-                            categoryName: categoryOption.value,
-                            categoryId: categoryOption.getAttribute('data-id'),
+                            // categoryName: categoryOption.value,
+                            // categoryId: categoryOption.getAttribute('data-id'),
                             size: productSizeOption.value,
                             sizeId: productSizeOption.getAttribute('data-id'),
                             ProductDescription: productDescriptionTextarea.value,
@@ -1223,52 +1223,52 @@ function displayMessage(message, type) {
  * 
  * @returns promise
  */
-async function fetchNavCategories() {
-    const categoryList = document.querySelector('.nav-category')
-    const mobileCategoryList = document.querySelector('.mobile-nav-category')
+// async function fetchNavCategories() {
+//     const categoryList = document.querySelector('.nav-category')
+//     const mobileCategoryList = document.querySelector('.mobile-nav-category')
 
-    categoryList.innerHTML = `
-    <div class='w-100 d-flex justify-content-center'>
-        <div class="spinner-grow text-secondary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-    `
-    mobileCategoryList.innerHTML = `
-    <div class='w-100 d-flex justify-content-center'>
-        <div class="spinner-grow text-secondary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-    `
-    const categorySnapshot = await getDocs(collection(firestore, 'categories'))
-    if (categorySnapshot.empty) {
-        console.log('from empty')
-        resolve()
-        return
-    }
+//     categoryList.innerHTML = `
+//     <div class='w-100 d-flex justify-content-center'>
+//         <div class="spinner-grow text-secondary" role="status">
+//             <span class="visually-hidden">Loading...</span>
+//         </div>
+//     </div>
+//     `
+//     mobileCategoryList.innerHTML = `
+//     <div class='w-100 d-flex justify-content-center'>
+//         <div class="spinner-grow text-secondary" role="status">
+//             <span class="visually-hidden">Loading...</span>
+//         </div>
+//     </div>
+//     `
+//     const categorySnapshot = await getDocs(collection(firestore, 'categories'))
+//     if (categorySnapshot.empty) {
+//         console.log('from empty')
+//         resolve()
+//         return
+//     }
 
-    categoryList.innerHTML = ``
-    mobileCategoryList.innerHTML = ``
+//     categoryList.innerHTML = ``
+//     mobileCategoryList.innerHTML = ``
 
-    categorySnapshot.forEach(doc => {
-        const span = document.createElement('span')
-        span.innerHTML = `
-        <div class="gi-tab-list nav flex-column nav-pills me-3" id="v-pills-tab"
-        role="tablist" aria-orientation="vertical">
-            <button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill"
-                data-bs-target="#v-pills-home" type="button" role="tab"
-                aria-controls="v-pills-home" aria-selected="true">
-                <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
-            </button>
-        </div>
-        `
-        categoryList.appendChild(span)
+//     categorySnapshot.forEach(doc => {
+//         const span = document.createElement('span')
+//         span.innerHTML = `
+//         <div class="gi-tab-list nav flex-column nav-pills me-3" id="v-pills-tab"
+//         role="tablist" aria-orientation="vertical">
+//             <button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill"
+//                 data-bs-target="#v-pills-home" type="button" role="tab"
+//                 aria-controls="v-pills-home" aria-selected="true">
+//                 <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
+//             </button>
+//         </div>
+//         `
+//         categoryList.appendChild(span)
 
-        const list = document.createElement('li')
-        list.innerHTML = `
-        <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
-        `
-        mobileCategoryList.appendChild(list)
-    })
-}
+//         const list = document.createElement('li')
+//         list.innerHTML = `
+//         <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
+//         `
+//         mobileCategoryList.appendChild(list)
+//     })
+// }

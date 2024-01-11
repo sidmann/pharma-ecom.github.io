@@ -1051,52 +1051,52 @@ async function getUpdatedUserData() {
  * 
  * @returns promise
  */
-async function fetchNavCategories() {
-    const categoryList = document.querySelector('.nav-category')
-    const mobileCategoryList = document.querySelector('.mobile-nav-category')
+// async function fetchNavCategories() {
+//     const categoryList = document.querySelector('.nav-category')
+//     const mobileCategoryList = document.querySelector('.mobile-nav-category')
 
-    categoryList.innerHTML = `
-    <div class='w-100 d-flex justify-content-center'>
-        <div class="spinner-grow text-secondary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-    `
-    mobileCategoryList.innerHTML = `
-    <div class='w-100 d-flex justify-content-center'>
-        <div class="spinner-grow text-secondary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-    `
-    const categorySnapshot = await getDocs(collection(firestore, 'categories'))
-    if (categorySnapshot.empty) {
-        console.log('from empty')
-        resolve()
-        return
-    }
+//     categoryList.innerHTML = `
+//     <div class='w-100 d-flex justify-content-center'>
+//         <div class="spinner-grow text-secondary" role="status">
+//             <span class="visually-hidden">Loading...</span>
+//         </div>
+//     </div>
+//     `
+//     mobileCategoryList.innerHTML = `
+//     <div class='w-100 d-flex justify-content-center'>
+//         <div class="spinner-grow text-secondary" role="status">
+//             <span class="visually-hidden">Loading...</span>
+//         </div>
+//     </div>
+//     `
+//     const categorySnapshot = await getDocs(collection(firestore, 'categories'))
+//     if (categorySnapshot.empty) {
+//         console.log('from empty')
+//         resolve()
+//         return
+//     }
 
-    categoryList.innerHTML = ``
-    mobileCategoryList.innerHTML = ``
+//     categoryList.innerHTML = ``
+//     mobileCategoryList.innerHTML = ``
 
-    categorySnapshot.forEach(doc => {
-        const span = document.createElement('span')
-        span.innerHTML = `
-        <div class="gi-tab-list nav flex-column nav-pills me-3" id="v-pills-tab"
-        role="tablist" aria-orientation="vertical">
-            <button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill"
-                data-bs-target="#v-pills-home" type="button" role="tab"
-                aria-controls="v-pills-home" aria-selected="true">
-                <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
-            </button>
-        </div>
-        `
-        categoryList.appendChild(span)
+//     categorySnapshot.forEach(doc => {
+//         const span = document.createElement('span')
+//         span.innerHTML = `
+//         <div class="gi-tab-list nav flex-column nav-pills me-3" id="v-pills-tab"
+//         role="tablist" aria-orientation="vertical">
+//             <button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill"
+//                 data-bs-target="#v-pills-home" type="button" role="tab"
+//                 aria-controls="v-pills-home" aria-selected="true">
+//                 <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
+//             </button>
+//         </div>
+//         `
+//         categoryList.appendChild(span)
 
-        const list = document.createElement('li')
-        list.innerHTML = `
-        <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
-        `
-        mobileCategoryList.appendChild(list)
-    })
-}
+//         const list = document.createElement('li')
+//         list.innerHTML = `
+//         <a class="text-decoration-none text-black" href="products.html?categoryId=${doc.data().categoryId}">${doc.data().name}</a>
+//         `
+//         mobileCategoryList.appendChild(list)
+//     })
+// }
