@@ -412,17 +412,17 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
                                                 <h5 class="gi-pro-title"><a href="#"><i>${productData.tagLine}</i></a></h5>
                                                 <div class="gi-info"><strong>Description:</strong><p>${productDescriptionPoints}</p></div>
                                                 <div class="gi-pro-rat-price">
-                                                    <span class="gi-price">
+                                                    <span class="gi-price d-flex justify-content-between">
                                                         <span class="new-price"><span>&#8377;</span><span
                                                         class="product-price">${productData.price}</span></span>
-                                                    </span>
-                                                    <span class="gi-price" style="flex: 1;">
-                                                        <div class="gi-quickview-qty">
-                                                            <div class="gi-quickview-cart ">
-                                                                <a href="javascript:void(0)" title="Add To Cart"><button class="gi-btn-1 add-to-cart"><i class="fi-rr-shopping-basket"></i> Add To
-                                                                    Cart</button></a>
+                                                        <span class="gi-price">
+                                                            <div class="gi-quickview-qty">
+                                                                <div class="gi-quickview-cart">
+                                                                    <a href="javascript:void(0)" title="Add To Cart"><button class="gi-btn-1 add-to-cart"><i class="fi-rr-shopping-basket"></i> Add To
+                                                                        Cart</button></a>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        </span>
                                                     </span>
                                                 </div>
                                             </div>
