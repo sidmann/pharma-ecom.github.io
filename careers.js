@@ -338,9 +338,9 @@ function sendEmail(formData) {
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     var formData = JSON.stringify({
-        user_id: 'urpoTjhIDuSjnxX5V',
-        service_id: 'service_sxht20s',
-        template_id: 'template_f66ssv8',
+        user_id: 'Id-zWQwk4g0yRS25q',
+        service_id: 'service_bf1n6au',
+        template_id: 'template_z4ybr8q',
         template_params: Object.fromEntries(formData)
     });
     // console.log(data);
