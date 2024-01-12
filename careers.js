@@ -275,15 +275,15 @@ document.addEventListener('DOMContentLoaded', function (event) {
         const fileValid = uploadFile !== undefined;
 
         //Display error
-        // displayError('firstNameError', firstNameValid, '*Please enter a valid first name');
-        // displayError('lastNameError', lastNameValid, '*Please enter a valid last name');
-        // displayError('emailError', emailValid, '*Please enter a valid email');
-        // displayError('phoneNumberError', phoneNumberValid, '*Please enter a valid 10-digit phone number');
-        // displayError('jobRoleError', jobRoleValid, '*Please enter a job role');
-        // displayError('addressError', addressValid, '*Please enter your address');
-        // displayError('cityError', cityValid, '*Please enter your city name');
-        // displayError('dateError', dateValid, '*Please select a date');
-        // displayError('uploadError', fileValid, '*Please upload your CV');
+        displayError('firstNameError', firstNameValid, '*Please enter a valid first name');
+        displayError('lastNameError', lastNameValid, '*Please enter a valid last name');
+        displayError('emailError', emailValid, '*Please enter a valid email');
+        displayError('phoneNumberError', phoneNumberValid, '*Please enter a valid 10-digit phone number');
+        displayError('jobRoleError', jobRoleValid, '*Please enter a job role');
+        displayError('addressError', addressValid, '*Please enter your address');
+        displayError('cityError', cityValid, '*Please enter your city name');
+        displayError('dateError', dateValid, '*Please select a date');
+        displayError('uploadError', fileValid, '*Please upload your CV');
 
         if (firstNameValid && lastNameValid && emailValid && phoneNumberValid && jobRoleValid && addressValid && cityValid && dateValid && fileValid) {
             console.log("dasadsadsad");
@@ -422,10 +422,6 @@ function isValidPhoneNumber(phoneNumber) {
     const phoneNumberRegex = /^\d{10}$/;
     return phoneNumberRegex.test(phoneNumber);
 }
-
-// function isMessage(message) {
-//     return message.length >= 3;
-// }
 
 // Function to display error messages
 function displayError(errorElementId, isValid, errorMessage) {

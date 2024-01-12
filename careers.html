@@ -699,18 +699,22 @@
             <div class="form_control">
               <label for="first_name"> First Name* </label>
               <input id="first_name" name="first_name" placeholder="Enter First Name" required/>
+              <span id="firstNameError" class="error-message" style="color: red"></span>
             </div>
             <div class="form_control">
               <label for="last_name"> Last Name* </label>
               <input id="last_name" name="last_name" placeholder="Enter Last Name" required/>
+              <span id="lastNameError" class="error-message" style="color: red"></span>
             </div>
             <div class="form_control">
               <label for="email"> Email* </label>
               <input type="email" id="email" name="email" placeholder="Enter Email" required/>
+              <span id="emailError" class="error-message" style="color: red"></span>
             </div>
             <div class="form_control">
               <label for="job_role"> Job Role* </label>
               <input type="job_role" id="job_role" name="job_role" placeholder="Enter Job Role" required/>
+              <span id="jobRoleError" class="error-message" style="color: red"></span>
               <!-- <select id="job_role" name="job_role">
                 <option value="">Select Job Role</option>
                 <option value="frontend">Frontend Developer</option>
@@ -722,22 +726,27 @@
             <div class="textarea_control">
               <label for="address"> Address* </label>
               <textarea id="address" name="address" row="4" cols="50" placeholder="Enter Address" required></textarea>
+              <span id="addressError" class="error-message" style="color: red"></span>
             </div>
             <div class="form_control">
               <label for="city"> City* </label>
               <input id="city" name="city" placeholder="Enter City Name" required/>
+              <span id="cityError" class="error-message" style="color: red"></span>
             </div>
             <div class="form_control">
               <label for="phoneNumber"> Phone Number* </label>
               <input type="number" id="phoneNumber" name="phoneNumber" placeholder="Enter Phone Number" required/>
+              <span id="phoneNumberError" class="error-message" style="color: red"></span>
             </div>
             <div class="form_control">
               <label for="date"> Date* </label>
               <input value="2022-01-10" type="date" id="date" name="date" required/>
+              <span id="dateError" class="error-message" style="color: red"></span>
             </div>
             <div class="form_control">
               <label for="upload"> Upload Your CV* </label>
               <input type="file" id="upload" name="upload" style="height: auto;" required/>
+              <span id="uploadError" class="error-message" style="color: red"></span>
             </div>
             <div class="button_container">
               <button type="click" id="submitBtn">Apply Now</button>
