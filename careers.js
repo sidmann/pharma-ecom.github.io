@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
 import { getFirestore, collection, addDoc, query, where, getDocs, updateDoc, doc, getDoc, setDoc, deleteField } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js"
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-storage.js";
+import { getStorage, ref, uploadBytes, getDownloadURL, uploadBytesResumable } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-storage.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBrIAlkIyp5ALsv5RslbXA1oQVQL3eKhig",
@@ -290,20 +290,41 @@ document.addEventListener('DOMContentLoaded', function (event) {
             // All fields are valid, proceed with form submission
             document.querySelector('#submitBtn').disabled = true;
             document.querySelector('#submitBtn').textContent = 'Applying ...';
-            
-            // Prepare form data
-            const formData = new FormData();
-            formData.append('firstName', firstName);
-            formData.append('lastName', lastName);
-            formData.append('email', email);
-            formData.append('phoneNumber', phoneNumber);
-            formData.append('jobRole', jobRole);
-            formData.append('address', address);
-            formData.append('city', city);
-            formData.append('date', date);
-            formData.append('upload', uploadFile);
 
-            sendEmail(formData);
+            // Upload PDF to Firebase Storage
+            const storageRef = ref(storage, 'resumes/' + uploadFile.name);
+            const uploadTask = uploadBytesResumable(storageRef, uploadFile);
+
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    // Update progress bar or display percentage
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                },
+                (error) => {
+                    console.error('Error uploading PDF:', error);
+                    document.querySelector('#submitBtn').disabled = false;
+                    document.querySelector('#submitBtn').textContent = 'Apply Now';
+                },
+                () => {
+                    // Upload complete, now get the download URL
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        // Prepare form data
+                        const formData = new FormData();
+                        formData.append('firstName', firstName);
+                        formData.append('lastName', lastName);
+                        formData.append('email', email);
+                        formData.append('phoneNumber', phoneNumber);
+                        formData.append('jobRole', jobRole);
+                        formData.append('address', address);
+                        formData.append('city', city);
+                        formData.append('date', date);
+                        formData.append('upload', downloadURL);
+
+                        sendEmail(formData);
+                    });
+                }
+            );
         }
     });
 });
@@ -359,7 +380,6 @@ function displayMessage(message, type) {
     // Create a clone of the toast template
     const toast = document.querySelector(".toast").cloneNode(true);
 
-    console.log(toast)
     // Set the success message
     toast.querySelector(".compare-note").innerHTML = message;
 

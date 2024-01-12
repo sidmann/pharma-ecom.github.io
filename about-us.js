@@ -176,7 +176,7 @@ function getUserSnapshot(uid) {
         updateCart();
         // fetchNavCategories();
         // window.location.href = "login.html";
-        onLoggedOut()
+        onLoggedOut();
     }
 });
 

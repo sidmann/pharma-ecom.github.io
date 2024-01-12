@@ -105,7 +105,6 @@ export function onLoggedIn() {
     navItemList.forEach((navItem) => {
         navItem.style.display = "none";
     });
-    document.querySelector('#logout-btn').style.display='block';
 }
 
 /**
@@ -123,7 +122,6 @@ export function onLoggedOut() {
     navItemList.forEach((navItem) => {
         navItem.style.display = "none";
     });
-    document.querySelector('#logout-btn').style.display='none';
 }
 
 /**
