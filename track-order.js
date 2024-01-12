@@ -54,18 +54,18 @@ var userData = null;
 const confirmLogoutBtn = document.getElementById("confirmLogoutBtn");
 var orderId = new URLSearchParams(window.location.search).get('orderId')
 if(orderId){
-    console.log("if")
+    // console.log("if")
    document.querySelector('#track-order-block').classList.remove('d-none')
    document.querySelector('#input-track-order-block').classList.add('none')
 }
 else{
-    console.log("esle")
+    // console.log("esle")
     document.querySelector('#input-track-order-block').classList.remove('d-none')
     document.querySelector('#track-order-block').classList.add('none')
 }
 // console.log(orderId);
 var userId = new URLSearchParams(window.location.search).get('userId')
-console.log(userId)
+// console.log(userId)
 //-----------------------------------------------------------------------------
 
 /**
@@ -77,11 +77,11 @@ console.log(userId)
  */
 function updateCart() {
     return new Promise(async (resolve) => {
-        console.log("from update cart")
+        // console.log("from update cart")
         const shownCart = document.querySelector('#shown-cart')
 
         let cart = await getCart()
-        console.log(cart.length)
+        // console.log(cart.length)
 
         if (cart.length) {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = cart.length)
@@ -89,7 +89,7 @@ function updateCart() {
         else {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = 0)
         }
-        console.log("resolve")
+        // console.log("resolve")
         resolve()
     })
 }
@@ -97,7 +97,7 @@ function updateCart() {
 //get user snapshot cart(dependency)
 function getUserSnapshot(uid) {
     const userRef = doc(firestore, 'users', uid)
-    console.log('3')
+    // console.log('3')
     return new Promise((resolve, reject) => {
         resolve(getDoc(userRef))
     })
@@ -119,7 +119,7 @@ onAuthStateChanged(auth, async (user) => {
     const userAppbar = document.getElementById("userAppbar");
     // const agentAppbar = document.getElementById("agentAppbar");
     if (user) {
-        console.log("from onAuthStateChanged" )
+        // console.log("from onAuthStateChanged" )
         const docRef = doc(firestore, "users", user.uid);
         const docSnap = getDoc(docRef);
         // const orders= await fetchOrdersForUser();
@@ -131,8 +131,8 @@ onAuthStateChanged(auth, async (user) => {
             if (docSnapshot.exists()) {
                 loggedIn = true
                 userData = docSnapshot.data();
-                console.log(userData)
-                console.log(1)
+                // console.log(userData)
+                // console.log(1)
                 await updateCart();
                 roleAccess(userData.role);
                 updateProfileName(userData.role,userData.firstName);
@@ -144,7 +144,7 @@ onAuthStateChanged(auth, async (user) => {
         });
     } else {
         loggedIn = false;
-        console.log(loggedIn)
+        // console.log(loggedIn)
         document.querySelectorAll('.logout-btn').forEach((btn) => {
             btn.classList.add('d-none');
         });
@@ -373,7 +373,7 @@ async function fetchTrackOrderDetailsForInputTrackingId(e){
     // console.log(userId);
 
     if(!loggedIn){
-        console.log("556")
+        // console.log("556")
         displayMessage("Please login to know your product tracking details",'danger')
         return;
      }
@@ -383,7 +383,7 @@ async function fetchTrackOrderDetailsForInputTrackingId(e){
             collection(firestore,'users',auth.currentUser.uid,'orders'),
             where("orderId","==",inputProductOrderId)));
             if(orderDetailsSnapshot && orderDetailsSnapshot.docs.length>0){
-                console.log("3")
+                // console.log("3")
                 document.querySelector('#input-track-order-block').classList.add('d-none')
                 document.querySelector('#track-order-block').classList.remove('d-none')
                 const prodcutDetailsData = orderDetailsSnapshot.docs[0].data()
@@ -414,13 +414,13 @@ async function getOrderDetailsForTracking(){
     // console.log(userId)
     if(userId===null && orderId){
         
-        console.log("if")
+        // console.log("if")
         const orderSnapshot = await getDocs(query(
             collection(firestore, 'users', auth.currentUser.uid, 'orders'),
             where('orderId', '==', orderId)
         ));
         const orderData = orderSnapshot.docs[0].data();
-        console.log(orderData.orderId)
+        // console.log(orderData.orderId)
         const giOrderId = document.querySelector('.gi-order-id');
         giOrderId.textContent = orderData.orderId
         const trackerOrderId = document.getElementById('track-order-id')
@@ -429,7 +429,7 @@ async function getOrderDetailsForTracking(){
     }
 
     else{
-        console.log("else")
+        // console.log("else")
         const orderSnapshot = await getDocs(query(
             collection(firestore, 'users', userId, 'orders'),
             where('orderId', '==', orderId)
@@ -449,7 +449,7 @@ async function getOrderDetailsForTracking(){
   * @returns mydev 
   */
  async function updateTrackingLOrderStatus(status){
-    console.log(status)
+    // console.log(status)
     const progressBar = document.querySelector('.progress-bar')
     const steps = document.querySelectorAll('.gi-step')
     
@@ -466,7 +466,7 @@ async function getOrderDetailsForTracking(){
     // console.log(completedSteps);
     
     const progressPercentage = (completedSteps / totalSteps) *100;
-    console.log(progressPercentage);
+    // console.log(progressPercentage);
     progressBar.style.width = `${progressPercentage}%`;
 
     steps.forEach((step,index)=>{
@@ -500,7 +500,7 @@ function displayMessage(message, type) {
     // Create a clone of the toast template
     const toast = document.querySelector(".toast").cloneNode(true);
 
-    console.log(toast)
+    // console.log(toast)
     // Set the success message
     toast.querySelector(".compare-note").innerHTML = message;
 

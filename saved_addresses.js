@@ -98,11 +98,11 @@ document.querySelector("#editFullName").addEventListener("keyup", () => {
  */
 function updateCart() {
     return new Promise(async (resolve) => {
-        console.log("from update cart")
+        // console.log("from update cart")
         const shownCart = document.querySelector('#shown-cart')
 
         let cart = await getCart()
-        console.log(cart.length)
+        // console.log(cart.length)
 
         if (cart.length) {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = cart.length)
@@ -110,7 +110,7 @@ function updateCart() {
         else {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = 0)
         }
-        console.log("resolve")
+        // console.log("resolve")
         resolve()
     })
 }
@@ -118,26 +118,26 @@ function updateCart() {
 async function getCart() {
     return new Promise(async (resolve) => {
         if (loggedIn) {
-            console.log("form getCArt()")
+            // console.log("form getCArt()")
             const cartSnapshot = await getDocs(collection(firestore, 'users', auth.currentUser.uid, 'cart'))
-            console.log("form getCArt(1.1)")
+            // console.log("form getCArt(1.1)")
             if (cartSnapshot.empty) {
-                console.log("form getCArt(1.2)")
+                // console.log("form getCArt(1.2)")
                 resolve([])
             }
-            console.log("form getCArt(1.3)")
+            // console.log("form getCArt(1.3)")
             let cart = []
             cartSnapshot.forEach(doc => {
                 cart.push(doc.data())
             })
-            console.log("form getCArt(1.4)")
+            // console.log("form getCArt(1.4)")
             resolve(cart)
         }
         else {
-            console.log("form getCArt1)")
+            // console.log("form getCArt1)")
             const cartSnapshot = JSON.parse(sessionStorage.getItem('cart'))
             if (!cartSnapshot) {
-                console.log('from true')
+                // console.log('from true')
                 resolve([])
                 return
             }
@@ -153,7 +153,7 @@ async function getCart() {
 //get user snapshot cart(dependency)
 function getUserSnapshot(uid) {
     const userRef = doc(firestore, 'users', uid)
-    console.log('3')
+    // console.log('3')
     return new Promise((resolve, reject) => {
         resolve(getDoc(userRef))
     })
@@ -346,17 +346,17 @@ function fetchAndDisplayAddresses() {
                 const setEditButton = card.querySelector(".edit-address");
 
                 deleteButton.addEventListener("click", async () => {
-                    console.log(1)
+                    // console.log(1)
                     document.querySelector(`#delete-${doc.id}`).disabled = true
                     document.querySelector(`#delete-${doc.id}`).textContent = 'Deleting...'
-                    console.log(2)
+                    // console.log(2)
                     // Call a function to handle address deletion
                     if (!await deleteAddress(doc.id)) {
-                        console.log(5)
+                        // console.log(5)
                         document.querySelector(`#delete-${doc.id}`).disabled = false
                         document.querySelector(`#delete-${doc.id}`).textContent = 'Delete'
                     }
-                    console.log(6)
+                    // console.log(6)
                 });
 
                 if (!isDefault) {
@@ -384,11 +384,11 @@ function fetchAndDisplayAddresses() {
 // Function to delete an address
 function deleteAddress(addressId) {
     return new Promise(async (resolve) => {
-        console.log(3)
+        // console.log(3)
         const confirmation = confirm('Are you sure you want to delete this address?');
-        console.log(confirmation)
+        // console.log(confirmation)
         if (confirmation) {
-            console.log(4)
+            // console.log(4)
             const user = auth.currentUser.uid;
             const userAddressRef = doc(firestore, 'users', user, 'addresses', addressId);
 
@@ -409,10 +409,10 @@ function deleteAddress(addressId) {
 
                         const remainingAddresses = addressSnapshot.docs.filter(doc => doc.data().isDefault === true);
 
-                        console.log(remainingAddresses);
+                        // console.log(remainingAddresses);
 
                         if (remainingAddresses.length === 0) {
-                        console.log('inside if');
+                        // console.log('inside if');
                         const firstAddressId = addressSnapshot.docs[0].id;
                         const data = { isDefault: true };
                         await updateDoc(doc(firestore, 'users', user, 'addresses', firstAddressId), data);
@@ -429,7 +429,7 @@ function deleteAddress(addressId) {
                 });
         }
         else {
-            console.log(5, 'from false');
+            // console.log(5, 'from false');
             resolve(false);
         }
     })
@@ -440,7 +440,7 @@ async function setDefaultAddress(addressId) {
 
     const user = auth.currentUser.uid;
     const userAddressesRef = collection(firestore, 'users', user, 'addresses');
-    console.log("inside default")
+    // console.log("inside default")
 
     const addressesDocs = await getDocs(userAddressesRef);
 
@@ -462,7 +462,7 @@ async function setDefaultAddress(addressId) {
 
 // Function to handle edit address
 function editAddress(addressId) {
-    console.log("Editing address with ID:", addressId);
+    // console.log("Editing address with ID:", addressId);
     const user = auth.currentUser.uid;
     const userAddressRef = doc(firestore, 'users', user, 'addresses', addressId);
 
@@ -470,7 +470,7 @@ function editAddress(addressId) {
         .then((docSnapshot) => {
             if (docSnapshot.exists()) {
                 const addressData = docSnapshot.data();
-                console.log(addressData)
+                // console.log(addressData)
                 const {
                     fullName,
                     mobileNumber,
@@ -549,8 +549,8 @@ function submitEditedAddress() {
 
     // Validate first name (minimum 3 characters)
     if (!isValidFullName(fullName) || (!isValidPhoneNumber(mobileNumber)) || (!isValidPinCode(pinCode))) {
-        console.log(!isValidFullName(fullName))
-        console.log((!isValidPhoneNumber(mobileNumber)))
+        // console.log(!isValidFullName(fullName))
+        // console.log((!isValidPhoneNumber(mobileNumber)))
         document.querySelector('#editAddressSubmitBtn').disabled = false
         document.querySelector('#editAddressSubmitBtn').textContent = 'Save Changes'
         displayMessage('Please check your entered values!', 'danger')
@@ -560,7 +560,7 @@ function submitEditedAddress() {
     // Save the edited address data to Firestore
     const user = auth.currentUser.uid;
     const addressId = document.getElementById("editAddressId").value;
-    console.log(addressId)
+    // console.log(addressId)
     const userAddressRef = doc(firestore, 'users', user, 'addresses', addressId);
 
     updateDoc(userAddressRef, editedAddress)
@@ -588,7 +588,7 @@ document.getElementById("editAddressSubmitBtn").addEventListener("click", submit
 // Function to fetch city and state based on pin code
 document.getElementById("editPinCode").addEventListener("input", function () {
     const pinCode = this.value;
-    console.log(pinCode)
+    // console.log(pinCode)
     if (pinCode.length == 6) {
         fetch(`https://india-pincode-with-latitude-and-longitude.p.rapidapi.com/api/v1/pincode/${pinCode}`, {
             method: "GET",
@@ -632,7 +632,7 @@ function displayMessage(message, type) {
     // Create a clone of the toast template
     const toast = document.querySelector(".toast").cloneNode(true);
 
-    console.log(toast)
+    // console.log(toast)
     // Set the success message
     toast.querySelector(".compare-note").innerHTML = message;
 

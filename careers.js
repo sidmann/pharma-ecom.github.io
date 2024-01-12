@@ -50,11 +50,11 @@ confirmLogoutBtn.addEventListener("click", () => {
  */
 function updateCart() {
     return new Promise(async (resolve) => {
-        console.log("from update cart")
+        // console.log("from update cart")
         const shownCart = document.querySelector('#shown-cart')
 
         let cart = await getCart()
-        console.log(cart.length)
+        // console.log(cart.length)
 
         if (cart.length) {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = cart.length)
@@ -62,7 +62,7 @@ function updateCart() {
         else {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = 0)
         }
-        console.log("resolve")
+        // console.log("resolve")
         resolve()
     })
 }
@@ -70,26 +70,26 @@ function updateCart() {
 async function getCart() {
     return new Promise(async (resolve) => {
         if (loggedIn) {
-            console.log("form getCArt()")
+            // console.log("form getCArt()")
             const cartSnapshot = await getDocs(collection(firestore, 'users', auth.currentUser.uid, 'cart'))
-            console.log("form getCArt(1.1)")
+            // console.log("form getCArt(1.1)")
             if (cartSnapshot.empty) {
-                console.log("form getCArt(1.2)")
+                // console.log("form getCArt(1.2)")
                 resolve([])
             }
-            console.log("form getCArt(1.3)")
+            // console.log("form getCArt(1.3)")
             let cart = []
             cartSnapshot.forEach(doc => {
                 cart.push(doc.data())
             })
-            console.log("form getCArt(1.4)")
+            // console.log("form getCArt(1.4)")
             resolve(cart)
         }
         else {
-            console.log("form getCArt1)")
+            // console.log("form getCArt1)")
             const cartSnapshot = JSON.parse(sessionStorage.getItem('cart'))
             if (!cartSnapshot) {
-                console.log('from true')
+                // console.log('from true')
                 resolve([])
                 return
             }
@@ -105,7 +105,7 @@ async function getCart() {
 //get user snapshot cart(dependency)
 function getUserSnapshot(uid) {
     const userRef = doc(firestore, 'users', uid)
-    console.log('3')
+    // console.log('3')
     return new Promise((resolve, reject) => {
         resolve(getDoc(userRef))
     })
@@ -115,9 +115,9 @@ function getUserSnapshot(uid) {
 //*****************************loading and role access************************************
 // Use onAuthStateChanged to control access to admin dashboard
 onAuthStateChanged(auth, (user) => {
-    console.log("inside onAuth")
+    // console.log("inside onAuth")
     if (user) {
-        console.log("if")
+        // console.log("if")
         loggedIn = true
         document.querySelectorAll('.logout-btn').forEach((btn) => {
             btn.classList.remove('d-none');
@@ -138,7 +138,7 @@ onAuthStateChanged(auth, (user) => {
             }
         });
     } else {
-        console.log("else")
+        // console.log("else")
         document.querySelectorAll('.logout-btn').forEach((btn) => {
             btn.classList.add('d-none');
         });
@@ -151,7 +151,7 @@ onAuthStateChanged(auth, (user) => {
 
 function updateProfileName(role, fullName) {
     // Based on the role, select the appropriate element
-    console.log(fullName)
+    // console.log(fullName)
     let profileNameElement;
     switch (role) {
         case 'CUSTOMER':
@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
         displayError('uploadError', fileValid, '*Please upload your CV');
 
         if (firstNameValid && lastNameValid && emailValid && phoneNumberValid && jobRoleValid && addressValid && cityValid && dateValid && fileValid) {
-            console.log("dasadsadsad");
+            // console.log("dasadsadsad");
             // All fields are valid, proceed with form submission
             document.querySelector('#submitBtn').disabled = true;
             document.querySelector('#submitBtn').textContent = 'Applying ...';
@@ -331,7 +331,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 // Email sending function
 function sendEmail(formData) {
-    console.log(formData);
+    // console.log(formData);
     // Perform AJAX request to send email
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'https://api.emailjs.com/api/v1.0/email/send', true);
@@ -360,7 +360,7 @@ function sendEmail(formData) {
             document.getElementById('careerForm').reset();
         }
     };
-    console.log(formData);
+    // console.log(formData);
     xhr.send(formData);
 }
 

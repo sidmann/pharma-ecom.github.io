@@ -61,7 +61,7 @@ function isUserLoggedIn() {
  * @return mydev
  */
 confirmLogoutBtn.addEventListener("click", () => {
-    console.log("1")
+    // console.log("1")
     signOut(auth)
         .then(() => {
             window.location.href = "login.html";
@@ -78,11 +78,11 @@ confirmLogoutBtn.addEventListener("click", () => {
  */
 function updateCart() {
     return new Promise(async (resolve) => {
-        console.log("from update cart")
+        // console.log("from update cart")
         const shownCart = document.querySelector('#shown-cart')
 
         let cart = await getCart()
-        console.log(cart.length)
+        // console.log(cart.length)
 
         if (cart.length) {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = cart.length)
@@ -90,7 +90,7 @@ function updateCart() {
         else {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = 0)
         }
-        console.log("resolve")
+        // console.log("resolve")
         resolve()
     })
 }
@@ -134,7 +134,7 @@ async function getCart() {
  */
 function getUserSnapshot(uid) {
     const userRef = doc(firestore, 'users', uid)
-    console.log('3')
+    // console.log('3')
     return new Promise((resolve, reject) => {
         resolve(getDoc(userRef))
     })
@@ -149,7 +149,7 @@ function getUserSnapshot(uid) {
  */  
   onAuthStateChanged(auth, (user) => {
     if (user) {
-        console.log("if")
+        // console.log("if")
         document.querySelectorAll('.logout-btn').forEach((btn) => {
             btn.classList.remove('d-none');
         });
@@ -160,7 +160,7 @@ function getUserSnapshot(uid) {
         docSnap.then((docSnapshot) => {
             if (docSnapshot.exists()) {
                 userData = docSnapshot.data();
-                console.log(userData.role);
+                // console.log(userData.role);
                 roleAccess(userData.role);
                 updateProfileName(userData.role,userData.firstName)
                 updateCart();
@@ -172,7 +172,7 @@ function getUserSnapshot(uid) {
         document.querySelectorAll('.logout-btn').forEach((btn) => {
             btn.classList.add('d-none');
         });
-        console.log("else");
+        // console.log("else");
         updateCart();
         // fetchNavCategories();
         // window.location.href = "login.html";

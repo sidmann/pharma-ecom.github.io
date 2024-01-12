@@ -62,7 +62,7 @@ let loggedIn = false
 
 const urlParam = new URLSearchParams(window.location.search)
 const productId = urlParam.get('data')
-console.log(productId)
+// console.log(productId)
 
 if (!productId) {
     window.location.href = 'products.html'
@@ -138,7 +138,7 @@ function roleAccess(role) {
 
 function updateProfileName(role, fullName) {
     // Based on the role, select the appropriate element
-    console.log(fullName)
+    // console.log(fullName)
     let profileNameElement;
     switch (role) {
         case 'CUSTOMER':
@@ -226,7 +226,7 @@ async function getAndEmbedProductData(productId) {
     const productSnapshot = await getDocs(query(collection(firestore, 'products'), where('productId', '==', productId)))
     // console.log(productSnapshot.docs)
     const productData = productSnapshot.docs[0].data()
-    console.log(productData);
+    // console.log(productData);
     const productLoader = document.querySelector('.product-loader')
     const productName = document.querySelector('.product-name')
     // const productStock = document.querySelector('.product-stock')
@@ -350,7 +350,7 @@ async function addToCart() {
     const addToCartButton = document.querySelector('.add-to-cart')
     addToCartButton.disabled = true
     addToCartButton.textContent = 'ADDING ...'
-    console.log(document.querySelector('.user-quantity').value)
+    // console.log(document.querySelector('.user-quantity').value)
 
     if (loggedIn) {
         const cartSnapshot = await getDocs(
@@ -359,7 +359,7 @@ async function addToCart() {
                 where('productId', '==', productId)
             )
         )
-        console.log(cartSnapshot.docs[0]);
+        // console.log(cartSnapshot.docs[0]);
         if (cartSnapshot.empty) {
             await setDoc(doc(collection(firestore, 'users', auth.currentUser.uid, 'cart'), productId), {
                 productId: productId,
@@ -373,11 +373,11 @@ async function addToCart() {
     }
     else {
         const cart = JSON.parse(sessionStorage.getItem('cart'))
-        console.log("form else")
+        // console.log("form else")
         if (cart) {
-            console.log(productId)
+            // console.log(productId)
             const result = cart.findIndex(doc => doc.productId === productId)
-            console.log(result)
+            // console.log(result)
             if (result >= 0) {
                 cart[result].quantity = +document.querySelector('.user-quantity').value;
                 sessionStorage.setItem('cart', JSON.stringify(cart))
@@ -418,7 +418,7 @@ function displayMessage(message, type) {
     // Create a clone of the toast template
     const toast = document.querySelector(".toast").cloneNode(true);
 
-    console.log(toast)
+    // console.log(toast)
     // Set the success message
     toast.querySelector(".compare-note").innerHTML = message;
 
@@ -452,26 +452,26 @@ function displayMessage(message, type) {
 async function getCart() {
     return new Promise(async (resolve) => {
         if (loggedIn) {
-            console.log("form getCArt()")
+            // console.log("form getCArt()")
             const cartSnapshot = await getDocs(collection(firestore, 'users', auth.currentUser.uid, 'cart'))
-            console.log("form getCArt(1.1)")
+            // console.log("form getCArt(1.1)")
             if (cartSnapshot.empty) {
-                console.log("form getCArt(1.2)")
+                // console.log("form getCArt(1.2)")
                 resolve([])
             }
-            console.log("form getCArt(1.3)")
+            // console.log("form getCArt(1.3)")
             let cart = []
             cartSnapshot.forEach(doc => {
                 cart.push(doc.data())
             })
-            console.log("form getCArt(1.4)")
+            // console.log("form getCArt(1.4)")
             resolve(cart)
         }
         else {
-            console.log("form getCArt1)")
+            // console.log("form getCArt1)")
             const cartSnapshot = JSON.parse(sessionStorage.getItem('cart'))
             if (!cartSnapshot) {
-                console.log('from true')
+                // console.log('from true')
                 resolve([])
                 return
             }
@@ -493,7 +493,7 @@ async function getCart() {
  */
 function updateCart() {
     return new Promise(async (resolve) => {
-        console.log("from update cart")
+        // console.log("from update cart")
 
         let cart = await getCart()
         if (cart.length) {
@@ -502,7 +502,7 @@ function updateCart() {
         else {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = 0)
         }
-        console.log("resolve")
+        // console.log("resolve")
         resolve()
     })
 }

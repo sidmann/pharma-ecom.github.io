@@ -43,7 +43,7 @@ const confirmLogoutBtn = document.getElementById("confirmLogoutBtn");
 //****************************event listener*******************************
 //to be added after loading all products
 function addEventListenerToProducts() {
-    console.log("inside add event")
+    // console.log("inside add event")
     document.querySelectorAll('.minus').forEach(btn => {
         btn.addEventListener('click', minusQuantity)
     })
@@ -66,11 +66,11 @@ function addEventListenerToProducts() {
  */
 function updateCart() {
     return new Promise(async (resolve) => {
-        console.log("from update cart")
+        // console.log("from update cart")
         const shownCart = document.querySelector('#shown-cart')
 
         let cart = await getCart()
-        console.log(cart.length)
+        // console.log(cart.length)
 
         if (cart.length) {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = cart.length)
@@ -78,7 +78,7 @@ function updateCart() {
         else {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = 0)
         }
-        console.log("resolve")
+        // console.log("resolve")
         resolve()
     })
 }
@@ -86,7 +86,7 @@ function updateCart() {
 //get user snapshot cart(dependency)
 function getUserSnapshot(uid) {
     const userRef = doc(firestore, 'users', uid)
-    console.log('3')
+    // console.log('3')
     return new Promise((resolve, reject) => {
         resolve(getDoc(userRef))
     })
@@ -111,13 +111,13 @@ onAuthStateChanged(auth, async (user) => {
         docSnap.then(async (docSnapshot) => {
             // console.log(docSnapshot)
             if (docSnapshot.exists()) {
-                console.log("from onAuthStateChanged")
+                // console.log("from onAuthStateChanged")
                 loggedIn = true
                 userData = docSnapshot.data();
                 // roleAccess(userData.role);
                 // onLoggedIn();
                 //update cart
-                console.log(1)
+                // console.log(1)
                 await updateCart();
                 roleAccess(userData.role);
                 updateProfileName(userData.role,userData.firstName);
@@ -134,7 +134,7 @@ onAuthStateChanged(auth, async (user) => {
         document.querySelectorAll('.logout-btn').forEach((btn) => {
             btn.classList.add('d-none');
         });
-        console.log(loggedIn)
+        // console.log(loggedIn)
         // Hide both appbars or handle the state as needed
         // onLoggedOut();
         await updateCart();
@@ -262,7 +262,7 @@ async function fetchAndDisplayProducts(customQuery = false, productSnapshot = nu
         const productsRef = collection(firestore, 'products');
         var productIds = []
         cart = await getCart()
-        console.log(cart)
+        // console.log(cart)
         if (cart.length) {
             cart.forEach(doc => productIds.push(doc.productId))
         }
@@ -277,7 +277,7 @@ async function fetchAndDisplayProducts(customQuery = false, productSnapshot = nu
         }
         querySnapshot.forEach((doc) => {
             const productData = doc.data();
-            console.log(productData)
+            // console.log(productData)
             //check if the product is present in cart
             const resultIndex = productIds.findIndex(id => id === productData.productId)
             if (resultIndex >= 0) cartStatus = true
@@ -349,7 +349,7 @@ async function fetchAndDisplayProducts(customQuery = false, productSnapshot = nu
             // Append the product card to the container
             productsContainer.appendChild(productCard);
             productCard.querySelector('.add-to-cart').addEventListener('click', () => {
-                console.log(productData)
+                // console.log(productData)
                 window.location.href = `product-detail.html?data=${productData.productId}`
             })
         });
@@ -409,26 +409,26 @@ function changeTextContent(target, textContent) {
 async function getCart() {
     return new Promise(async (resolve) => {
         if (loggedIn) {
-            console.log("form getCArt()")
+            // console.log("form getCArt()")
             const cartSnapshot = await getDocs(collection(firestore, 'users', auth.currentUser.uid, 'cart'))
-            console.log("form getCArt(1.1)")
+            // console.log("form getCArt(1.1)")
             if (cartSnapshot.empty) {
-                console.log("form getCArt(1.2)")
+                // console.log("form getCArt(1.2)")
                 resolve([])
             }
-            console.log("form getCArt(1.3)")
+            // console.log("form getCArt(1.3)")
             let cart = []
             cartSnapshot.forEach(doc => {
                 cart.push(doc.data())
             })
-            console.log("form getCArt(1.4)")
+            // console.log("form getCArt(1.4)")
             resolve(cart)
         }
         else {
-            console.log("form getCArt1)")
+            // console.log("form getCArt1)")
             const cartSnapshot = JSON.parse(sessionStorage.getItem('cart'))
             if (!cartSnapshot) {
-                console.log('from true')
+                // console.log('from true')
                 resolve([])
                 return
             }
@@ -510,7 +510,7 @@ function fetchManufacturers() {
         manufacturerContainer.appendChild(filterOption)
 
         manufacturerSnapshot.forEach(doc => {
-            console.log(doc.data())
+            // console.log(doc.data())
 
             const filterOption = filterOptionClone.cloneNode(true)
             const input = filterOption.querySelector('input')
@@ -563,7 +563,7 @@ function fetchManufacturers() {
 // }
 
 async function fetchFilteredProducts(event) {
-    console.log('from fetchFilteredProducts')
+    // console.log('from fetchFilteredProducts')
     const filterCards = document.querySelectorAll('.filter-card')
     // console.log(filterCards)
     const sortBy = []
@@ -575,16 +575,16 @@ async function fetchFilteredProducts(event) {
         fieldValues = []
         radios.forEach(radio => {
             // console.log(radio)
-            console.log(radio.value, radio.value !== 'all')
+            // console.log(radio.value, radio.value !== 'all')
             if (radio.value !== 'all') {
-                console.log('from if', radio.checked)
+                // console.log('from if', radio.checked)
                 if (radio.checked) {
                     field = radio.getAttribute('field')
                     fieldValues.push(radio.value)
                 }
             }
             else {
-                console.log('from else')
+                // console.log('from else')
                 if (radio.checked) {
                     radios.forEach(radio => {
                         if (radio.value !== 'all') radio.checked = false
@@ -604,7 +604,7 @@ async function fetchFilteredProducts(event) {
             })
         }
     })
-    console.log(sortBy)
+    // console.log(sortBy)
     // return
 
     if (sortBy.length) {
@@ -628,8 +628,8 @@ async function fetchFilteredProducts(event) {
                 ),
                 (querySnapshot => {
                     if (!querySnapshot.empty) {
-                        console.log('inside onSnapshot')
-                        console.log("dfaf")
+                        // console.log('inside onSnapshot')
+                        // console.log("dfaf")
                         querySnapshot.forEach(doc => {
                             realTimeActions(doc.data())
                         })
@@ -656,8 +656,8 @@ async function fetchFilteredProducts(event) {
                 ),
                 (querySnapshot => {
                     if (!querySnapshot.empty) {
-                        console.log('inside onSnapshot')
-                        console.log("dfaf")
+                        // console.log('inside onSnapshot')
+                        // console.log("dfaf")
                         querySnapshot.forEach(doc => {
                             realTimeActions(doc.data())
                         })
@@ -672,7 +672,7 @@ async function fetchFilteredProducts(event) {
 }
 
 function realTimeActions(data) {
-    console.log('from realTimeActions')
+    // console.log('from realTimeActions')
     const itemCard = document.querySelector(`#product-${data.productId}`)
     itemCard.querySelector('.product-quantity').textContent = data.quantity
     if (data.quantity < 1) {
@@ -762,7 +762,7 @@ function displayMessage(message, type) {
     // Create a clone of the toast template
     const toast = document.querySelector(".toast").cloneNode(true);
 
-    console.log(toast)
+    // console.log(toast)
     // Set the success message
     toast.querySelector(".compare-note").innerHTML = message;
 

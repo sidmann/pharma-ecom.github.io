@@ -123,7 +123,7 @@ function roleAccess(role) {
 
 function updateProfileName(role, fullName) {
     // Based on the role, select the appropriate element
-    console.log(fullName)
+    // console.log(fullName)
     let profileNameElement;
     switch (role) {
         case 'CUSTOMER':
@@ -208,11 +208,11 @@ function stopLoader() {
  */
 function updateCart() {
     return new Promise(async (resolve) => {
-        console.log("from update cart")
+        // console.log("from update cart")
         const shownCart = document.querySelector('#shown-cart')
 
         let cart = await getCart()
-        console.log(cart.length)
+        // console.log(cart.length)
 
         if (cart.length) {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = cart.length)
@@ -220,7 +220,7 @@ function updateCart() {
         else {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = 0)
         }
-        console.log("resolve")
+        // console.log("resolve")
         resolve()
     })
 }
@@ -228,26 +228,26 @@ function updateCart() {
 async function getCart() {
     return new Promise(async (resolve) => {
         if (loggedIn) {
-            console.log("form getCArt()")
+            // console.log("form getCArt()")
             const cartSnapshot = await getDocs(collection(firestore, 'users', auth.currentUser.uid, 'cart'))
-            console.log("form getCArt(1.1)")
+            // console.log("form getCArt(1.1)")
             if (cartSnapshot.empty) {
-                console.log("form getCArt(1.2)")
+                // console.log("form getCArt(1.2)")
                 resolve([])
             }
-            console.log("form getCArt(1.3)")
+            // console.log("form getCArt(1.3)")
             let cart = []
             cartSnapshot.forEach(doc => {
                 cart.push(doc.data())
             })
-            console.log("form getCArt(1.4)")
+            // console.log("form getCArt(1.4)")
             resolve(cart)
         }
         else {
-            console.log("form getCArt1)")
+            // console.log("form getCArt1)")
             const cartSnapshot = JSON.parse(sessionStorage.getItem('cart'))
             if (!cartSnapshot) {
-                console.log('from true')
+                // console.log('from true')
                 resolve([])
                 return
             }
@@ -263,7 +263,7 @@ async function getCart() {
 //get user snapshot cart(dependency)
 function getUserSnapshot(uid) {
     const userRef = doc(firestore, 'users', uid)
-    console.log('3')
+    // console.log('3')
     return new Promise((resolve, reject) => {
         resolve(getDoc(userRef))
     })
@@ -487,16 +487,16 @@ async function openUpdateModal(productId) {
     productImageInput.value = ""
     const productRef = collection(firestore, 'products');
     const queryRef = query(productRef, where("productId", "==", productId))
-    console.log('inside open model')
+    // console.log('inside open model')
     getDocs(queryRef)
         .then(async (querySnapshot) => {
             if (!querySnapshot.empty) {
                 const productDoc = querySnapshot.docs[0];
                 const productData = productDoc.data();
-                console.log('inside getdocs')
-                console.log(productData);
+                // console.log('inside getdocs')
+                // console.log(productData);
                 manufacturerInput.innerHTML = productData.manufacturerName;
-                console.log(17)
+                // console.log(17)
                 // if (await fetchCategories())
                 //     categoryDropdown.value = productData.categoryId;
 
@@ -542,7 +542,7 @@ async function openUpdateModal(productId) {
                 document.querySelector('#updateButton').addEventListener('click', updateEvent);
 
                 function updateEvent() {
-                    console.log('inside update1')
+                    // console.log('inside update1')
                     document.querySelector('#updateButton').disabled = true
                     document.querySelector('#updateButton').textContent = 'Saving...'
 
@@ -551,14 +551,14 @@ async function openUpdateModal(productId) {
                     // const colorShadeOption = document.getElementById('colorShadeDropdown').options[document.getElementById('colorShadeDropdown').selectedIndex];
 
                     if (productImageInput.files.length > 0) {
-                        console.log("if")
+                        // console.log("if")
                         const newImageFile = productImageInput.files[0];
                         const storageRefOne = ref(getStorage(app), existingImageUrl);
 
                         // Delete the old file
                         deleteObject(storageRefOne)
                             .then(() => {
-                                console.log('inside delete')
+                                // console.log('inside delete')
                                 uploadBytes(storageRefOne, newImageFile).then((snapshot) => {
                                     getDownloadURL(snapshot.ref).then((downloadURL) => {
                                         let newProductData = ''
@@ -583,10 +583,10 @@ async function openUpdateModal(productId) {
                                                 newProductArrivalStatus: newProductArrivalStatus
                                             };
                                         }
-                                        console.log(newProductData);
+                                        // console.log(newProductData);
                                         updateDoc(productDoc.ref, newProductData)
                                             .then((result) => {
-                                                console.log(result)
+                                                // console.log(result)
                                                 displayMessage("Product updated!", 'success')
                                                 document.querySelector('#updateButton').disabled = false
                                                 document.querySelector('#updateButton').textContent = 'Save changes'
@@ -601,8 +601,8 @@ async function openUpdateModal(productId) {
                             })
                     }
                     else {
-                        console.log("else")
-                        console.log(newProductArrivalStatus)
+                        // console.log("else")
+                        // console.log(newProductArrivalStatus)
                         let newProductData = ''
                         if (newProductArrivalStatus === true || newProductArrivalStatus === false) {
                             newProductData = {
@@ -624,10 +624,10 @@ async function openUpdateModal(productId) {
                                 newProductArrivalStatus: newProductArrivalStatus
                             };
                         }
-                        console.log(newProductData);
+                        // console.log(newProductData);
                         updateDoc(productDoc.ref, newProductData).then((result) => {
                             console.log(result)
-                            displayMessage('Product Updated!', 'success')
+                            displayMessage('Product Updated successfully!', 'success')
                             document.querySelector('#updateButton').disabled = false
                             document.querySelector('#updateButton').textContent = 'Save changes'
                             fetchAndDisplayProducts();
@@ -635,13 +635,16 @@ async function openUpdateModal(productId) {
                     }
                 }
             } else {
-                console.log('No product found with the specified ID.');
+                // console.log('No product found with the specified ID.');
+                displayMessage('No product found with the specified ID.', 'danger')
                 document.querySelector('#updateButton').disabled = false
                 document.querySelector('#updateButton').textContent = 'Save changes'
             }
         })
         .catch((error) => {
             console.error('Error fetching product details:', error);
+            document.querySelector('#updateButton').disabled = false
+            document.querySelector('#updateButton').textContent = 'Save changes'
         });
 }
 //**********************************************************************************************************
@@ -715,7 +718,7 @@ async function fetchManufacturers() {
 // }
 
 async function fetchColorShades(manufacturerId) {
-    console.log(17.1)
+    // console.log(17.1)
     const select = document.querySelector(`#colorShadeDropdown`);
     select.innerHTML = `<option value="">
             Loading ...
@@ -757,7 +760,7 @@ function displayMessage(message, type) {
     // Create a clone of the toast template
     const toast = document.querySelector(".toast").cloneNode(true);
 
-    console.log(toast)
+    // console.log(toast)
     // Set the success message
     toast.querySelector(".compare-note").innerHTML = message;
 

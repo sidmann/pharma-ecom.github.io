@@ -89,7 +89,7 @@ confirmLogoutBtn.addEventListener("click", () => {
 
 //to be added after loading all products
 function addEventListenerToProducts() {
-    console.log("inside add event")
+    // console.log("inside add event")
     document.querySelectorAll('.minus').forEach(btn => {
         btn.addEventListener('click', minusQuantity)
     })
@@ -100,7 +100,7 @@ function addEventListenerToProducts() {
 }
 
 function filterEventListeners() {
-    console.log("inside fliterEventListeners")
+    // console.log("inside fliterEventListeners")
     // document.getElementById('filter-clear-all').addEventListener('click', clearAllFilters)
     // document.getElementById('filter-search').addEventListener('click', fetch)
     // document.querySelector('.sort-by').addEventListener('change', sortChange)
@@ -132,10 +132,10 @@ function filterEventListeners() {
     //     // bind inputs with noUiSlider 
     //     slider.noUiSlider.on('update', (values, handle) => {
     //         filterInputs[handle].value = values[handle];
-    //         console.log(fetchProcess)
+    //         // console.log(fetchProcess)
     //         priceFilterChange = true
     //         if (!fetchProcess) fetch()
-    //         console.log('from uislider')
+    //         // console.log('from uislider')
     //     });
 
     //     filterInputs.forEach((input, indexInput) => {
@@ -157,11 +157,11 @@ function filterEventListeners() {
  */
 function updateCart() {
     return new Promise(async (resolve) => {
-        console.log("from update cart")
+        // console.log("from update cart")
         const shownCart = document.querySelector('#shown-cart')
 
         let cart = await getCart()
-        console.log(cart.length)
+        // console.log(cart.length)
 
         if (cart.length) {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = cart.length)
@@ -169,7 +169,7 @@ function updateCart() {
         else {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = 0)
         }
-        console.log("resolve")
+        // console.log("resolve")
         resolve()
     })
 }
@@ -177,7 +177,7 @@ function updateCart() {
 //get user snapshot cart(dependency)
 function getUserSnapshot(uid) {
     const userRef = doc(firestore, 'users', uid)
-    console.log('3')
+    // console.log('3')
     return new Promise((resolve, reject) => {
         resolve(getDoc(userRef))
     })
@@ -189,12 +189,12 @@ function checkUrlParam(field) {
 }
 
 // function redirectedCategory() {
-//     console.log("redirect")
+//     // console.log("redirect")
 //     const categoryId = checkUrlParam('categoryId')
 //     if (categoryId) {
-//         console.log(categoryId)
+//         // console.log(categoryId)
 //         const category = document.getElementById(`${ categoryId }`).querySelector('input')
-//         console.log(category)
+//         // console.log(category)
 //         const applyBtn = document.querySelector('#filter-search')
 //         category.checked = true
 //         doNotFetch = false
@@ -227,7 +227,7 @@ onAuthStateChanged(auth, async (user) => {
     const userAppbar = document.getElementById("userAppbar");
     // const agentAppbar = document.getElementById("agentAppbar");
     if (user) {
-        console.log("if")
+        // // console.log("if")
         loggedIn = true
         document.querySelectorAll('.logout-btn').forEach((btn) => {
             btn.classList.remove('d-none');
@@ -237,7 +237,7 @@ onAuthStateChanged(auth, async (user) => {
         const docSnap = getDoc(docRef);
         docSnap.then(async (docSnapshot) => {
             if (docSnapshot.exists()) {
-                console.log("from onAuthStateChanged")
+                // // console.log("from onAuthStateChanged")
                 loggedIn = true
                 userData = docSnapshot.data();
                 roleAccess(userData.role);
@@ -297,7 +297,7 @@ function updateProfilePicture(role, profilePicture) {
 }
 
 function updateProfileName(role, fullName) {
-    console.log(fullName)
+    // // console.log(fullName)
     let profileNameElement;
     switch (role) {
         case 'CUSTOMER':
@@ -352,14 +352,14 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
         const productsRef = collection(firestore, 'products');
         var productIds = []
         cart = await getCart()
-        console.log(cart)
+        // // console.log(cart)
         if (cart.length) {
             cart.forEach(doc => productIds.push(doc.productId))
         }
         var cartStatus = false
 
         if (customQuery) {
-            console.log('from coustom')
+            // console.log('from coustom')
             productsDocs = customDocs
         }
         else {
@@ -369,7 +369,7 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
 
         productsDocs.forEach((doc) => {
             const productData = doc.data();
-            // console.log(productData)
+            // // console.log(productData)
             //check if the product is present in cart
             const resultIndex = productIds.findIndex(id => id === productData.productId)
             if (resultIndex >= 0) cartStatus = true
@@ -380,7 +380,7 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
                 productDescriptionPoints = formatDescription(productData.ProductDescription);
             }
 
-            // if (cartStatus) console.log(productData, productData.quantity >= 1 && cartStatus, cart[resultIndex].quantity)
+            // if (cartStatus) // console.log(productData, productData.quantity >= 1 && cartStatus, cart[resultIndex].quantity)
             // Create a product card
             const productCard = document.createElement('div');
             productCard.classList.add('col-xl-4', 'col-lg-4', 'col-md-6', 'col-sm-6', 'col-xs-6', 'mb-6', 'gi-product-box', 'pro-gl-content')
@@ -448,8 +448,8 @@ async function fetchAndDisplayProducts(customQuery = false, customDocs = null) {
         //         unsubscribeOnSnapshot = onSnapshot(collection(firestore, 'products'),
         //             (querySnapshot => {
         //                 if (!querySnapshot.empty) {
-        //                     console.log('inside onSnapshot')
-        //                     console.log("dfaf")
+        //                     // console.log('inside onSnapshot')
+        //                     // console.log("dfaf")
         //                     querySnapshot.forEach(doc => {
         //                         const itemCard = document.querySelector(`#product-${doc.data().productId}`)
         //                         itemCard.querySelector('.product-quantity').textContent = doc.data().quantity
@@ -497,25 +497,25 @@ function formatDescription(description) {
 async function getCart() {
     return new Promise(async (resolve) => {
         if (loggedIn) {
-            console.log("form getCArt()")
+            // console.log("form getCArt()")
             const cartSnapshot = await getDocs(collection(firestore, 'users', auth.currentUser.uid, 'cart'))
-            console.log("form getCArt(1.1)")
+            // console.log("form getCArt(1.1)")
             if (cartSnapshot.empty) {
-                console.log("form getCArt(1.2)")
+                // console.log("form getCArt(1.2)")
                 resolve([])
             }
             let cart = []
             cartSnapshot.forEach(doc => {
                 cart.push(doc.data())
             })
-            console.log(cart)
+            // console.log(cart)
             resolve(cart)
         }
         else {
-            console.log("form getCArt1")
+            // console.log("form getCArt1")
             const cartSnapshot = JSON.parse(sessionStorage.getItem('cart'))
             if (!cartSnapshot) {
-                console.log('from true')
+                // console.log('from true')
                 resolve([])
                 return
             }
@@ -523,7 +523,7 @@ async function getCart() {
             cartSnapshot.forEach(doc => {
                 cart.push(doc)
             })
-            console.log(cart);
+            // console.log(cart);
             resolve(cart)
         }
     })
@@ -551,7 +551,7 @@ function fetchManufacturers() {
         manufacturerContainer.appendChild(filterOption)
 
         manufacturerSnapshot.forEach(doc => {
-            console.log(doc.data())
+            // console.log(doc.data())
 
             const filterOption = filterOptionClone.cloneNode(true)
             const input = filterOption.querySelector('input')
@@ -574,7 +574,7 @@ function fetchManufacturers() {
 //     return new Promise(async (resolve) => {
 //         const categorySnapshot = await getDocs(collection(firestore, 'categories'))
 //         if (categorySnapshot.empty) {
-//             console.log('from empty')
+//             // console.log('from empty')
 //             resolve()
 //             return
 //         }
@@ -604,28 +604,28 @@ function fetchManufacturers() {
 // }
 
 async function fetchFilteredProducts(event) {
-    console.log('from fetchFilteredProducts')
+    // console.log('from fetchFilteredProducts')
     const filterCards = document.querySelectorAll('.filter-card')
-    // console.log(filterCards)
+    // // console.log(filterCards)
     const sortBy = []
     var fieldValues = []
     filterCards.forEach(filterCard => {
         const radios = filterCard.querySelectorAll('div .filter-option input')
-        // console.log(radios)
+        // // console.log(radios)
         var field = null
         fieldValues = []
         radios.forEach(radio => {
-            // console.log(radio)
-            console.log(radio.value, radio.value !== 'all')
+            // // console.log(radio)
+            // console.log(radio.value, radio.value !== 'all')
             if (radio.value !== 'all') {
-                console.log('from if', radio.checked)
+                // console.log('from if', radio.checked)
                 if (radio.checked) {
                     field = radio.getAttribute('field')
                     fieldValues.push(radio.value)
                 }
             }
             else {
-                console.log('from else')
+                // console.log('from else')
                 if (radio.checked) {
                     radios.forEach(radio => {
                         if (radio.value !== 'all') radio.checked = false
@@ -645,7 +645,7 @@ async function fetchFilteredProducts(event) {
             })
         }
     })
-    console.log(sortBy)
+    // console.log(sortBy)
     // return
 
     if (sortBy.length) {
@@ -669,8 +669,8 @@ async function fetchFilteredProducts(event) {
                 ),
                 (querySnapshot => {
                     if (!querySnapshot.empty) {
-                        console.log('inside onSnapshot')
-                        console.log("dfaf")
+                        // console.log('inside onSnapshot')
+                        // console.log("dfaf")
                         querySnapshot.forEach(doc => {
                             realTimeActions(doc.data())
                         })
@@ -697,8 +697,8 @@ async function fetchFilteredProducts(event) {
                 ),
                 (querySnapshot => {
                     if (!querySnapshot.empty) {
-                        console.log('inside onSnapshot')
-                        console.log("dfaf")
+                        // console.log('inside onSnapshot')
+                        // console.log("dfaf")
                         querySnapshot.forEach(doc => {
                             realTimeActions(doc.data())
                         })
@@ -713,7 +713,7 @@ async function fetchFilteredProducts(event) {
 }
 
 function realTimeActions(data) {
-    console.log('from realTimeActions')
+    // console.log('from realTimeActions')
     const itemCard = document.querySelector(`#product-${data.productId}`)
     itemCard.querySelector('.product-quantity').textContent = data.quantity
     if (data.quantity < 1) {
@@ -752,7 +752,7 @@ function realTimeActions(data) {
 //     `
 //     const categorySnapshot = await getDocs(collection(firestore, 'categories'))
 //     if (categorySnapshot.empty) {
-//         console.log('from empty')
+//         // console.log('from empty')
 //         resolve()
 //         return
 //     }
@@ -830,7 +830,7 @@ function displayMessage(message, type) {
  * }]
  */
 // function fetchCategories_1() {
-//     console.log('inside categories')
+//     // console.log('inside categories')
 //     return new Promise(async (res) => {
 //         const categories = []
 //         const categorySnapshot = await getDocs(collection(firestore, 'categories'))
@@ -850,7 +850,7 @@ function displayMessage(message, type) {
  * Function to embed Categories card in home page
  */
 // async function embedCategoriesCard() {
-//     console.log('inside embed')
+//     // console.log('inside embed')
 //     const categories = await fetchCategories_1()
 //     const categoryBox = document.querySelector('.category-box')
 //     categoryBox.innerHTML = ''
@@ -939,7 +939,7 @@ function fetchSizes() {
 async function embedSizesFilter() {
     const sizeContainer = document.querySelector('.size-list')
     const sizes = await fetchSizes()
-    // console.log(sizes)
+    // // console.log(sizes)
     if (sizes.length) {
         sizes.forEach(ele => {
             const size = document.createElement('li')
@@ -952,7 +952,7 @@ async function embedSizesFilter() {
                                     </div>
             `
             sizeContainer.appendChild(size)
-            // console.log(size.querySelector('input'))
+            // // console.log(size.querySelector('input'))
             size.querySelector('input').addEventListener('change', (e) => {
                 if (e.target.checked) addFilterCard(ele.size, 'size', ele.sizeId)
                 else removeFilterCard('size', ele.sizeId)
@@ -984,22 +984,22 @@ function addFilterCard(parameter, field, value = null) {
     span.innerHTML = `${parameter}<a class="gi-select-cancel filter-card-close" href="javascript:void(0)">×</a>`
     filterCards.appendChild(span)
     span.querySelector('.filter-card-close').addEventListener('click', (e) => {
-        console.log('from remove')
+        // console.log('from remove')
         span.remove(value)
         document.getElementById(`${value}`).querySelector('input').checked = false
         const filterCards = document.querySelector('.filter-cards')
-        console.log(filterCards.childNodes)
+        // console.log(filterCards.childNodes)
         if (filterCards.querySelectorAll('span').length == 2) fetch()
     })
 }
 
 function removeFilterCard(field, value) {
     filterChange = true
-    console.log('from remove filter card')
+    // console.log('from remove filter card')
     const filterCards = document.querySelector('.filter-cards')
     filterCards.querySelector(`span[field='${field}'][value='${value}']`).remove()
     if (filterCards.querySelectorAll('span').length == 2) fetch()
-    // console.log(querySnapshot.docs)
+    // // console.log(querySnapshot.docs)
 }
 
 function clearAllFilters() {
@@ -1024,7 +1024,7 @@ function clearAllFilters() {
  */
 async function fetch() {
     return new Promise(async (res) => {
-        console.log('1.1')
+        // console.log('1.1')
         fetchProcess = true
         let priceFilter = false
         let categoryFilter = false
@@ -1033,10 +1033,10 @@ async function fetch() {
         let selectedValue = getSortOder()
 
         if (!filterChange && !sortOrderChange && nextPageFlag) {
-            console.log('from lastVisibleDoc')
+            // console.log('from lastVisibleDoc')
             lastVisibleDoc = querySnapshot.docs[querySnapshot.docs.length - 1]
             if (!lastVisibleDoc) {
-                console.log('from not lastVisibleDoc')
+                // console.log('from not lastVisibleDoc')
                 if (pageNotebook.length) {
                     if (pageNotebook[pageNotebook.length - 1].length) {
                         lastVisibleDoc = pageNotebook[pageNotebook.length - 1][pageNotebook[pageNotebook.length - 1].length - 1]
@@ -1070,23 +1070,23 @@ async function fetch() {
         // const priceFrom = document.querySelector('.price-from')
         // const priceTo = document.querySelector('.price-to')
 
-        // console.log(priceTo.value)
+        // // console.log(priceTo.value)
         // if ((priceFrom.value === slider.dataset.min && priceTo.value === slider.dataset.max) || !priceTo.value || !priceFrom.value) priceFilter = false
         // else {
         //     price.splice(0)
-        //     console.log(price)
+        //     // console.log(price)
         //     price.push(parseInt(priceFrom.value))
         //     price.push(parseInt(priceTo.value))
         //     priceFilter = true
         // }
 
-        // console.log(categories, sizes, price)
-        // console.log(categoryFilter, sizeFilter, priceFilter)
+        // // console.log(categories, sizes, price)
+        // // console.log(categoryFilter, sizeFilter, priceFilter)
 
         let q = null
         if (categoryFilter && !sizeFilter && !priceFilter) {
             if (selectedValue == 1) {
-                console.log('from categories 1', selectedValue, filterChange, sortOrderChange)
+                // console.log('from categories 1', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange) {
                     q = query(collection(firestore, 'products'),
                         where(productFilterFieldMap.category, 'in', categories),
@@ -1103,7 +1103,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 2) {
-                console.log('from categories 2', selectedValue, filterChange, sortOrderChange)
+                // console.log('from categories 2', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange) {
                     q = query(collection(firestore, 'products'),
                         where(productFilterFieldMap.category, 'in', categories),
@@ -1121,7 +1121,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 3) {
-                console.log('from categories 3', selectedValue, filterChange, sortOrderChange)
+                // console.log('from categories 3', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         where(productFilterFieldMap.category, 'in', categories),
@@ -1139,7 +1139,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 4) {
-                console.log('from categories 4', selectedValue, filterChange, sortOrderChange)
+                // console.log('from categories 4', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         where(productFilterFieldMap.category, 'in', categories),
@@ -1157,7 +1157,7 @@ async function fetch() {
                 }
             }
             else {
-                console.log('from categories else', selectedValue, filterChange, sortOrderChange)
+                // console.log('from categories else', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         where(productFilterFieldMap.category, 'in', categories),
@@ -1177,7 +1177,7 @@ async function fetch() {
 
         else if (!categoryFilter && sizeFilter && !priceFilter) {
             if (selectedValue == 1) {
-                console.log('from sizefilter 1', selectedValue, filterChange, sortOrderChange)
+                // console.log('from sizefilter 1', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         where(productFilterFieldMap.size, 'in', sizes),
@@ -1195,7 +1195,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 2) {
-                console.log('from sizefilter 2', selectedValue, filterChange, sortOrderChange)
+                // console.log('from sizefilter 2', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         where(productFilterFieldMap.size, 'in', sizes),
@@ -1213,7 +1213,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 3) {
-                console.log('from sizefilter 3', selectedValue, filterChange, sortOrderChange)
+                // console.log('from sizefilter 3', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         where(productFilterFieldMap.size, 'in', sizes),
@@ -1231,7 +1231,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 4) {
-                console.log('from sizefilter 4', selectedValue, filterChange, sortOrderChange)
+                // console.log('from sizefilter 4', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         where(productFilterFieldMap.size, 'in', sizes),
@@ -1249,7 +1249,7 @@ async function fetch() {
                 }
             }
             else {
-                console.log('from size else', selectedValue, filterChange, sortOrderChange)
+                // console.log('from size else', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         where(productFilterFieldMap.size, 'in', sizes),
@@ -1267,7 +1267,7 @@ async function fetch() {
         }
         else if (categoryFilter && sizeFilter && !priceFilter) {
             if (selectedValue == 1) {
-                console.log('from cate size 1', selectedValue, filterChange, sortOrderChange)
+                // console.log('from cate size 1', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1291,7 +1291,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 2) {
-                console.log('from cate size 2', selectedValue, filterChange, sortOrderChange)
+                // console.log('from cate size 2', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1315,7 +1315,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 3) {
-                console.log('from cate size 3', selectedValue, filterChange, sortOrderChange)
+                // console.log('from cate size 3', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1338,7 +1338,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 4) {
-                console.log('from cate size 4', selectedValue, filterChange, sortOrderChange)
+                // console.log('from cate size 4', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1362,7 +1362,7 @@ async function fetch() {
                 }
             }
             else {
-                console.log('from categories size else', selectedValue, filterChange, sortOrderChange)
+                // console.log('from categories size else', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1386,7 +1386,7 @@ async function fetch() {
         }
         else if (categoryFilter && !sizeFilter && priceFilter) {
             if (selectedValue == 1) {
-                console.log('from cate price 1', selectedValue, filterChange, sortOrderChange)
+                // console.log('from cate price 1', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1411,7 +1411,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 2) {
-                console.log('from cate price 2', selectedValue, filterChange, sortOrderChange)
+                // console.log('from cate price 2', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1437,7 +1437,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 3) {
-                console.log('from cate price 3', selectedValue, filterChange, sortOrderChange)
+                // console.log('from cate price 3', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1463,7 +1463,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 4) {
-                console.log('from cate price 4', selectedValue, filterChange, sortOrderChange)
+                // console.log('from cate price 4', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1489,7 +1489,7 @@ async function fetch() {
                 }
             }
             else {
-                console.log('from cate price else', selectedValue, filterChange, sortOrderChange)
+                // console.log('from cate price else', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1514,7 +1514,7 @@ async function fetch() {
         }
         else if (!categoryFilter && sizeFilter && priceFilter) {
             if (selectedValue == 1) {
-                console.log('from size price 1', selectedValue, filterChange, sortOrderChange)
+                // console.log('from size price 1', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1540,7 +1540,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 2) {
-                console.log('from size price 2', selectedValue, filterChange, sortOrderChange)
+                // console.log('from size price 2', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1566,7 +1566,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 3) {
-                console.log('from size price 3', selectedValue, filterChange, sortOrderChange)
+                // console.log('from size price 3', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1592,7 +1592,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 4) {
-                console.log('from size price 4', selectedValue, filterChange, sortOrderChange)
+                // console.log('from size price 4', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1618,7 +1618,7 @@ async function fetch() {
                 }
             }
             else {
-                console.log('from size price else', selectedValue, filterChange, sortOrderChange)
+                // console.log('from size price else', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1644,7 +1644,7 @@ async function fetch() {
         }
         else if (!categoryFilter && !sizeFilter && priceFilter) {
             if (selectedValue == 1) {
-                console.log('from price 1', selectedValue, filterChange, sortOrderChange)
+                // console.log('from price 1', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1658,7 +1658,7 @@ async function fetch() {
                     )
                 }
                 else {
-                    console.log('form target')
+                    // console.log('form target')
                     q = query(collection(firestore, 'products'),
                         and(
                             where(productFilterFieldMap.price, '>=', price[0]),
@@ -1671,7 +1671,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 2) {
-                console.log('from price 2', selectedValue, filterChange, sortOrderChange)
+                // console.log('from price 2', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         where(productFilterFieldMap.price, '>=', price[0]),
@@ -1691,7 +1691,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 3) {
-                console.log('from price 3', selectedValue, filterChange, sortOrderChange)
+                // console.log('from price 3', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         where(productFilterFieldMap.price, '>=', price[0]),
@@ -1710,7 +1710,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 4) {
-                console.log('from price 4', selectedValue, filterChange, sortOrderChange)
+                // console.log('from price 4', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         where(productFilterFieldMap.price, '>=', price[0]),
@@ -1730,8 +1730,8 @@ async function fetch() {
                 }
             }
             else {
-                console.log('from price else', selectedValue, filterChange, sortOrderChange)
-                console.log(lastVisibleDoc)
+                // console.log('from price else', selectedValue, filterChange, sortOrderChange)
+                // console.log(lastVisibleDoc)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         where(productFilterFieldMap.price, '>=', price[0]),
@@ -1751,7 +1751,7 @@ async function fetch() {
         }
         else if (categoryFilter && sizeFilter && priceFilter) {
             if (selectedValue == 1) {
-                console.log('from cate size price 1', selectedValue, filterChange, sortOrderChange)
+                // console.log('from cate size price 1', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1779,7 +1779,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 2) {
-                console.log('from cate size price 2', selectedValue, filterChange, sortOrderChange)
+                // console.log('from cate size price 2', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1807,7 +1807,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 3) {
-                console.log('from cate size price 3', selectedValue, filterChange, sortOrderChange)
+                // console.log('from cate size price 3', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1835,7 +1835,7 @@ async function fetch() {
                 }
             }
             else if (selectedValue == 4) {
-                console.log('from cate size price 4', selectedValue, filterChange, sortOrderChange)
+                // console.log('from cate size price 4', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1863,7 +1863,7 @@ async function fetch() {
                 }
             }
             else {
-                console.log('from cate size price else', selectedValue, filterChange, sortOrderChange)
+                // console.log('from cate size price else', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         and(
@@ -1891,7 +1891,7 @@ async function fetch() {
         }
         else {
             if (selectedValue == 1) {
-                console.log('from else 1', selectedValue, filterChange, sortOrderChange)
+                // console.log('from else 1', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         orderBy(productSortFieldMap.name),
@@ -1905,7 +1905,7 @@ async function fetch() {
                 )
             }
             else if (selectedValue == 2) {
-                console.log('from else 2', selectedValue, filterChange, sortOrderChange)
+                // console.log('from else 2', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     q = query(collection(firestore, 'products'),
                         orderBy(productSortFieldMap.name, 'desc'),
@@ -1919,7 +1919,7 @@ async function fetch() {
                 )
             }
             else if (selectedValue == 3) {
-                console.log('from else 3', selectedValue, filterChange, sortOrderChange)
+                // console.log('from else 3', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
                     orderByuery(collection(firestore, 'products'),
                         orderBy(productSortFieldMap.price),
@@ -1934,7 +1934,7 @@ async function fetch() {
             }
             else if (selectedValue == 4) {
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
-                    console.log('from else 4', selectedValue, filterChange, sortOrderChange)
+                    // console.log('from else 4', selectedValue, filterChange, sortOrderChange)
                     q = query(collection(firestore, 'products'),
                         orderBy(productSortFieldMap.price, 'desc'),
                         limit(productsPerPage),
@@ -1947,9 +1947,9 @@ async function fetch() {
                 )
             }
             else {
-                console.log('from else else', selectedValue, filterChange, sortOrderChange)
+                // console.log('from else else', selectedValue, filterChange, sortOrderChange)
                 if (!filterChange && !sortOrderChange && lastVisibleDoc) {
-                    console.log('end')
+                    // console.log('end')
                     q = query(collection(firestore, 'products'),
                         limit(productsPerPage),
                         startAfter(lastVisibleDoc)
@@ -1963,7 +1963,7 @@ async function fetch() {
             }
         }
 
-        console.log('out of if else')
+        // console.log('out of if else')
 
         querySnapshot = await getDocs(q)
         if (querySnapshot.empty) {
@@ -1988,7 +1988,7 @@ async function fetch() {
             }
         }
         else {
-            console.log(filterChange, sortOrderChange, priceFilterChange)
+            // console.log(filterChange, sortOrderChange, priceFilterChange)
             if (!filterChange && !sortOrderChange && !priceFilterChange) {
                 pageNotebook.push(querySnapshot.docs)
             }
@@ -2002,7 +2002,7 @@ async function fetch() {
             filterChange = false
             // sortProduct()
         }
-        console.log(pageNotebook)
+        // console.log(pageNotebook)
         fetchProcess = false
         res()
     })
@@ -2050,7 +2050,7 @@ function formatModalDescription(description) {
  * @author dev
  */
 function sortChange(e) {
-    console.log('from sortChange')
+    // console.log('from sortChange')
     sortOrderChange = true
     fetch()
 }
@@ -2084,7 +2084,7 @@ function redirectToProductDetails(productId) {
  * @author dev
  */
 function nextPage() {
-    console.log('from nextPage')
+    // console.log('from nextPage')
     nextPageFlag = true
     currentPage++
     if (!filterChange && !sortOrderChange) {
@@ -2100,7 +2100,7 @@ function nextPage() {
  * @author dev
  */
 function prevPage() {
-    console.log('from prev')
+    // console.log('from prev')
     prevPageFlag = true
     currentPage--
     if (currentPage != -1) {

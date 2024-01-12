@@ -57,7 +57,7 @@ confirmLogoutBtn.addEventListener("click", () => {
  */
 function updateCart() {
     return new Promise(async (resolve) => {
-        console.log("from update cart")
+        // console.log("from update cart")
         const shownCart = document.querySelector('#shown-cart')
 
         let count = 0
@@ -72,7 +72,7 @@ function updateCart() {
         else {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = 0)
         }
-        console.log("resolve")
+        // console.log("resolve")
         resolve()
     })
 }
@@ -102,7 +102,7 @@ onAuthStateChanged(auth, async (user) => {
     if (user) {
         loggedIn = true
         onLoggedIn()
-        console.log(user.id)
+        // console.log(user.id)
         document.querySelectorAll('.logout-btn').forEach((btn) => {
             btn.classList.remove('d-none');
         });
@@ -110,7 +110,7 @@ onAuthStateChanged(auth, async (user) => {
         const docSnap = getDoc(docRef);
         docSnap.then(async (docSnapshot) => {
             if (docSnapshot.exists()) {
-                console.log("from onAuthStateChanged")
+                // console.log("from onAuthStateChanged")
                 loggedIn = true
                 userData = docSnapshot.data();
                 roleAccess(userData.role);
@@ -184,7 +184,7 @@ function roleAccess(role) {
 
 function updateProfileName(role, fullName) {
     // Based on the role, select the appropriate element
-    console.log(fullName)
+    // console.log(fullName)
     let profileNameElement;
     switch (role) {
         case 'CUSTOMER':
@@ -341,11 +341,11 @@ async function getOrderedDetails() {
     // console.log("2" + userId)
     // console.log(userId)
     if(userId===null && orderId){
-        console.log("if")
+        // console.log("if")
         orderDetails = await getOrderDetails(orderId, auth.currentUser.uid)
     }
     else{
-        console.log("else")
+        // console.log("else")
         orderDetails = await getOrderDetails(orderId, userId)
     }
     return orderDetails;
@@ -416,16 +416,16 @@ async function embedOrderedProducts() {
 }
 
 async function embedAddress() {
-    console.log(orderDetails.addressRef.id)
+    // console.log(orderDetails.addressRef.id)
     const addressData = await getAddress(orderDetails.addressRef, null, { addressRef: true })
-    console.log(addressData)
+    // console.log(addressData)
 
     embedBillingAddress(addressData)
     embedShippingAddress(addressData)
 }
 
 function embedBillingAddress(addressData) {
-    console.log(addressData)
+    // console.log(addressData)
     const billingAddressContainer = document.querySelector('.billing-address')
     billingAddressContainer.innerHTML = `
                                     <h3 class="h6 order-details-label">Billing Address</h3>

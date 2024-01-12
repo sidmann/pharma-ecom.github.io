@@ -76,7 +76,7 @@ let productDocs = null
 async function getUserSnapshot(uid) {
     return new Promise((resolve, reject) => {
         const userRef = doc(firestore, 'users', uid)
-        console.log('getUserSnapshot')
+        // console.log('getUserSnapshot')
         resolve(getDoc(userRef))
     })
 }
@@ -107,28 +107,28 @@ function postPageLoadEventListener() {
 async function getCart() {
     return new Promise(async (resolve) => {
         if (loggedIn) {
-            console.log("if")
-            console.log("form getCArt()")
+            // console.log("if")
+            // console.log("form getCArt()")
             const cartSnapshot = await getDocs(collection(firestore, 'users', auth.currentUser.uid, 'cart'))
-            console.log("form getCArt(1.1)")
+            // console.log("form getCArt(1.1)")
             if (cartSnapshot.empty) {
-                console.log("form getCArt(1.2)")
+                // console.log("form getCArt(1.2)")
                 resolve([])
             }
-            console.log("form getCArt(1.3)")
+            // console.log("form getCArt(1.3)")
             let cart = []
             cartSnapshot.forEach(doc => {
                 cart.push(doc.data())
             })
-            console.log("form getCArt(1.4)")
+            // console.log("form getCArt(1.4)")
             resolve(cart)
         }
         else {
-            console.log("else")
-            console.log("form getCArt1)")
+            // console.log("else")
+            // console.log("form getCArt1)")
             const cartSnapshot = JSON.parse(sessionStorage.getItem('cart'))
             if (!cartSnapshot) {
-                console.log('from true')
+                // console.log('from true')
                 resolve([])
                 return
             }
@@ -155,7 +155,7 @@ function updateCart() {
         // console.log("from update cart")
         // const shownCart = document.querySelector('#shown-cart')
         let cart = await getCart()
-        console.log(cart.length)
+        // console.log(cart.length)
 
         if (cart.length) {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = cart.length)
@@ -163,7 +163,7 @@ function updateCart() {
         else {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = 0)
         }
-        console.log("resolve")
+        // console.log("resolve")
         resolve()
     })
 }
@@ -194,7 +194,7 @@ onAuthStateChanged(auth, async (user) => {
     } else {
         // User is not logged in
         loggedIn = false
-        console.log("form else")
+        // console.log("form else")
         document.querySelectorAll('.logout-btn').forEach((btn) => {
             btn.classList.add('d-none');
         });
@@ -321,7 +321,7 @@ async function fetchAndDisplayProducts() {
         //get the cart from user doc
         cartList = []
         cartSnapshot.forEach(doc => {
-            console.log(doc.data());
+            // console.log(doc.data());
             cartList.push(doc.data())
         })
     }
@@ -341,14 +341,14 @@ async function fetchAndDisplayProducts() {
     cartList.forEach(item => {
         cartItems.push(item.productId)
     })
-    console.log(cartList)
+    // console.log(cartList)
     const productsRef = collection(firestore, 'products');
     const q = query(productsRef, where('productId', 'in', cartItems))
-    console.log(cartItems)
+    // console.log(cartItems)
 
     const unsubscribe = getDocs(q)
         .then(async (cartSnapshot) => {
-            console.log(cartSnapshot.docs)
+            // console.log(cartSnapshot.docs)
             if (cartItems.length > cartSnapshot.size) {
                 displayMessage('Some Products seems to have been removed. !', 'danger')
                 if (cartSnapshot.size == 0) {
@@ -360,14 +360,14 @@ async function fetchAndDisplayProducts() {
             cartSnapshot.forEach(async (doc) => {
                 const productsContainer = document.querySelector('.cart-products');
                 const productData = doc.data();
-                console.log(productData);
+                // console.log(productData);
                 const productUrl = productData.imageUrl;
                 // console.log(productUrl);
 
                 var result = cartList.findIndex(item => item.productId === doc.data().productId)
-                console.log(result);
+                // console.log(result);
                 var userQuantity = +cartList[result].quantity
-                console.log(doc.data().productId, userQuantity)
+                // console.log(doc.data().productId, userQuantity)
 
                 // Create a product card
                 const tableRow = document.createElement('tr')
@@ -409,7 +409,7 @@ async function fetchAndDisplayProducts() {
                 tableRow.querySelector('.dec').addEventListener('click', decreaseQuantity.bind(this, productData))
 
                 await checkoutSummary()
-                console.log("2.1")
+                // console.log("2.1")
             });
 
             stopProductLoader()
@@ -563,14 +563,13 @@ function getJsonBill(element) {
         grandTotal: bill.querySelector('.bill-grand-total').textContent
     }
 
-    console.log(element.classList.contains('proceed-btn'))
-    console.log(element)
+    // console.log(element.classList.contains('proceed-btn'))
+    // console.log(element)
     if (element.classList.contains('proceed-btn')) {
         checkoutSummary.referralId = document.querySelector('#membership-id-input').value
     }
-    console.log(checkoutSummary)
-
     // console.log(checkoutSummary)
+
     localStorage.setItem('checkoutSummary', JSON.stringify(checkoutSummary))
 }
 
@@ -578,7 +577,7 @@ function getJsonBill(element) {
 function getProductIds() {
     var productIds = []
     cartList.forEach(item => productIds.push(item.productId))
-    console.log(productIds)
+    // console.log(productIds)
     return productIds
 }
 
@@ -586,7 +585,7 @@ function getProductIds() {
  * Stop the loader for product
  */
 function stopProductLoader() {
-    console.log('from stopLoader')
+    // console.log('from stopLoader')
     document.querySelector('.product-loader').classList.add('d-none')
     document.querySelector('.cart-section').classList.remove('d-none')
 
@@ -598,17 +597,17 @@ function stopProductLoader() {
  * @author dev
  */
 async function removeProduct(productId, e) {
-    console.log(e)
+    // console.log(e)
     const parentNode = e.target.closest('.remove-product-parent')
     parentNode.innerHTML = `
     <div class="spinner-border" role="status" style="scale: 0.7;">
       <span class="visually-hidden">Loading...</span>
     </div>
     `
-    console.log(productId)
+    // console.log(productId)
 
     if (loggedIn) {
-        console.log('productId', productId)
+        // console.log('productId', productId)
         await deleteDoc(doc(firestore, 'users', auth.currentUser.uid, 'cart', productId))
     }
     else {
@@ -706,12 +705,12 @@ function showEmptyCart() {
  * @author dev
  */
 function getProductStock(productId) {
-    console.log('from getProductStock', productDocs.length)
+    // console.log('from getProductStock', productDocs.length)
     if (!productDocs.length) {
         return false
     }
     const result = productDocs.findIndex(doc => doc.data().productId === productId)
-    console.log(result)
+    // console.log(result)
     if (result >= 0) {
         return +productDocs[result].data().quantity
     }
@@ -726,12 +725,12 @@ function getProductStock(productId) {
  * @author dev
  */
 function getProductPrice(productId) {
-    console.log('from getProductStock', productDocs.length)
+    // console.log('from getProductStock', productDocs.length)
     if (!productDocs.length) {
         return false
     }
     const result = productDocs.findIndex(doc => doc.data().productId === productId)
-    console.log(result)
+    // console.log(result)
     if (result >= 0) {
         return +productDocs[result].data().price
     }
@@ -748,7 +747,7 @@ async function increaseQuantity(productData, event) {
     targetButton.disabled = true
 
     const productMaxStock = getProductStock(productId)
-    console.log(productMaxStock)
+    // console.log(productMaxStock)
     if (productMaxStock === false) {
         displayMessage('Oops! Something went wrong. please refresh.', 'danger')
     }
@@ -788,19 +787,19 @@ async function increaseQuantity(productData, event) {
  */
 async function decreaseQuantity(productData, event) {
     const productId = productData.productId
-    console.log('from decreaseQuantity')
-    console.log(1)
+    // console.log('from decreaseQuantity')
+    // console.log(1)
     let targetButton = event.target
     let userInput = document.querySelector(`.product-${productId} .user-quantity`)
 
     //disable button
     targetButton.disabled = true
 
-    console.log(2)
+    // console.log(2)
     if (userInput.value >= 2) {
         await preIncreaseDecreaseQuantity()
         if (loggedIn) {
-            console.log(3)
+            // console.log(3)
             const cartDocs = await getDocs(
                 query(
                     collection(firestore, 'users', auth.currentUser.uid, 'cart'),
@@ -810,7 +809,7 @@ async function decreaseQuantity(productData, event) {
             await updateDoc(cartDocs.docs[0].ref, { quantity: --userInput.value })
         }
         else {
-            console.log(5)
+            // console.log(5)
             const cart = JSON.parse(sessionStorage.getItem('cart'))
             const result = cart.findIndex(item => item.productId === productId);
             if (result >= 0) {
@@ -819,7 +818,7 @@ async function decreaseQuantity(productData, event) {
             sessionStorage.setItem('cart', JSON.stringify(cart))
             userInput.value = --userInput.value
         }
-        console.log(6)
+        // console.log(6)
     }
     else {
 
@@ -866,21 +865,21 @@ function showOverlay() {
  * @author dev
  */
 function hideOverlay() {
-    console.log('hide overlay', 1)
+    // console.log('hide overlay', 1)
     const overlay = document.getElementById('overlay')
     overlay.classList.remove('show-loader')
     overlay.classList.remove('hide-loader')
-    console.log('hide overlay', 2)
+    // console.log('hide overlay', 2)
     overlay.classList.add('hide-loader')
-    console.log('hide overlay', 3)
+    // console.log('hide overlay', 3)
     setTimeout(() => {
         document.getElementById('overlay').classList.add('d-none')
     }, 500);
-    console.log('hide overlay', 4)
+    // console.log('hide overlay', 4)
 }
 
 function updateProductCardTotal(productData) {
-    console.log(productData)
+    // console.log(productData)
     const productCard = document.querySelector(`.product-${productData.productId}`)
     const productTotal = productCard.querySelector('.product-total')
     productTotal.textContent = productData.price * +productCard.querySelector('.user-quantity').value
@@ -892,7 +891,7 @@ function checkout() {
         displayMessage('Please Login to continue. !', 'danger')
         return
     }
-    console.log('from checkout')
+    // console.log('from checkout')
     const subtotal = document.querySelector('.checkout-summary-subtotal').textContent
     const deliveryFee = document.querySelector('.checkout-summary-delivery').textContent
     const total = document.querySelector('.checkout-summary-total').textContent
@@ -903,10 +902,10 @@ function checkout() {
         total: total ? total : null
     }
 
-    console.log(bill)
+    // console.log(bill)
 
     sessionStorage.setItem('bill', JSON.stringify(bill))
     window.location.href = `checkout.html`
 
-    console.log('from checkout end')
+    // console.log('from checkout end')
 }

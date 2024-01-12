@@ -35,7 +35,7 @@ const urlParam = new URLSearchParams(window.location.search)
 if (sessionStorage.getItem('bill')) {
     bill = JSON.parse(sessionStorage.getItem('bill'))
     sessionStorage.removeItem('bill')
-    console.log(bill)
+    // console.log(bill)
 }
 else {
     window.location.href = 'cart.html'
@@ -117,15 +117,15 @@ onAuthStateChanged(auth, async (user) => {
         }
         // User is logged in
         onLoggedIn();
-        console.log('onauth', 2)
+        // console.log('onauth', 2)
         const docRef = doc(firestore, "users", user.uid);
         const docSnap = getDoc(docRef);
         var userData = null;
         loggedIn = true
-        console.log('onauth', 3)
+        // console.log('onauth', 3)
         // await postPageLoadEventListener()
         // await postPageLoadFunctions()
-        console.log('onauth', 5)
+        // console.log('onauth', 5)
         docSnap.then((docSnapshot) => {
             // console.log(docSnapshot)
             if (docSnapshot.exists()) {
@@ -142,7 +142,7 @@ onAuthStateChanged(auth, async (user) => {
         });
         loggedIn = false;
     }
-    console.log('onauth', 6)
+    // console.log('onauth', 6)
     await postPageLoadFunctions()
     await postPageLoadEventListener()
 });
@@ -160,7 +160,7 @@ function roleAccess(role) {
 }
 
 function updateProfileName(role, fullName) {
-    console.log(fullName)
+    // console.log(fullName)
     let profileNameElement;
     switch (role) {
         case 'CUSTOMER':
@@ -461,8 +461,8 @@ document.getElementById("address-option-new-tab").addEventListener("submit", asy
 
         // Validate first name (minimum 3 characters)
         if (!isValidFullName(fullName) || (!isValidPhoneNumber(mobileNumber)) || (!isValidPinCode(pinCode))) {
-            console.log(!isValidFullName(fullName))
-            console.log((!isValidPhoneNumber(mobileNumber)))
+            // console.log(!isValidFullName(fullName))
+            // console.log((!isValidPhoneNumber(mobileNumber)))
             document.querySelector('#addAddressBtn').disabled = false
             document.querySelector('#addAddressBtn').textContent = 'Add Address'
             displayMessage('Please check your entered values!', 'danger')
@@ -495,7 +495,7 @@ document.getElementById("address-option-new-tab").addEventListener("submit", asy
         // Add the address Id
         await updateDoc(newAddressRef, { addressId: newAddressRef.id });
 
-        console.log(isFirstAddress);
+        // console.log(isFirstAddress);
 
         if (isFirstAddress) {
             // If this is the first address, set it as the default address
@@ -503,7 +503,7 @@ document.getElementById("address-option-new-tab").addEventListener("submit", asy
         }
 
         // Address added successfully
-        console.log("Address added to Firestore");
+        // console.log("Address added to Firestore");
 
         // Display a success message to the user
         displayMessage("Address added successfully.", "success");
@@ -577,7 +577,7 @@ function displayMessage(message, type) {
     // Create a clone of the toast template
     const toast = document.querySelector(".toast").cloneNode(true);
 
-    console.log(toast)
+    // console.log(toast)
     // Set the success message
     toast.querySelector(".compare-note").innerHTML = message;
 
@@ -630,7 +630,7 @@ async function createOrder(event) {
 
     showLoader('Placing order. Please wait ...', 'Its taking longer than expected.')
     elementSpinner(event.target, true, '')
-    console.log(event.target)
+    // console.log(event.target)
     //object skeleton
     // const itemPrototype = {
     //     productName: "",
@@ -687,7 +687,7 @@ async function createOrder(event) {
         const itemSnapshot = await getDocs(query(productRef, where('productId', "==", item.productId)))
         var productData = itemSnapshot.docs[0].data()
         productData.quantity -= item.productQuantity
-        console.log(itemSnapshot.docs[0].ref)
+        // console.log(itemSnapshot.docs[0].ref)
         await updateDoc(itemSnapshot.docs[0].ref, productData)
     })
 
@@ -759,11 +759,11 @@ async function deleteCartItems() {
  */
 function updateCart() {
     return new Promise(async (resolve) => {
-        console.log("from update cart")
+        // console.log("from update cart")
         const shownCart = document.querySelector('#shown-cart')
 
         let cart = await getCart()
-        console.log(cart.length)
+        // console.log(cart.length)
 
         if (cart.length) {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = cart.length)
@@ -771,7 +771,7 @@ function updateCart() {
         else {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = 0)
         }
-        console.log("resolve")
+        // console.log("resolve")
         resolve()
     })
 }
@@ -797,7 +797,7 @@ async function getCart() {
         else {
             const cartSnapshot = JSON.parse(sessionStorage.getItem('cart'))
             if (!cartSnapshot) {
-                console.log('from true')
+                // console.log('from true')
                 resolve([])
                 return
             }
@@ -883,9 +883,9 @@ function getAddressRef() {
 }
 
 async function postPageLoadAddressAction() {
-    console.log("post")
+    // console.log("post")
     const result = await checkForExistingAddress()
-    console.log(result)
+    // console.log(result)
 
     if (!result) {
         toogleAddressOptions(false, true)
@@ -924,7 +924,7 @@ function toogleAddressOptions(toggle = false, disable = false) {
 }
 
 function changeAddressTab() {
-    console.log('from change address')
+    // console.log('from change address')
     const addressNew = document.querySelector('.address-option-new')
 
     if (addressNew.checked) {
@@ -966,7 +966,7 @@ async function getAddresses() {
 }
 
 async function embedAddress() {
-    console.log("embedAddress")
+    // console.log("embedAddress")
     const addressDocs = await getAddresses()
     if (addressDocs.empty) {
         displayMessage('No saved address. !', 'danger')
@@ -1014,11 +1014,11 @@ async function embedAddress() {
 
 function selectAddress(addressDoc, e) {
     // console.log(addressDoc)
-    console.log("address")
+    // console.log("address")
     // console.log(addressDoc.id)
     const shippingAddressContainer = document.querySelector('.shipping-address')
     const alreadySelectedAddress = document.querySelector('.selected-address')
-    console.log(alreadySelectedAddress)
+    // console.log(alreadySelectedAddress)
     if (alreadySelectedAddress) {
         alreadySelectedAddress.remove()
     }
@@ -1079,7 +1079,7 @@ async function embedSummaryproductCards() {
             window.location.href = 'products.html'
         }
     }
-    console.log(cartList)
+    // console.log(cartList)
     let productsIds = getProductsIds()
     const q = query(collection(firestore, 'products'), where('productId', 'in', productsIds))
     productSnapshot = await getDocs(q)
@@ -1089,7 +1089,7 @@ async function embedSummaryproductCards() {
     // console.log(productSnapshot);
 
     productSnapshot.forEach(doc => {
-        console.log("if")
+        // console.log("if")
         const productCard = document.createElement('div')
         productCard.classList.add("col-sm-12", "mb-6")
         productCard.innerHTML = `
@@ -1112,7 +1112,7 @@ async function embedSummaryproductCards() {
                                         </div>
                                     </div>
         `
-        console.log("else")
+        // console.log("else")
         checkoutSummaryProducts.appendChild(productCard)
     })
 
@@ -1131,15 +1131,15 @@ function generateOrderId() {
 
 async function payment(e) {
     const addressCard = document.querySelector('.selected-address')
-    console.log(addressCard)
-    console.log("2")
+    // console.log(addressCard)
+    // console.log("2")
     if (!addressCard) {
         displayMessage('Please give a address. !', 'danger')
         return
     }
 
     const addressId = addressCard.getAttribute('data-id')
-    console.log(addressId)
+    // console.log(addressId)
     options.amount = bill.total * 100
     //get the usre details
     const userSnapshot = await getDoc(doc(firestore, 'users', auth.currentUser.uid))
@@ -1147,7 +1147,7 @@ async function payment(e) {
     options.prefill.email = userSnapshot.data().email
     options.prefill.contact = userSnapshot.data().phoneNumber
 
-    console.log(options, userSnapshot.data())
+    // console.log(options, userSnapshot.data())
     const currentDate = new Date();
     const currentTime = currentDate.toLocaleTimeString('en-US', {
         hour: '2-digit',
@@ -1160,20 +1160,20 @@ async function payment(e) {
     options.handler = async function (response) {
         showOverlay()
         cartList.forEach(item => {
-            console.log('from forEach')
+            // console.log('from forEach')
             const res = productSnapshot.docs.findIndex(product => product.data().productId === item.productId)
             if (res >= 0) {
-                console.log('from forEach if ')
+                // console.log('from forEach if ')
                 const res1 = cartList.findIndex(item1 => item1.productId === item.productId)
-                console.log('from forEach if if')
+                // console.log('from forEach if if')
                 if (res1 >= 0) {
-                    console.log(cartList[res1], productSnapshot.docs[res].data().price)
+                    // console.log(cartList[res1], productSnapshot.docs[res].data().price)
                     cartList[res1].price = productSnapshot.docs[res].data().price
                     cartList[res1].name = productSnapshot.docs[res].data().name
                 }
             }
         })
-        console.log(1)
+        // console.log(1)
         await setDoc(doc(collection(firestore, 'users', auth.currentUser.uid, 'orders'), orderId), {
             orderId: orderId,
             productsDetails: cartList,
@@ -1184,7 +1184,7 @@ async function payment(e) {
             orderDate: currentDate.toLocaleDateString(),
             orderTime: currentTime,
         })
-        console.log(2)
+        // console.log(2)
         const cartSnapshot = await getDocs(collection(firestore, 'users', auth.currentUser.uid, 'cart'))
         const allPromise = cartSnapshot.docs.map(async (cartItem) => {
             const productSnapshot = await getDocs(query(collection(firestore, 'products'), where('productId', '==', cartItem.data().productId)))
@@ -1194,9 +1194,9 @@ async function payment(e) {
         })
         await Promise.all(allPromise)
         await updateCart()
-        console.log(3)
+        // console.log(3)
         displayMessage('Payment Successfull. !', 'success')
-        console.log(response)
+        // console.log(response)
         hideOverlay()
         hideCheckout()
         setTimeout(() => {
@@ -1223,7 +1223,7 @@ function hideCheckout() {
 }
 
 function showCompleteOrderGif() {
-    console.log('form show')
+    // console.log('form show')
     const orderCompleteSection = document.querySelector('.order-complete')
     orderCompleteSection.style.height = '400px'
     const orderCompleteImg = document.querySelector('.order-complete img')
@@ -1248,17 +1248,17 @@ function showOverlay() {
  * @author dev
  */
 function hideOverlay() {
-    console.log('hide overlay', 1)
+    // console.log('hide overlay', 1)
     const overlay = document.getElementById('overlay')
     overlay.classList.remove('show-loader')
     overlay.classList.remove('hide-loader')
-    console.log('hide overlay', 2)
+    // console.log('hide overlay', 2)
     overlay.classList.add('hide-loader')
-    console.log('hide overlay', 3)
+    // console.log('hide overlay', 3)
     setTimeout(() => {
         document.getElementById('overlay').classList.add('d-none')
     }, 500);
-    console.log('hide overlay', 4)
+    // console.log('hide overlay', 4)
 }
 // document.querySelector('.address-option-existing-tab').classList.remove('border-primary', 'border', 'shadow-lg')
 // document.querySelector('.address-option-new-tab').classList.add('border-primary', 'border', 'shadow-lg')
@@ -1297,7 +1297,7 @@ function hideOverlay() {
             let response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json&accept-language=en`);
             let data = await response.json();
     
-            console.log(data);
+            // console.log(data);
             try {
                 displayMessage('Location found', 'success');
                 locationdiv.innerHTML = `${

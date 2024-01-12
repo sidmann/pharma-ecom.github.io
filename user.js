@@ -110,11 +110,11 @@ document.querySelector("#newPassword").addEventListener("keyup", () => {
  */
 function updateCart() {
     return new Promise(async (resolve) => {
-        console.log("from update cart")
+        // console.log("from update cart")
         const shownCart = document.querySelector('#shown-cart')
 
         let cart = await getCart()
-        console.log(cart.length)
+        // console.log(cart.length)
 
         if (cart.length) {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = cart.length)
@@ -122,7 +122,7 @@ function updateCart() {
         else {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = 0)
         }
-        console.log("resolve")
+        // console.log("resolve")
         resolve()
     })
 }
@@ -130,26 +130,26 @@ function updateCart() {
 async function getCart() {
     return new Promise(async (resolve) => {
         if (loggedIn) {
-            console.log("form getCArt()")
+            // console.log("form getCArt()")
             const cartSnapshot = await getDocs(collection(firestore, 'users', auth.currentUser.uid, 'cart'))
-            console.log("form getCArt(1.1)")
+            // console.log("form getCArt(1.1)")
             if (cartSnapshot.empty) {
-                console.log("form getCArt(1.2)")
+                // console.log("form getCArt(1.2)")
                 resolve([])
             }
-            console.log("form getCArt(1.3)")
+            // console.log("form getCArt(1.3)")
             let cart = []
             cartSnapshot.forEach(doc => {
                 cart.push(doc.data())
             })
-            console.log("form getCArt(1.4)")
+            // console.log("form getCArt(1.4)")
             resolve(cart)
         }
         else {
-            console.log("form getCArt1)")
+            // console.log("form getCArt1)")
             const cartSnapshot = JSON.parse(sessionStorage.getItem('cart'))
             if (!cartSnapshot) {
-                console.log('from true')
+                // console.log('from true')
                 resolve([])
                 return
             }
@@ -165,7 +165,7 @@ async function getCart() {
 //get user snapshot cart(dependency)
 function getUserSnapshot(uid) {
     const userRef = doc(firestore, 'users', uid)
-    console.log('3')
+    // console.log('3')
     return new Promise((resolve, reject) => {
         resolve(getDoc(userRef))
     })
@@ -192,7 +192,7 @@ onAuthStateChanged(auth, (user) => {
                 populateShownDetails();
                 populateProfileData(userData);
                 updateCart();
-                console.log(auth.currentUser.uid);
+                // console.log(auth.currentUser.uid);
                 // const viewOrdersBtn = document.querySelector(".view-orders-btn");
                 // viewOrdersBtn.addEventListener("click", async (event) => {
                 //     // const userId = event.target.getAttribute('data-user-id');
@@ -346,7 +346,7 @@ async function fetchAndDisplayAllOrders(userId) {
         })
 
 
-        console.log(orderDetailsList);
+        // console.log(orderDetailsList);
         // Display all order details in the modal
         await displayAllOrders(orderDetailsList);
         viewOrderBtn.disabled = false
@@ -362,7 +362,7 @@ async function fetchAndDisplayAllOrders(userId) {
 
 // Function to fetch total Purchases for a user
 async function totalAmountPurchases(userId) {
-    console.log(userId)
+    // console.log(userId)
     // Fetch orders for the user
     const orders = await fetchOrdersForUser(userId);
     var orderDetailsList = [];
@@ -384,7 +384,7 @@ async function totalAmountPurchases(userId) {
         });
     }
 
-    console.log(orderDetailsList);
+    // console.log(orderDetailsList);
 
     if (!orderDetailsList || orderDetailsList.length === 0) {
         return 0; // Return 0 if there are no orders or orders is undefined
@@ -393,13 +393,13 @@ async function totalAmountPurchases(userId) {
     // Calculate the total commission based on the 'calculatedCommission' field for each order
     // The parseFloat function is used to convert the grandTotal string to a floating-point number before adding it to the sum.
     const totalPurchases = orderDetailsList.reduce((sum, orderDetailsList) => sum + parseFloat(orderDetailsList.summary.billSummary.grandTotal || 0), 0);
-    console.log(totalPurchases);
+    // console.log(totalPurchases);
     return totalPurchases;
 }
 
 async function calculateTotalOrders(userId) {
     const totalorders = await fetchOrdersForUser(userId);
-    console.log(totalorders.length);
+    // console.log(totalorders.length);
     return totalorders.length;
 }
 
@@ -439,7 +439,7 @@ async function displayAllOrders(orders) {
             return new Date(dateB) - new Date(dateA); // Sort in descending order (latest first)
         });
 
-        console.log(orders)
+        // console.log(orders)
         const orderModalContent = document.getElementById("orderModalContent");
 
         if (Array.isArray(orders) && orders.length > 0) {
@@ -986,7 +986,7 @@ function displayMessage(message, type) {
     // Create a clone of the toast template
     const toast = document.querySelector(".toast").cloneNode(true);
 
-    console.log(toast)
+    // console.log(toast)
     // Set the success message
     toast.querySelector(".compare-note").innerHTML = message;
 

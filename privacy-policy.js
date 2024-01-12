@@ -48,7 +48,7 @@ function isUserLoggedIn() {
 //***********************************event listener**************************************
 // Add an event listener to the confirmation logout button
 confirmLogoutBtn.addEventListener("click", () => {
-    console.log("1")
+    // console.log("1")
     signOut(auth)
         .then(() => {
             window.location.href = "login.html"; // Redirect to the login page
@@ -69,11 +69,11 @@ confirmLogoutBtn.addEventListener("click", () => {
  */
 function updateCart() {
     return new Promise(async (resolve) => {
-        console.log("from update cart")
+        // console.log("from update cart")
         const shownCart = document.querySelector('#shown-cart')
 
         let cart = await getCart()
-        console.log(cart.length)
+        // console.log(cart.length)
 
         if (cart.length) {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = cart.length)
@@ -81,7 +81,7 @@ function updateCart() {
         else {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = 0)
         }
-        console.log("resolve")
+        // console.log("resolve")
         resolve()
     })
 }
@@ -89,26 +89,26 @@ function updateCart() {
 async function getCart() {
     return new Promise(async (resolve) => {
         if (loggedIn) {
-            console.log("form getCArt()")
+            // console.log("form getCArt()")
             const cartSnapshot = await getDocs(collection(firestore, 'users', auth.currentUser.uid, 'cart'))
-            console.log("form getCArt(1.1)")
+            // console.log("form getCArt(1.1)")
             if (cartSnapshot.empty) {
-                console.log("form getCArt(1.2)")
+                // console.log("form getCArt(1.2)")
                 resolve([])
             }
-            console.log("form getCArt(1.3)")
+            // console.log("form getCArt(1.3)")
             let cart = []
             cartSnapshot.forEach(doc => {
                 cart.push(doc.data())
             })
-            console.log("form getCArt(1.4)")
+            // console.log("form getCArt(1.4)")
             resolve(cart)
         }
         else {
-            console.log("form getCArt1)")
+            // console.log("form getCArt1)")
             const cartSnapshot = JSON.parse(sessionStorage.getItem('cart'))
             if (!cartSnapshot) {
-                console.log('from true')
+                // console.log('from true')
                 resolve([])
                 return
             }
@@ -124,7 +124,7 @@ async function getCart() {
 //get user snapshot cart(dependency)
 function getUserSnapshot(uid) {
     const userRef = doc(firestore, 'users', uid)
-    console.log('3')
+    // console.log('3')
     return new Promise((resolve, reject) => {
         resolve(getDoc(userRef))
     })
@@ -167,7 +167,7 @@ function getUserSnapshot(uid) {
 
 function updateProfileName(role, fullName) {
     // Based on the role, select the appropriate element
-    console.log(fullName)
+    // console.log(fullName)
     let profileNameElement;
     switch (role) {
         case 'CUSTOMER':
@@ -229,7 +229,7 @@ function roleAccess(role) {
 
 //to execut upon logging in
 function onLoggedIn() {
-    console.log("loggedIn")
+    // console.log("loggedIn")
     var navItemList = document.querySelectorAll(".loggedIn");
     navItemList.forEach((navItem) => {
         navItem.style.display = "block";
@@ -243,7 +243,7 @@ function onLoggedIn() {
 
 //to execute upon logging out
 function onLoggedOut() {
-    console.log("loggedOut")
+    // console.log("loggedOut")
     var navItemList = document.querySelectorAll(".loggedOut");
     navItemList.forEach((navItem) => {
         navItem.style.display = "block";
@@ -269,7 +269,7 @@ function displayMessage(message, type) {
     // Create a clone of the toast template
     const toast = document.querySelector(".toast").cloneNode(true);
 
-    console.log(toast)
+    // console.log(toast)
     // Set the success message
     toast.querySelector(".compare-note").innerHTML = message;
 

@@ -70,7 +70,7 @@ onAuthStateChanged(auth, async (user) => {
     await fetchProductsForSlider();
     // await newArrivalProducts();
     if (user) {
-        console.log("if");
+        // console.log("if");
         document.querySelectorAll('.logout-btn').forEach((btn)=>{
             btn.classList.remove('d-none');
         });
@@ -81,7 +81,7 @@ onAuthStateChanged(auth, async (user) => {
         docSnap.then((docSnapshot) => {
             if (docSnapshot.exists()) {
                 userData = docSnapshot.data();
-                console.log(userData.role);
+                // console.log(userData.role);
                 roleAccess(userData.role);
                 updateProfileName(userData.role, userData.firstName);
                 updateProfilePicture(userData.role, userData.profilePicture)
@@ -91,7 +91,7 @@ onAuthStateChanged(auth, async (user) => {
             }
         });
     } else {
-        console.log("else");
+        // console.log("else");
         updateCart();
         document.querySelectorAll('.logout-btn').forEach((btn)=>{
             btn.classList.add('d-none');
@@ -115,7 +115,7 @@ function roleAccess(role) {
 }
 
 function updateProfileName(role, fullName) {
-    console.log(fullName)
+    // console.log(fullName)
     let profileNameElement;
     switch (role) {
         case 'CUSTOMER':
@@ -511,7 +511,7 @@ function displayMessage(message, type) {
     // Create a clone of the toast template
     const toast = document.querySelector(".toast").cloneNode(true);
 
-    console.log(toast)
+    // console.log(toast)
     // Set the success message
     toast.querySelector(".compare-note").innerHTML = message;
 
@@ -547,11 +547,11 @@ function displayMessage(message, type) {
  */
 function updateCart() {
     return new Promise(async (resolve) => {
-        console.log("from update cart")
+        // console.log("from update cart")
         const shownCart = document.querySelector('#shown-cart')
 
         let cart = await getCart()
-        console.log(cart.length)
+        // console.log(cart.length)
 
         if (cart.length) {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = cart.length)
@@ -559,7 +559,7 @@ function updateCart() {
         else {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = 0)
         }
-        console.log("resolve")
+        // console.log("resolve")
         resolve()
     })
 }

@@ -59,7 +59,7 @@ function updateCart() {
         else {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = 0)
         }
-        console.log("resolve")
+        // console.log("resolve")
         resolve()
     })
 }
@@ -99,7 +99,7 @@ async function getCart() {
 //get user snapshot cart(dependency)
 function getUserSnapshot(uid) {
     const userRef = doc(firestore, 'users', uid)
-    console.log('3')
+    // console.log('3')
     return new Promise((resolve, reject) => {
         resolve(getDoc(userRef))
     })
@@ -262,14 +262,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     onAuthStateChanged(auth, (user) => {
-        console.log('inside onauth')
+        // console.log('inside onauth')
         if (user) {
-            console.log("if");
+            // console.log("if");
             document.querySelectorAll('.logout-btn').forEach((btn) => {
                 btn.classList.remove('d-none');
             });
         } else {
-            console.log("else");
+            // console.log("else");
             document.querySelectorAll('.logout-btn').forEach((btn) => {
                 btn.classList.add('d-none');
             });
@@ -341,7 +341,7 @@ function displayMessage(message, type) {
     // Create a clone of the toast template
     const toast = document.querySelector(".toast").cloneNode(true);
 
-    console.log(toast)
+    // console.log(toast)
     // Set the success message
     toast.querySelector(".compare-note").innerHTML = message;
 
@@ -371,20 +371,20 @@ function displayMessage(message, type) {
 async function convertLocalCartToRemote() {
     return new Promise(async (resolve) => {
         if (sessionStorage.getItem('cart')) {
-            console.log(auth.currentUser.uid)
-            console.log('1')
+            // console.log(auth.currentUser.uid)
+            // console.log('1')
             const userDoc = await getDoc(doc(firestore, 'users', auth.currentUser.uid))
             var cartSnapshot = await getDocs(collection(userDoc.ref, 'cart'))
-            console.log('2')
+            // console.log('2')
             const cart = JSON.parse(sessionStorage.getItem('cart'))
-            console.log(cart)
+            // console.log(cart)
 
 
-            console.log('3')
+            // console.log('3')
             if (cartSnapshot.empty) {
-                console.log('4')
+                // console.log('4')
                 cart.forEach(async (item) => {
-                    console.log(item)
+                    // console.log(item)
                     await addDoc(collection(firestore, 'users', auth.currentUser.uid, 'cart'), {
                         productId: item.productId,
                         quantity: item.quantity
@@ -392,7 +392,7 @@ async function convertLocalCartToRemote() {
                 })
             }
             else {
-                console.log('5')
+                // console.log('5')
                 cart.forEach(async (item) => {
                     cartSnapshot = await getDocs(query(collection(userDoc.ref, 'cart'), where('productId', '==', item.productId)))
                     if (cartSnapshot.empty) {

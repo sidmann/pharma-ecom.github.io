@@ -43,7 +43,7 @@ var loggedIn = null;
 // var orders=null;
 const confirmLogoutBtn = document.getElementById("confirmLogoutBtn");
 var userId = new URLSearchParams(window.location.search).get('userId');
-console.log(userId);
+// console.log(userId);
 // if(!userId) window.location.href="admin_dashboard.html"
 
 
@@ -68,7 +68,7 @@ confirmLogoutBtn.addEventListener("click", () => {
  */
 onAuthStateChanged(auth, async (user) => {
     if (user) {
-        console.log("if")
+        // console.log("if")
         loggedIn = true
         onLoggedIn();
         document.querySelectorAll('.logout-btn').forEach((btn) => {
@@ -81,7 +81,7 @@ onAuthStateChanged(auth, async (user) => {
         docSnap.then((docSnapshot) => {
             if (docSnapshot.exists()) {
                 userData = docSnapshot.data();
-                console.log(userData.role);
+                // console.log(userData.role);
                 roleAccess(userData.role);
                 updateProfileName(userData.role, userData.firstName)
                 updateCart();
@@ -92,7 +92,7 @@ onAuthStateChanged(auth, async (user) => {
             }
         });
     } else {
-        console.log("else");
+        // console.log("else");
         updateCart();
         document.querySelectorAll('.logout-btn').forEach((btn) => {
             btn.classList.add('d-none');
@@ -118,7 +118,7 @@ async function fetchOrdersForDisplay() {
  * @returns mydev
  */
 function onLoggedIn() {
-    console.log("onloggedIn")
+    // console.log("onloggedIn")
     var navItemList = document.querySelectorAll(".loggedIn");
     navItemList.forEach((navItem) => {
         navItem.style.display = "block";
@@ -137,7 +137,7 @@ function onLoggedIn() {
  * @returns mydev
  */
 function onLoggedOut() {
-    console.log("onloggedOut")
+    // console.log("onloggedOut")
     var navItemList = document.querySelectorAll(".loggedOut");
     navItemList.forEach((navItem) => {
         navItem.style.display = "block";
@@ -193,11 +193,11 @@ function roleAccess(role) {
 
 function updateCart() {
     return new Promise(async (resolve) => {
-        console.log("from update cart")
+        // console.log("from update cart")
         const shownCart = document.querySelector('#shown-cart')
 
         let cart = await getCart()
-        console.log(cart.length)
+        // console.log(cart.length)
 
         if (cart.length) {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = cart.length)
@@ -205,7 +205,7 @@ function updateCart() {
         else {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = 0)
         }
-        console.log("resolve")
+        // console.log("resolve")
         resolve()
     })
 }
@@ -339,7 +339,7 @@ function updateProfilePicture(role, profilePicture) {
  * @returns mydev
  */
 async function fetchOrdersForUser() {
-    console.log(userId)
+    // console.log(userId)
     let ordersRef = null;
     if (userId) {
         const userRef = doc(firestore, "users", userId);
@@ -359,7 +359,7 @@ async function fetchOrdersForUser() {
                 orders.push(orderData);
             });
         }
-        console.log(orders);
+        // console.log(orders);
         return orders;
     } catch (error) {
         console.error("Error fetching orders for user:", error);
@@ -411,14 +411,14 @@ async function displayOrdersInTable(orders) {
 
     const updateTrackingStatusButtons = document.querySelectorAll('.update-tracking-status');
     updateTrackingStatusButtons.forEach(button => {
-        console.log("1")
+        // console.log("1")
         button.addEventListener('click', async (e) => {
             e.preventDefault();
             const orderId = e.target.getAttribute('data-order-id');
             document.querySelector('#order-id').value = orderId;
             const orderStatus = e.target.getAttribute('data-order-status')
             document.querySelector('#current-order-tracking-status').textContent = orderStatus
-            console.log(orderStatus);
+            // console.log(orderStatus);
 
             const trackStatusSelect = document.querySelector('#track-status')
             let statusMap = {

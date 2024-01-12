@@ -113,11 +113,11 @@ function createTableRow(userData, doc) {
  */
 function updateCart() {
     return new Promise(async (resolve) => {
-        console.log("from update cart")
+        // console.log("from update cart")
         const shownCart = document.querySelector('#shown-cart')
 
         let cart = await getCart()
-        console.log(cart.length)
+        // console.log(cart.length)
 
         if (cart.length) {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = cart.length)
@@ -125,7 +125,7 @@ function updateCart() {
         else {
             document.querySelectorAll('.cart').forEach(ele => ele.textContent = 0)
         }
-        console.log("resolve")
+        // console.log("resolve")
         resolve()
     })
 }
@@ -133,26 +133,26 @@ function updateCart() {
 async function getCart() {
     return new Promise(async (resolve) => {
         if (loggedIn) {
-            console.log("form getCArt()")
+            // console.log("form getCArt()")
             const cartSnapshot = await getDocs(collection(firestore, 'users', auth.currentUser.uid, 'cart'))
-            console.log("form getCArt(1.1)")
+            // console.log("form getCArt(1.1)")
             if (cartSnapshot.empty) {
-                console.log("form getCArt(1.2)")
+                // console.log("form getCArt(1.2)")
                 resolve([])
             }
-            console.log("form getCArt(1.3)")
+            // console.log("form getCArt(1.3)")
             let cart = []
             cartSnapshot.forEach(doc => {
                 cart.push(doc.data())
             })
-            console.log("form getCArt(1.4)")
+            // console.log("form getCArt(1.4)")
             resolve(cart)
         }
         else {
-            console.log("form getCArt1)")
+            // console.log("form getCArt1)")
             const cartSnapshot = JSON.parse(sessionStorage.getItem('cart'))
             if (!cartSnapshot) {
-                console.log('from true')
+                // console.log('from true')
                 resolve([])
                 return
             }
@@ -168,7 +168,7 @@ async function getCart() {
 //get user snapshot cart(dependency)
 function getUserSnapshot(uid) {
     const userRef = doc(firestore, 'users', uid)
-    console.log('3')
+    // console.log('3')
     return new Promise((resolve, reject) => {
         resolve(getDoc(userRef))
     })
@@ -221,7 +221,7 @@ function roleAccess(role) {
 
 function updateProfileName(role, fullName) {
     // Based on the role, select the appropriate element
-    console.log(fullName)
+    // console.log(fullName)
     let profileNameElement;
     switch (role) {
         case 'CUSTOMER':
@@ -293,7 +293,7 @@ let totalNumberOfCustomers = 0;
 
 // Function to display all orders for a customer in the modal
 async function displayAllOrders(orders) {
-    console.log("inside display all orders");
+    // console.log("inside display all orders");
 
     return new Promise(async (resolve) => {
         const ordersContainer = document.createElement("div");
@@ -383,7 +383,7 @@ async function displayAllOrders(orders) {
             orderModalContent.appendChild(ordersContainer);
         } else {
             orderModalContent.innerHTML = "<p>No orders found for this customer.</p>";
-            console.log("1");
+            // console.log("1");
         }
         resolve();
     });
@@ -419,7 +419,7 @@ function convertToDate(dateString, timeString) {
 
 // Function to fetch and display order details for a specific order
 async function fetchAndDisplayOrderDetails(order, orderDetailsContainer) {
-    console.log(order)
+    // console.log(order)
     try {
         if (order) {
 
@@ -465,7 +465,7 @@ async function fetchAndDisplayOrderDetails(order, orderDetailsContainer) {
                     `;
             // Set the HTML content of the order details container
             orderDetailsContainer.innerHTML = orderDetailsHTML;
-            console.log("2");
+            // console.log("2");
         } else {
             // Handle the case where order details are not found
         }
@@ -478,16 +478,16 @@ async function fetchAndDisplayOrderDetails(order, orderDetailsContainer) {
 // Function to fetch and display all orders of a customer
 async function fetchAndDisplayAllOrders(userId, orderBtn) {
 
-    console.log("1")
+    // console.log("1")
     orderBtn.disabled = true
     orderBtn.innerHTML = `
                     <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                     <span role="status">fetching orders...</span>
                 `
     const orders = await fetchOrdersForUser(userId);
-    console.log("2")
+    // console.log("2")
     if (Array.isArray(orders) && orders.length > 0) {
-        console.log("3")
+        // console.log("3")
         const orderDetailsList = [];
 
         const orderIds = []
@@ -498,7 +498,7 @@ async function fetchAndDisplayAllOrders(userId, orderBtn) {
         const orderSnapshot = await getDocs(query(collection(firestore, "users", userId, 'orders')), where('orderId', 'in', orderIds))
         // const orderSnapshot = await getDocs(query(collection(firestore,userId, 'orders'), where('orderId', 'in', orderIds)))
         //return if empty
-        console.log("4")
+        // console.log("4")
         if (orderSnapshot.empty) {
             const orderModalContent = document.getElementById("orderModalContent");
             orderModalContent.innerHTML = "<p>No orders found for this customer.</p>";
@@ -511,13 +511,13 @@ async function fetchAndDisplayAllOrders(userId, orderBtn) {
             orderDetailsList.push(doc.data())
         })
 
-        console.log(orderDetailsList);
+        // console.log(orderDetailsList);
         // Display all order details in the modal
         await displayAllOrders(orderDetailsList);
         orderBtn.disabled = false
         orderBtn.innerHTML = `View orders`
     } else {
-        console.log("4")
+        // console.log("4")
         // Handle the case where there are no orders for the customer
         orderBtn.disabled = false
         orderBtn.innerHTML = `View orders`
@@ -580,8 +580,8 @@ async function addManufacturer(manufacturerName) {
 
 // Function to edit a manufacturer
 async function editManufacturer(manufacturerId, manufacturerName) {
-    console.log(manufacturerId)
-    console.log('from editmanufacturer')
+    // console.log(manufacturerId)
+    // console.log('from editmanufacturer')
     // Implement your edit logic here
     // You can open a modal or update the manufacturer name in the same modal
     const updatedManufacturerName = prompt('Edit Manufacturer Name:', manufacturerName);
@@ -589,11 +589,11 @@ async function editManufacturer(manufacturerId, manufacturerName) {
         const manufacturerCollection = collection(firestore, 'manufacturers')
         const manufacturerSnapshot = await getDocs(query(manufacturerCollection, where('manufacturerId', '==', manufacturerId)))
         if (!manufacturerSnapshot.empty) {
-            console.log(manufacturerSnapshot.docs[0].data())
+            // console.log(manufacturerSnapshot.docs[0].data())
             updateDoc(manufacturerSnapshot.docs[0].ref, { name: updatedManufacturerName })
                 .then(() => {
                     console.log(`Successfully Updated to ${updatedManufacturerName}`)
-                    console.log('Manufacturer updated successfully');
+                    // console.log('Manufacturer updated successfully');
                     displayMessage('Manufacturer updated successfully!', 'success');
                     document.querySelector('#manufacturerDropdown').addEventListener('click', fetchManufacturers)
                     populateManufacturerList();
@@ -857,7 +857,7 @@ function populateManufacturerDropdown(targetDropdownId) {
 //----------------------------- Product Size in Ltr-----------------------------
 const openProductSizemodal = document.getElementById('addProductSizeButton');
 openProductSizemodal.addEventListener('click', () => {
-    console.log("1");
+    // console.log("1");
     document.getElementById('productSizeName').value = '';
     populateProductSizeList();
 })
@@ -1022,7 +1022,7 @@ async function uploadProduct() {
         newProductArrivalStatus = false;
     }
 
-    console.log(newProductArrivalStatus)
+    // console.log(newProductArrivalStatus)
 
     document.querySelector('#uploadProductButton').disabled = true;
     document.querySelector('#uploadProductButton').textContent = 'Uploading ...';
@@ -1047,7 +1047,7 @@ async function uploadProduct() {
         && productSpecificationsTextarea && (newProductArrivalStatus === true || newProductArrivalStatus === false)) {
         // const fileName = selectedFile.name;
         const fileName = `${productId}-${selectedFile.name}`;
-        // console.log(fileName);
+        // // console.log(fileName);
         const folderRef = ref(storage, 'product-images');
         const imageRef = ref(folderRef, fileName);
         // Add the Manufacturer
@@ -1079,7 +1079,7 @@ async function uploadProduct() {
                             productSpecifications: productSpecificationsTextarea.value,
                             newProductArrivalStatus: newProductArrivalStatus
                         };
-                        console.log(productData);
+                        // console.log(productData);
                         const productsRef = collection(firestore, 'products');
                         const docRef = await addDoc(productsRef, productData);
                         await updateDoc(docRef, { productId: docRef.id })
