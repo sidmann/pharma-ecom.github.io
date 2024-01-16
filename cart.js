@@ -486,11 +486,11 @@ function waitForCheckoutSummary() {
 async function checkoutSummary() {
     return new Promise(async (resolve) => {
         const checkoutSummarySubtotal = document.querySelector('.checkout-summary-subtotal')
-        const checkoutSummarydelivery = document.querySelector('.checkout-summary-delivery')
+        // const checkoutSummarydelivery = document.querySelector('.checkout-summary-delivery')
         const checkoutSummarytotal = document.querySelector('.checkout-summary-total')
         const checkoutSummaryCoupan = document.querySelector('.checkout-summary-coupan')
-        const deliveryFee = getDeliveryFee()
-        const coupan = getCoupanDiscount()
+        // const deliveryFee = getDeliveryFee()
+        // const coupan = getCoupanDiscount()
 
         let subTotal = 0
         cartList.forEach(item => {
@@ -501,21 +501,21 @@ async function checkoutSummary() {
         })
 
         if (checkoutSummarySubtotal) checkoutSummarySubtotal.textContent = subTotal
-        if (checkoutSummarydelivery) checkoutSummarydelivery.textContent = deliveryFee
-        if (checkoutSummarytotal) checkoutSummarytotal.textContent = deliveryFee + subTotal
-        if (checkoutSummaryCoupan) checkoutSummaryCoupan.textContent = coupan
+        // if (checkoutSummarydelivery) checkoutSummarydelivery.textContent = deliveryFee
+        if (checkoutSummarytotal) checkoutSummarytotal.textContent = subTotal
+        // if (checkoutSummaryCoupan) checkoutSummaryCoupan.textContent = coupan
         resolve()
     })
 
 }
 
-function getDeliveryFee() {
-    return 500;
-}
+// function getDeliveryFee() {
+//     return 500;
+// }
 
-function getCoupanDiscount() {
-    return 100;
-}
+// function getCoupanDiscount() {
+//     return 100;
+// }
 
 //convert summary to json
 function getJsonBill(element) {
@@ -893,12 +893,12 @@ function checkout() {
     }
     // console.log('from checkout')
     const subtotal = document.querySelector('.checkout-summary-subtotal').textContent
-    const deliveryFee = document.querySelector('.checkout-summary-delivery').textContent
+    // const deliveryFee = document.querySelector('.checkout-summary-delivery').textContent
     const total = document.querySelector('.checkout-summary-total').textContent
 
     const bill = {
         subTotal: subtotal ? subtotal : null,
-        deliveryFee: deliveryFee ? deliveryFee : null,
+        // deliveryFee: deliveryFee ? deliveryFee : null,
         total: total ? total : null
     }
 

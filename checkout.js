@@ -1057,10 +1057,10 @@ function selectAddress(addressDoc, e) {
 
 async function updateSummary() {
     const checkoutSummaryTotal = document.querySelector('.checkout-summary-total')
-    const checkoutSummaryDelivery = document.querySelector('.checkout-summary-delivery')
+    // const checkoutSummaryDelivery = document.querySelector('.checkout-summary-delivery')
     const checkoutSummarySubtotal = document.querySelector('.checkout-summary-subtotal')
 
-    checkoutSummaryDelivery.textContent = bill.deliveryFee
+    // checkoutSummaryDelivery.textContent = bill.deliveryFee
     checkoutSummarySubtotal.textContent = bill.subTotal
     checkoutSummaryTotal.textContent = bill.total
     await embedSummaryproductCards()
