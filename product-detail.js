@@ -241,7 +241,7 @@ async function getAndEmbedProductData(productId) {
     const productColorContainer = document.querySelector('#color-pro-container');
     // const selectedColorsContainer = document.querySelector('.selected-color')
     let productDesc = document.querySelector('.gi-single-desc')
-    let productDetails =  document.querySelector('.gi-single-pro-tab-details')
+    let productDetails = document.querySelector('.gi-single-pro-tab-details')
     let productSpecifications = document.querySelector('.gi-single-pro-tab-spec');
     productColorContainer.innerHTML = '';
 
@@ -252,7 +252,7 @@ async function getAndEmbedProductData(productId) {
     productName.textContent = productData.name
     productPrice.textContent = productData.price
     // productOldPrice.textContent = 40 + +productData.price
-    
+
     //product Description
     let productDescDiv = document.createElement('div');
     let productDescriptionPoints = '';
@@ -270,7 +270,7 @@ async function getAndEmbedProductData(productId) {
     //Product Details
     let productDetailsDiv = document.createElement('div');
     let productDetailsPoints = ''
-    if(productData.productDetails){
+    if (productData.productDetails) {
         productDetailsPoints = formatDetails(productData.productDetails);
     }
     productDetailsDiv.innerHTML = `${productDetailsPoints}`;
@@ -361,6 +361,7 @@ async function addToCart() {
         )
         // console.log(cartSnapshot.docs[0]);
         if (cartSnapshot.empty) {
+            // console.log(document.querySelector('.user-quantity').value)
             await setDoc(doc(collection(firestore, 'users', auth.currentUser.uid, 'cart'), productId), {
                 productId: productId,
                 quantity: +document.querySelector('.user-quantity').value
@@ -393,7 +394,7 @@ async function addToCart() {
         else {
             sessionStorage.setItem('cart', JSON.stringify([{
                 productId: productId,
-                quantity: 1,
+                quantity: +document.querySelector('.user-quantity').value,
             }]))
         }
 
@@ -508,7 +509,7 @@ function updateCart() {
 }
 
 /**
- * 
+ *
  * @returns promise
  */
 // async function fetchNavCategories() {

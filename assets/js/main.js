@@ -5,9 +5,9 @@
   /*----------------------------- Site Loader & Popup --------------------*/
   $(window).on("load", function () {
     setTimeout(() => {
-     $("#gi-overlay").fadeOut("slow");
+      $("#gi-overlay").fadeOut("slow");
     }, 500);
-   });
+  });
 
   /*----------------------------- Scroll animation -------------------------------- */
   new WOW().init();
@@ -104,6 +104,7 @@
 
     var $qtybutton = $(this);
     var QtyoldValue = $qtybutton.parent().find("input").val();
+    // console.log(QtyoldValue)
     if ($qtybutton.text() === "+") {
       var QtynewVal = parseFloat(QtyoldValue) + 1;
     } else {

@@ -1,216 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
-    />
 
-    <title>IndiHerbs Medicorp</title>
-    <meta name="keywords" content="" />
-    <meta name="description" content="Multipurpose eCommerce HTML Template" />
-    <meta name="author" content="Aireddy DineshReddy" />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
 
-    <!-- site Favicon -->
-    <link rel="icon" href="assets/img/favicon/logo.jpg" sizes="32x32" />
+  <title>IndiHerbs Medicorp</title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="Multipurpose eCommerce HTML Template" />
+  <meta name="author" content="Aireddy DineshReddy" />
 
-    <!-- css Icon Font -->
-    <link rel="stylesheet" href="assets/css/vendor/gicons.css" />
+  <!-- site Favicon -->
+  <link rel="icon" href="assets/img/favicon/logo.jpg" sizes="32x32" />
 
-    <!-- css All Plugins Files -->
-    <link rel="stylesheet" href="assets/css/plugins/animate.css" />
-    <link rel="stylesheet" href="assets/css/plugins/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="assets/css/plugins/bootstrap.css" />
-    <link rel="stylesheet" href="assets/css/plugins/bootstrap-select.min.css" />
-    <link rel="stylesheet" href="assets/css/plugins/owl.carousel.min.css" />
-    <link
-      rel="stylesheet"
-      href="assets/css/plugins/owl.theme.default.min.css"
-    />
-    <link rel="stylesheet" href="assets/css/plugins/slick.min.css" />
-    <link rel="stylesheet" href="assets/css/plugins/nouislider.css" />
+  <!-- css Icon Font -->
+  <link rel="stylesheet" href="assets/css/vendor/gicons.css" />
 
-    <!-- Main Style -->
-    <link rel="stylesheet" id="main_style" href="assets/css/style.css" />
-    <link rel="stylesheet" href="assets/css/responsive.css" />
-    <link rel="stylesheet" href="assets/css/vendor/custom.css" />
+  <!-- css All Plugins Files -->
+  <link rel="stylesheet" href="assets/css/plugins/animate.css" />
+  <link rel="stylesheet" href="assets/css/plugins/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="assets/css/plugins/bootstrap.css" />
+  <link rel="stylesheet" href="assets/css/plugins/bootstrap-select.min.css" />
+  <link rel="stylesheet" href="assets/css/plugins/owl.carousel.min.css" />
+  <link rel="stylesheet" href="assets/css/plugins/owl.theme.default.min.css" />
+  <link rel="stylesheet" href="assets/css/plugins/slick.min.css" />
+  <link rel="stylesheet" href="assets/css/plugins/nouislider.css" />
 
-    <!-- Styles -->
-    <style>
-      table {
-        /* margin: 20px auto; */
-        border-collapse: collapse;
-        width: 100%;
-      }
+  <!-- Main Style -->
+  <link rel="stylesheet" id="main_style" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+  <link rel="stylesheet" href="assets/css/vendor/custom.css" />
 
-      th,
-      td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-      }
+  <!-- Styles -->
+  <style>
+    table {
+      /* margin: 20px auto; */
+      border-collapse: collapse;
+      width: 100%;
+    }
 
-      th {
-        background-color: #f2f2f2;
-      }
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
 
-      tr:nth-child(even) {
-        background-color: #f2f2f2;
-      }
+    th {
+      background-color: #f2f2f2;
+    }
 
-      .custom-label {
-        margin-bottom: 0;
-      }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
 
-      .custom-input {
-        margin-bottom: 0;
-      }
+    .custom-label {
+      margin-bottom: 0;
+    }
 
-      .overlay {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(81, 79, 79, 0.5);
-        backdrop-filter: blur(3px);
-        z-index: 5;
-      }
+    .custom-input {
+      margin-bottom: 0;
+    }
 
-      .close {
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        font-size: 20px;
-        font-weight: bold;
-        cursor: pointer;
-      }
+    .overlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(81, 79, 79, 0.5);
+      backdrop-filter: blur(3px);
+      z-index: 5;
+    }
 
-      #updateProductForm input[type="text"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 16px;
-      }
+    .close {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-      #productImagePreview {
-        margin-top: 10px;
-        max-width: 100px;
-        max-height: 100px;
-      }
+    #updateProductForm input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
 
-      /* Style for the update button */
-      #updateButton {
-        background-color: #3498db;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-      }
+    #productImagePreview {
+      margin-top: 10px;
+      max-width: 100px;
+      max-height: 100px;
+    }
 
-      #updateButton:hover {
-        background-color: #2980b9;
-      }
+    /* Style for the update button */
+    #updateButton {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
 
-      .color-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
+    #updateButton:hover {
+      background-color: #2980b9;
+    }
 
-      .color-container .color-box {
-        border-radius: 10px;
-        background-color: transparent;
-        outline: 1px solid black;
-      }
+    .color-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-      .color-container br {
-        margin: 5px 0;
-      }
+    .color-container .color-box {
+      border-radius: 10px;
+      background-color: transparent;
+      outline: 1px solid black;
+    }
 
-      .products-container {
-        overflow: scroll;
-        max-width: 1000px;
-      }
-    </style>
-  </head>
+    .color-container br {
+      margin: 5px 0;
+    }
 
-  <body>
-    <!-- Loader -->
-    <div id="gi-overlay">
-      <div class="loader"></div>
-    </div>
+    .products-container {
+      overflow: scroll;
+      max-width: 1000px;
+    }
+  </style>
+</head>
 
-    <!-- Toast message -->
-    <div class="toast-container position-fixed top-0 end-0 p-3">
-      <!-- Toast notifications will appear here -->
-    </div>
-    <!-- Header start  -->
-    <header class="gi-header-cat">
-      <div class="header-top">
-        <div class="container">
-          <div class="row align-itegi-center">
-            <div class="col header-top-res d-lg-none">
-              <div class="gi-header-bottons">
-                <div class="right-icons">
-                  <!-- Header Cart Start -->
-                  <a href="cart.html" class="gi-header-btn gi-cart-toggle">
-                    <div class="header-icon">
-                      <i class="fi-rr-shopping-bag"></i>
-                      <span class="main-label-note-new"></span>
-                    </div>
-                    <span class="gi-header-count gi-cart-count cart">3</span>
-                  </a>
-                  <!-- Header Cart End -->
-                  <!-- Header menu Start -->
-                  <a
-                    href="javascript:void(0)"
-                    class="gi-header-btn gi-site-menu-icon d-lg-none"
-                  >
-                    <i class="fi-rr-menu-burger"></i>
-                  </a>
-                  <!-- Header menu End -->
-                </div>
+<body>
+  <!-- Loader -->
+  <div id="gi-overlay">
+    <div class="loader"></div>
+  </div>
+
+  <!-- Toast message -->
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+    <!-- Toast notifications will appear here -->
+  </div>
+  <!-- Header start  -->
+  <header class="gi-header-cat">
+    <div class="header-top">
+      <div class="container">
+        <div class="row align-itegi-center">
+          <div class="col header-top-res d-lg-none">
+            <div class="gi-header-bottons">
+              <div class="right-icons">
+                <!-- Header Cart Start -->
+                <a href="cart.html" class="gi-header-btn gi-cart-toggle">
+                  <div class="header-icon">
+                    <i class="fi-rr-shopping-bag"></i>
+                    <span class="main-label-note-new"></span>
+                  </div>
+                  <span class="gi-header-count gi-cart-count cart">3</span>
+                </a>
+                <!-- Header Cart End -->
+                <!-- Header menu Start -->
+                <a href="javascript:void(0)" class="gi-header-btn gi-site-menu-icon d-lg-none">
+                  <i class="fi-rr-menu-burger"></i>
+                </a>
+                <!-- Header menu End -->
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- Header Bottom  Start -->
-      <div class="gi-header-bottom d-lg-block">
-        <div class="container position-relative">
-          <div class="row">
-            <div class="gi-flex">
-              <!-- Header Logo Start -->
-              <div class="align-self-center gi-header-logo">
-                <div class="header-logo">
-                  <a href="index.html"
-                    ><img src="assets/images/logo.ico" alt="Site Logo"
-                  /></a>
-                </div>
+    </div>
+    <!-- Header Bottom  Start -->
+    <div class="gi-header-bottom d-lg-block">
+      <div class="container position-relative">
+        <div class="row">
+          <div class="gi-flex">
+            <!-- Header Logo Start -->
+            <div class="align-self-center gi-header-logo">
+              <div class="header-logo">
+                <a href="index.html"><img src="assets/images/logo.ico" alt="Site Logo" /></a>
               </div>
-              <!-- Header Logo End -->
-              <!-- Main Menu Start -->
-              <div class="align-self-center gi-header-search">
-                <div
-                  id="gi-main-menu-desk"
-                  class="d-none d-lg-block sticky-nav"
-                >
-                  <div class="nav-desk">
-                    <div class="row">
-                      <div class="col-md-12 align-self-center">
-                        <div class="gi-main-menu">
-                          <ul>
-                            <li class="non-drop">
-                              <a href="index.html">Home</a>
-                            </li>
-                            <!-- <li class="dropdown drop-list position-static">
+            </div>
+            <!-- Header Logo End -->
+            <!-- Main Menu Start -->
+            <div class="align-self-center gi-header-search">
+              <div id="gi-main-menu-desk" class="d-none d-lg-block sticky-nav">
+                <div class="nav-desk">
+                  <div class="row">
+                    <div class="col-md-12 align-self-center">
+                      <div class="gi-main-menu">
+                        <ul>
+                          <li class="non-drop">
+                            <a href="index.html">Home</a>
+                          </li>
+                          <!-- <li class="dropdown drop-list position-static">
                                                             <a href="javascript:void(0)" class="dropdown-arrow">Categories<i
                                                                     class="fi-rr-angle-small-right"></i></a>
                                                             <ul class="mega-menu d-block">
@@ -275,59 +262,52 @@
                                                                 </li>
                                                             </ul>
                                                         </li> -->
-                            <li class="non-drop">
-                              <a href="products.html">Products</a>
-                            </li>
-                            <li class="dropdown drop-list">
-                              <a
-                                href="javascript:void(0)"
-                                class="dropdown-arrow"
-                                >Others<i class="fi-rr-angle-small-right"></i
-                              ></a>
-                              <ul class="sub-menu">
-                                <li><a href="cart.html">Cart</a></li>
-                                <!-- <li><a href="member.html">Become a Member</a></li> -->
+                          <li class="non-drop">
+                            <a href="products.html">Products</a>
+                          </li>
+                          <li class="dropdown drop-list">
+                            <a href="javascript:void(0)" class="dropdown-arrow">Others<i
+                                class="fi-rr-angle-small-right"></i></a>
+                            <ul class="sub-menu">
+                              <li><a href="cart.html">Cart</a></li>
+                              <!-- <li><a href="member.html">Become a Member</a></li> -->
 
-                                <!-- <li><a href="login.html">Login</a></li>
+                              <!-- <li><a href="login.html">Login</a></li>
                                                                                   <li><a href="register.html">Register</a></li> -->
-                                <li>
-                                  <a href="track-order.html">Track Order</a>
-                                </li>
-                                <li>
-                                  <a href="terms-condition.html"
-                                    >Terms Condition</a
-                                  >
-                                </li>
-                                <li>
-                                  <a href="privacy-policy.html"
-                                    >Privacy Policy</a
-                                  >
-                                </li>
-                              </ul>
-                            </li>
-                            <li class="non-drop">
-                              <a href="about-us.html">About us</a>
-                            </li>
-                            <li class="non-drop">
-                              <a href="contact-us.html">Contact Us</a>
-                            </li>
-                            <li class="non-drop">
-                              <a href="careers.html">careers</a>
-                            </li>
-                            <!-- <li class="non-drop">
+                              <li>
+                                <a href="track-order.html">Track Order</a>
+                              </li>
+                              <li>
+                                <a href="terms-condition.html">Terms Condition</a>
+                              </li>
+                              <li>
+                                <a href="privacy-policy.html">Privacy Policy</a>
+                              </li>
+                            </ul>
+                          </li>
+                          <li class="non-drop">
+                            <a href="about-us.html">About us</a>
+                          </li>
+                          <li class="non-drop">
+                            <a href="contact-us.html">Contact Us</a>
+                          </li>
+                          <li class="non-drop">
+                            <a href="careers.html">careers</a>
+                          </li>
+                          <!-- <li class="non-drop">
                                                                         <a href="shop-banner-left-sidebar-col-3.html">
                                                                             <i class="fi-rr-badge-percent"></i>Offers</a>
                                                                         </li> -->
-                          </ul>
-                        </div>
+                        </ul>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- Main Menu End -->
-              <!-- Header Search Start -->
-              <!-- <div class="header-search">
+            </div>
+            <!-- Main Menu End -->
+            <!-- Header Search Start -->
+            <!-- <div class="header-search">
                                     <form class="gi-search-group-form" action="#">
                                         <input class="form-control gi-search-bar" placeholder="Search Products..."
                                             type="text" />
@@ -336,51 +316,36 @@
                                         </button>
                                     </form>
                                 </div> -->
-              <!-- Header Search End -->
+            <!-- Header Search End -->
 
-              <!-- Header Button Start -->
-              <div class="gi-header-action align-self-center">
-                <div class="gi-header-bottons">
-                  <!-- Header User Start -->
-                  <div class="gi-acc-drop">
-                    <a
-                      href="javascript:void(0)"
-                      class="gi-header-btn gi-header-user dropdown-toggle gi-user-toggle"
-                      title="Account"
-                    >
-                      <!-- <div class="header-icon">
+            <!-- Header Button Start -->
+            <div class="gi-header-action align-self-center">
+              <div class="gi-header-bottons">
+                <!-- Header User Start -->
+                <div class="gi-acc-drop">
+                  <a href="javascript:void(0)" class="gi-header-btn gi-header-user dropdown-toggle gi-user-toggle"
+                    title="Account">
+                    <!-- <div class="header-icon">
                                                 <i class="fi-rr-user"></i>
                                             </div> -->
-                      <div class="header-icon loggedOut">
-                        <i class="fi-rr-user"></i>&nbsp;&nbsp;
-                        <span class="nav-link custom-brand active"
-                          >Login/Register</span
-                        >
-                      </div>
+                    <div class="header-icon loggedOut">
+                      <i class="fi-rr-user"></i>&nbsp;&nbsp;
+                      <span class="nav-link custom-brand active">Login/Register</span>
+                    </div>
 
-                      <div class="gi-btn-desc">
-                        <!-- <span class="gi-btn-title">Account</span> -->
-                        <li
-                          class="nav-item d-none loggedIn"
-                          id="customerAppbar"
-                        >
-                          <span class="header-icon">
-                            <span class="">
-                              <img
-                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                                alt="profile"
-                                id="profile-picture"
-                                class="rounded-circle"
-                                style="height: 30px; width: 30px"
-                              /> </span
-                            >&nbsp;
-                            <span
-                              class="badge text-bg-warning profile-name mt-1 h-100"
-                            >
-                            </span>
+                    <div class="gi-btn-desc">
+                      <!-- <span class="gi-btn-title">Account</span> -->
+                      <li class="nav-item d-none loggedIn" id="customerAppbar">
+                        <span class="header-icon">
+                          <span class="">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                              alt="profile" id="profile-picture" class="rounded-circle"
+                              style="height: 30px; width: 30px" /> </span>&nbsp;
+                          <span class="badge text-bg-warning profile-name mt-1 h-100">
                           </span>
-                        </li>
-                        <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
+                        </span>
+                      </li>
+                      <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
                                                     <span class="header-icon">
                                                         <span class="">
                                                             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
@@ -390,95 +355,63 @@
                                                         </span>
                                                     </span>
                                                 </li> -->
-                        <li class="nav-item d-none loggedIn" id="adminAppbar">
-                          <span class="header-icon">
-                            <span class="">
-                              <img
-                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                                alt="profile"
-                                id="profile-picture"
-                                class="rounded-circle"
-                                style="height: 30px; width: 30px"
-                              /> </span
-                            >&nbsp;
-                            <span
-                              class="badge text-bg-warning profile-name mt-1 h-100"
-                            >
-                            </span>
+                      <li class="nav-item d-none loggedIn" id="adminAppbar">
+                        <span class="header-icon">
+                          <span class="">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                              alt="profile" id="profile-picture" class="rounded-circle"
+                              style="height: 30px; width: 30px" /> </span>&nbsp;
+                          <span class="badge text-bg-warning profile-name mt-1 h-100">
                           </span>
-                        </li>
-                      </div>
-                    </a>
-                    <ul class="gi-dropdown-menu">
-                      <li class="nav-item loggedOut">
-                        <a class="nav-link custom-brand" href="register.html"
-                          >Register</a
-                        >
+                        </span>
                       </li>
-                      <li class="nav-item loggedOut">
-                        <a
-                          class="nav-link custom-brand active"
-                          href="login.html"
-                          >Login</a
-                        >
-                      </li>
-                      <li class="nav-item d-none loggedIn" id="customerAppbar">
-                        <a
-                          class="nav-link custom-brand"
-                          aria-current="page"
-                          href="user.html"
-                          >Profile</a
-                        >
-                      </li>
-                      <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
+                    </div>
+                  </a>
+                  <ul class="gi-dropdown-menu">
+                    <li class="nav-item loggedOut">
+                      <a class="nav-link custom-brand" href="register.html">Register</a>
+                    </li>
+                    <li class="nav-item loggedOut">
+                      <a class="nav-link custom-brand active" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item d-none loggedIn" id="customerAppbar">
+                      <a class="nav-link custom-brand" aria-current="page" href="user.html">Profile</a>
+                    </li>
+                    <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
                                                 <a class="nav-link custom-brand" href="agent.html">Profile
                                                 </a>
                                             </li> -->
-                      <li class="nav-item d-none loggedIn" id="adminAppbar">
-                        <a class="nav-link custom-brand" href="admin.html"
-                          >Profile
-                        </a>
-                      </li>
-                      <li class="nav-item d-none loggedIn" id="customerAppbar">
-                        <a class="nav-link custom-brand" href="orderlist.html"
-                          >My Orders
-                        </a>
-                      </li>
-                      <li class="nav-item d-none loggedIn" id="customerAppbar">
-                        <a
-                          class="nav-link custom-brand"
-                          aria-current="page"
-                          href="addresses.html"
-                          >Addresses</a
-                        >
-                      </li>
-                      <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
+                    <li class="nav-item d-none loggedIn" id="adminAppbar">
+                      <a class="nav-link custom-brand" href="admin.html">Profile
+                      </a>
+                    </li>
+                    <li class="nav-item d-none loggedIn" id="customerAppbar">
+                      <a class="nav-link custom-brand" href="orderlist.html">My Orders
+                      </a>
+                    </li>
+                    <li class="nav-item d-none loggedIn" id="customerAppbar">
+                      <a class="nav-link custom-brand" aria-current="page" href="addresses.html">Addresses</a>
+                    </li>
+                    <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
                                                 <a class="nav-link custom-brand" href="agent_dashboard.html">Agent Dashboard
                                                 </a>
                                             </li> -->
-                      <li class="nav-item d-none loggedIn" id="adminAppbar">
-                        <a
-                          class="nav-link custom-brand"
-                          href="admin_dashboard.html"
-                          >Admin Dashboard
-                        </a>
-                      </li>
-                      <li class="nav-item logout-btn d-none">
-                        <!-- Logout button with data-toggle and data-target attributes -->
-                        <a
-                          class="nav-link custom-brand"
-                          data-bs-toggle="modal"
-                          type="button"
-                          data-bs-target="#logoutConfirmationModal"
-                        >
-                          Logout
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <!-- Header User End -->
-                  <!-- Header wishlist Start -->
-                  <!-- <a
+                    <li class="nav-item d-none loggedIn" id="adminAppbar">
+                      <a class="nav-link custom-brand" href="admin_dashboard.html">Admin Dashboard
+                      </a>
+                    </li>
+                    <li class="nav-item logout-btn d-none">
+                      <!-- Logout button with data-toggle and data-target attributes -->
+                      <a class="nav-link custom-brand" data-bs-toggle="modal" type="button"
+                        data-bs-target="#logoutConfirmationModal">
+                        Logout
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- Header User End -->
+                <!-- Header wishlist Start -->
+                <!-- <a
                                     href="wishlist.html"
                                         class="gi-header-btn gi-wish-toggle"
                                         title="Wishlist"
@@ -493,48 +426,42 @@
                                             >
                                         </div>
                                     </a> -->
-                  <!-- Header wishlist End -->
-                  <!-- Header Cart Start -->
-                  <a
-                    href="cart.html"
-                    class="gi-header-btn gi-cart-toggle"
-                    title="Cart"
-                  >
-                    <div class="header-icon">
-                      <i class="fi-rr-shopping-bag"></i>
-                      <span class="main-label-note-new"></span>
-                    </div>
-                    <div class="gi-btn-desc">
-                      <span class="gi-btn-title">Cart</span>
-                      <span class="gi-btn-stitle"
-                        ><b class="gi-cart-count cart">3</b>-items</span
-                      >
-                    </div>
-                  </a>
-                  <!-- Header Cart End -->
-                </div>
+                <!-- Header wishlist End -->
+                <!-- Header Cart Start -->
+                <a href="cart.html" class="gi-header-btn gi-cart-toggle" title="Cart">
+                  <div class="header-icon">
+                    <i class="fi-rr-shopping-bag"></i>
+                    <span class="main-label-note-new"></span>
+                  </div>
+                  <div class="gi-btn-desc">
+                    <span class="gi-btn-title">Cart</span>
+                    <span class="gi-btn-stitle"><b class="gi-cart-count cart">3</b>-items</span>
+                  </div>
+                </a>
+                <!-- Header Cart End -->
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- Header Button End -->
+    </div>
+    <!-- Header Button End -->
 
-      <!-- Mobile Menu sidebar Start -->
-      <div class="gi-mobile-menu-overlay"></div>
-      <div id="gi-mobile-menu" class="gi-mobile-menu">
-        <div class="gi-menu-title">
-          <span class="menu_title">My Menu</span>
-          <button class="gi-close-menu">×</button>
-        </div>
-        <div class="gi-menu-inner">
-          <div class="gi-menu-content">
-            <ul>
-              <li class="non-drop">
-                <a href="index.html">Home</a>
-              </li>
+    <!-- Mobile Menu sidebar Start -->
+    <div class="gi-mobile-menu-overlay"></div>
+    <div id="gi-mobile-menu" class="gi-mobile-menu">
+      <div class="gi-menu-title">
+        <span class="menu_title">My Menu</span>
+        <button class="gi-close-menu">×</button>
+      </div>
+      <div class="gi-menu-inner">
+        <div class="gi-menu-content">
+          <ul>
+            <li class="non-drop">
+              <a href="index.html">Home</a>
+            </li>
 
-              <!-- <li>
+            <!-- <li>
                                 <a href="javascript:void(0)">Categories</a>
                                 <ul class="sub-menu mobile-nav-category">
                                     <li>
@@ -575,287 +502,230 @@
                                     </li>
                                 </ul>
                             </li> -->
-              <li class="non-drop">
-                <a href="products.html">Products</a>
-              </li>
-              <li class="non-drop">
-                <a href="about-us.html">About Us</a>
-              </li>
-              <li class="non-drop">
-                <a href="contact-us.html">Contact Us</a>
-              </li>
-              <li class="non-drop">
-                <a href="careers.html">careers</a>
-              </li>
-              <li>
-                <a href="javascript:void(0)">Others</a>
-                <ul class="sub-menu">
-                  <li class="nav-item loggedOut">
-                    <a class="nav-link custom-brand" href="register.html"
-                      >Register</a
-                    >
-                  </li>
-                  <li class="nav-item loggedOut">
-                    <a class="nav-link custom-brand active" href="login.html"
-                      >Login</a
-                    >
-                  </li>
+            <li class="non-drop">
+              <a href="products.html">Products</a>
+            </li>
+            <li class="non-drop">
+              <a href="about-us.html">About Us</a>
+            </li>
+            <li class="non-drop">
+              <a href="contact-us.html">Contact Us</a>
+            </li>
+            <li class="non-drop">
+              <a href="careers.html">careers</a>
+            </li>
+            <li>
+              <a href="javascript:void(0)">Others</a>
+              <ul class="sub-menu">
+                <li class="nav-item loggedOut">
+                  <a class="nav-link custom-brand" href="register.html">Register</a>
+                </li>
+                <li class="nav-item loggedOut">
+                  <a class="nav-link custom-brand active" href="login.html">Login</a>
+                </li>
 
-                  <li><a href="cart.html">Cart</a></li>
+                <li><a href="cart.html">Cart</a></li>
 
-                  <!-- <li><a href="login.html">Login</a></li>
+                <!-- <li><a href="login.html">Login</a></li>
                                     <li><a href="register.html">Register</a></li> -->
-                  <li><a href="track-order.html">Track Order</a></li>
-                  <li><a href="terms-condition.html">Terms Condition</a></li>
-                  <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                  <li class="nav-item d-none loggedIn" id="customerAppbar">
-                    <a
-                      class="nav-link custom-brand"
-                      aria-current="page"
-                      href="user.html"
-                      >Profile</a
-                    >
-                  </li>
-                  <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
+                <li><a href="track-order.html">Track Order</a></li>
+                <li><a href="terms-condition.html">Terms Condition</a></li>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li class="nav-item d-none loggedIn" id="customerAppbar">
+                  <a class="nav-link custom-brand" aria-current="page" href="user.html">Profile</a>
+                </li>
+                <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
                                         <a class="nav-link custom-brand" href="agent.html">Profile
                                         </a>
                                     </li> -->
-                  <li class="nav-item d-none loggedIn" id="adminAppbar">
-                    <a class="nav-link custom-brand" href="admin.html"
-                      >Profile
-                    </a>
-                  </li>
-                  <li class="nav-item d-none loggedIn" id="customerAppbar">
-                    <a class="nav-link custom-brand" href="orderlist.html"
-                      >My Orders
-                    </a>
-                  </li>
-                  <li class="nav-item d-none loggedIn" id="customerAppbar">
-                    <a
-                      class="nav-link custom-brand"
-                      aria-current="page"
-                      href="addresses.html"
-                      >Addresses</a
-                    >
-                  </li>
-                  <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
+                <li class="nav-item d-none loggedIn" id="adminAppbar">
+                  <a class="nav-link custom-brand" href="admin.html">Profile
+                  </a>
+                </li>
+                <li class="nav-item d-none loggedIn" id="customerAppbar">
+                  <a class="nav-link custom-brand" href="orderlist.html">My Orders
+                  </a>
+                </li>
+                <li class="nav-item d-none loggedIn" id="customerAppbar">
+                  <a class="nav-link custom-brand" aria-current="page" href="addresses.html">Addresses</a>
+                </li>
+                <!-- <li class="nav-item d-none loggedIn" id="agentAppbar">
                                         <a class="nav-link custom-brand" href="agent_dashboard.html">Agent Dashboard
                                         </a>
                                     </li> -->
-                  <li class="nav-item d-none loggedIn" id="adminAppbar">
-                    <a class="nav-link custom-brand" href="admin_dashboard.html"
-                      >Admin Dashboard
-                    </a>
-                  </li>
-                  <li class="nav-item logout-btn d-none">
-                    <!-- Logout button with data-toggle and data-target attributes -->
-                    <a
-                      class="nav-link custom-brand"
-                      data-bs-toggle="modal"
-                      type="button"
-                      data-bs-target="#logoutConfirmationModal"
-                    >
-                      Logout
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          <div class="header-res-lan-curr">
-            <!-- Social Start -->
-            <div class="header-res-social">
-              <div class="header-top-social">
-                <ul class="mb-0">
-                  <li class="list-inline-item">
-                    <a href="#"><i class="gicon gi-facebook"></i></a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#"><i class="gicon gi-twitter"></i></a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#"><i class="gicon gi-instagram"></i></a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#"><i class="gicon gi-linkedin"></i></a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <!-- Social End -->
-          </div>
-        </div>
-      </div>
-      <!-- Mobile Menu sidebar End -->
-    </header>
-    <!-- Header End  -->
-
-    <!-- Cart sidebar Start -->
-    <div class="gi-side-cart-overlay"></div>
-    <div id="gi-side-cart" class="gi-side-cart">
-      <div class="gi-cart-inner">
-        <div class="gi-cart-top">
-          <div class="gi-cart-title">
-            <span class="cart_title">My Cart</span>
-            <a href="javascript:void(0)" class="gi-cart-close">
-              <i class="fi-rr-cross-small"></i>
-            </a>
-          </div>
-          <ul class="gi-cart-pro-items">
-            <li>
-              <a href="products.html" class="gi-pro-img"
-                ><img
-                  src="assets/img/product-images/Culicura Syrup_page-0001-fotor-bg-remover-20231201121310.png"
-                  alt="product"
-              /></a>
-              <div class="gi-pro-content">
-                <a href="products.html" class="cart-pro-title"
-                  >Culicura Syrup</a
-                >
-                <span class="cart-price"><span>₹25.00</span> x 1 Bottle</span>
-                <div class="qty-plus-minus">
-                  <input
-                    class="qty-input"
-                    type="text"
-                    name="gi-qtybtn"
-                    value="1"
-                  />
-                </div>
-                <a href="javascript:void(0)" class="remove">×</a>
-              </div>
-            </li>
-            <li>
-              <a href="products.html" class="gi-pro-img"
-                ><img
-                  src="assets/img/product-images/Digebest Syrup_page-0001 (1)-fotor-bg-remover-20231201121241.png"
-                  alt="product"
-              /></a>
-              <div class="gi-pro-content">
-                <a href="products.html" class="cart-pro-title"
-                  >Digebest Syrup</a
-                >
-                <span class="cart-price"><span>₹25.00</span> x 1 Bottle</span>
-                <div class="qty-plus-minus">
-                  <input
-                    class="qty-input"
-                    type="text"
-                    name="gi-qtybtn"
-                    value="1"
-                  />
-                </div>
-                <a href="javascript:void(0)" class="remove">×</a>
-              </div>
-            </li>
-            <li>
-              <a href="products.html" class="gi-pro-img"
-                ><img
-                  src="assets/img/product-images/Gynoshield Syrup_page-0001-fotor-bg-remover-20231201121132.png"
-                  alt="product"
-              /></a>
-              <div class="gi-pro-content">
-                <a href="products.html" class="cart-pro-title"
-                  >Gynoshield Syrup</a
-                >
-                <span class="cart-price"><span>₹25.00</span> x 1 Bottel</span>
-                <div class="qty-plus-minus">
-                  <input
-                    class="qty-input"
-                    type="text"
-                    name="gi-qtybtn"
-                    value="1"
-                  />
-                </div>
-                <a href="javascript:void(0)" class="remove">×</a>
-              </div>
+                <li class="nav-item d-none loggedIn" id="adminAppbar">
+                  <a class="nav-link custom-brand" href="admin_dashboard.html">Admin Dashboard
+                  </a>
+                </li>
+                <li class="nav-item logout-btn d-none">
+                  <!-- Logout button with data-toggle and data-target attributes -->
+                  <a class="nav-link custom-brand" data-bs-toggle="modal" type="button"
+                    data-bs-target="#logoutConfirmationModal">
+                    Logout
+                  </a>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>
-        <div class="gi-cart-bottom">
-          <div class="cart-sub-total">
-            <table class="table cart-table">
-              <tbody>
-                <tr>
-                  <td class="text-left">Sub-Total :</td>
-                  <td class="text-right">₹300.00</td>
-                </tr>
-                <tr>
-                  <td class="text-left">VAT (20%) :</td>
-                  <td class="text-right">₹60.00</td>
-                </tr>
-                <tr>
-                  <td class="text-left">Total :</td>
-                  <td class="text-right primary-color">₹360.00</td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="header-res-lan-curr">
+          <!-- Social Start -->
+          <div class="header-res-social">
+            <div class="header-top-social">
+              <ul class="mb-0">
+                <li class="list-inline-item">
+                  <a href="#"><i class="gicon gi-facebook"></i></a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="#"><i class="gicon gi-twitter"></i></a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="#"><i class="gicon gi-instagram"></i></a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="#"><i class="gicon gi-linkedin"></i></a>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div class="cart_btn">
-            <a href="cart.html" class="gi-btn-1">View Cart</a>
-            <!-- <a href="checkout.html" class="gi-btn-2">Checkout</a> -->
-          </div>
+          <!-- Social End -->
         </div>
       </div>
     </div>
-    <!-- Cart sidebar End -->
+    <!-- Mobile Menu sidebar End -->
+  </header>
+  <!-- Header End  -->
 
-    <!-- Breadcrumb start -->
-    <div class="gi-breadcrumb m-b-20">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <div class="row gi_breadcrumb_inner">
-              <div class="col-md-6 col-sm-12">
-                <h2 class="gi-breadcrumb-title">Product Page</h2>
+  <!-- Cart sidebar Start -->
+  <div class="gi-side-cart-overlay"></div>
+  <div id="gi-side-cart" class="gi-side-cart">
+    <div class="gi-cart-inner">
+      <div class="gi-cart-top">
+        <div class="gi-cart-title">
+          <span class="cart_title">My Cart</span>
+          <a href="javascript:void(0)" class="gi-cart-close">
+            <i class="fi-rr-cross-small"></i>
+          </a>
+        </div>
+        <ul class="gi-cart-pro-items">
+          <li>
+            <a href="products.html" class="gi-pro-img"><img
+                src="assets/img/product-images/Culicura Syrup_page-0001-fotor-bg-remover-20231201121310.png"
+                alt="product" /></a>
+            <div class="gi-pro-content">
+              <a href="products.html" class="cart-pro-title">Culicura Syrup</a>
+              <span class="cart-price"><span>₹25.00</span> x 1 Bottle</span>
+              <div class="qty-plus-minus">
+                <input class="qty-input" type="text" name="gi-qtybtn" value="1" />
               </div>
-              <div class="col-md-6 col-sm-12">
-                <!-- gi-breadcrumb-list start -->
-                <ul class="gi-breadcrumb-list">
-                  <li class="gi-breadcrumb-item">
-                    <a href="index.html">Home</a>
-                  </li>
-                  <li class="gi-breadcrumb-item active">Product Page</li>
-                </ul>
-                <!-- gi-breadcrumb-list end -->
+              <a href="javascript:void(0)" class="remove">×</a>
+            </div>
+          </li>
+          <li>
+            <a href="products.html" class="gi-pro-img"><img
+                src="assets/img/product-images/Digebest Syrup_page-0001 (1)-fotor-bg-remover-20231201121241.png"
+                alt="product" /></a>
+            <div class="gi-pro-content">
+              <a href="products.html" class="cart-pro-title">Digebest Syrup</a>
+              <span class="cart-price"><span>₹25.00</span> x 1 Bottle</span>
+              <div class="qty-plus-minus">
+                <input class="qty-input" type="text" name="gi-qtybtn" value="1" />
               </div>
+              <a href="javascript:void(0)" class="remove">×</a>
+            </div>
+          </li>
+          <li>
+            <a href="products.html" class="gi-pro-img"><img
+                src="assets/img/product-images/Gynoshield Syrup_page-0001-fotor-bg-remover-20231201121132.png"
+                alt="product" /></a>
+            <div class="gi-pro-content">
+              <a href="products.html" class="cart-pro-title">Gynoshield Syrup</a>
+              <span class="cart-price"><span>₹25.00</span> x 1 Bottel</span>
+              <div class="qty-plus-minus">
+                <input class="qty-input" type="text" name="gi-qtybtn" value="1" />
+              </div>
+              <a href="javascript:void(0)" class="remove">×</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="gi-cart-bottom">
+        <div class="cart-sub-total">
+          <table class="table cart-table">
+            <tbody>
+              <tr>
+                <td class="text-left">Sub-Total :</td>
+                <td class="text-right">₹300.00</td>
+              </tr>
+              <tr>
+                <td class="text-left">VAT (20%) :</td>
+                <td class="text-right">₹60.00</td>
+              </tr>
+              <tr>
+                <td class="text-left">Total :</td>
+                <td class="text-right primary-color">₹360.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cart_btn">
+          <a href="cart.html" class="gi-btn-1">View Cart</a>
+          <!-- <a href="checkout.html" class="gi-btn-2">Checkout</a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Cart sidebar End -->
+
+  <!-- Breadcrumb start -->
+  <div class="gi-breadcrumb m-b-20">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="row gi_breadcrumb_inner">
+            <div class="col-md-6 col-sm-12">
+              <h2 class="gi-breadcrumb-title">Product Page</h2>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <!-- gi-breadcrumb-list start -->
+              <ul class="gi-breadcrumb-list">
+                <li class="gi-breadcrumb-item">
+                  <a href="index.html">Home</a>
+                </li>
+                <li class="gi-breadcrumb-item active">Product Page</li>
+              </ul>
+              <!-- gi-breadcrumb-list end -->
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- Breadcrumb end -->
+  </div>
+  <!-- Breadcrumb end -->
 
-    <!-- Sart Single Product -->
-    <section class="product-loader">
-      <div class="container h-75 d-flex justify-content-center">
-        <div class="spinner-grow text-secondary" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
+  <!-- Sart Single Product -->
+  <section class="product-loader">
+    <div class="container h-75 d-flex justify-content-center">
+      <div class="spinner-grow text-secondary" role="status">
+        <span class="visually-hidden">Loading...</span>
       </div>
-    </section>
-    <section
-      class="gi-single-product padding-tb-40 product-section"
-      style="height: 0; opacity: 0"
-    >
-      <div class="container">
-        <div class="row">
-          <div
-            class="gi-pro-rightside gi-common-rightside col-lg-12 order-lg-last col-md-12 order-md-first"
-          >
-            <!-- Single product content Start -->
-            <div class="single-pro-block">
-              <div class="single-pro-inner">
-                <div class="row">
-                  <div class="single-pro-img">
-                    <div class="single-product-scroll">
-                      <div class="single-product-cover">
-                        <div class="single-slide zoom-image-hover">
-                          <img
-                            class="img-responsive product-first-image"
-                            src=""
-                            alt=""
-                          />
-                        </div>
-                        <!-- <div class="single-slide zoom-image-hover">
+    </div>
+  </section>
+  <section class="gi-single-product padding-tb-40 product-section" style="height: 0; opacity: 0">
+    <div class="container">
+      <div class="row">
+        <div class="gi-pro-rightside gi-common-rightside col-lg-12 order-lg-last col-md-12 order-md-first">
+          <!-- Single product content Start -->
+          <div class="single-pro-block">
+            <div class="single-pro-inner">
+              <div class="row">
+                <div class="single-pro-img">
+                  <div class="single-product-scroll">
+                    <div class="single-product-cover">
+                      <div class="single-slide zoom-image-hover">
+                        <img class="img-responsive product-first-image" src="" alt="" />
+                      </div>
+                      <!-- <div class="single-slide zoom-image-hover">
                                                 <img class="img-responsive product-second-image"
                                                     src="assets/img/product-images/interior_paint1.jpg" alt="">
                                             </div>
@@ -875,8 +745,8 @@
                                                 <img class="img-responsive"
                                                     src="assets/img/product-images/interior_paint1.jpg" alt="">
                                             </div> -->
-                      </div>
-                      <!-- <div class="single-nav-thumb">
+                    </div>
+                    <!-- <div class="single-nav-thumb">
                                             <div class="single-slide">
                                                 <img class="img-responsive product-first-image" src="" alt="">
                                             </div>
@@ -901,14 +771,14 @@
                                                     src="assets/img/product-images/interior_paint1.jpg" alt="">
                                             </div>
                                         </div> -->
-                    </div>
                   </div>
-                  <div class="single-pro-desc m-t-991">
-                    <div class="single-pro-content">
-                      <h5 class="gi-single-title product-name">
-                        3 Mangoes Aluminium Paint
-                      </h5>
-                      <!-- <div class="gi-single-rating-wrap">
+                </div>
+                <div class="single-pro-desc m-t-991">
+                  <div class="single-pro-content">
+                    <h5 class="gi-single-title product-name">
+                      3 Mangoes Aluminium Paint
+                    </h5>
+                    <!-- <div class="gi-single-rating-wrap">
                                             <div class="gi-single-rating">
                                                 <i class="gicon gi-star fill"></i>
                                                 <i class="gicon gi-star fill"></i>
@@ -921,49 +791,45 @@
                                             </span>
                                         </div> -->
 
-                      <div class="gi-single-price-stoke">
-                        <div class="gi-single-price">
-                          <div class="final-price">
-                            &#8377;<span class="product-price">1000</span>
-                            <!-- <span
+                    <div class="gi-single-price-stoke">
+                      <div class="gi-single-price">
+                        <div class="final-price">
+                          &#8377;<span class="product-price">1000</span>
+                          <!-- <span
                                                         class="price-des product-discount">-78%</span> -->
-                          </div>
-                          <!-- <div class="mrp">M.R.P. : <span>&#8377;<span class="product-old-price"></span></span></div> -->
                         </div>
-                        <div class="gi-single-stoke d-flex flex-column">
-                          <span class="gi-single-sku"
-                            >Product ID: <span class="product-id"></span
-                          ></span>
-                          <!-- <span class="gi-single-ps-title align-self-end product-stock">IN STOCK</span> -->
-                        </div>
+                        <!-- <div class="mrp">M.R.P. : <span>&#8377;<span class="product-old-price"></span></span></div> -->
                       </div>
-                      <div class="gi-single-list">
-                        <ul>
-                          <div>Description :</div>
-                          <li><span class="gi-single-desc"></span></li>
-                          <!-- <div>Manufacturer's Name :</div> -->
-                          <br>
-                          <li><span class="product-manufacturer"></span></li>
-                          <!-- <div>Category :</div>
+                      <div class="gi-single-stoke d-flex flex-column">
+                        <span class="gi-single-sku">Product ID: <span class="product-id"></span></span>
+                        <!-- <span class="gi-single-ps-title align-self-end product-stock">IN STOCK</span> -->
+                      </div>
+                    </div>
+                    <div class="gi-single-list">
+                      <ul>
+                        <div>Description :</div>
+                        <li><span class="gi-single-desc"></span></li>
+                        <!-- <div>Manufacturer's Name :</div> -->
+                        <br>
+                        <li><span class="product-manufacturer"></span></li>
+                        <!-- <div>Category :</div>
                           <li><span class="product-category"></span></li> -->
-                        </ul>
-                      </div>
+                      </ul>
+                    </div>
 
-                      <div class="gi-pro-variation">
-                        <div
-                          class="gi-pro-variation-inner gi-pro-variation-size"
-                        >
-                          <span>Weight/Qty.</span>
-                          <div class="gi-pro-variation-content">
-                            <ul>
-                              <li class="active">
-                                <span class="product-size">250ml</span>
-                              </li>
-                            </ul>
-                          </div>
+                    <div class="gi-pro-variation">
+                      <div class="gi-pro-variation-inner gi-pro-variation-size">
+                        <span>Weight/Qty.</span>
+                        <div class="gi-pro-variation-content">
+                          <ul>
+                            <li class="active">
+                              <span class="product-size">250ml</span>
+                            </li>
+                          </ul>
                         </div>
                       </div>
-                      <!-- <div class="gi-pro-variation">
+                    </div>
+                    <!-- <div class="gi-pro-variation">
                                             <div class="gi-pro-variation-inner gi-pro-variation-size">
                                                 <span>Color/Texture</span>
                                                 <div class="gi-pro-variation-content d-flex align-items-center">
@@ -975,21 +841,16 @@
                                                 </div>
                                             </div>
                                         </div> -->
-                      <div class="gi-single-qty">
-                        <div class="qty-plus-minus">
-                          <input
-                            class="qty-input user-quantity"
-                            type="text"
-                            name="ms_qtybtn"
-                            value="1"
-                          />
-                        </div>
-                        <div class="gi-single-cart">
-                          <button class="btn btn-primary gi-btn-1 add-to-cart">
-                            Add To Cart
-                          </button>
-                        </div>
-                        <!-- <div class="gi-single-wishlist">
+                    <div class="gi-single-qty">
+                      <div class="qty-plus-minus">
+                        <input class="qty-input user-quantity" type="text" name="ms_qtybtn" value="1" />
+                      </div>
+                      <div class="gi-single-cart">
+                        <button class="btn btn-primary gi-btn-1 add-to-cart">
+                          Add To Cart
+                        </button>
+                      </div>
+                      <!-- <div class="gi-single-wishlist">
                                                 <a class="gi-btn-group wishlist" title="Wishlist">
                                                     <i class="fi-rr-heart"></i>
                                                 </a>
@@ -1001,16 +862,16 @@
                                                     <i class="fi-rr-eye"></i>
                                                 </a>
                                             </div> -->
-                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <!--Single product content End -->
+          </div>
+          <!--Single product content End -->
 
-            <!-- Add More and get discount content Start -->
-            <!-- <div class="single-add-more m-tb-40">
+          <!-- Add More and get discount content Start -->
+          <!-- <div class="single-add-more m-tb-40">
                         <div class="gi-add-more-slider owl-carousel">
                             <div class="add-more-item">
                                 <a href="javascript:void(0)" class="gi-btn-2">+</a>
@@ -1094,40 +955,25 @@
                             </div>
                         </div>
                     </div> -->
-            <!-- Single product tab start -->
-            <div class="gi-single-pro-tab">
-              <div class="gi-single-pro-tab-wrapper">
-                <div class="gi-single-pro-tab-nav">
-                  <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                      <button
-                        class="nav-link active"
-                        id="details-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#gi-spt-nav-details"
-                        type="button"
-                        role="tab"
-                        aria-controls="gi-spt-nav-details"
-                        aria-selected="true"
-                      >
-                        INDICATIONS
-                      </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                      <button
-                        class="nav-link"
-                        id="info-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#gi-spt-nav-info"
-                        type="button"
-                        role="tab"
-                        aria-controls="gi-spt-nav-info"
-                        aria-selected="false"
-                      >
-                        COMPOSITION
-                      </button>
-                    </li>
-                    <!-- <li class="nav-item" role="presentation">
+          <!-- Single product tab start -->
+          <div class="gi-single-pro-tab">
+            <div class="gi-single-pro-tab-wrapper">
+              <div class="gi-single-pro-tab-nav">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="details-tab" data-bs-toggle="tab"
+                      data-bs-target="#gi-spt-nav-details" type="button" role="tab" aria-controls="gi-spt-nav-details"
+                      aria-selected="true">
+                      INDICATIONS
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#gi-spt-nav-info"
+                      type="button" role="tab" aria-controls="gi-spt-nav-info" aria-selected="false">
+                      COMPOSITION
+                    </button>
+                  </li>
+                  <!-- <li class="nav-item" role="presentation">
                                         <button class="nav-link" id="vendor-tab" data-bs-toggle="tab"
                                             data-bs-target="#gi-spt-nav-vendor" type="button" role="tab"
                                             aria-controls="gi-spt-nav-vendor" aria-selected="false">Vendor</button>
@@ -1137,29 +983,26 @@
                                             data-bs-target="#gi-spt-nav-review" type="button" role="tab"
                                             aria-controls="gi-spt-nav-review" aria-selected="false">Reviews</button>
                                     </li> -->
-                  </ul>
-                </div>
-                <div class="tab-content gi-single-pro-tab-content">
-                  <div
-                    id="gi-spt-nav-details"
-                    class="tab-pane fade show active"
-                  >
-                    <!-- product Desc -->
-                    <div class="gi-single-pro-tab-desc">
-                      <p class="gi-single-pro-tab-details"></p>
-                      <!-- <ul>
+                </ul>
+              </div>
+              <div class="tab-content gi-single-pro-tab-content">
+                <div id="gi-spt-nav-details" class="tab-pane fade show active">
+                  <!-- product Desc -->
+                  <div class="gi-single-pro-tab-desc">
+                    <p class="gi-single-pro-tab-details"></p>
+                    <!-- <ul>
                                             <li>Any Product types that You want - Simple, Configurable</li>
                                             <li>Downloadable/Digital Products, Virtual Products</li>
                                             <li>Inventory Management with Backordered items</li>
                                             <li>Flatlock seams throughout.</li>
                                         </ul> -->
-                      <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                                             Lorem Ipsum has been the industry's standard dummy text ever since the
                                             1500s, when an unknown printer took a galley of type and scrambled it to
                                             make a type specimen book. It has survived not only five centuries, but also
                                             the leap into electronic typesetting, remaining essentially unchanged.
                                         </p> -->
-                      <!-- <p>There are many variations of passages of Lorem Ipsum available, but the
+                    <!-- <p>There are many variations of passages of Lorem Ipsum available, but the
                                             majority have
                                             suffered alteration in some form, by injected humour, or randomised words
                                             which don't
@@ -1176,21 +1019,21 @@
                                             Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore
                                             always
                                             free from repetition, injected humour, or non-characteristic words etc.</p> -->
-                    </div>
                   </div>
-                  <div id="gi-spt-nav-info" class="tab-pane fade">
-                    <div class="gi-single-pro-tab-moreinfo">
-                      <p class="gi-single-pro-tab-spec"></p>
-                      <!-- <ul>
+                </div>
+                <div id="gi-spt-nav-info" class="tab-pane fade">
+                  <div class="gi-single-pro-tab-moreinfo">
+                    <p class="gi-single-pro-tab-spec"></p>
+                    <!-- <ul>
                                             <li><span>Model</span> SKU140</li>
                                             <li><span>Weight</span> 500 g</li>
                                             <li><span>Dimensions</span> 35 × 30 × 7 cm</li>
                                             <li><span>Color</span> Black, Pink, Red, White</li>
                                             <li><span>Size</span> 10 X 20</li>
                                         </ul> -->
-                    </div>
                   </div>
-                  <!-- <div id="gi-spt-nav-vendor" class="tab-pane fade">
+                </div>
+                <!-- <div id="gi-spt-nav-vendor" class="tab-pane fade">
                                     <div class="gi-single-pro-tab-moreinfo">
                                         <div class="gi-product-vendor">
                                             <div class="gi-vendor-info">
@@ -1225,7 +1068,7 @@
                                         </div>
                                     </div>
                                 </div> -->
-                  <!-- <div id="gi-spt-nav-review" class="tab-pane fade">
+                <!-- <div id="gi-spt-nav-review" class="tab-pane fade">
                                     <div class="row">
                                         <div class="gi-t-review-wrapper">
                                             <div class="gi-t-review-item">
@@ -1311,13 +1154,13 @@
                                         </div>
                                     </div>
                                 </div> -->
-                </div>
               </div>
             </div>
-            <!-- product details description area end -->
           </div>
-          <!-- Sidebar Area Start -->
-          <!-- <div class="gi-shop-sidebar col-lg-3 order-lg-first col-md-12 order-md-last m-t-991">
+          <!-- product details description area end -->
+        </div>
+        <!-- Sidebar Area Start -->
+        <!-- <div class="gi-shop-sidebar col-lg-3 order-lg-first col-md-12 order-md-last m-t-991">
                     <div id="shop_sidebar">
                         <div class="gi-sidebar-wrap">
                             
@@ -1554,13 +1397,13 @@
                         </div>
                     </div>
                 </div> -->
-        </div>
       </div>
-    </section>
-    <!-- End Single Product -->
+    </div>
+  </section>
+  <!-- End Single Product -->
 
-    <!-- Related product section -->
-    <!-- <section class="gi-new-product padding-tb-40">
+  <!-- Related product section -->
+  <!-- <section class="gi-new-product padding-tb-40">
         <div class="container">
             <div class="row overflow-hidden m-b-minus-24px">
                 <div class="gi-new-prod-section col-lg-12">
@@ -1839,35 +1682,31 @@
             </div>
         </div>
     </section> -->
-    <!-- Related Products -->
+  <!-- Related Products -->
 
-    <!-- Footer Start -->
-    <footer class="gi-footer m-t-30">
-      <div class="footer-container">
-        <div class="footer-top padding-tb-80">
-          <div class="container">
-            <div class="row m-minus-991">
-              <div class="col-sm-12 col-lg-4 gi-footer-cat wow fadeInUp">
-                <div class="gi-footer-widget gi-footer-company">
-                  <img
-                    src="assets/images/logo.ico"
-                    class="gi-footer-logo"
-                    alt="footer logo"
-                  />
-                  <p class="gi-footer-detail">
-                    IndiHerbs Medicorp is a young company incorporated to
-                    promote the ancient science of Ayurveda, which was envised
-                    by our sages and healers many years ago.
-                  </p>
-                  <!-- <div class="gi-app-store">
+  <!-- Footer Start -->
+  <footer class="gi-footer m-t-30">
+    <div class="footer-container">
+      <div class="footer-top padding-tb-80">
+        <div class="container">
+          <div class="row m-minus-991">
+            <div class="col-sm-12 col-lg-4 gi-footer-cat wow fadeInUp">
+              <div class="gi-footer-widget gi-footer-company">
+                <img src="assets/images/logo.ico" class="gi-footer-logo" alt="footer logo" />
+                <p class="gi-footer-detail">
+                  IndiHerbs Medicorp is a young company incorporated to
+                  promote the ancient science of Ayurveda, which was envised
+                  by our sages and healers many years ago.
+                </p>
+                <!-- <div class="gi-app-store">
                                     <a href="#" class="app-img"><img src="assets/img/app/android.png" class="android"
                                             alt="apple"></a>
                                     <a href="#" class="app-img"><img src="assets/img/app/apple.png" class="apple"
                                             alt="apple"></a>
                                 </div> -->
-                </div>
               </div>
-              <!-- <div class="col-sm-12 col-lg-2 gi-footer-info wow fadeInUp" data-wow-delay="0.2s">
+            </div>
+            <!-- <div class="col-sm-12 col-lg-2 gi-footer-info wow fadeInUp" data-wow-delay="0.2s">
                         <div class="gi-footer-widget">
                             <h4 class="gi-footer-heading">Category</h4>
                             <div class="gi-footer-links gi-footer-dropdown">
@@ -1888,215 +1727,172 @@
                             </div>
                         </div>
                     </div> -->
-              <div
-                class="col-sm-12 col-lg-2 gi-footer-account wow fadeInUp"
-                data-wow-delay="0.2s"
-              >
+            <div class="col-sm-12 col-lg-2 gi-footer-account wow fadeInUp" data-wow-delay="0.2s">
+              <div class="gi-footer-widget">
+                <h4 class="gi-footer-heading">Company</h4>
+                <div class="gi-footer-links gi-footer-dropdown">
+                  <ul class="align-itegi-center">
+                    <li class="gi-footer-link">
+                      <a href="./about-us.html">About us</a>
+                    </li>
+                    <li class="gi-footer-link">
+                      <a href="./terms-condition.html">Terms & conditions</a>
+                    </li>
+                    <li class="gi-footer-link">
+                      <a href="./contact-us.html">Contact us</a>
+                    </li>
+                    <li class="gi-footer-link">
+                      <a href="./product-detail.html">Products</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-lg-2 gi-footer-service wow fadeInUp" data-wow-delay="0.3s">
+              <div class="gi-footer-widget">
+                <h4 class="gi-footer-heading">Account</h4>
+                <div class="gi-footer-links gi-footer-dropdown">
+                  <ul class="align-itegi-center">
+                    <!-- <li class="gi-footer-link"><a href="./register.html">Register</a></li> -->
+                    <li class="gi-footer-link">
+                      <a href="privacy-policy.html">Return Policy</a>
+                    </li>
+                    <li class="gi-footer-link">
+                      <a href="./track-order.html">Track order</a>
+                    </li>
+                    <li class="gi-footer-link">
+                      <a href="./cart.html">View Cart</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-lg-4 gi-footer-cont-social wow fadeInUp" data-wow-delay="0.4s">
+              <div class="gi-footer-contact">
                 <div class="gi-footer-widget">
-                  <h4 class="gi-footer-heading">Company</h4>
+                  <h4 class="gi-footer-heading">Contact</h4>
                   <div class="gi-footer-links gi-footer-dropdown">
                     <ul class="align-itegi-center">
-                      <li class="gi-footer-link">
-                        <a href="./about-us.html">About us</a>
+                      <li class="gi-footer-link gi-foo-location">
+                        <span>
+                          <i class="fi fi-rr-marker location svg_img foo_svg"></i>
+                        </span>
+                        <p>
+                          <strong>Corporate Address:</strong> 1577, Building
+                          No.42B, Gangadhar CHS, Vartak Nagar, Thane - 400606
+                          <br />
+                          <strong>Branch Office:</strong> 289/67, Gol Chauraha
+                          Moti Nagar, Lucknow-226004
+                        </p>
                       </li>
-                      <li class="gi-footer-link">
-                        <a href="./terms-condition.html">Terms & conditions</a>
+                      <li class="gi-footer-link gi-foo-call">
+                        <span>
+                          <i class="fi fi-brands-whatsapp svg_img foo_svg"></i>
+                        </span>
+                        <a href="tel:+919977221335"><strong>Customer Care:</strong> +91 9977221335</a>
                       </li>
-                      <li class="gi-footer-link">
-                        <a href="./contact-us.html">Contact us</a>
-                      </li>
-                      <li class="gi-footer-link">
-                        <a href="./product-detail.html">Products</a>
+                      <li class="gi-footer-link gi-foo-mail">
+                        <span>
+                          <i class="fi fi-rr-envelope"></i>
+                        </span>
+                        <a href="mailto:response@ihmhealth.in">response@ihmhealth.in</a>
                       </li>
                     </ul>
                   </div>
                 </div>
               </div>
-              <div
-                class="col-sm-12 col-lg-2 gi-footer-service wow fadeInUp"
-                data-wow-delay="0.3s"
-              >
+              <div class="gi-footer-social">
                 <div class="gi-footer-widget">
-                  <h4 class="gi-footer-heading">Account</h4>
                   <div class="gi-footer-links gi-footer-dropdown">
                     <ul class="align-itegi-center">
-                      <!-- <li class="gi-footer-link"><a href="./register.html">Register</a></li> -->
                       <li class="gi-footer-link">
-                        <a href="privacy-policy.html">Return Policy</a>
+                        <a href="#"><i class="gicon gi-facebook" aria-hidden="true"></i></a>
                       </li>
                       <li class="gi-footer-link">
-                        <a href="./track-order.html">Track order</a>
+                        <a href="#"><i class="gicon gi-twitter" aria-hidden="true"></i></a>
                       </li>
                       <li class="gi-footer-link">
-                        <a href="./cart.html">View Cart</a>
+                        <a href="#"><i class="gicon gi-linkedin" aria-hidden="true"></i></a>
+                      </li>
+                      <li class="gi-footer-link">
+                        <a href="#"><i class="gicon gi-instagram" aria-hidden="true"></i></a>
                       </li>
                     </ul>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="col-sm-12 col-lg-4 gi-footer-cont-social wow fadeInUp"
-                data-wow-delay="0.4s"
-              >
-                <div class="gi-footer-contact">
-                  <div class="gi-footer-widget">
-                    <h4 class="gi-footer-heading">Contact</h4>
-                    <div class="gi-footer-links gi-footer-dropdown">
-                      <ul class="align-itegi-center">
-                        <li class="gi-footer-link gi-foo-location">
-                          <span>
-                            <i
-                              class="fi fi-rr-marker location svg_img foo_svg"
-                            ></i>
-                          </span>
-                          <p>
-                            <strong>Corporate Address:</strong> 1577, Building
-                            No.42B, Gangadhar CHS, Vartak Nagar, Thane - 400606
-                            <br />
-                            <strong>Branch Office:</strong> 289/67, Gol Chauraha
-                            Moti Nagar, Lucknow-226004
-                          </p>
-                        </li>
-                        <li class="gi-footer-link gi-foo-call">
-                          <span>
-                            <i
-                              class="fi fi-brands-whatsapp svg_img foo_svg"
-                            ></i>
-                          </span>
-                          <a href="tel:+919977221335"
-                            ><strong>Customer Care:</strong> +91 9977221335</a
-                          >
-                        </li>
-                        <li class="gi-footer-link gi-foo-mail">
-                          <span>
-                            <i class="fi fi-rr-envelope"></i>
-                          </span>
-                          <a href="mailto:response@ihmhealth.in"
-                            >response@ihmhealth.in</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="gi-footer-social">
-                  <div class="gi-footer-widget">
-                    <div class="gi-footer-links gi-footer-dropdown">
-                      <ul class="align-itegi-center">
-                        <li class="gi-footer-link">
-                          <a href="#"
-                            ><i class="gicon gi-facebook" aria-hidden="true"></i
-                          ></a>
-                        </li>
-                        <li class="gi-footer-link">
-                          <a href="#"
-                            ><i class="gicon gi-twitter" aria-hidden="true"></i
-                          ></a>
-                        </li>
-                        <li class="gi-footer-link">
-                          <a href="#"
-                            ><i class="gicon gi-linkedin" aria-hidden="true"></i
-                          ></a>
-                        </li>
-                        <li class="gi-footer-link">
-                          <a href="#"
-                            ><i
-                              class="gicon gi-instagram"
-                              aria-hidden="true"
-                            ></i
-                          ></a>
-                        </li>
-                      </ul>
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer-bottom">
-          <div class="container">
-            <div class="row">
-              <div class="gi-bottom-info justify-content-center">
-                <!-- Footer Copyright Start -->
-                <div class="footer-copy">
-                  <div class="footer-bottom-copy">
-                    <div class="gi-copy">
-                      Copyright ©
-                      <a class="site-name" href="index.html"
-                        >IndiHerbs Medicorp</a
-                      >
-                      all rights reserved. Powered by IndiHerbs Medicorp Pvt
-                      Ltd.
-                    </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          <div class="row">
+            <div class="gi-bottom-info justify-content-center">
+              <!-- Footer Copyright Start -->
+              <div class="footer-copy">
+                <div class="footer-bottom-copy">
+                  <div class="gi-copy">
+                    Copyright ©
+                    <a class="site-name" href="index.html">IndiHerbs Medicorp</a>
+                    all rights reserved. Powered by IndiHerbs Medicorp Pvt
+                    Ltd.
                   </div>
                 </div>
-                <!-- <div class="footer-bottom-right">
+              </div>
+              <!-- <div class="footer-bottom-right">
                                 <div class="footer-bottom-payment d-flex justify-content-center">
                                     <div class="payment-link">
                                         <img src="assets/img/hero-bg/payment.png" alt="payment">
                                     </div>
                                 </div>
                             </div> -->
-              </div>
             </div>
           </div>
         </div>
       </div>
-    </footer>
-    <!-- Footer Copyright End -->
-    <!-- Footer Area End -->
+    </div>
+  </footer>
+  <!-- Footer Copyright End -->
+  <!-- Footer Area End -->
 
-    <!-- Quickview Modal -->
-    <div
-      class="modal fade quickview-modal"
-      id="gi_quickview_modal"
-      tabindex="-1"
-      role="dialog"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <button
-            type="button"
-            class="btn-close qty_close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-md-5 col-sm-12 col-xs-12 mb-767">
-                <div class="single-pro-img single-pro-img-no-sidebar">
-                  <div class="single-product-scroll">
-                    <div class="single-slide zoom-image-hover">
-                      <img
-                        class="img-responsive"
-                        src="assets/img/product-images/Indilax_tablet_page-0001__2_-removebg-preview (1).png"
-                        alt=""
-                      />
-                    </div>
+  <!-- Quickview Modal -->
+  <div class="modal fade quickview-modal" id="gi_quickview_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <button type="button" class="btn-close qty_close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-5 col-sm-12 col-xs-12 mb-767">
+              <div class="single-pro-img single-pro-img-no-sidebar">
+                <div class="single-product-scroll">
+                  <div class="single-slide zoom-image-hover">
+                    <img class="img-responsive"
+                      src="assets/img/product-images/Indilax_tablet_page-0001__2_-removebg-preview (1).png" alt="" />
                   </div>
                 </div>
               </div>
-              <div class="col-md-7 col-sm-12 col-xs-12">
-                <div class="quickview-pro-content">
-                  <h5 class="gi-quick-title">
-                    <a href="products.html">Herbikoff Syrup</a>
-                  </h5>
-                  <div class="gi-quickview-rating">
-                    <i class="gicon gi-star fill"></i>
-                    <i class="gicon gi-star fill"></i>
-                    <i class="gicon gi-star fill"></i>
-                    <i class="gicon gi-star fill"></i>
-                    <i class="gicon gi-star"></i>
-                  </div>
+            </div>
+            <div class="col-md-7 col-sm-12 col-xs-12">
+              <div class="quickview-pro-content">
+                <h5 class="gi-quick-title">
+                  <a href="products.html">Herbikoff Syrup</a>
+                </h5>
+                <div class="gi-quickview-rating">
+                  <i class="gicon gi-star fill"></i>
+                  <i class="gicon gi-star fill"></i>
+                  <i class="gicon gi-star fill"></i>
+                  <i class="gicon gi-star fill"></i>
+                  <i class="gicon gi-star"></i>
+                </div>
 
-                  <div class="gi-quickview-desc"></div>
-                  <div class="gi-quickview-price">
-                    <span class="new-price">₹50.00</span>
-                    <span class="old-price">₹62.00</span>
-                  </div>
+                <div class="gi-quickview-desc"></div>
+                <div class="gi-quickview-price">
+                  <span class="new-price">₹50.00</span>
+                  <span class="old-price">₹62.00</span>
+                </div>
 
-                  <!-- <div class="gi-pro-variation">
+                <!-- <div class="gi-pro-variation">
                                     <div class="gi-pro-variation-inner gi-pro-variation-size gi-pro-size">
                                         <div class="gi-pro-variation-content">
                                             <ul class="gi-opt-size">
@@ -2112,7 +1908,7 @@
                                         </div>
                                     </div>
                                 </div> -->
-                  <!-- <div class="gi-quickview-qty">
+                <!-- <div class="gi-quickview-qty">
                                     <div class="qty-plus-minus">
                                         <input class="qty-input" type="text" name="gi_qtybtn" value="1">
                                     </div>
@@ -2121,46 +1917,36 @@
                                             Cart</button>
                                     </div>
                                 </div> -->
-                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- Quickview Modal end -->
+  </div>
+  <!-- Quickview Modal end -->
 
-    <!-- colorvariant modal starts -->
-    <div
-      class="modal fade product-var-modal"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">
-              Select Color Variant / Texture
-            </h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <p>
-              <!-- <a class="gi-btn-2" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+  <!-- colorvariant modal starts -->
+  <div class="modal fade product-var-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Select Color Variant / Texture
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>
+            <!-- <a class="gi-btn-2" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                       Color Groups Filter
                     </a> -->
-            </p>
-            <div class="collapse mb-2" id="collapseExample">
-              <div class="card card-body">
-                <nav class="product-color-navs">
-                  <!-- <p>Filter Color Groups</p>
+          </p>
+          <div class="collapse mb-2" id="collapseExample">
+            <div class="card card-body">
+              <nav class="product-color-navs">
+                <!-- <p>Filter Color Groups</p>
                             <div class="nav nav-tabs mb-3 border-0" id="nav-tab" role="tablist">
                                 <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Jotun Interior Special</button>
                                 <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">RAL Colors</button>
@@ -2186,131 +1972,89 @@
                                 <button class="nav-link">RAL Colors</button>
                                 <button class="nav-link">Others</button>
                             </div> -->
-                </nav>
-              </div>
+              </nav>
             </div>
-            <div class="card p-3 shadow">
-              <!-- <p class="">Search for color variant</p>
+          </div>
+          <div class="card p-3 shadow">
+            <!-- <p class="">Search for color variant</p>
                     <input style="height:43px;max-width: 350px;" type="search" class="form-control" id="colorsearchinput" placeholder="Search Color Name or Code" value=""> -->
-              <div class="tab-content p-3 border mt-3" id="nav-tabContent">
-                <div
-                  class="tab-pane fade active show"
-                  id="nav-home"
-                  role="tabpanel"
-                  aria-labelledby="nav-home-tab"
-                >
-                  <p>
-                    Displayed color may vary depending on your device display
-                    calibration and white balance
-                  </p>
-                  <div
-                    class="color-variant-grid"
-                    id="color-pro-container"
-                  ></div>
-                </div>
+            <div class="tab-content p-3 border mt-3" id="nav-tabContent">
+              <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <p>
+                  Displayed color may vary depending on your device display
+                  calibration and white balance
+                </p>
+                <div class="color-variant-grid" id="color-pro-container"></div>
               </div>
-              <div
-                class="tab-pane fade"
-                id="nav-profile"
-                role="tabpanel"
-                aria-labelledby="nav-profile-tab"
-              ></div>
             </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"></div>
           </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <!-- <a class="gi-btn-2" href="">Save Changes</a> -->
-          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <!-- <a class="gi-btn-2" href="">Save Changes</a> -->
         </div>
       </div>
     </div>
-    <!-- colorvariant modal ends -->
+  </div>
+  <!-- colorvariant modal ends -->
 
-    <!-- Back to top  -->
-    <a class="gi-back-to-top"></a>
+  <!-- Back to top  -->
+  <a class="gi-back-to-top"></a>
 
-    <!-- Toast Body -->
-    <div
-      class="toast align-items-center border-0"
-      role="alert"
-      aria-live="assertive"
-      aria-atomic="true"
-      id="toast-bg"
-    >
-      <div class="notify d-flex justify-content-between">
-        <span class="compare-note d-inline"></span>
-        <button
-          type="button"
-          class="btn-close d-inline"
-          data-bs-dismiss="toast"
-          aria-label="Close"
-        ></button>
-      </div>
+  <!-- Toast Body -->
+  <div class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true" id="toast-bg">
+    <div class="notify d-flex justify-content-between">
+      <span class="compare-note d-inline"></span>
+      <button type="button" class="btn-close d-inline" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
+  </div>
 
-    <!-- Logout Confirmation Modal -->
-    <div
-      class="modal fade"
-      id="logoutConfirmationModal"
-      tabindex="-1"
-      aria-labelledby="logoutConfirmationModalLabel"
-      data-bs-backdrop="static"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered w-sm-50">
-        <div class="modal-content" style="margin: auto; width: 100%">
-          <div class="modal-header">
-            <h5 class="modal-title" id="logoutConfirmationModalLabel">
-              Confirm Logout
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">Are you sure you want to logout?</div>
-          <div class="modal-footer">
-            <!-- Cancel button to close the modal -->
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Cancel
-            </button>
-            <!-- Logout button to trigger the logout -->
-            <button type="button" class="btn btn-primary" id="confirmLogoutBtn">
-              Logout
-            </button>
-          </div>
+  <!-- Logout Confirmation Modal -->
+  <div class="modal fade" id="logoutConfirmationModal" tabindex="-1" aria-labelledby="logoutConfirmationModalLabel"
+    data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered w-sm-50">
+      <div class="modal-content" style="margin: auto; width: 100%">
+        <div class="modal-header">
+          <h5 class="modal-title" id="logoutConfirmationModalLabel">
+            Confirm Logout
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">Are you sure you want to logout?</div>
+        <div class="modal-footer">
+          <!-- Cancel button to close the modal -->
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancel
+          </button>
+          <!-- Logout button to trigger the logout -->
+          <button type="button" class="btn btn-primary" id="confirmLogoutBtn">
+            Logout
+          </button>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Plugins JS -->
-    <script src="assets/js/plugins/jquery-3.5.1.min.js"></script>
-    <script src="assets/js/plugins/popper.min.js"></script>
-    <script src="assets/js/plugins/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/plugins/bootstrap-select.min.js"></script>
-    <script src="assets/js/plugins/swiper-bundle.min.js"></script>
-    <script src="assets/js/plugins/fontawesome.js"></script>
-    <script src="assets/js/plugins/owl.carousel.min.js"></script>
-    <script src="assets/js/plugins/infiniteslidev2.js"></script>
-    <script src="assets/js/plugins/jquery.zoom.min.js"></script>
-    <script src="assets/js/plugins/slick.min.js"></script>
-    <script src="assets/js/plugins/nouislider.js"></script>
-    <script src="assets/js/plugins/wow.js"></script>
+  <!-- Plugins JS -->
+  <script src="assets/js/plugins/jquery-3.5.1.min.js"></script>
+  <script src="assets/js/plugins/popper.min.js"></script>
+  <script src="assets/js/plugins/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/plugins/bootstrap-select.min.js"></script>
+  <script src="assets/js/plugins/swiper-bundle.min.js"></script>
+  <script src="assets/js/plugins/fontawesome.js"></script>
+  <script src="assets/js/plugins/owl.carousel.min.js"></script>
+  <script src="assets/js/plugins/infiniteslidev2.js"></script>
+  <script src="assets/js/plugins/jquery.zoom.min.js"></script>
+  <script src="assets/js/plugins/slick.min.js"></script>
+  <script src="assets/js/plugins/nouislider.js"></script>
+  <script src="assets/js/plugins/wow.js"></script>
 
-    <!-- Main Js -->
-    <script src="assets/js/main.js"></script>
-    <script src="./product-detail.js" type="module"></script>
-  </body>
+  <!-- Main Js -->
+  <script src="assets/js/main.js"></script>
+  <script src="./product-detail.js" type="module"></script>
+</body>
+
 </html>
