@@ -264,7 +264,7 @@ async function getAndEmbedProductData(productId) {
 
     productSize.textContent = productData.size + ' ';
     productManufacturer.textContent = productData.manufacturerName;
-    productIdNo.textContent = productData.productId;
+    // productIdNo.textContent = productData.productId;
     // productCategory.textContent = productData.categoryName;
 
     //Product Details
