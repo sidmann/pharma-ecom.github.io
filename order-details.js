@@ -365,13 +365,13 @@ async function embedOrderStatus() {
  */
 async function embedBill() {
     const orderTotalList = document.querySelectorAll('.order-total')
-    const orderDelivery = document.querySelector('.order-delivery')
+    // const orderDelivery = document.querySelector('.order-delivery')
     const orderSubtotal = document.querySelector('.order-subtotal')
 
     orderTotalList.forEach(orderTotal => {
         orderTotal.textContent = orderDetails.bill.total
     })
-    orderDelivery.textContent = orderDetails.bill.deliveryFee
+    // orderDelivery.textContent = orderDetails.bill.deliveryFee
     orderSubtotal.textContent = orderDetails.bill.subTotal
 }
 

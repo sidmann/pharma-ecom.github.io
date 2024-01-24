@@ -532,7 +532,7 @@ function getJsonBill(element) {
         items: [],
         billSummary: {
             subTotal: 0,
-            deliveryFee: 0,
+            // deliveryFee: 0,
             grandTotal: 0
         }
     }
@@ -559,7 +559,7 @@ function getJsonBill(element) {
     const bill = document.querySelector('.bill')
     checkoutSummary.billSummary = {
         subTotal: bill.querySelector('.bill-subtotal').textContent,
-        deliveryFee: bill.querySelector('.bill-delivery-fee').textContent,
+        // deliveryFee: bill.querySelector('.bill-delivery-fee').textContent,
         grandTotal: bill.querySelector('.bill-grand-total').textContent
     }
 
